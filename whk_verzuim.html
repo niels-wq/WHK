@@ -1572,11 +1572,11 @@
     <!-- Social proof balk — direct onder de navigatie -->
     <div style="background:var(--savings-soft);border-bottom:1px solid var(--savings);padding:9px 0;text-align:center;font-size:0.84rem;color:var(--savings);font-weight:600;">
       <div class="wrap" style="display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;">
-        <span>✓ In 8 van de 10 gevallen vinden wij besparing bij grote werkgevers</span>
+        <span data-st="proof1">✓ In 8 van de 10 gevallen vinden wij besparing bij grote werkgevers</span>
         <span style="opacity:0.4;">|</span>
-        <span>✓ No cure, no pay &mdash; geen besparing? Geen kosten</span>
+        <span data-st="proof2">✓ No cure, no pay &mdash; geen besparing? Geen kosten</span>
         <span style="opacity:0.4;">|</span>
-        <span>✓ Gemiddelde besparing: <strong>&euro;41.000 / jaar</strong></span>
+        <span data-st="proof3">✓ Gemiddelde besparing: <strong>&euro;41.000 / jaar</strong></span>
       </div>
     </div>
 
@@ -5287,7 +5287,10 @@
       <div class="admin-tab-panel" id="admin-tab-siteteksten">
         <div class="admin-panel" style="max-width:760px;">
           <h3>Websiteteksten aanpassen</h3>
-          <p class="hint" style="margin-bottom:20px;">Pas hier de belangrijkste teksten op de site aan. Opslaan en ververs de pagina om wijzigingen te zien.</p>
+          <div style="background:var(--gold-soft);border:1px solid var(--gold);border-radius:var(--radius-s);padding:12px 16px;margin-bottom:16px;font-size:0.86rem;">
+            <strong>💡 Hoe dit werkt:</strong> Wijzigingen hier worden opgeslagen in de database én direct toegepast op de pagina. Bezoekers zien de nieuwe tekst direct na opslaan — zonder dat u de code hoeft aan te passen.<br>
+            <strong>Let op:</strong> Teksten op afzonderlijke dienst- en doelgroeppagina's zijn nog hardcoded. Die past u aan via het tabblad <strong>🏠 Pagina's</strong>. Wilt u meer teksten aanpasbaar maken? Vraag dit dan via de chat.
+          </div>
           <div style="display:flex;flex-direction:column;gap:16px;">
             <div class="field"><label for="st-hero-koptekst">🏠 Homepage koptekst (grote titel)</label><input type="text" id="st-hero-koptekst" placeholder="Betaalt u te veel WHK-premie?"><p class="hint">Max. 60 tekens — het eerste wat bezoekers lezen.</p></div>
             <div class="field"><label for="st-hero-sub">🏠 Homepage subtekst</label><textarea id="st-hero-sub" rows="2"></textarea></div>
@@ -5313,6 +5316,21 @@
       <!-- INSTELLINGEN TAB -->
       <div class="admin-tab-panel" id="admin-tab-instellingen">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;">
+          <div class="admin-panel" style="grid-column:1/-1;border-top:3px solid var(--savings);">
+            <h3>🤖 Claude API — artikelen schrijven met AI</h3>
+            <p class="hint" style="margin-bottom:12px;">Voer hier uw Anthropic API-sleutel in. Daarmee kunt u in de Artikelen-tab automatisch blogartikelen laten schrijven door Claude. De sleutel wordt alleen lokaal opgeslagen en nooit gedeeld.</p>
+            <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;">
+              <div style="flex:1;min-width:260px;">
+                <label for="claude-api-key-input" style="font-size:0.82rem;font-weight:600;display:block;margin-bottom:4px;">API-sleutel</label>
+                <input type="password" id="claude-api-key-input" placeholder="sk-ant-api03-..." style="font-family:var(--font-mono,monospace);font-size:0.82rem;padding:8px 12px;border:1px solid var(--line);border-radius:var(--radius-s);width:100%;box-sizing:border-box;">
+              </div>
+              <button class="btn btn-savings btn-sm" id="claude-api-save-btn" style="flex-shrink:0;">Opslaan</button>
+              <button class="btn btn-ghost btn-sm" id="claude-api-test-btn" style="flex-shrink:0;">Test verbinding</button>
+            </div>
+            <p class="hint" id="claude-api-status" style="margin-top:8px;"></p>
+            <p class="hint" style="margin-top:6px;">💡 Haal uw API-sleutel op via <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a> → API Keys → Create Key. Kosten: circa €0,003 per artikel.</p>
+          </div>
+
           <div class="admin-panel">
             <h3>📊 Google Analytics 4</h3>
             <p class="hint" style="margin-bottom:12px;">Voer uw GA4 Measurement ID in (begint met <code>G-</code>).</p>
@@ -5526,6 +5544,13 @@
         <div class="admin-panel" style="max-width:680px;">
           <h3>💾 Backup &amp; herstel</h3>
           <p class="hint" style="margin-bottom:20px;">Exporteer alle data als één JSON-bestand. U kunt dit bestand bewaren als back-up of importeren om de site te herstellen na een fout.</p>
+
+          <div style="background:var(--risk);color:white;border-radius:var(--radius-s);padding:16px 20px;margin-bottom:24px;">
+            <strong style="display:block;margin-bottom:6px;">🔄 Eerste keer op Railway? Sync alle data naar de database</strong>
+            <p style="font-size:0.86rem;opacity:.9;margin-bottom:12px;">De artikelen, categorieën en instellingen staan standaard alleen in de JavaScript-code. Klik hieronder om alles éénmalig naar de Railway-database te sturen. Daarna zijn ze zichtbaar op de live site.</p>
+            <button class="btn" id="sync-to-db-btn" type="button" style="background:white;color:var(--risk);font-weight:700;">🚀 Sync alles naar Railway-database</button>
+            <p id="sync-status" style="margin-top:8px;font-size:0.84rem;opacity:.9;"></p>
+          </div>
 
           <h4 style="font-size:0.95rem;margin-bottom:10px;">Exporteren</h4>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;">
@@ -6427,7 +6452,7 @@
 
   // Token uit sessionStorage herstellen bij pageload (Railway-modus)
   (function(){
-    if(BACKEND_URL){
+    if(BACKEND_URL && typeof sessionStorage !== 'undefined'){
       var stored = sessionStorage.getItem('_rwt');
       if(stored) _railwayToken = stored;
     }
@@ -6613,11 +6638,13 @@
     if(viewId === 'blogpost-view'){ return; }
     var label = BREADCRUMB_LABELS[viewId];
     if(!label){ setDynamicSchema(null); return; }
-    var items = [{name: 'Home', url: SITE_BASE_URL}];
+    var base = 'https://www.werkhervattingskas.nl';
+    var items = [{name: 'Home', url: base + '/'}];
     if(DIENST_VIEWS.indexOf(viewId) !== -1){
-      items.push({name: 'Diensten', url: SITE_BASE_URL + '#dienst-whkreductie-view'});
+      items.push({name: 'Diensten', url: base + '/diensten/whk-controle'});
     }
-    items.push({name: label, url: SITE_BASE_URL + '#' + viewId});
+    var pagePath = VIEW_TO_PATH[viewId] || ('/' + viewId);
+    items.push({name: label, url: base + pagePath});
     setDynamicSchema([buildBreadcrumbSchema(items)]);
   }
 
@@ -6646,7 +6673,53 @@
   }
 
 
+  // ================================================================
+  // URL ROUTING — echte URL's voor Google-indexering
+  // ================================================================
+  var VIEW_TO_PATH = {
+    'home-view':                    '/',
+    'overons-view':                 '/over-ons',
+    'aanpak-view':                  '/aanpak',
+    'faq-view':                     '/faq',
+    'blog-view':                    '/blog',
+    'tools-view':                   '/tools',
+    'pricing-view':                 '/tarieven',
+    'sectors-view':                 '/sectoren',
+    'casestudies-view':             '/casestudies',
+    'beschikking-uitleg-view':      '/beschikking-uitleg',
+    'vergelijking-view':            '/vergelijking',
+    'poortwachter-view':            '/tools/poortwachter',
+    'wia-calc-view':                '/tools/wia-calculator',
+    'subsidie-scan-view':           '/tools/subsidie-scan',
+    'kalender-view':                '/tools/jaarkalender',
+    'premiehistorie-view':          '/tools/premiehistorie',
+    'interventie-check-view':       '/tools/interventie-check',
+    'preventie-calculator-view':    '/tools/preventie-calculator',
+    'besparingen-overzicht-view':   '/besparingen',
+    'lexicon-view':                 '/lexicon',
+    'quiz-view':                    '/quiz',
+    'privacy-view':                 '/privacy',
+    'controller-view':              '/voor/controller',
+    'doelgroep-hr-view':            '/voor/hr-manager',
+    'doelgroep-casemanager-view':   '/voor/casemanager',
+    'doelgroep-directeur-view':     '/voor/directeur',
+    'dienst-whkreductie-view':      '/diensten/whk-controle',
+    'dienst-besparingsonderzoek-view': '/diensten/besparingsonderzoek',
+    'dienst-letselschade-view':     '/diensten/letselschade',
+    'dienst-arbeidsdeskundig-view': '/diensten/arbeidsdeskundig-onderzoek',
+    'dienst-tweedespoor-view':      '/diensten/tweede-spoor',
+    'dienst-consultancy-view':      '/diensten/consultancy',
+    'dienst-partneradvies-view':    '/diensten/erd-partneradvies',
+  };
+
+  // Omgekeerde map: pad → view-id
+  var PATH_TO_VIEW = {};
+  Object.keys(VIEW_TO_PATH).forEach(function(v){
+    PATH_TO_VIEW[VIEW_TO_PATH[v]] = v;
+  });
+
   var activeViewId = 'home-view';
+
   function showView(id){
     if(id === 'admin-view' && !isAdmin){ id = 'login-view'; }
     VIEWS.forEach(function(v){
@@ -6662,14 +6735,45 @@
     if(id !== 'login-view' && id !== 'admin-view'){ trackEvent('pageview', id); }
     updateReadingProgress();
     updateBreadcrumbSchema(id);
+
+    // Update de URL in de adresbalk zonder pagina te herladen
+    var newPath = VIEW_TO_PATH[id];
+    if(newPath && window.location.pathname !== newPath){
+      history.pushState({ viewId: id }, document.title, newPath);
+    }
   }
 
-  document.querySelectorAll('[data-view]').forEach(function(el){
-    el.addEventListener('click', function(e){
-      e.preventDefault();
-      showView(el.getAttribute('data-view'));
-    });
+  // Terugknop van de browser afhandelen
+  window.addEventListener('popstate', function(e){
+    if(e.state && e.state.viewId){
+      showView(e.state.viewId);
+    } else {
+      var view = PATH_TO_VIEW[window.location.pathname] || 'home-view';
+      showView(view);
+    }
   });
+
+  // Bij eerste pageload: juiste view tonen op basis van URL
+  (function initFromUrl(){
+    if(typeof window === 'undefined' || !window.location || !window.location.pathname) return;
+    var path = window.location.pathname;
+    if(path.startsWith('/blog/')){
+      var slug = path.replace('/blog/', '').replace(/\/$/, '');
+      window._initialBlogSlug = slug;
+      return;
+    }
+    var view = PATH_TO_VIEW[path];
+    if(view && view !== 'home-view'){
+      VIEWS.forEach(function(v){
+        var el = document.getElementById(v);
+        if(el) el.classList.toggle('show', v === view);
+      });
+      activeViewId = view;
+      if(VIEW_META[view]) updateMeta(VIEW_META[view].title, VIEW_META[view].desc);
+    }
+  })();
+
+
 
   // ---- GLOBAL DATA-JUMP HANDLER (in-page smooth scroll to a section anchor) ----
   document.addEventListener('click', function(e){
@@ -7479,18 +7583,43 @@
   var categories = [];
   var editingCategoryId = null;
 
+  var SEED_CATEGORIES = [
+    { id: 'whk-basis',      name: 'WHK-basics',              color: '#A23E2C' },
+    { id: 'norisk-lkv',     name: 'No-risk & LKV',           color: '#1C6E4A' },
+    { id: 're-integratie',  name: 'Re-integratie',           color: '#B07F26' },
+    { id: 'bezwaar',        name: 'Bezwaar & procedure',     color: '#5a6fd6' },
+    { id: 'arbeidsdeskundig',name: 'Arbeidsdeskundig',       color: '#11192B' },
+    { id: 'verzuimbeleid',  name: 'Verzuimbeleid',           color: '#1C6E4A' },
+    { id: 'sectorinzicht',  name: 'Sector & organisatie',    color: '#A23E2C' },
+    { id: 'wetgeving',      name: 'Wetgeving & UWV',         color: '#5a6fd6' },
+  ];
+
   async function loadCategories(){
     try{
       var res = await storageGet('blog:categories', true);
-        if(res && res.value) categories = JSON.parse(res.value);
-    } catch(e){ categories = []; }
+      if(res && res.value){
+        var loaded = JSON.parse(res.value);
+        if(loaded && loaded.length > 0){
+          categories = loaded;
+        } else {
+          // Database leeg — seed categorieën inladen en opslaan
+          categories = SEED_CATEGORIES.slice();
+          await saveCategories();
+        }
+      } else {
+        categories = SEED_CATEGORIES.slice();
+        await saveCategories();
+      }
+    } catch(e){
+      categories = SEED_CATEGORIES.slice();
+    }
     renderCategorySelect();
   }
 
   async function saveCategories(){
     try{
       await storageSet('blog:categories', JSON.stringify(categories), true); 
-    } catch(e){ console.error('Opslaan van categorie\u00ebn is mislukt', e); }
+    } catch(e){ console.error('Opslaan van categorieën is mislukt', e); }
   }
 
   function renderCategorySelect(){
@@ -9922,10 +10051,21 @@
       + '{"title":"...","slug":"...","metaDescription":"max 155 tekens","tags":["..."],"keyword":"' + keyword + '","bodyHtml":"..."}\n'
       + 'De slug is lowercase, koppeltekens, geen spaties.';
 
+    var apiKey = getClaudeApiKey();
+    if(!apiKey){
+      errorEl.textContent = 'Geen Claude API-sleutel ingesteld. Ga naar ⚙️ Instellingen en voer uw API-sleutel in.';
+      statusEl.classList.remove('active');
+      return;
+    }
+
     try{
       var response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01'
+        },
         body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 2000, messages: [{ role: 'user', content: prompt }] })
       });
       var data  = await response.json();
@@ -11441,6 +11581,68 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
   loadDeployChecks();
 
   // ================================================================
+  // ================================================================
+  // CLAUDE API SLEUTEL — opslaan en laden uit localStorage
+  // ================================================================
+  var CLAUDE_API_KEY_STORAGE = 'claude_api_key';
+
+  function loadClaudeApiKey(){
+    try{
+      var key = localStorage.getItem(CLAUDE_API_KEY_STORAGE) || '';
+      var inp = document.getElementById('claude-api-key-input');
+      if(inp && key) inp.value = key;
+      return key;
+    } catch(e){ return ''; }
+  }
+
+  function getClaudeApiKey(){
+    try{ return localStorage.getItem(CLAUDE_API_KEY_STORAGE) || ''; } catch(e){ return ''; }
+  }
+
+  var claudeApiSaveBtn = document.getElementById('claude-api-save-btn');
+  if(claudeApiSaveBtn){
+    claudeApiSaveBtn.addEventListener('click', function(){
+      var key = (document.getElementById('claude-api-key-input') || {value:''}).value.trim();
+      var st  = document.getElementById('claude-api-status');
+      if(!key){ if(st){ st.style.color='var(--risk)'; st.textContent='Voer een API-sleutel in.'; } return; }
+      try{
+        localStorage.setItem(CLAUDE_API_KEY_STORAGE, key);
+        if(st){ st.style.color='var(--savings)'; st.textContent='\u2713 Opgeslagen. U kunt nu artikelen genereren met AI.'; }
+        logActivity('Claude API-sleutel opgeslagen');
+      } catch(e){
+        if(st){ st.style.color='var(--risk)'; st.textContent='Opslaan mislukt: ' + e.message; }
+      }
+    });
+  }
+
+  var claudeApiTestBtn = document.getElementById('claude-api-test-btn');
+  if(claudeApiTestBtn){
+    claudeApiTestBtn.addEventListener('click', async function(){
+      var key = getClaudeApiKey();
+      var st  = document.getElementById('claude-api-status');
+      if(!key){ if(st){ st.style.color='var(--risk)'; st.textContent='Sla eerst een API-sleutel op.'; } return; }
+      if(st) st.textContent = 'Verbinding testen\u2026';
+      try{
+        var res = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
+          body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 10, messages: [{ role: 'user', content: 'Zeg OK' }] })
+        });
+        if(res.ok){
+          if(st){ st.style.color='var(--savings)'; st.textContent='\u2713 Verbinding werkt. Artikelen genereren is actief.'; }
+        } else {
+          var err = await res.json();
+          if(st){ st.style.color='var(--risk)'; st.textContent='Fout: ' + (err.error && err.error.message || 'status ' + res.status); }
+        }
+      } catch(e){
+        if(st){ st.style.color='var(--risk)'; st.textContent='Netwerkfout: ' + e.message; }
+      }
+    });
+  }
+
+  loadClaudeApiKey();
+
+  // ================================================================
   var PAGE_CONTENT_KEY = 'settings:page_content';
   var pageContent = {};
 
@@ -11733,13 +11935,35 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
   }
 
   function applySiteteksten(){
-    // Social proof balk
-    var proofSpans = document.querySelectorAll('.proof-pt1, .proof-pt2, .proof-pt3');
-    // Fallback: tekstknooppunten bijwerken via data-st attributen
+    // Update alle elementen met data-st attribuut
     document.querySelectorAll('[data-st]').forEach(function(el){
       var key = el.getAttribute('data-st');
-      if(SITETEKSTEN[key] !== undefined && SITETEKSTEN[key] !== '') el.textContent = SITETEKSTEN[key];
+      if(SITETEKSTEN[key] && SITETEKSTEN[key] !== ''){
+        // Voor proof-spans: behoud het ✓ prefix
+        if(key === 'proof1' || key === 'proof2' || key === 'proof3'){
+          el.textContent = '✓ ' + SITETEKSTEN[key].replace(/^✓\s*/, '');
+        } else {
+          el.textContent = SITETEKSTEN[key];
+        }
+      }
     });
+
+    // Update telefoon-links
+    if(SITETEKSTEN.telefoon){
+      var tel = SITETEKSTEN.telefoon.replace(/[^0-9+]/g, '');
+      document.querySelectorAll('[data-st-tel], .footer-tel, a[href^="tel:"]').forEach(function(el){
+        if(el.tagName === 'A') el.href = 'tel:' + tel;
+        else el.textContent = SITETEKSTEN.telefoon;
+      });
+    }
+
+    // Update email-links
+    if(SITETEKSTEN.email){
+      document.querySelectorAll('a[href^="mailto:"]').forEach(function(el){
+        el.href = 'mailto:' + SITETEKSTEN.email;
+        if(el.textContent.includes('@')) el.textContent = SITETEKSTEN.email;
+      });
+    }
   }
 
   function renderSitetekstenAdmin(){
@@ -11929,7 +12153,55 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
     });
   }
 
-  loadLastBackupDate();
+  // ================================================================
+  // SYNC NAAR RAILWAY DATABASE
+  // ================================================================
+  var syncBtn = document.getElementById('sync-to-db-btn');
+  if(syncBtn){
+    syncBtn.addEventListener('click', async function(){
+      if(!BACKEND_URL){
+        alert('Geen Railway-URL ingesteld. Dit werkt alleen op de live site.');
+        return;
+      }
+      var st = document.getElementById('sync-status');
+      syncBtn.disabled = true;
+      syncBtn.textContent = 'Bezig\u2026';
+
+      var steps = [
+        { label: 'Artikelen', fn: async function(){ if(posts.length) await savePosts(); } },
+        { label: 'Categorieën', fn: async function(){
+          if(!categories.length) categories = SEED_CATEGORIES.slice();
+          await saveCategories();
+        }},
+        { label: 'Websiteteksten', fn: async function(){
+          await storageSet(SITETEKSTEN_KEY, JSON.stringify(SITETEKSTEN), true);
+        }},
+        { label: 'Calculator-instellingen', fn: async function(){
+          await storageSet('settings:calc_config', JSON.stringify(CALC_CONFIG), true);
+        }},
+      ];
+
+      var errors = [];
+      for(var i = 0; i < steps.length; i++){
+        if(st) st.textContent = steps[i].label + ' synchroniseren\u2026';
+        try{ await steps[i].fn(); }
+        catch(e){ errors.push(steps[i].label + ': ' + e.message); }
+      }
+
+      syncBtn.disabled = false;
+      syncBtn.textContent = '\u2713 Sync voltooid';
+      if(st){
+        if(errors.length){
+          st.textContent = 'Deels geslaagd. Fouten: ' + errors.join('; ');
+        } else {
+          st.textContent = '\u2713 Alles gesynchroniseerd naar Railway. Ververs de pagina om het resultaat te zien.';
+        }
+      }
+      logActivity('Database gesynchroniseerd vanuit admin');
+    });
+  }
+
+
   loadSiteteksten();
 
   // Render siteteksten-form on tab switch
