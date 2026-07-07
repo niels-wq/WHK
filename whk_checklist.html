@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WHK-beschikking Checklist 2026 — werkhervattingskas.nl</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap');
+
+  :root {
+    --ink: #11192B;
+    --paper: #F7F3EA;
+    --risk: #A23E2C;
+    --savings: #1C6E4A;
+    --gold: #B07F26;
+    --line: #D7CBB0;
+    --white: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 13px;
+    line-height: 1.55;
+    padding: 0;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 48px 52px;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .doc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 24px;
+    border-bottom: 3px solid var(--ink);
+    margin-bottom: 28px;
+  }
+  .doc-logo { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); }
+  .doc-logo strong { display: block; font-size: 14px; color: var(--ink); letter-spacing: 0; }
+  .doc-badge {
+    background: var(--risk);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+
+  h1 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .subtitle {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 28px;
+  }
+
+  /* INTRO BOX */
+  .intro-box {
+    background: #fff8f0;
+    border: 1px solid var(--gold);
+    border-left: 4px solid var(--gold);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin-bottom: 28px;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .intro-box strong { color: var(--risk); }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 28px;
+    break-inside: avoid;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--ink);
+    color: white;
+    padding: 8px 14px;
+    border-radius: 4px 4px 0 0;
+    margin-bottom: 0;
+  }
+  .section-header .section-icon { font-size: 14px; }
+  .section-header h2 {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    margin: 0;
+  }
+  .section-header .section-num {
+    margin-left: auto;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    opacity: .6;
+  }
+
+  /* CHECK ITEMS */
+  .check-list {
+    border: 1px solid var(--line);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
+  }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 14px;
+    border-bottom: 1px solid #eee;
+    background: white;
+    cursor: pointer;
+    transition: background 0.12s;
+    user-select: none;
+  }
+  .check-item:hover { background: #f5f2ea; }
+  .check-item { cursor: pointer; transition: background 0.12s; user-select: none; }
+  .check-item:hover { background: #f5f2ea !important; }
+  .check-item:last-child { border-bottom: none; }
+  .check-item:nth-child(even) { background: #fafaf8; }
+  .check-item.done { background: #eef7f1 !important; }
+  .check-item.done .check-label { color: #888; text-decoration: line-through; }
+  .check-item.done .check-box { background: #1C6E4A; border-color: #1C6E4A; }
+  .check-item.done .check-box::after { content: '✓'; color: white; font-size: 11px; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+  .check-item:nth-child(even):hover { background: #f0ede5; }
+  .check-item.done { background: #eef7f1 !important; }
+  .check-item.done .check-label { color: #888; text-decoration: line-through; }
+  .check-item.done .check-box {
+    background: #1C6E4A;
+    border-color: #1C6E4A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .check-item.done .check-box::after { content: '✓'; color: white; font-size: 11px; font-weight: 900; }
+  .check-box {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    border: 2px solid #bbb;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .check-content { flex: 1; }
+  .check-label {
+    font-weight: 600;
+    font-size: 12px;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .check-desc {
+    font-size: 11px;
+    color: #555;
+    line-height: 1.5;
+  }
+  .check-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    padding: 1px 6px;
+    border-radius: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .tag-urgent { background: #fee2e2; color: var(--risk); }
+  .tag-tool { background: #d1fae5; color: var(--savings); }
+  .tag-subsidie { background: #fef3c7; color: var(--gold); }
+
+  /* TOOL LINKS */
+  .tool-ref {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    color: var(--savings);
+    font-weight: 600;
+    margin-top: 3px;
+    text-decoration: none;
+  }
+  .tool-ref::before { content: '→ '; }
+
+  /* SCORE BOX */
+  .score-box {
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .score-item { flex: 1; text-align: center; }
+  .score-num {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--risk);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .score-label { font-size: 10px; color: #666; }
+
+  /* FOOTER */
+  .doc-footer {
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 2px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+  }
+  .footer-cta {
+    background: var(--risk);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 11px;
+    display: inline-block;
+  }
+  .footer-contact { font-size: 10px; color: #666; line-height: 1.6; }
+  .footer-contact strong { color: var(--ink); display: block; margin-bottom: 2px; }
+
+  /* ALERT */
+  .alert {
+    background: #fff1f0;
+    border: 1px solid var(--risk);
+    border-left: 4px solid var(--risk);
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-size: 11px;
+    color: var(--risk);
+    margin-top: 12px;
+    font-weight: 600;
+  }
+
+  @media print {
+    body { background: white; }
+    .page { padding: 30px 36px; }
+    .footer-cta { background: var(--risk) !important; color: white !important; }
+    .no-print { display: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="doc-logo">
+      werkhervattingskas.nl
+      <strong>Matchvermogen</strong>
+      <span>WHK-optimalisatie &amp; verzuimreductie</span>
+    </div>
+    <div class="doc-badge">Gratis checklist 2026</div>
+  </div>
+
+  <!-- Print & Opslaan knoppen -->
+  <div class="no-print" style="display:flex;gap:10px;justify-content:flex-end;margin-bottom:20px;flex-wrap:wrap;">
+    <button onclick="window.print()" style="display:flex;align-items:center;gap:7px;padding:9px 18px;background:white;border:1.5px solid #1C6E4A;color:#1C6E4A;border-radius:6px;font-size:0.87rem;font-weight:600;cursor:pointer;font-family:inherit;">
+      🖨️ Afdrukken
+    </button>
+    <button onclick="saveAsPdf()" style="display:flex;align-items:center;gap:7px;padding:9px 18px;background:#1C6E4A;border:1.5px solid #1C6E4A;color:white;border-radius:6px;font-size:0.87rem;font-weight:600;cursor:pointer;font-family:inherit;">
+      💾 Opslaan als PDF
+    </button>
+  </div>
+  <div id="pdf-hint" class="no-print" style="display:none;font-size:0.8rem;color:#666;text-align:right;margin-bottom:12px;padding:8px 12px;background:#fffbf0;border:1px solid #e0d5b0;border-radius:5px;">
+    💡 Kies in het afdrukvenster <strong>"Opslaan als PDF"</strong> als bestemming in plaats van een printer.
+  </div>
+
+  <h1>WHK-beschikking Checklist 2026</h1>
+  <p class="subtitle">Gebruik deze checklist om uw WHK-beschikking systematisch te controleren op fouten, gemiste subsidies en besparingskansen. In 8 van de 10 gevallen vinden wij iets.</p>
+
+  <div class="intro-box">
+    <strong>Hoe gebruikt u deze checklist?</strong> Ga per onderdeel na of u het kunt bevestigen. Elk ✗ is een potentiële besparing of risico. Hoe meer ✗-antwoorden, hoe groter de kans op een fout in uw beschikking. Stuur ons daarna uw beschikking op — wij controleren gratis en no cure, no pay.
+  </div>
+
+  <!-- SECTIE 1: DE BESCHIKKING ZELF -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">📄</span>
+      <h2>1. De beschikking op hoofdlijnen</h2>
+      <span class="section-num">1–5</span>
+    </div>
+    <div class="check-list">
+      <div class="check-item" data-idx="1">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Beschikking ontvangen en gearchiveerd <span class="check-tag tag-urgent">Urgent</span></span>
+          <span class="check-desc">De WHK-beschikking komt doorgaans in november/december van de Belastingdienst. U heeft <strong>6 weken bezwaartermijn</strong> na dagtekening. Heeft u de datum genoteerd?</span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="2">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Loonsom klopt met uw loonaangifte</span>
+          <span class="check-desc">De loonsom in de beschikking is de basis voor uw premieberekening. Controleer of deze overeenkomt met uw loonaangifte van twee jaar eerder. Een afwijking van meer dan 5% verdient nader onderzoek.</span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="3">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Premiepercentage vergeleken met vorig jaar</span>
+          <span class="check-desc">Is het percentage gestegen? Zo ja, welke nieuwe personen zijn in de bijlage toegevoegd? Elke stijging heeft een directe oorzaak die navolgbaar moet zijn in de bijlage.</span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="4">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">ZW-deel en WGA-deel apart bekeken</span>
+          <span class="check-desc">Het ZW-deel is sectoraal en weinig beïnvloedbaar. Het WGA-deel is individueel berekend op basis van uw eigen schadelast — dáár zit de besparingskans. Zijn deze twee bedragen apart vermeld?</span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="5">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Bijlage met toegerekende personen aanwezig</span>
+          <span class="check-desc">De bijlage bij de beschikking bevat een lijst van (oud-)medewerkers waarvan de WGA- of ZW-lasten aan u zijn toegerekend. Dit is het meest kritische document voor de beoordeling.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTIE 2: TOEREKENING PERSONEN -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">👥</span>
+      <h2>2. Toerekening per persoon</h2>
+      <span class="section-num">6–11</span>
+    </div>
+    <div class="check-list">
+      <div class="check-item" data-idx="6">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Elke persoon in de bijlage herkend als (ex-)medewerker <span class="check-tag tag-urgent">Urgent</span></span>
+          <span class="check-desc">Controleer per naam of u deze persoon herkent. Staan er personen in die nooit bij u in dienst zijn geweest, of waarvan u niet begrijpt waarom zij er instaan? Dat is een fout.</span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="7">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Ex-medewerkers die nu elders werken zijn verwijderd</span>
+          <span class="check-desc">Als een ex-medewerker inmiddels bij een andere werkgever in dienst is getreden, hoort hij doorgaans niet meer bij u in de WGA-toerekening. Dit is de meest voorkomende fout.</span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="8">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Geen medewerkers met no-riskstatus in de WGA-toerekening</span>
+          <span class="check-desc">Medewerkers met een no-riskpolis mogen niet aan uw WGA-schadelast worden toegerekend. Staat er iemand in die u destijds had aangemeld als no-riskgeval? Dan is er een fout.
+            <br><a class="tool-ref" href="https://werkhervattingskas.nl/tools/subsidie-scan">Subsidie-scan no-riskpolis →</a>
+          </span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="9">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Geen IVA-gerechtigden in de WGA-toerekening <span class="check-tag tag-urgent">Urgent</span></span>
+          <span class="check-desc">Medewerkers die volledig en duurzaam arbeidsongeschikt zijn (IVA) worden niet toegerekend aan uw WHK-premie. Controleer of er personen staan die al jaren 100% AO zijn — dit is een signaal voor mogelijke IVA-herindeling.</span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="10">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Toegerekend uitkeringsbedrag klopt per persoon</span>
+          <span class="check-desc">Het dagloon en de uitkeringsduur bepalen het toegerekende bedrag. Een te hoog dagloon door een loonaangiftefout verhoogt uw schadelast onterecht. Controleer bij twijfel op afwijkingen van meer dan 10%.</span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="11">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Instroommomenten van personen kloppen met dossierkennis</span>
+          <span class="check-desc">Klopt het jaar van instroommelding met wat u in uw administratie heeft? Een fout instroommaar betekent dat de toerekening te vroeg of te laat begint, met premiegevolgen.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTIE 3: NO-RISKPOLISSEN -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">🛡️</span>
+      <h2>3. No-riskpolissen &amp; subsidies</h2>
+      <span class="section-num">12–16</span>
+    </div>
+    <div class="check-list">
+      <div class="check-item" data-idx="12">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Overzicht no-riskcandidaten bij indiensttreding bijgehouden <span class="check-tag tag-subsidie">Subsidie</span></span>
+          <span class="check-desc">Heeft u bij indiensttreding systematisch gecontroleerd welke medewerkers een no-riskstatus hadden? Zo niet, dan is de kans groot dat compensaties zijn gemist. Controleer uw personeelsbestand nu retroactief.
+            <br><a class="tool-ref" href="https://werkhervattingskas.nl/tools/subsidie-scan">Subsidie-scan →</a>
+          </span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="13">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">No-riskmelding gedaan bij elke ziekmelding van een no-riskmedewerker</span>
+          <span class="check-desc">De no-riskcompensatie wordt alleen uitgekeerd als u bij het UWV een melding heeft gedaan op het moment van ziekmelding. Een gemiste melding is doorgaans niet meer met terugwerkende kracht te herstellen.</span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="14">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">LKV aangevraagd voor in aanmerking komende medewerkers <span class="check-tag tag-subsidie">Subsidie</span></span>
+          <span class="check-desc">Loonkostenvoordeel (LKV) geeft u tot €6.000 per jaar voor medewerkers uit specifieke doelgroepen. De aanvraag verloopt via de Belastingdienst in de loonaangifte. Heeft u dit voor alle in aanmerking komende medewerkers gedaan?</span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="15">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">LIV of WKB beoordeeld voor relevante functies <span class="check-tag tag-subsidie">Subsidie</span></span>
+          <span class="check-desc">Lage-inkomensvoordeel (LIV) en werkbonus (WKB) gelden voor medewerkers met een loon tussen 100% en 125% van het minimumloon. Heeft uw salarisadministrateur dit jaarlijks geverifieerd?</span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="16">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Re-integratiekosten met no-riskgrondslag teruggevraagd bij UWV</span>
+          <span class="check-desc">Niet alleen de loondoorbetaling, maar ook re-integratiekosten (bijv. AD-onderzoek, coaching) voor medewerkers met een no-riskstatus kunnen worden vergoed door het UWV. Heeft u dit geclaimd?</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTIE 4: BEZWAARTERMIJN EN PROCEDURE -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <h2>4. Bezwaartermijn &amp; procedure</h2>
+      <span class="section-num">17–20</span>
+    </div>
+    <div class="check-list">
+      <div class="check-item" data-idx="17">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Bezwaartermijn van 6 weken bewaakt <span class="check-tag tag-urgent">Urgent</span></span>
+          <span class="check-desc">Na de dagtekening van de beschikking heeft u zes weken om bezwaar in te dienen bij de Belastingdienst. Na deze termijn vervalt het recht op bezwaar volledig. Noteer de deadline en zorg voor tijdige beoordeling.
+            <br><a class="tool-ref" href="https://werkhervattingskas.nl/tools/jaarkalender">WHK Jaarkalender 2026 →</a>
+          </span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="18">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Bezwaar onderbouwd met concrete gronden, niet alleen procedureel</span>
+          <span class="check-desc">Een bezwaar zonder inhoudelijke onderbouwing wordt doorgaans afgewezen. Zorg dat elk bezwaar is voorzien van een concrete fout (bijv. naam, bedrag, reden van betwisting) met ondersteunende documentatie.</span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="19">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Vorige jaren-beschikkingen ook beoordeeld</span>
+          <span class="check-desc">Fouten die in voorgaande jaren zijn gemist, kunnen niet meer via bezwaar worden gecorrigeerd — maar ze geven wel inzicht in structurele patronen. Controle van de afgelopen 3 beschikkingen geeft een volledig beeld van uw premiehistorie.</span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="20">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Eigenrisicodragerschap overwogen als structurele optie</span>
+          <span class="check-desc">Voor grote werkgevers met een relatief lage WGA-schadelast kan eigenrisicodragerschap voordeliger zijn dan de publieke WHK-premie. Heeft u dit de afgelopen twee jaar laten berekenen?
+            <br><a class="tool-ref" href="https://werkhervattingskas.nl/diensten/erd-partneradvies">ERD-advies →</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTIE 5: POORTWACHTER EN RE-INTEGRATIE -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">⚖️</span>
+      <h2>5. Poortwachter &amp; lopende dossiers</h2>
+      <span class="section-num">21–25</span>
+    </div>
+    <div class="check-list">
+      <div class="check-item" data-idx="21">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Poortwachter-tijdlijn voor alle actieve dossiers bijgehouden</span>
+          <span class="check-desc">Een gemiste Wet poortwachter-deadline leidt tot een loonsanctie van maximaal 52 weken extra loondoorbetaling. Gebruikt u een systeem om deadlines per medewerker te bewaken?
+            <br><a class="tool-ref" href="https://werkhervattingskas.nl/tools/poortwachter">Poortwachter-tijdlijnchecker →</a>
+          </span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="22">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Arbeidsdeskundig onderzoek tijdig ingezet (bij voorkeur week 13)</span>
+          <span class="check-desc">Een AD-rapport op week 13 van het verzuim geeft het sterkste dossier bij de UWV-poortwachtertoets. Te laat ingezet AD-onderzoek verzwakt de re-integratieonderbouwing en kan een sanctie veroorzaken.</span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="23">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Tweede spoor gestart vóór week 52 (bij complexe dossiers vanaf week 26)</span>
+          <span class="check-desc">Spoor 2 te laat starten is de meest voorkomende reden voor een loonsanctie. Het UWV beoordeelt of u als werkgever tijdig heeft aangestuurd op externe re-integratie als terugkeer naar de eigen organisatie niet mogelijk bleek.</span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="24">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Re-integratieverslagen compleet en tijdig ingediend</span>
+          <span class="check-desc">Een onvolledig re-integratieverslag bij de WIA-aanvraag is een zelfstandige grond voor een loopsanctie. Zorg dat alle verplichte documenten aanwezig zijn: probleemanalyse, plan van aanpak, evaluaties en het AD-rapport.</span>
+        </div>
+      </div>
+      <div class="check-item" data-idx="25">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <span class="check-label">Interventietarieven vergeleken met marktbenchmark</span>
+          <span class="check-desc">Betaalt u structureel meer dan €1.295 voor een standaard AD-onderzoek? Of meer dan de marktnorm voor coaching of tweede-spoor begeleiding? Dit verhoogt uw totale verzuimkosten onnodig.
+            <br><a class="tool-ref" href="https://werkhervattingskas.nl/tools/interventie-check">Interventietariefchecker →</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCORE SECTIE -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">📊</span>
+      <h2>Uw resultaat — tellingsoverzicht</h2>
+    </div>
+    <div class="check-list">
+      <div class="check-item" style="padding: 16px 18px;">
+        <div class="score-box" style="width:100%;border:none;padding:0;">
+          <div class="score-item">
+            <span class="score-num" id="score-ok" style="color:#1C6E4A;">0</span>
+            <span class="score-label">Afgevinkt<br>(van 25)</span>
+          </div>
+          <div class="score-item">
+            <span class="score-num" id="score-open" style="color:#A23E2C;">25</span>
+            <span class="score-label">Nog te doen<br>(aandachtspunten)</span>
+          </div>
+          <div class="score-item">
+            <div style="background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:10px 14px;font-size:11px;text-align:left;">
+              <strong style="display:block;margin-bottom:4px;">Interpretatie:</strong>
+              0–5 ✗ → Goed op orde<br>
+              6–12 ✗ → Controleer de beschikking<br>
+              13+ ✗ → Hoge kans op besparing
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="alert">
+      ⚠️ Heeft u 3 of meer ✗-antwoorden? Stuur uw WHK-beschikking op voor een gratis, vrijblijvende analyse. Wij zien in 8 van de 10 gevallen iets. Geen besparing? Geen kosten.
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+
+  <!-- DYNAMISCH ADVIESBLOK -->
+  <div class="no-print" id="advice-section" style="margin:28px 0;display:none;">
+    <div style="border:2px solid #1C6E4A;border-radius:10px;overflow:hidden;">
+      <div style="background:#1C6E4A;color:white;padding:14px 20px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:1.3rem;">💡</span>
+        <strong style="font-size:0.95rem;">Uw persoonlijk advies op basis van de checklist</strong>
+      </div>
+      <div id="advice-content" style="padding:18px 20px;background:white;"></div>
+    </div>
+  </div>
+
+  <!-- Terugbelverzoek -->
+  <div style="margin:32px 0;padding:24px 28px;background:#f0f7f4;border:2px solid #1C6E4A;border-radius:10px;page-break-inside:avoid;">
+    <h2 style="font-size:1rem;color:#1C6E4A;margin:0 0 6px;">Wilt u dat wij uw beschikking gratis controleren?</h2>
+    <p style="font-size:0.85rem;color:#555;margin:0 0 16px;">Vink aan en laat uw telefoonnummer achter — wij bellen u terug op een moment dat u uitkomt.</p>
+    <div id="callback-form">
+      <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;margin-bottom:14px;">
+        <input type="checkbox" id="callback-check" style="width:18px;height:18px;margin-top:2px;accent-color:#1C6E4A;flex-shrink:0;">
+        <span style="font-size:0.88rem;font-weight:600;color:#11192B;">Ja, bel mij terug voor een gratis beschikkingcheck</span>
+      </label>
+      <div id="callback-phone-wrap" style="display:none;margin-top:4px;">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+          <input type="tel" id="callback-phone" placeholder="Uw telefoonnummer" style="flex:1;min-width:180px;padding:10px 14px;border:1px solid #c8d4cc;border-radius:6px;font-size:0.9rem;font-family:inherit;">
+          <input type="text" id="callback-name" placeholder="Uw naam (optioneel)" style="flex:1;min-width:180px;padding:10px 14px;border:1px solid #c8d4cc;border-radius:6px;font-size:0.9rem;font-family:inherit;">
+          <button onclick="submitCallback()" style="padding:10px 20px;background:#A23E2C;color:white;border:none;border-radius:6px;font-size:0.9rem;font-weight:600;cursor:pointer;white-space:nowrap;">Verstuur</button>
+        </div>
+        <p style="font-size:0.76rem;color:#888;margin:8px 0 0;">Uw gegevens worden niet gedeeld met derden.</p>
+      </div>
+      <div id="callback-ok" style="display:none;padding:12px 16px;background:#d4edda;border-radius:6px;font-size:0.88rem;color:#155724;font-weight:600;">
+        ✓ Terugbelverzoek ontvangen — wij bellen u zo snel mogelijk!
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    <div class="footer-contact">
+      <strong>Matchvermogen — werkhervattingskas.nl</strong>
+      Gratis beschikkingcheck: <strong>werkhervattingskas.nl</strong><br>
+      E-mail: info@werkhervattingskas.nl &nbsp;|&nbsp; WhatsApp: 06-50213593<br>
+      <span style="color:#aaa;font-size:9px;">© 2026 Matchvermogen — Vrij te gebruiken en te delen</span>
+    </div>
+    <div>
+      <a class="footer-cta" href="https://werkhervattingskas.nl">Start gratis WHK-check →</a>
+      <div style="font-size:9px;color:#999;margin-top:6px;text-align:center;">No cure, no pay</div>
+    </div>
+  </div>
+
+
+<script>
+// Print & PDF opslaan
+function saveAsPdf(){
+  var hint = document.getElementById('pdf-hint');
+  if(hint) hint.style.display = 'block';
+  setTimeout(function(){ window.print(); }, 300);
+}
+
+// Adviesstructuur per item
+var ADVICE = {
+  // Sectie 1: Beschikking op hoofdlijnen (items 1-5)
+  1: { sec: 'Beschikking', titel: 'Beschikking nog niet gearchiveerd', tekst: 'Bewaar de beschikking direct na ontvangst. De bezwaartermijn van 6 weken loopt vanaf de dagtekening — niet vanaf het moment dat u hem ontvangt.', urgentie: 'hoog' },
+  2: { sec: 'Beschikking', titel: 'Loonsom mogelijk onjuist', tekst: 'Een afwijkende loonsom is de basis voor een onjuiste premieberekening. Vergelijk met uw loonaangifte van twee jaar eerder en verzoek bij twijfel om correctie.', urgentie: 'hoog' },
+  3: { sec: 'Beschikking', titel: 'Premiepercentage niet vergeleken', tekst: 'Een stijging zonder duidelijke oorzaak in de bijlage is een signaal dat er mogelijk een onjuiste toerekening heeft plaatsgevonden.', urgentie: 'middel' },
+  4: { sec: 'Beschikking', titel: 'ZW- en WGA-deel niet apart bekeken', tekst: 'Het WGA-deel is individueel berekend en beïnvloedbaar. Zorg dat u weet hoe groot dit deel is — dáár zit de besparingskans.', urgentie: 'middel' },
+  5: { sec: 'Beschikking', titel: 'Bijlage met personen ontbreekt', tekst: 'Zonder de bijlage kunt u niet controleren wie aan u is toegerekend. Vraag de bijlage op bij de Belastingdienst of uw HR-administratie.', urgentie: 'hoog' },
+  // Sectie 2: Toerekening per persoon (items 6-11)
+  6: { sec: 'Toerekening', titel: 'Niet alle personen herkend', tekst: 'Een onbekende persoon in de bijlage is een directe bezwaargrond. Dit kan een naamsfout zijn, een fusie-erfenis of een ex-medewerker die onterecht is blijven staan.', urgentie: 'hoog' },
+  7: { sec: 'Toerekening', titel: 'Ex-medewerkers mogelijk nog toegerekend', tekst: 'Ex-medewerkers die elders werken horen niet meer in uw beschikking. Controleer de uitstroomdatum per persoon en betwist onterechte toerekening via bezwaar.', urgentie: 'hoog' },
+  8: { sec: 'Toerekening', titel: 'No-riskmedewerkers in WGA-toerekening', tekst: 'Medewerkers met een no-riskstatus mogen niet in uw WGA-schadelast worden opgenomen. Dit is een van de meest voorkomende — en kostbaarste — fouten in WHK-beschikkingen.', urgentie: 'hoog' },
+  9: { sec: 'Toerekening', titel: 'IVA-gerechtigden mogelijk in WGA', tekst: 'IVA-uitkeringen mogen niet aan uw schadelast worden toegerekend. Als iemand volledig en duurzaam arbeidsongeschikt is, hoort die niet in uw WGA-bijlage.', urgentie: 'hoog' },
+  10: { sec: 'Toerekening', titel: 'Uitkeringsbedragen niet gecontroleerd', tekst: 'Een onjuist dagloon of arbeidsongeschiktheidspercentage werkt direct door in het toegerekende bedrag. Controleer minimaal de drie hoogste posten in de bijlage.', urgentie: 'middel' },
+  11: { sec: 'Toerekening', titel: 'Instroomdata niet gecheckt', tekst: 'Als de instroomdatum niet klopt met uw dossierkennis, is de toerekening mogelijk onjuist. Een verkeerde eerste ziektedag schuift het hele tijdpad.', urgentie: 'middel' },
+  // Sectie 3: No-risk & subsidies (items 12-16)
+  12: { sec: 'No-risk & subsidies', titel: 'Geen overzicht no-riskcandidaten', tekst: 'Zonder een actueel overzicht mist u ziekmeldingen waarbij no-riskcompensatie van toepassing is. Leg dit standaard vast bij indiensttreding.', urgentie: 'middel' },
+  13: { sec: 'No-risk & subsidies', titel: 'No-riskmelding niet altijd gedaan', tekst: 'Als u de no-riskmelding vergeet bij het UWV, betaalt u de loondoorbetaling zelf én telt het verzuim mee in uw schadelast. Dubbel nadeel voor één gemiste stap.', urgentie: 'hoog' },
+  14: { sec: 'No-risk & subsidies', titel: 'LKV niet aangevraagd', tekst: 'Het loonkostenvoordeel bedraagt tot €6.000 per medewerker per jaar. De aanvraag is termijngebonden — te laat is definitief verloren.', urgentie: 'middel' },
+  15: { sec: 'No-risk & subsidies', titel: 'LIV/WKB niet beoordeeld', tekst: 'Het lage-inkomensvoordeel en de werkbonus worden niet automatisch toegekend. Beoordeel bij elk relevant loonpeil of een aanvraag mogelijk is.', urgentie: 'laag' },
+  16: { sec: 'No-risk & subsidies', titel: 'Re-integratiekosten no-risk niet teruggevraagd', tekst: 'Als u interventiekosten heeft gemaakt voor een medewerker met no-riskstatus, kunt u die terugvragen bij het UWV. Bewaar de facturen als onderbouwing.', urgentie: 'middel' },
+  // Sectie 4: Bezwaar & procedure (items 17-20)
+  17: { sec: 'Bezwaar & procedure', titel: 'Bezwaartermijn niet bewaakt', tekst: 'De bezwaartermijn van 6 weken is dwingend — na het verstrijken is bezwaar niet-ontvankelijk. Zet de uiterste datum direct in uw agenda bij ontvangst.', urgentie: 'hoog' },
+  18: { sec: 'Bezwaar & procedure', titel: 'Bezwaar zonder concrete gronden', tekst: 'Een pro-forma bezwaar stuit de termijn, maar de inhoudelijke gronden moeten tijdig worden aangevuld. Zonder onderbouwing wordt het bezwaar afgewezen.', urgentie: 'hoog' },
+  19: { sec: 'Bezwaar & procedure', titel: 'Vorige jaren niet beoordeeld', tekst: 'Fouten in eerdere beschikkingen kunnen soms nog worden gecorrigeerd. Beoordeel minimaal de drie voorgaande jaren op dezelfde foutpatronen.', urgentie: 'middel' },
+  20: { sec: 'Bezwaar & procedure', titel: 'Eigenrisicodragerschap niet overwogen', tekst: 'Bij een groot en stabiel personeelsbestand kan eigenrisicodragerschap structureel goedkoper zijn. Laat dit eens per drie jaar beoordelen.', urgentie: 'laag' },
+  // Sectie 5: Poortwachter & dossiers (items 21-25)
+  21: { sec: 'Poortwachter & dossiers', titel: 'Poortwachter-tijdlijnen niet bijgehouden', tekst: 'Een gemiste poortwachter-deadline leidt tot een loonsanctie van maximaal 52 weken. Gebruik onze poortwachter-checker op werkhervattingskas.nl.', urgentie: 'hoog' },
+  22: { sec: 'Poortwachter & dossiers', titel: 'Arbeidsdeskundig onderzoek te laat', tekst: 'Een AD-onderzoek in week 13 geeft maximaal stuurmogelijkheid. Later ingezet werkt nog steeds — maar de re-integratierichting ligt dan al verder vast.', urgentie: 'middel' },
+  23: { sec: 'Poortwachter & dossiers', titel: 'Tweede spoor te laat gestart', tekst: 'Te laat starten met het tweede spoor is een veelgemaakte fout die leidt tot loonsancties én hogere WGA-instroomkans. Start bij complexe dossiers al in week 26.', urgentie: 'hoog' },
+  24: { sec: 'Poortwachter & dossiers', titel: 'Re-integratieverslagen onvolledig', tekst: 'Een onvolledig re-integratieverslag bij de WIA-aanvraag is zelfstandige grond voor een loonsanctie. Controleer of alle verplichte documenten aanwezig zijn.', urgentie: 'hoog' },
+  25: { sec: 'Poortwachter & dossiers', titel: 'Interventietarieven niet vergeleken', tekst: 'Tarieven boven de marktnorm kosten u direct geld. Gebruik de interventietarief-checker op werkhervattingskas.nl om te vergelijken.', urgentie: 'laag' },
+};
+
+// Advies genereren op basis van open items
+function generateAdvice(){
+  var open = [];
+  document.querySelectorAll('.check-item:not(.done)').forEach(function(item){
+    var idx = parseInt(item.getAttribute('data-idx'));
+    if(idx && ADVICE[idx]) open.push(idx);
+  });
+
+  var section = document.getElementById('advice-section');
+  var content = document.getElementById('advice-content');
+  if(!section || !content) return;
+
+  if(open.length === 0){
+    section.style.display = 'block';
+    content.innerHTML = '<div style="text-align:center;padding:12px 0;"><span style="font-size:2rem;">🏆</span><br><strong style="display:block;margin:8px 0;">Uitstekend — alle punten afgevinkt!</strong><p style="font-size:0.87rem;color:#555;margin:4px 0 0;">Uw WHK-dossier lijkt goed op orde. Wilt u zekerheid? Laat ons de beschikking ook inhoudelijk controleren — gratis, no cure no pay.</p><a href="https://werkhervattingskas.nl" style="display:inline-block;margin-top:12px;padding:8px 18px;background:#1C6E4A;color:white;border-radius:6px;font-size:0.86rem;font-weight:600;text-decoration:none;">Start gratis WHK-check →</a></div>';
+    return;
+  }
+
+  // Groepeer per urgentie
+  var hoog   = open.filter(function(i){ return ADVICE[i].urgentie === 'hoog'; });
+  var middel = open.filter(function(i){ return ADVICE[i].urgentie === 'middel'; });
+  var laag   = open.filter(function(i){ return ADVICE[i].urgentie === 'laag'; });
+
+  var html = '';
+
+  // Samenvattingsbalk
+  var kleur = hoog.length > 0 ? '#A23E2C' : middel.length > 3 ? '#b07a00' : '#1C6E4A';
+  var boodschap = hoog.length > 0
+    ? 'U heeft ' + hoog.length + ' urgent punt' + (hoog.length > 1 ? 'en' : '') + ' open — directe actie aanbevolen.'
+    : 'Geen urgente punten, maar er zijn verbetermogelijkheden.';
+  html += '<div style="padding:10px 14px;background:' + kleur + '15;border-left:4px solid ' + kleur + ';border-radius:4px;margin-bottom:18px;font-size:0.87rem;color:' + kleur + ';font-weight:600;">' + boodschap + '</div>';
+
+  // Toon urgente punten eerst
+  function renderGroep(items, label, kleur){
+    if(!items.length) return '';
+    var out = '<div style="margin-bottom:16px;"><div style="font-size:0.75rem;font-weight:700;color:' + kleur + ';text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">' + label + '</div>';
+    items.forEach(function(idx){
+      var a = ADVICE[idx];
+      out += '<div style="padding:10px 14px;margin-bottom:6px;background:#fafaf8;border:1px solid #e8e0d0;border-radius:6px;border-left:3px solid ' + kleur + ';">';
+      out += '<strong style="font-size:0.87rem;display:block;margin-bottom:3px;">Punt ' + idx + ': ' + a.titel + '</strong>';
+      out += '<span style="font-size:0.82rem;color:#555;line-height:1.5;">' + a.tekst + '</span>';
+      out += '</div>';
+    });
+    out += '</div>';
+    return out;
+  }
+
+  html += renderGroep(hoog,   '🔴 Direct aanpakken', '#A23E2C');
+  html += renderGroep(middel, '🟡 Binnenkort oppakken', '#b07a00');
+  html += renderGroep(laag,   '🟢 Verbetering mogelijk', '#1C6E4A');
+
+  // Slotadvies
+  html += '<div style="margin-top:16px;padding:12px 16px;background:#f0f7f4;border-radius:6px;font-size:0.84rem;color:#333;">';
+  html += '<strong>Advies:</strong> ';
+  if(hoog.length >= 3){
+    html += 'Wij raden aan uw WHK-beschikking direct te laten controleren. Met ' + hoog.length + ' urgente punten is de kans op een besparing groot.';
+  } else if(hoog.length > 0){
+    html += 'Pak de urgente punten zo snel mogelijk op — zeker als de bezwaartermijn nog loopt.';
+  } else {
+    html += 'Uw beschikking lijkt grotendeels in orde. Een professionele controle kan kleine fouten nog opsporen.';
+  }
+  html += ' <a href="https://werkhervattingskas.nl" style="color:#1C6E4A;font-weight:600;">Gratis WHK-check →</a></div>';
+
+  content.innerHTML = html;
+  section.style.display = 'block';
+}
+
+// Interactieve checklist
+(function(){
+  var items = document.querySelectorAll('.check-item');
+  var scoreOk   = document.getElementById('score-ok');
+  var scoreOpen = document.getElementById('score-open');
+  var total = items.length;
+  if(scoreOpen) scoreOpen.textContent = total;
+
+  function updateScore(){
+    var done = document.querySelectorAll('.check-item.done').length;
+    if(scoreOk)   scoreOk.textContent   = done;
+    if(scoreOpen) scoreOpen.textContent = total - done;
+  }
+
+  items.forEach(function(item){
+    item.addEventListener('click', function(){
+      this.classList.toggle('done');
+      updateScore();
+      generateAdvice();
+    });
+  });
+})();
+</script>
+<script>
+document.getElementById('callback-check').addEventListener('change', function(){
+  document.getElementById('callback-phone-wrap').style.display = this.checked ? 'block' : 'none';
+});
+
+function submitCallback(){
+  var phone = document.getElementById('callback-phone').value.trim();
+  var name  = document.getElementById('callback-name').value.trim();
+  if(!phone){ document.getElementById('callback-phone').focus(); return; }
+
+  // Stuur naar de site backend
+  var siteUrl = window.location.origin.includes('railway') || window.location.origin.includes('werkhervattingskas')
+    ? window.location.origin
+    : 'https://werkhervattingskas.nl';
+
+  fetch(siteUrl + '/api/leads', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: name || 'Onbekend',
+      phone: phone,
+      email: '',
+      message: 'Terugbelverzoek via WHK-checklist',
+      source: 'terugbel-checklist'
+    })
+  }).catch(function(){});
+
+  document.getElementById('callback-phone-wrap').style.display = 'none';
+  document.getElementById('callback-ok').style.display = 'block';
+}
+</script>
+
+</div>
+</body>
+</html>
