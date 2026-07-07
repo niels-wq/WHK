@@ -6527,8 +6527,8 @@
       </div>
       <div id="lead-magnet-ok" style="display:none;text-align:center;padding:20px 0;">
         <div style="font-size:2rem;margin-bottom:10px;">✓</div>
-        <strong>Checklist onderweg!</strong>
-        <p style="font-size:0.88rem;color:var(--ink-soft);margin-top:8px;">Check uw inbox. Wilt u ook weten of uw specifieke beschikking klopt? Doe dan de gratis WHK-check hieronder.</p>
+        <strong>De checklist opent in een nieuw tabblad!</strong>
+        <p style="font-size:0.88rem;color:var(--ink-soft);margin-top:8px;">Wilt u ook weten of uw specifieke beschikking klopt? Doe dan de gratis WHK-check hieronder.</p>
         <button class="btn btn-risk btn-sm" id="lm-to-calc" type="button" style="margin-top:12px;">Doe de gratis check</button>
       </div>
     </div>
@@ -6827,12 +6827,10 @@
       var naam  = (document.getElementById('lm-naam') ||{value:''}).value.trim();
       if(!email){ var el = document.getElementById('lm-email'); if(el) el.focus(); return; }
       addNewsletterSub(email);
-      if(naam) addLead(naam, '', 'lead-magnet-checklist');
-      var fw = document.getElementById('lead-magnet-form-wrap');
-      var ok = document.getElementById('lead-magnet-ok');
-      if(fw) fw.style.display = 'none';
-      if(ok) ok.style.display = 'block';
+      if(naam) addLead(naam, email, 'lead-magnet-checklist');
       trackEvent('lead_magnet_converted');
+      // Doorsturen naar de checklistpagina
+      window.open('/whk_checklist.html', '_blank');
       // Download checklist als HTML-bestand
       var html = '<!DOCTYPE html><html lang="nl"><head><meta charset="UTF-8"><title>WHK-checklist voor werkgevers</title>'
         + '<style>body{font-family:Georgia,serif;max-width:680px;margin:40px auto;padding:0 24px;color:#11192B;line-height:1.65;}h1{font-size:1.5rem;border-bottom:3px solid #1C6E4A;padding-bottom:10px;}h2{font-size:1rem;margin-top:28px;color:#A23E2C;}li{margin-bottom:10px;}footer{margin-top:40px;font-size:0.84rem;color:#777;border-top:1px solid #ddd;padding-top:14px;}</style></head><body>'
@@ -10528,7 +10526,7 @@
   function buildEmailGateHtml(){
     var html = '<p class="email-gate-label">Ontvang deze uitkomst ook per e-mail</p>';
     html += '<div class="email-gate-row"><input type="email" class="eg-email-input" placeholder="naam@bedrijf.nl"><button type="button" class="btn btn-savings eg-submit-btn">Verstuur</button></div>';
-    html += '<p class="eg-ok" style="display:none;">Bedankt, we sturen u dit resultaat zo snel mogelijk toe.</p>';
+    html += '<p class="eg-ok" style="display:none;">De checklist opent in een nieuw tabblad. Wij nemen ook contact met u op.</p>';
     return html;
   }
   function initEmailGate(root, sourceLabel, getSummaryFn){
