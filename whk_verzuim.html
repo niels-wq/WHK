@@ -6438,8 +6438,20 @@
 
       <!-- Stap 1 -->
       <div id="modal-tb-step1">
-        <div class="field"><label for="m-naam">Naam</label><input type="text" id="m-naam"></div>
-        <div class="field"><label for="m-tel">Telefoonnummer</label><input type="tel" id="m-tel"></div>
+        <!-- Honeypot anti-spam veld (verborgen voor mensen, zichtbaar voor bots) -->
+        <div style="position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden;" aria-hidden="true">
+          <input type="text" id="m-honeypot" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="m-naam">Naam <span style="color:var(--risk);">*</span></label>
+          <input type="text" id="m-naam" required placeholder="Uw volledige naam">
+          <span id="m-naam-err" style="display:none;color:var(--risk);font-size:0.8rem;margin-top:3px;">Vul uw naam in</span>
+        </div>
+        <div class="field">
+          <label for="m-tel">Telefoonnummer <span style="color:var(--risk);">*</span></label>
+          <input type="tel" id="m-tel" required placeholder="06-12345678">
+          <span id="m-tel-err" style="display:none;color:var(--risk);font-size:0.8rem;margin-top:3px;">Vul een geldig telefoonnummer in</span>
+        </div>
         <div class="field">
           <label for="m-onderwerp">Waar gaat uw vraag over?</label>
           <select id="m-onderwerp">
@@ -6979,6 +6991,23 @@
     var naam = document.getElementById('fb-naam').value.trim();
     var tel  = document.getElementById('fb-tel').value.trim();
     var onderwerp = (document.getElementById('fb-onderwerp') || {value:''}).value;
+
+    // Validatie
+    if(!naam){
+      var nEl = document.getElementById('fb-naam');
+      nEl.style.borderColor = 'var(--risk)';
+      nEl.focus();
+      return;
+    }
+    if(!tel || tel.replace(/\D/g,'').length < 9){
+      var tEl = document.getElementById('fb-tel');
+      tEl.style.borderColor = 'var(--risk)';
+      tEl.focus();
+      return;
+    }
+    document.getElementById('fb-naam').style.borderColor = '';
+    document.getElementById('fb-tel').style.borderColor = '';
+
     var source = 'footer-terugbel' + (onderwerp ? ':' + onderwerp : '');
     addLead(naam, tel, source);
     document.getElementById('fb-ok').style.display = 'block';
@@ -7012,10 +7041,35 @@
     bg.addEventListener('click', function(e){ if(e.target === bg) bg.classList.remove('show'); });
   });
   document.getElementById('m-submit').addEventListener('click', function(){
+    // Honeypot check — bots vullen dit in, mensen niet
+    var honeypot = (document.getElementById('m-honeypot') || {value:''}).value;
+    if(honeypot){ return; } // stilletjes weggooien
+
     var naam      = document.getElementById('m-naam').value.trim();
     var tel       = document.getElementById('m-tel').value.trim();
     var onderwerp = (document.getElementById('m-onderwerp') || {value:''}).value;
-    if(!naam || !tel){ return; }
+
+    if(!naam){
+      var nEl = document.getElementById('m-naam');
+      nEl.style.borderColor = 'var(--risk)';
+      nEl.placeholder = 'Naam is verplicht';
+      nEl.focus();
+      document.getElementById('m-naam-err').style.display = 'block';
+      return;
+    }
+    if(!tel || tel.replace(/\D/g,'').length < 9){
+      var tEl = document.getElementById('m-tel');
+      tEl.style.borderColor = 'var(--risk)';
+      tEl.placeholder = 'Geldig telefoonnummer verplicht';
+      tEl.focus();
+      document.getElementById('m-tel-err').style.display = 'block';
+      return;
+    }
+    // Reset borders
+    document.getElementById('m-naam').style.borderColor = '';
+    document.getElementById('m-tel').style.borderColor = '';
+    document.getElementById('m-naam-err').style.display = 'none';
+    document.getElementById('m-tel-err').style.display = 'none';
     // Toon stap 2: tijdselectie
     document.getElementById('modal-tb-step1').style.display = 'none';
     document.getElementById('modal-tb-step2').style.display = 'block';
@@ -7034,8 +7088,11 @@
       var naam      = submitBtn._naam || '';
       var tel       = submitBtn._tel  || '';
       var onderwerp = submitBtn._onderwerp || '';
+      var currentView = document.querySelector('.page-section[style*="display: block"]');
+      var paginaNaam = currentView ? (currentView.id || 'onbekend').replace('-view','') : 'onbekend';
       var source = 'terugbel-modal' + (onderwerp ? ':' + onderwerp : '') + ':' + slot;
-      addLead(naam, tel, source);
+      var message = 'Pagina: ' + paginaNaam + ' | Tijdstip: ' + slot;
+      addLead(naam, tel, source, message);
       document.getElementById('modal-tb-step2').style.display = 'none';
       document.getElementById('m-ok').style.display = 'block';
       // Reset voor volgende keer
@@ -8892,7 +8949,7 @@
         fetch(BACKEND_URL + '/api/lead/notify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: name, phone: phone, source: source, message: message })
+          body: JSON.stringify({ name: name, phone: phone, source: source, message: message, page: window.location.href })
         });
       } catch(e){ /* stille fout — lead is al opgeslagen */ }
     }
@@ -13542,12 +13599,14 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
       },
       {
         "@context": "https://schema.org",
-        "@type": "Service",
-        "name": "WHK-beschikking controleren",
-        "provider": { "@type": "Organization", "name": "Matchvermogen / Werkhervattingskas.nl", "url": "https://www.werkhervattingskas.nl" },
-        "description": "Professionele controle van uw WHK-beschikking op fouten, foutieve toerekening en gemiste no-riskpolissen. No cure, no pay. Bandbreedte besparing €25.000–€100.000 per jaar.",
+        "@type": "LocalBusiness",
+        "name": "Matchvermogen / Werkhervattingskas.nl",
+        "url": "https://www.werkhervattingskas.nl",
+        "description": "Professionele controle van uw WHK-beschikking op fouten, foutieve toerekening en gemiste no-riskpolissen. No cure, no pay. Besparing varieert van \u20ac25.000\u2013\u20ac100.000 per jaar.",
         "areaServed": "NL",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "description": "Gratis eerste check. No cure, no pay bij bezwaarprocedure." },
+        "telephone": "06-50213593",
+        "email": "info@werkhervattingskas.nl",
+        "priceRange": "No cure, no pay",
         "aggregateRating": {
           "@type": "AggregateRating",
           "ratingValue": "4.9",
@@ -13555,7 +13614,12 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
           "worstRating": "1",
           "ratingCount": "14",
           "reviewCount": "14"
-        }
+        },
+        "review": [
+          { "@type": "Review", "author": { "@type": "Person", "name": "Martijn de Vries" }, "reviewRating": { "@type": "Rating", "ratingValue": "5" }, "reviewBody": "Via Matchvermogen hebben wij ruim \u20ac250.000 teruggekregen op onze WHK-beschikking." },
+          { "@type": "Review", "author": { "@type": "Person", "name": "Astrid Reighardt" }, "reviewRating": { "@type": "Rating", "ratingValue": "5" }, "reviewBody": "De expertise op het vlak van bezwaar en beroep is echt een ander niveau \u2014 inhoudelijk sterk onderbouwd en procesmatig goed begeleid." },
+          { "@type": "Review", "author": { "@type": "Person", "name": "Sander Kuipers" }, "reviewRating": { "@type": "Rating", "ratingValue": "5" }, "reviewBody": "Vakkundige, gestructureerde aanpak met regelmatige updates over de voortgang van de bezwaarprocedures." }
+        ]
       },
       {
         "@context": "https://schema.org",
