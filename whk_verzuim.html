@@ -6473,9 +6473,9 @@
       <div id="modal-tb-step2" style="display:none;">
         <p style="font-weight:600;margin-bottom:10px;">Wanneer belt u het liefst?</p>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <button type="button" class="time-slot-btn modal-slot" data-slot="Vandaag of morgen ochtend (9-12u)">🕘 Vandaag of morgen ochtend (9–12u)</button>
-          <button type="button" class="time-slot-btn modal-slot" data-slot="Vandaag of morgen middag (13-17u)">🕐 Vandaag of morgen middag (13–17u)</button>
-          <button type="button" class="time-slot-btn modal-slot" data-slot="Later deze week, op afspraak">📅 Later deze week, op afspraak</button>
+          <button type="button" class="modal-slot" data-slot="Vandaag of morgen ochtend (9-12u)">🕘 Vandaag of morgen ochtend (9–12u)</button>
+          <button type="button" class="modal-slot" data-slot="Vandaag of morgen middag (13-17u)">🕐 Vandaag of morgen middag (13–17u)</button>
+          <button type="button" class="modal-slot" data-slot="Later deze week, op afspraak">📅 Later deze week, op afspraak</button>
         </div>
       </div>
 
@@ -7088,8 +7088,7 @@
       var naam      = submitBtn._naam || '';
       var tel       = submitBtn._tel  || '';
       var onderwerp = submitBtn._onderwerp || '';
-      var currentView = document.querySelector('.page-section[style*="display: block"]');
-      var paginaNaam = currentView ? (currentView.id || 'onbekend').replace('-view','') : 'onbekend';
+      var paginaNaam = (typeof activeViewId !== 'undefined' ? activeViewId : 'onbekend').replace('-view', '');
       var source = 'terugbel-modal' + (onderwerp ? ':' + onderwerp : '') + ':' + slot;
       var message = 'Pagina: ' + paginaNaam + ' | Tijdstip: ' + slot;
       addLead(naam, tel, source, message);
