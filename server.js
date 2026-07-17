@@ -84,6 +84,7 @@ async function sendLeadEmail(lead) {
           <tr><td style="padding:8px 0;color:#666;"><strong>Telefoon</strong></td><td style="padding:8px 0;">${lead.phone || '—'}</td></tr>
           <tr><td style="padding:8px 0;color:#666;"><strong>E-mail</strong></td><td style="padding:8px 0;">${lead.email || '—'}</td></tr>
           <tr><td style="padding:8px 0;color:#666;"><strong>Bericht</strong></td><td style="padding:8px 0;">${lead.message || lead.summary || '—'}</td></tr>
+          <tr><td style="padding:8px 0;color:#666;"><strong>Pagina</strong></td><td style="padding:8px 0;">${lead.page || '—'}</td></tr>
           <tr><td style="padding:8px 0;color:#666;"><strong>Formulier</strong></td><td style="padding:8px 0;">${bron}</td></tr>
           <tr><td style="padding:8px 0;color:#666;"><strong>Tijdstip</strong></td><td style="padding:8px 0;">${tijdstip}</td></tr>
         </table>
@@ -149,6 +150,7 @@ app.post('/api/lead/notify', async (req, res) => {
       email:   req.body.email   || '',
       source:  req.body.source  || 'onbekend',
       message: req.body.message || req.body.summary || '',
+      page:    req.body.page    || '',
       createdAt: new Date().toISOString(),
       status: 'new'
     };
