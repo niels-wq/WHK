@@ -259,6 +259,7 @@ const URL_META = {
   '/diensten/arbeidsdeskundig-onderzoek': { title: 'Arbeidsdeskundig onderzoek — werkhervattingskas.nl', desc: 'Erkend arbeidsdeskundig rapport voor re-integratie of WIA-onderbouwing. Vanaf €1.095.' },
   '/diensten/tweede-spoor':        { title: 'Tweede spoor re-integratie — werkhervattingskas.nl', desc: 'Tijdig tweede spoor voorkomt loonsanctie. Volledig begeleid traject.' },
   '/diensten/consultancy':         { title: 'Verzuimconsultancy — werkhervattingskas.nl', desc: 'Structurele verbetering van uw verzuimbeleid en re-integratiemanagement.' },
+  '/whk_checklist.html':           { title: 'Gratis WHK-checklist 2026: 25 controlepunten — werkhervattingskas.nl', desc: 'Download de gratis WHK-checklist voor werkgevers. 25 punten om fouten in uw beschikking te vinden. No cure, no pay bij gevonden fouten.' },
   '/diensten/erd-partneradvies':   { title: 'Eigenrisicodragerschap & partneradvies — werkhervattingskas.nl', desc: 'Is eigenrisicodragerschap voordeliger? Wij vergelijken en begeleiden de overgang.' },
 };
 
@@ -441,6 +442,23 @@ app.get(['/blog', '/kennisbank'], (req, res, next) => {
     "publisher": { "@type": "Organization", "name": "Matchvermogen / Werkhervattingskas.nl" }
   });
   next();
+});
+
+
+// OG Social Share Image
+app.get('/og-image.png', (req, res) => {
+  const svg = `<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="630" fill="#11192B"/>
+    <rect width="1200" height="8" fill="#A23E2C"/>
+    <text x="80" y="220" font-family="Georgia,serif" font-size="52" font-weight="bold" fill="white">WHK-beschikking controleren</text>
+    <text x="80" y="300" font-family="Georgia,serif" font-size="40" fill="#C8B89A">en verzuimkosten verlagen</text>
+    <text x="80" y="420" font-family="Arial,sans-serif" font-size="28" fill="#9B9588">No cure, no pay  ·  €25.000–€100.000 besparing</text>
+    <text x="80" y="570" font-family="Arial,sans-serif" font-size="24" fill="#A23E2C" font-weight="bold">werkhervattingskas.nl</text>
+  </svg>`;
+  // Convert SVG to response (browsers accept SVG as og:image if served correctly)
+  res.setHeader('Content-Type', 'image/svg+xml');
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  res.send(svg);
 });
 
 // Checklist download
