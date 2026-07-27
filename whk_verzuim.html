@@ -1480,6 +1480,14 @@
   },
   "areaServed": "NL",
   "priceRange": "No cure, no pay",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "14",
+    "reviewCount": "14"
+  },
   "knowsAbout": ["WHK-premie", "Werkhervattingskas", "WGA", "IVA", "No-riskpolis", "Arbeidsdeskundig onderzoek", "Tweede spoor re-integratie", "Loonkostenvoordeel", "Bezwaarprocedure UWV"],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
@@ -2621,6 +2629,16 @@
       <div class="eyebrow">Veelgestelde vragen</div>
       <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:20px;max-width:680px;">Vragen over WHK, no-risk, eigenrisicodragerschap en subsidies.</h1>
 
+      <!-- Urgentie-balk -->
+      <div style="background:#fef3f0;border:1px solid #f5c6bc;border-left:4px solid var(--risk);border-radius:var(--radius-s);padding:12px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <span style="font-size:1.3rem;">⏱</span>
+        <div>
+          <strong style="font-size:0.9rem;color:var(--risk);">Bezwaartermijn: 6 weken na dagtekening</strong>
+          <span style="font-size:0.84rem;color:#666;display:block;">Heeft u een WHK-beschikking ontvangen? De bezwaartermijn is dwingend — te laat is niet-ontvankelijk.</span>
+        </div>
+        <button class="btn btn-risk btn-sm" data-view="dienst-whkreductie-view" style="margin-left:auto;flex-shrink:0;white-space:nowrap;">Gratis check starten →</button>
+      </div>
+
       <!-- Spring-menu -->
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px;">
         <a href="#faq-whk" class="btn btn-ghost btn-sm" style="font-size:0.78rem;">WHK-basics</a>
@@ -2636,85 +2654,119 @@
 
         <div class="faq-item">
           <button class="faq-q">Wat is de Werkhervattingskas (WHK) precies?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>De Werkhervattingskas (WHK) is een gedifferentieerde premie die werkgevers jaarlijks betalen via de loonaangifte. De premie bestaat uit twee onderdelen: de Ziektewetpremie (ZW) voor ex-werknemers die ziek uitvallen na einde dienstverband, en de WGA-premie voor medewerkers die gedeeltelijk arbeidsongeschikt raken. De hoogte hangt af van uw loonsom, uw bedrijfsgrootte en de uitkeringslasten die in de voorgaande jaren aan uw organisatie zijn toegerekend. Kleine werkgevers (loonsom onder &euro;1.082.500 in 2026) betalen een vaste sectorpremie; grote werkgevers betalen een volledig individueel gedifferentieerde premie op basis van hun eigen schadeverleden. Middelgrote werkgevers zitten daar tussenin met een gewogen mix.</p></div>
+          <div class="faq-a"><p>De Werkhervattingskas (WHK) is een gedifferentieerde premie die werkgevers jaarlijks betalen via de loonaangifte. De premie bestaat uit twee onderdelen: de Ziektewetpremie (ZW) voor ex-werknemers die ziek uitvallen na einde dienstverband, en de WGA-premie voor medewerkers die gedeeltelijk arbeidsongeschikt raken. De hoogte hangt af van uw loonsom, uw bedrijfsgrootte en de uitkeringslasten die in de voorgaande jaren aan uw organisatie zijn toegerekend. Kleine werkgevers (loonsom onder &euro;1.082.500 in 2026) betalen een vaste sectorpremie; grote werkgevers betalen een volledig individueel gedifferentieerde premie op basis van hun eigen schadeverleden. Middelgrote werkgevers zitten daar tussenin met een gewogen mix.</p>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">Hoe leest u de WHK-beschikking? →</a></p></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q">Waarom bevatten WHK-beschikkingen vaak fouten?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>De toerekening van uitkeringslasten aan werkgevers gebeurt grotendeels geautomatiseerd door UWV en de Belastingdienst. Daarbij gaat het regelmatig mis: ex-werknemers blijven na verloop van tijd ten onrechte toegerekend staan (bijvoorbeeld omdat zij inmiddels bij een andere werkgever werken of volledig hersteld zijn), of er is sprake van administratieve vertraging waardoor dezelfde last dubbel of in het verkeerde jaar verwerkt is. Ook no-riskpolissen worden niet altijd tijdig gesignaleerd, waardoor werkgevers loondoorbetaling financieren die eigenlijk door het UWV vergoed had moeten worden. Uit onze praktijk blijkt dat bij organisaties met meer dan twintig medewerkers in meer dan de helft van de gevallen minstens &eacute;&eacute;n correctiepunt te vinden is.</p></div>
+          <div class="faq-a"><p>De toerekening van uitkeringslasten aan werkgevers gebeurt grotendeels geautomatiseerd door UWV en de Belastingdienst. Daarbij gaat het regelmatig mis: ex-werknemers blijven na verloop van tijd ten onrechte toegerekend staan (bijvoorbeeld omdat zij inmiddels bij een andere werkgever werken of volledig hersteld zijn), of er is sprake van administratieve vertraging waardoor dezelfde last dubbel of in het verkeerde jaar verwerkt is. Ook no-riskpolissen worden niet altijd tijdig gesignaleerd, waardoor werkgevers loondoorbetaling financieren die eigenlijk door het UWV vergoed had moeten worden. Uit onze praktijk blijkt dat bij organisaties met meer dan twintig medewerkers in meer dan de helft van de gevallen minstens &eacute;&eacute;n correctiepunt te vinden is.</p>
+          <div style="margin-top:10px;"><button class="btn btn-risk btn-sm" data-view="dienst-whkreductie-view">Laat uw beschikking gratis controleren →</button></div></div>
         </div>
 
         <div class="faq-group-title" id="faq-norisk">No-riskpolis, LKV &amp; subsidies</div>
 
         <div class="faq-item">
           <button class="faq-q">Wat is een no-riskpolis en wanneer heb ik er recht op?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>Een no-riskpolis is een regeling waarbij het UWV de loondoorbetalingsverplichting van de werkgever overneemt als een specifieke medewerker ziek wordt. Dit geldt voor medewerkers die voorheen een WIA-, Wajong-, WW- of bijstandsuitkering ontvingen, mensen uit de doelgroep banenafspraak, en in sommige gevallen medewerkers die terugkeren vanuit langdurig verzuim. Het UWV registreert deze status, maar informeert de werkgever hier doorgaans niet proactief over. Als een medewerker met een no-riskpolis ziek wordt en de werkgever dit niet weet, betaalt de werkgever dus onnodig het volledige loon door &mdash; terwijl het UWV dat had moeten vergoeden via de Ziektewet. Wij controleren voor elke ziektemelding of er een no-riskpolis van toepassing is.</p></div>
+          <div class="faq-a"><p>Een no-riskpolis is een regeling waarbij het UWV de loondoorbetalingsverplichting van de werkgever overneemt als een specifieke medewerker ziek wordt. Dit geldt voor medewerkers die voorheen een WIA-, Wajong-, WW- of bijstandsuitkering ontvingen, mensen uit de doelgroep banenafspraak, en in sommige gevallen medewerkers die terugkeren vanuit langdurig verzuim. Het UWV registreert deze status, maar informeert de werkgever hier doorgaans niet proactief over. Als een medewerker met een no-riskpolis ziek wordt en de werkgever dit niet weet, betaalt de werkgever dus onnodig het volledige loon door &mdash; terwijl het UWV dat had moeten vergoeden via de Ziektewet. Wij controleren voor elke ziektemelding of er een no-riskpolis van toepassing is.</p>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/tools/subsidie-scan" data-view="subsidie-scan-view">Doe de gratis subsidie-scan →</a></p></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q">Wat is eigenrisicodragerschap (ERD) en is dat interessant voor mijn bedrijf?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>Als eigenrisicodrager voor WGA draagt u zelf de WGA-uitkeringslasten van uw (ex-)medewerkers, in plaats van een gedifferentieerde premie aan UWV te betalen. In ruil daarvoor kunt u kiezen voor een private verzekering, die vaak goedkoper en flexibeler is dan de publieke premie &mdash; zeker als uw organisatie een laag en stabiel verzuimrisico heeft. Voor grote werkgevers met weinig WGA-instroom kan het verschil oplopen tot &euro;20.000&ndash;&euro;50.000 per jaar. Eigenrisicodragerschap vraagt wel om actief re-integratiebeleid en goede dossiervorming, omdat u ook zelf verantwoordelijk bent voor de re-integratie van WGA-gerechtigden. Wij vergelijken uw huidige publieke premie altijd met de private alternatieven als onderdeel van ons besparingsonderzoek.</p></div>
+          <div class="faq-a"><p>Als eigenrisicodrager voor WGA draagt u zelf de WGA-uitkeringslasten van uw (ex-)medewerkers, in plaats van een gedifferentieerde premie aan UWV te betalen. In ruil daarvoor kunt u kiezen voor een private verzekering, die vaak goedkoper en flexibeler is dan de publieke premie &mdash; zeker als uw organisatie een laag en stabiel verzuimrisico heeft. Voor grote werkgevers met weinig WGA-instroom kan het verschil oplopen tot &euro;20.000&ndash;&euro;50.000 per jaar. Eigenrisicodragerschap vraagt wel om actief re-integratiebeleid en goede dossiervorming, omdat u ook zelf verantwoordelijk bent voor de re-integratie van WGA-gerechtigden. Wij vergelijken uw huidige publieke premie altijd met de private alternatieven als onderdeel van ons besparingsonderzoek.</p>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/diensten/erd-partneradvies" data-view="dienst-partneradvies-view">Meer over eigenrisicodragerschap →</a></p></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q">Wat is het loonkostenvoordeel (LKV) en voor wie geldt het?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>Het loonkostenvoordeel (LKV) is een jaarlijkse tegemoetkoming voor werkgevers die medewerkers uit specifieke doelgroepen in dienst nemen of houden. Er zijn vier soorten: LKV oudere werknemers (vanaf 56 jaar vanuit uitkering), LKV arbeidsgehandicapte werknemers, LKV doelgroep banenafspraak en scholingsbelemmerden, en LKV herplaatsen arbeidsgehandicapte werknemer. Het bedrag varieert van &euro;1.010 tot &euro;6.000 per medewerker per jaar, afhankelijk van het type LKV. De aanvraag loopt via de loonaangifte en is gebonden aan een termijn: u kunt het LKV alleen claimen voor het jaar van indiensttreding en de drie jaren daarna. Werkgevers missen dit regelmatig omdat UWV de doelgroepstatus niet proactief deelt. Wij checken voor elk nieuw personeelslid of een LKV van toepassing is.</p></div>
+          <div class="faq-a"><p>Het loonkostenvoordeel (LKV) is een jaarlijkse tegemoetkoming voor werkgevers die medewerkers uit specifieke doelgroepen in dienst nemen of houden. Er zijn vier soorten: LKV oudere werknemers (vanaf 56 jaar vanuit uitkering), LKV arbeidsgehandicapte werknemers, LKV doelgroep banenafspraak en scholingsbelemmerden, en LKV herplaatsen arbeidsgehandicapte werknemer. Het bedrag varieert van &euro;1.010 tot &euro;6.000 per medewerker per jaar, afhankelijk van het type LKV. De aanvraag loopt via de loonaangifte en is gebonden aan een termijn: u kunt het LKV alleen claimen voor het jaar van indiensttreding en de drie jaren daarna. Werkgevers missen dit regelmatig omdat UWV de doelgroepstatus niet proactief deelt. Wij checken voor elk nieuw personeelslid of een LKV van toepassing is.</p>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/tools/subsidie-scan" data-view="subsidie-scan-view">Bereken uw LKV-potentieel →</a></p></div>
         </div>
 
         <div class="faq-group-title" id="faq-procedure">Bezwaar, procedure &amp; privacy</div>
 
         <div class="faq-item">
           <button class="faq-q">Hoe lang duurt een besparingsonderzoek?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>De eerste indicatieve check op basis van uw loonsom en beschikking is doorgaans binnen 48 uur afgerond. Daarna volgt een fase waarbij wij de WHK-beschikking, loonaangiftes en relevante verzuimdossiers naast elkaar leggen. Afhankelijk van de omvang van uw organisatie en de volledigheid van de aangeleverde informatie duurt dit twee tot vier weken. Bij een correctiepunt dienen wij direct bezwaar in bij het UWV of de Belastingdienst &mdash; een bezwaarprocedure duurt wettelijk maximaal dertien weken, maar in de meeste gevallen krijgen we eerder uitsluitsel.</p></div>
+          <div class="faq-a"><p>De eerste indicatieve check op basis van uw loonsom en beschikking is doorgaans binnen 48 uur afgerond. Daarna volgt een fase waarbij wij de WHK-beschikking, loonaangiftes en relevante verzuimdossiers naast elkaar leggen. Afhankelijk van de omvang van uw organisatie en de volledigheid van de aangeleverde informatie duurt dit twee tot vier weken. Bij een correctiepunt dienen wij direct bezwaar in bij het UWV of de Belastingdienst &mdash; een bezwaarprocedure duurt wettelijk maximaal dertien weken, maar in de meeste gevallen krijgen we eerder uitsluitsel.</p>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/diensten/besparingsonderzoek" data-view="dienst-besparingsonderzoek-view">Meer over het besparingsonderzoek →</a></p></div>
+        </div>
+
+        <!-- Sociale bewijskracht -->
+        <div style="margin:28px 0;padding:24px 28px;background:var(--paper-deep);border:1px solid var(--line);border-radius:var(--radius-m);border-left:4px solid var(--savings);">
+          <div style="font-size:0.75rem;color:var(--savings);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px;">Wat klanten zeggen</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
+            <div style="background:white;padding:16px 18px;border-radius:var(--radius-s);border:1px solid var(--line);">
+              <p style="font-size:0.87rem;color:var(--ink);margin:0 0 10px;line-height:1.5;">"Via Matchvermogen hebben wij ruim <strong>€250.000</strong> teruggekregen op onze WHK-beschikking. De aanpak is inhoudelijk sterk en procesgericht."</p>
+              <span style="font-size:0.78rem;color:var(--ink-soft);font-weight:600;">Martijn de Vries &mdash; BYLDER</span>
+            </div>
+            <div style="background:white;padding:16px 18px;border-radius:var(--radius-s);border:1px solid var(--line);">
+              <p style="font-size:0.87rem;color:var(--ink);margin:0 0 10px;line-height:1.5;">"De expertise op het vlak van bezwaar en beroep is echt een ander niveau — inhoudelijk sterk onderbouwd en procesmatig goed begeleid."</p>
+              <span style="font-size:0.78rem;color:var(--ink-soft);font-weight:600;">Astrid Reighardt &mdash; HR adviseur, Jigler</span>
+            </div>
+          </div>
+          <div style="margin-top:14px;text-align:center;">
+            <button class="btn btn-ghost btn-sm" data-view="overons-view" style="font-size:0.82rem;">Alle ervaringen lezen →</button>
+          </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q">Wat kost de check, en wat als jullie niets vinden?<span class="faq-chevron">&#8964;</span></button>
           <div class="faq-a"><p>De vrijblijvende check is altijd kosteloos &mdash; ongeacht de uitkomst. Vinden we geen aanwijsbare fout of gemiste compensatie, dan betaalt u niets en heeft het onderzoek u alleen 15 minuten telefoontijd gekost. Vinden we wel een besparing of terugvordering, dan werken wij op basis van een no-cure-no-pay-principe: u betaalt een transparant percentage van het daadwerkelijk gerealiseerde resultaat. Dat percentage wordt v&oacute;&oacute;raf duidelijk afgesproken, zodat u nooit voor verrassingen staat. Er zijn geen abonnementen, advieskosten of minimumhonoraria.</p></div>
-        </div>
-
-        <div class="faq-item">
+          <div style="margin-top:12px;padding:12px 16px;background:#fef3f0;border-radius:6px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+            <span style="font-size:0.87rem;color:var(--risk);font-weight:600;">Gratis en vrijblijvend — geen verplichtingen</span>
+            <button class="btn btn-risk btn-sm" data-view="dienst-whkreductie-view">Start de gratis check →</button>
+          </div>
+        </div>      <div class="faq-item">
           <button class="faq-q">Hoe gaan jullie om met onze loongegevens en privacy?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>Wij verwerken uw gegevens uitsluitend voor het doel waarvoor ze zijn verstrekt: het controleren van uw WHK-beschikking en het opstellen van een advies. Alle documenten worden versleuteld opgeslagen en nooit gedeeld met derden buiten de direct betrokken specialisten. U kunt BSN-nummers vooraf onleesbaar maken of documenten geanonimiseerd insturen &mdash; voor de feitelijke WHK-controle zijn die gegevens doorgaans niet nodig. Wij werken conform de AVG en zijn bereid om op verzoek een verwerkersovereenkomst te tekenen. Na afronding van het onderzoek worden de documenten verwijderd uit onze systemen, tenzij u ons verzoekt ze te bewaren voor vervolgtrajecten.</p></div>
+          <div class="faq-a"><p>Wij verwerken uw gegevens uitsluitend voor het doel waarvoor ze zijn verstrekt: het controleren van uw WHK-beschikking en het opstellen van een advies. Alle documenten worden versleuteld opgeslagen en nooit gedeeld met derden buiten de direct betrokken specialisten. U kunt BSN-nummers vooraf onleesbaar maken of documenten geanonimiseerd insturen &mdash; voor de feitelijke WHK-controle zijn die gegevens doorgaans niet nodig. Wij werken conform de AVG en zijn bereid om op verzoek een verwerkersovereenkomst te tekenen. Na afronding van het onderzoek worden de documenten verwijderd uit onze systemen, tenzij u ons verzoekt ze te bewaren voor vervolgtrajecten.</p>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/privacy" data-view="privacy-view">Lees onze privacyverklaring →</a></p></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q">Kunnen jullie ook bezwaar maken bij UWV of de Belastingdienst?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>Ja. Wij begeleiden de volledige bezwaarprocedure, van het opstellen van het bezwaarschrift tot het voeren van een eventuele hoorzitting. Onze bezwaren worden inhoudelijk onderbouwd door erkende arbeidsdeskundigen en, waar nodig, aangevuld met medische context door Niels Alderding, die door het UWV erkend is om medische informatie in beroepsprocedures te verwerken. De bezwaartermijn is zes weken na dagtekening van de beschikking &mdash; wacht dus niet te lang. Als de bezwaartermijn al verstreken is, kunnen we in sommige gevallen nog een pro-formaverzoek indienen of een herzieningsverzoek starten. Wij adviseren u hier gratis over tijdens het eerste gesprek.</p></div>
+          <div class="faq-a"><p>Ja. Wij begeleiden de volledige bezwaarprocedure, van het opstellen van het bezwaarschrift tot het voeren van een eventuele hoorzitting. Onze bezwaren worden inhoudelijk onderbouwd door erkende arbeidsdeskundigen en, waar nodig, aangevuld met medische context door Niels Alderding, die door het UWV erkend is om medische informatie in beroepsprocedures te verwerken. De bezwaartermijn is zes weken na dagtekening van de beschikking &mdash; wacht dus niet te lang. Als de bezwaartermijn al verstreken is, kunnen we in sommige gevallen nog een pro-formaverzoek indienen of een herzieningsverzoek starten. Wij adviseren u hier gratis over tijdens het eerste gesprek.</p>
+          <div style="margin-top:10px;"><button class="btn btn-risk btn-sm" data-view="dienst-whkreductie-view">Gratis beschikking laten controleren →</button></div></div>
         </div>
 
         <div class="faq-group-title" id="faq-diensten">Onze diensten</div>
 
         <div class="faq-item">
           <button class="faq-q">Wat is een arbeidsdeskundig onderzoek en wanneer heb ik dat nodig?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>Een arbeidsdeskundig onderzoek (AD-onderzoek) brengt objectief in kaart wat een medewerker nog wel en niet kan doen, gemeten aan de eisen van zijn of haar functie en eventuele aangepaste of andere functies. Het is verplicht onderdeel van een re-integratiedossier bij dreigend langdurig verzuim en is vaak nodig als basis voor een tweede-spoortraject, een WIA-aanvraag of een bezwaarprocedure bij het UWV. Ons AD-onderzoek gaat verder dan het wettelijke minimum: wij koppelen de uitkomst altijd aan de financiële impact op uw WHK-premie en schadelast, zodat u niet alleen weet wat de medewerker kan, maar ook wat het voor uw organisatie betekent.</p></div>
+          <div class="faq-a"><p>Een arbeidsdeskundig onderzoek (AD-onderzoek) brengt objectief in kaart wat een medewerker nog wel en niet kan doen, gemeten aan de eisen van zijn of haar functie en eventuele aangepaste of andere functies. Het is verplicht onderdeel van een re-integratiedossier bij dreigend langdurig verzuim en is vaak nodig als basis voor een tweede-spoortraject, een WIA-aanvraag of een bezwaarprocedure bij het UWV. Ons AD-onderzoek gaat verder dan het wettelijke minimum: wij koppelen de uitkomst altijd aan de financiële impact op uw WHK-premie en schadelast, zodat u niet alleen weet wat de medewerker kan, maar ook wat het voor uw organisatie betekent.</p>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/diensten/arbeidsdeskundig-onderzoek" data-view="dienst-arbeidsdeskundig-view">Meer over arbeidsdeskundig onderzoek →</a></p></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q">Kan ik ook als particulier bij jullie terecht, bijvoorbeeld voor een herbeoordeling?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>Ja. Naast werkgevers helpen we ook particulieren bij een herbeoordeling van hun WGA-, WIA- of Wajong-uitkering, of bij bezwaar tegen een UWV-beslissing over hun arbeidsongeschiktheidspercentage. We bekijken dan samen of uw dossier juist is samengesteld, of de medische onderbouwing klopt en of de arbeidskundige conclusies houdbaar zijn. Omdat Niels Alderding een brede paramedische achtergrond heeft en door het UWV erkend is, kunnen we ook de medische kant meenemen &mdash; iets wat de meeste arbeidsdeskundig bureaus niet kunnen bieden. De kosten zijn afhankelijk van de complexiteit van uw zaak en worden vooraf besproken.</p></div>
+          <div class="faq-a"><p>Ja. Naast werkgevers helpen we ook particulieren bij een herbeoordeling van hun WGA-, WIA- of Wajong-uitkering, of bij bezwaar tegen een UWV-beslissing over hun arbeidsongeschiktheidspercentage. We bekijken dan samen of uw dossier juist is samengesteld, of de medische onderbouwing klopt en of de arbeidskundige conclusies houdbaar zijn. Omdat Niels Alderding een brede paramedische achtergrond heeft en door het UWV erkend is, kunnen we ook de medische kant meenemen &mdash; iets wat de meeste arbeidsdeskundig bureaus niet kunnen bieden. De kosten zijn afhankelijk van de complexiteit van uw zaak en worden vooraf besproken.</p>
+          <div style="margin-top:10px;"><button class="btn btn-ghost btn-sm" type="button" data-cta="terugbel">Neem contact op →</button></div></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q">Wat is het verschil tussen een WGA-uitkering en een IVA-uitkering?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>Beide zijn onderdeel van de WIA (Wet werk en inkomen naar arbeidsvermogen). Een WGA-uitkering (Werkhervatting Gedeeltelijk Arbeidsgeschikten) is bedoeld voor mensen die gedeeltelijk arbeidsongeschikt zijn of volledig maar met kans op herstel. Een IVA-uitkering (Inkomensvoorziening Volledig Arbeidsongeschikten) geldt voor mensen die volledig &eacute;n duurzaam arbeidsongeschikt zijn. Het cruciale verschil voor werkgevers: WGA-uitkeringen worden in het systeem van gedifferentieerde premies toegerekend aan de (ex-)werkgever, wat uw WHK-premie verhoogt. IVA-uitkeringen vallen buiten die toerekening. Als iemand ten onrechte een WGA-uitkering ontvangt terwijl hij of zij feitelijk IVA-waardig is, betaalt u dus onnodig hogere premie. Wij signaleren dit bij herbeoordelingen.</p></div>
+          <div class="faq-a"><p>Beide zijn onderdeel van de WIA (Wet werk en inkomen naar arbeidsvermogen). Een WGA-uitkering (Werkhervatting Gedeeltelijk Arbeidsgeschikten) is bedoeld voor mensen die gedeeltelijk arbeidsongeschikt zijn of volledig maar met kans op herstel. Een IVA-uitkering (Inkomensvoorziening Volledig Arbeidsongeschikten) geldt voor mensen die volledig &eacute;n duurzaam arbeidsongeschikt zijn. Het cruciale verschil voor werkgevers: WGA-uitkeringen worden in het systeem van gedifferentieerde premies toegerekend aan de (ex-)werkgever, wat uw WHK-premie verhoogt. IVA-uitkeringen vallen buiten die toerekening. Als iemand ten onrechte een WGA-uitkering ontvangt terwijl hij of zij feitelijk IVA-waardig is, betaalt u dus onnodig hogere premie. Wij signaleren dit bij herbeoordelingen.</p>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/tools/wia-calculator" data-view="wia-calc-view">Bereken de WIA-uitkering →</a></p></div>
         </div>
 
         <div class="faq-group-title" id="faq-privacy">Privacy, kosten &amp; samenwerking</div>
 
         <div class="faq-item">
           <button class="faq-q">Bieden jullie ook workshops of trainingen aan?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>Ja, we verzorgen interactieve workshops voor HR-professionals, casemanagers en leidinggevenden over onderwerpen als de WHK-beschikking begrijpen, no-risk- en doelgroepregistratie, poortwachterverplichtingen en arbeidsdeskundig onderzoek in de praktijk. De workshops zijn praktijkgericht met eigen casussen en ruimte voor vragen over uw specifieke situatie. Ze zijn beschikbaar als incompany-training voor &eacute;&eacute;n organisatie of als open inschrijving. Neem contact op via info@werkhervattingskas.nl voor data en tarieven.</p></div>
+          <div class="faq-a"><p>Ja, we verzorgen interactieve workshops voor HR-professionals, casemanagers en leidinggevenden over onderwerpen als de WHK-beschikking begrijpen, no-risk- en doelgroepregistratie, poortwachterverplichtingen en arbeidsdeskundig onderzoek in de praktijk. De workshops zijn praktijkgericht met eigen casussen en ruimte voor vragen over uw specifieke situatie. Ze zijn beschikbaar als incompany-training voor &eacute;&eacute;n organisatie of als open inschrijving. Neem contact op via info@werkhervattingskas.nl voor data en tarieven.</p>
+          <div style="margin-top:10px;"><button class="btn btn-ghost btn-sm" type="button" data-cta="terugbel">Vraag de mogelijkheden op →</button></div></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q">Werken jullie alleen met het mkb, of ook met grote organisaties?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>We werken voor organisaties van alle groottes, van mkb met twintig medewerkers tot gemeenten en zorginstellingen met duizenden werknemers. De aanpak verschilt wel: bij kleine werkgevers gaat het vaak om gerichte no-risk- of LKV-checks; bij grote werkgevers is er meer schaalvoordeel in een volledig WHK-audit en liggen de besparingsbedragen hoger. Onze grootste besparingscasus tot nu toe betrof een zorgorganisatie met een loonsom van &euro;28 miljoen, waarbij we over drie jaar &euro;137.000 aan onterechte WHK-premie hebben teruggevorderd.</p></div>
+          <div class="faq-a"><p>We werken voor organisaties van alle groottes, van mkb met twintig medewerkers tot gemeenten en zorginstellingen met duizenden werknemers. De aanpak verschilt wel: bij kleine werkgevers gaat het vaak om gerichte no-risk- of LKV-checks; bij grote werkgevers is er meer schaalvoordeel in een volledig WHK-audit en liggen de besparingsbedragen hoger. Onze grootste besparingscasus tot nu toe betrof een zorgorganisatie met een loonsom van &euro;28 miljoen, waarbij we over drie jaar &euro;137.000 aan onterechte WHK-premie hebben teruggevorderd.</p>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/over-ons" data-view="overons-view">Lees over onze opdrachtgevers →</a></p></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q">Mogen jullie medische informatie inzien bij een bezwaar- of beroepsprocedure?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>Medische gegevens zijn wettelijk extra beschermd en worden niet automatisch gedeeld met een jurist of belangenbehartiger, ook niet als erkende rechtshulpverlener. Bij ons is dit anders georganiseerd: Niels Alderding heeft een brede paramedische achtergrond en is door het UWV erkend om medische informatie in beroepsprocedures te verwerken. Daardoor kan een zaak met uw toestemming worden onderbouwd op basis van het volledige medische beeld, in plaats van alleen de uitkomst die het UWV zelf rapporteert &mdash; met het medisch beroepsgeheim onverkort gewaarborgd. Dit geeft ons een wezenlijk sterkere positie in procedures waar de medische onderbouwing van de arbeidskundige conclusie wordt aangevochten.</p></div>
+          <div class="faq-a"><p>Medische gegevens zijn wettelijk extra beschermd en worden niet automatisch gedeeld met een jurist of belangenbehartiger, ook niet als erkende rechtshulpverlener. Bij ons is dit anders georganiseerd: Niels Alderding heeft een brede paramedische achtergrond en is door het UWV erkend om medische informatie in beroepsprocedures te verwerken. Daardoor kan een zaak met uw toestemming worden onderbouwd op basis van het volledige medische beeld, in plaats van alleen de uitkomst die het UWV zelf rapporteert &mdash; met het medisch beroepsgeheim onverkort gewaarborgd. Dit geeft ons een wezenlijk sterkere positie in procedures waar de medische onderbouwing van de arbeidskundige conclusie wordt aangevochten.</p>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/diensten/arbeidsdeskundig-onderzoek" data-view="dienst-arbeidsdeskundig-view">Meer over arbeidsdeskundig bezwaar →</a></p></div>
         </div>
 
         <div class="faq-group-title" id="faq-interventie">Interventiediensten &amp; re-integratie</div>
@@ -2736,7 +2788,8 @@
 
         <div class="faq-item">
           <button class="faq-q">Kunnen jullie ook helpen als we al een loonsanctie hebben ontvangen?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>Ja. U heeft zes weken de tijd om bezwaar te maken. Wij beoordelen of de sanctie terecht is opgelegd en of er gronden zijn voor bezwaar of beroep. Regelmatig blijkt dat een loonsanctie deels of volledig kan worden teruggedraaid wanneer het re-integratiedossier correct is gedocumenteerd. Neem direct contact op — de bezwaartermijn verloopt snel.</p></div>
+          <div class="faq-a"><p>Ja. U heeft zes weken de tijd om bezwaar te maken. Wij beoordelen of de sanctie terecht is opgelegd en of er gronden zijn voor bezwaar of beroep. Regelmatig blijkt dat een loonsanctie deels of volledig kan worden teruggedraaid wanneer het re-integratiedossier correct is gedocumenteerd. Neem direct contact op — de bezwaartermijn verloopt snel.</p>
+          <div style="margin-top:10px;"><button class="btn btn-risk btn-sm" type="button" data-cta="terugbel">Bespreek uw situatie →</button></div></div>
         </div>
 
         <div class="faq-item">
@@ -2744,46 +2797,66 @@
           <div class="faq-a"><p>Als een medewerker arbeidsongeschikt raakt door toedoen van een derde — een verkeersongeval, bedrijfsongeval bij een opdrachtgever of een medische misser — kunt u als werkgever de doorbetaalde loonkosten verhalen op de aansprakelijke partij. In de praktijk wordt dit recht vaak niet of te laat benut. Wij begeleiden het volledige regrestraject, no cure, no pay. <a href="/diensten/letselschade" data-view="dienst-letselschade-view">Meer over letselschade en regres &rarr;</a></p></div>
         </div>
 
+        <!-- Inline vraag-formulier -->
+        <div style="margin:28px 0;padding:24px 28px;background:var(--ink);border-radius:var(--radius-m);">
+          <h3 style="color:white;font-size:1rem;margin-bottom:6px;">Staat uw vraag er niet bij?</h3>
+          <p style="color:#9B9588;font-size:0.87rem;margin-bottom:16px;">Stel uw vraag direct — wij reageren binnen 1 werkdag.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <input type="text" id="faq-vraag-naam" placeholder="Uw naam" style="flex:1;min-width:140px;padding:10px 14px;border:1px solid #333;background:#1a2236;color:white;border-radius:6px;font-size:0.88rem;font-family:inherit;">
+            <input type="tel" id="faq-vraag-tel" placeholder="Telefoonnummer" style="flex:1;min-width:140px;padding:10px 14px;border:1px solid #333;background:#1a2236;color:white;border-radius:6px;font-size:0.88rem;font-family:inherit;">
+            <button onclick="submitFaqVraag()" style="padding:10px 18px;background:var(--risk);color:white;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:0.88rem;white-space:nowrap;">Bel mij terug</button>
+          </div>
+          <div id="faq-vraag-ok" style="display:none;margin-top:12px;color:#4ade80;font-size:0.87rem;font-weight:600;">✓ Ontvangen — wij bellen u zo snel mogelijk terug!</div>
+        </div>
+
         <div class="faq-item">
           <button class="faq-q">Wat houdt een WGA-herbeoordeling in en wanneer is die zinvol?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>Een WGA-herbeoordeling is een herziening van de eerder vastgestelde mate van arbeidsongeschiktheid. Dit is zinvol als de gezondheidssituatie is verslechterd en mogelijk recht geeft op IVA — want IVA-uitkeringen worden niet toegerekend aan uw WHK-premie. Ook een herindeling naar een lager AO-percentage of beëindiging bij gedeeltelijk herstel kan de schadelast verlagen.</p></div>
+          <div class="faq-a"><p>Een WGA-herbeoordeling is een herziening van de eerder vastgestelde mate van arbeidsongeschiktheid. Dit is zinvol als de gezondheidssituatie is verslechterd en mogelijk recht geeft op IVA — want IVA-uitkeringen worden niet toegerekend aan uw WHK-premie. Ook een herindeling naar een lager AO-percentage of beëindiging bij gedeeltelijk herstel kan de schadelast verlagen.</p>
+          <div style="margin-top:10px;"><button class="btn btn-risk btn-sm" data-view="dienst-whkreductie-view">Vraag een herbeoordeling aan →</button></div></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q">Kunnen jullie samenwerken met onze bestaande arbodienst of casemanager?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>Ja, en dat doen we regelmatig. Wij opereren als verlengstuk: uw casemanager bewaakt de dagelijkse begeleiding, wij nemen de financieel-juridische kant over — WHK-check, no-riskregistratie, bezwaarprocedures en arbeidsdeskundig onderzoek. De kennis blijft bij de juiste specialist.</p></div>
+          <div class="faq-a"><p>Ja, en dat doen we regelmatig. Wij opereren als verlengstuk: uw casemanager bewaakt de dagelijkse begeleiding, wij nemen de financieel-juridische kant over — WHK-check, no-riskregistratie, bezwaarprocedures en arbeidsdeskundig onderzoek. De kennis blijft bij de juiste specialist.</p>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/voor/casemanager" data-view="voor-casemanager-view">Meer voor casemanagers →</a></p></div>
         </div>
 
         <div class="faq-group-title" id="faq-extra">Meer over WHK &amp; premies</div>
 
         <div class="faq-item">
           <button class="faq-q">Wat is het verschil tussen de sectorale premie en de gedifferentieerde premie?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>Kleine werkgevers (loonsom onder circa €450.000) betalen een sectorale premie die gelijk is voor alle bedrijven in dezelfde sector. Grote werkgevers (loonsom boven circa €900.000) betalen een gedifferentieerde premie die individueel is berekend op basis van hun eigen WGA-schadelast van de afgelopen vijf jaar. Middelgrote werkgevers betalen een mengpercentage van beide. De gedifferentieerde premie is het enige deel dat u actief kunt beïnvloeden door fouten te corrigeren en de schadelast te verlagen.</p></div>
+          <div class="faq-a"><p>Kleine werkgevers (loonsom onder circa €450.000) betalen een sectorale premie die gelijk is voor alle bedrijven in dezelfde sector. Grote werkgevers (loonsom boven circa €900.000) betalen een gedifferentieerde premie die individueel is berekend op basis van hun eigen WGA-schadelast van de afgelopen vijf jaar. Middelgrote werkgevers betalen een mengpercentage van beide. De gedifferentieerde premie is het enige deel dat u actief kunt beïnvloeden door fouten te corrigeren en de schadelast te verlagen.</p>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">Hoe leest u de beschikking? →</a></p></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q">Hoe snel na het bezwaar zie ik de besparing terug in mijn premie?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>Een bezwaarprocedure bij de Belastingdienst duurt gemiddeld drie tot zes maanden. Als het bezwaar wordt toegewezen, ontvangt u een gecorrigeerde beschikking met een lager premiepercentage. Dat lagere percentage werkt dan meteen door in de premieberekening voor het lopende jaar. In sommige gevallen volgt ook een teruggave over het gedeelte van het jaar dat al is verlopen.</p></div>
+          <div class="faq-a"><p>Een bezwaarprocedure bij de Belastingdienst duurt gemiddeld drie tot zes maanden. Als het bezwaar wordt toegewezen, ontvangt u een gecorrigeerde beschikking met een lager premiepercentage. Dat lagere percentage werkt dan meteen door in de premieberekening voor het lopende jaar. In sommige gevallen volgt ook een teruggave over het gedeelte van het jaar dat al is verlopen.</p>
+          <div style="margin-top:10px;"><button class="btn btn-risk btn-sm" data-view="dienst-whkreductie-view">Start de gratis controle →</button></div></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q">Wat is het WGA-gat en hoe verhoudt dat zich tot de WHK-premie?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>Het WGA-gat is het verschil tussen de WGA-uitkering die het UWV uitkeert en het inkomen dat de medewerker had voor zijn ziekte. Veel werkgevers sluiten een WGA-hiaatverzekering af om dit gat voor de medewerker te dekken. De WHK-premie is iets anders: dat is de gedifferentieerde belastingpremie die de werkgever zelf jaarlijks betaalt op basis van zijn eigen WGA-schadelast. Beide zijn gerelateerd aan WGA-instroom, maar ze zijn financieel gescheiden posten.</p></div>
+          <div class="faq-a"><p>Het WGA-gat is het verschil tussen de WGA-uitkering die het UWV uitkeert en het inkomen dat de medewerker had voor zijn ziekte. Veel werkgevers sluiten een WGA-hiaatverzekering af om dit gat voor de medewerker te dekken. De WHK-premie is iets anders: dat is de gedifferentieerde belastingpremie die de werkgever zelf jaarlijks betaalt op basis van zijn eigen WGA-schadelast. Beide zijn gerelateerd aan WGA-instroom, maar ze zijn financieel gescheiden posten.</p>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/diensten/erd-partneradvies" data-view="dienst-partneradvies-view">Meer over eigenrisicodragerschap →</a></p></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q">Kan ik de beschikking van vorig jaar nog laten controleren?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>De bezwaartermijn voor de beschikking van vorig jaar is waarschijnlijk al verstreken — die bedraagt zes weken na dagtekening. Wat wel kan: wij analyseren de beschikking van vorig jaar om structurele fouten te identificeren die ook in de huidige beschikking zitten. Zo starten we voor de nieuwe beschikking meteen goed. Bovendien kunnen we de toerekende personen controleren op basis van actuele arbeidsmarktstatus, wat input geeft voor een eventueel bezwaar op de nieuwe beschikking.</p></div>
+          <div class="faq-a"><p>De bezwaartermijn voor de beschikking van vorig jaar is waarschijnlijk al verstreken — die bedraagt zes weken na dagtekening. Wat wel kan: wij analyseren de beschikking van vorig jaar om structurele fouten te identificeren die ook in de huidige beschikking zitten. Zo starten we voor de nieuwe beschikking meteen goed. Bovendien kunnen we de toerekende personen controleren op basis van actuele arbeidsmarktstatus, wat input geeft voor een eventueel bezwaar op de nieuwe beschikking.</p>
+          <div style="margin-top:10px;"><button class="btn btn-risk btn-sm" data-view="dienst-whkreductie-view">Laat ook vorige jaren controleren →</button></div></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q">Hoe verhoud ik me als werkgever tot het UWV bij een WIA-aanvraag?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>Bij een WIA-aanvraag speelt de werkgever een actieve rol: u levert het re-integratieverslag aan waarop het UWV de poortwachtertoets uitvoert. Als het UWV oordeelt dat u onvoldoende re-integratie-inspanningen heeft geleverd, volgt een loonsanctie. Na de WIA-beslissing heeft u als werkgever beperkte inspraakmogelijkheden, maar u kunt wel bezwaar aantekenen als u vermoedt dat de arbeidsongeschiktheidsbeoordeling onjuist is — bijvoorbeeld als WGA is bepaald terwijl IVA gerechtvaardigd zou zijn.</p></div>
+          <div class="faq-a"><p>Bij een WIA-aanvraag speelt de werkgever een actieve rol: u levert het re-integratieverslag aan waarop het UWV de poortwachtertoets uitvoert. Als het UWV oordeelt dat u onvoldoende re-integratie-inspanningen heeft geleverd, volgt een loonsanctie. Na de WIA-beslissing heeft u als werkgever beperkte inspraakmogelijkheden, maar u kunt wel bezwaar aantekenen als u vermoedt dat de arbeidsongeschiktheidsbeoordeling onjuist is — bijvoorbeeld als WGA is bepaald terwijl IVA gerechtvaardigd zou zijn.</p>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/diensten/arbeidsdeskundig-onderzoek" data-view="dienst-arbeidsdeskundig-view">Meer over WIA-begeleiding →</a></p></div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q">Wat zijn de grenzen voor de gedifferentieerde premie in 2026?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>In 2026 gelden globaal de volgende grenzen (exacte bedragen worden jaarlijks vastgesteld door de Belastingdienst): kleine werkgevers betalen de sectorale premie bij een loonsom tot circa €450.000; middelgrote werkgevers betalen een mengpercentage tussen €450.000 en €900.000 loonsom; grote werkgevers betalen volledig de individueel gedifferentieerde premie boven circa €900.000 loonsom. Naarmate uw loonsom hoger is, heeft een verlaging van de schadelast meer directe invloed op het premiepercentage.</p></div>
+          <div class="faq-a"><p>In 2026 gelden globaal de volgende grenzen (exacte bedragen worden jaarlijks vastgesteld door de Belastingdienst): kleine werkgevers betalen de sectorale premie bij een loonsom tot circa €450.000; middelgrote werkgevers betalen een mengpercentage tussen €450.000 en €900.000 loonsom; grote werkgevers betalen volledig de individueel gedifferentieerde premie boven circa €900.000 loonsom. Naarmate uw loonsom hoger is, heeft een verlaging van de schadelast meer directe invloed op het premiepercentage.</p>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/tools/poortwachter" data-view="poortwachter-view">Gebruik de WHK-jaarkalender →</a></p></div>
         </div>
 
         <div class="faq-item">
@@ -2792,6 +2865,16 @@
         </div>
 
       </div>
+        <!-- Sluitingsvraag -->
+        <div class="faq-item">
+          <button class="faq-q">Wat is de eerste stap om te beginnen?<span class="faq-chevron">&#8964;</span></button>
+          <div class="faq-a"><p>De eerste stap is de gratis, vrijblijvende beschikkingcheck. U vult de calculator in (2 minuten), wij beoordelen of controle zinvol is en u weet binnen 5 werkdagen wat er speelt. Er zijn geen kosten verbonden aan de check en u bent nergens toe verplicht. Pas als wij een concrete fout vinden en u akkoord gaat met onze aanpak, dienen wij bezwaar in op basis van no cure no pay.</p>
+          <div style="margin-top:12px;">
+            <button class="btn btn-risk" data-view="dienst-whkreductie-view">Start de gratis check nu →</button>
+          </div>
+          </div>
+        </div>
+
       <!-- FAQ CTA -->
       <div style="margin-top:40px;padding:28px 32px;background:var(--paper-deep);border:1px solid var(--line);border-radius:var(--radius-m);text-align:center;border-top:3px solid var(--risk);">
         <h3 style="font-size:1rem;margin-bottom:8px;">Staat uw vraag er niet bij?</h3>
@@ -2867,6 +2950,15 @@
   <!-- DIENST: PARTNERADVIES (VERZEKERDE REGELINGEN) -->
   <section class="page-section" id="dienst-partneradvies-view">
     <div class="wrap" style="padding-top:44px;max-width:780px;">
+      <div style="display:flex;gap:22px;align-items:flex-start;margin-bottom:28px;padding:20px 22px;background:var(--paper-deep);border:1px solid var(--line);border-radius:var(--radius-m);flex-wrap:wrap;">
+        <div style="flex-shrink:0;" class="niels-photo-wrap"></div>
+        <div style="flex:1;min-width:200px;">
+          <strong style="display:block;font-size:0.97rem;margin-bottom:3px;">Niels Alderding &amp; team</strong>
+          <span style="font-size:0.8rem;color:var(--savings);font-weight:600;display:block;margin-bottom:7px;">Directeur &amp; erkend arbeidsdeskundige &middot; Matchvermogen / Werkhervattingskas.nl</span>
+          <span style="font-size:0.78rem;color:var(--ink-soft);display:block;margin-bottom:7px;">Ook actief via Best Match Re-integratie</span>
+          <p style="font-size:0.86rem;color:var(--ink-soft);margin:0;line-height:1.6;">"Eigenrisicodragerschap is geen one-size-fits-all beslissing. Wij rekenen het objectief door voor uw specifieke situatie — met oog voor de WHK-impact, de re-integratieverplichting en de financiele risicoverdeling."</p>
+        </div>
+      </div>
       <div class="eyebrow">Dienst &mdash; partneradvies</div>
       <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:18px;">Verzekerde regelingen &amp; extra advies.</h1>
       <p class="lede" style="margin-bottom:36px;">Naast de WHK-controle zelf werken we samen met onafhankelijke partners aan de verzekeringskant van uw verzuim- en arbeidsongeschiktheidsrisico &mdash; inclusief de vraag of eigenrisicodragerschap voor uw organisatie voordeliger kan zijn dan de publieke WHK-route.</p>
@@ -3225,6 +3317,7 @@
         <div style="flex:1;min-width:200px;">
           <strong style="display:block;font-size:0.97rem;margin-bottom:3px;">Niels Alderding &amp; team</strong>
           <span style="font-size:0.8rem;color:var(--savings);font-weight:600;display:block;margin-bottom:7px;">Directeur &amp; erkend arbeidsdeskundige &middot; Matchvermogen / Werkhervattingskas.nl</span>
+          <span style="font-size:0.78rem;color:var(--ink-soft);display:block;margin-bottom:7px;">Ook actief via Best Match Re-integratie</span>
           <p style="font-size:0.86rem;color:var(--ink-soft);margin:0;line-height:1.6;">"Wij controleren WHK-beschikkingen omdat de meeste fouten onzichtbaar zijn voor werkgevers — maar voor ons direct herkenbaar. Onze combinatie van arbeidsdeskundige en juridische expertise maakt dat wij bezwaar kunnen voeren op gronden die anderen missen."</p>
         </div>
       </div>
@@ -3437,6 +3530,18 @@
           <button class="faq-q">Wat is uw slagingspercentage bij bezwaarprocedures?<span class="faq-chevron">&#8964;</span></button>
           <div class="faq-a"><p>Wij dienen alleen bezwaar in als wij inhoudelijk een concrete fout kunnen onderbouwen. Daardoor ligt ons slagingspercentage op dossiers waarbij wij bezwaar indienen boven de 80%. Bezwaren zonder technische onderbouwing nemen wij niet aan — dat zou uw tijd en onze reputatie schaden.</p></div>
         </div>
+        <div class="faq-item">
+          <button class="faq-q">Wat verandert er voor de WHK-premie in 2027?<span class="faq-chevron">&#8964;</span></button>
+          <div class="faq-a"><p>Er worden voor 2027 geen fundamentele wijzigingen van de WHK-systematiek verwacht. De premiedruk blijft wel structureel omhoog gaan door toenemende WGA-uitkeringsduren. De beschikking voor 2027 is gebaseerd op uw schadelast van 2025 — fouten in WGA-toerekeingen van 2025 zijn nu nog aan te pakken via een herbeoordeling of correctieverzoek. Wacht niet tot de beschikking van 2027 om te reageren.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Wat is het verschil tussen de ZW-premie en de WGA-premie?<span class="faq-chevron">&#8964;</span></button>
+          <div class="faq-a"><p>De WHK bestaat uit twee componenten. De ZW-premie (flexpremie) betreft medewerkers zonder vast contract die ziek uit dienst treden — de Ziektewet neemt dan de loondoorbetaling over. De WGA-premie betreft vaste medewerkers die na twee jaar ziekte gedeeltelijk arbeidsongeschikt blijven. De WGA-component heeft de meeste besparingsmogelijkheden via bezwaar; de ZW-component is beter te beïnvloeden via preventie en no-riskmeldingen.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Hoe lang duurt een WHK-bezwaarprocedure?<span class="faq-chevron">&#8964;</span></button>
+          <div class="faq-a"><p>Wettelijk heeft de Belastingdienst zes weken om te beslissen, met een mogelijke verlenging van zes weken. In de praktijk duurt een WHK-bezwaar gemiddeld drie tot vijf maanden. Als de termijn wordt overschreden zonder beslissing, sturen wij standaard een ingebrekestelling en eisen wij een dwangsom op grond van de Wet dwangsom — dat versnelt de procedure aanzienlijk.</p></div>
+        </div>
       </div>
 
       <!-- Blog-hub: gerelateerde artikelen -->
@@ -3452,6 +3557,15 @@
   <section class="page-section" id="dienst-letselschade-view">
     <div class="wrap" style="padding-top:44px;max-width:780px;">
       <div class="whk-context-bar">
+      <div style="display:flex;gap:22px;align-items:flex-start;margin-bottom:28px;padding:20px 22px;background:var(--paper-deep);border:1px solid var(--line);border-radius:var(--radius-m);flex-wrap:wrap;">
+        <div style="flex-shrink:0;" class="niels-photo-wrap"></div>
+        <div style="flex:1;min-width:200px;">
+          <strong style="display:block;font-size:0.97rem;margin-bottom:3px;">Niels Alderding &amp; team</strong>
+          <span style="font-size:0.8rem;color:var(--savings);font-weight:600;display:block;margin-bottom:7px;">Directeur &amp; erkend arbeidsdeskundige &middot; Matchvermogen / Werkhervattingskas.nl</span>
+          <span style="font-size:0.78rem;color:var(--ink-soft);display:block;margin-bottom:7px;">Ook actief via Best Match Re-integratie</span>
+          <p style="font-size:0.86rem;color:var(--ink-soft);margin:0;line-height:1.6;">"Letselschaderegres is onbekend maar krachtig. Wij combineren arbeidsdeskundige expertise met juridische procesbegeleiding om loonkosten terug te vorderen die u onterecht heeft gedragen — direct gekoppeld aan de WHK-gevolgen van hetzelfde dossier."</p>
+        </div>
+      </div>
         <p><strong>Onderdeel van de WHK-aanpak.</strong> Letselschade en regres worden standaard meegenomen in ons besparingsonderzoek. Elke dossier dat we controleren, scannen we ook op regresrecht — zodat u niets mist.</p>
         <a href="/diensten/whk-controle" data-view="dienst-whkreductie-view">← Naar WHK-controle</a>
       </div>
@@ -3518,9 +3632,43 @@
   <!-- DIENST: BESPARINGSONDERZOEK -->
   <section class="page-section" id="dienst-besparingsonderzoek-view">
     <div class="wrap" style="padding-top:44px;max-width:780px;">
-      <div class="eyebrow">Dienst &mdash; via Matchvermogen</div>
-      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:18px;">Besparingsonderzoek: een volledige doorlichting van uw verzuim- en WHK-kosten.</h1>
-      <p class="lede" style="margin-bottom:36px;">De zelftest op deze site geeft een eerste indicatie in acht vragen. Het besparingsonderzoek als dienst gaat verder: wij analyseren uw eigen cijfers en dossiers, en leveren een onderbouwde, geprioriteerde lijst met concrete besparingsmogelijkheden op.</p>
+
+      <!-- Hero visual -->
+      <div style="background:var(--ink);border-radius:var(--radius-m);padding:32px 28px;margin-bottom:32px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;right:0;width:220px;height:100%;opacity:0.07;background:radial-gradient(circle at 70% 50%,var(--savings) 0%,transparent 70%);pointer-events:none;"></div>
+        <div class="eyebrow" style="color:var(--savings);margin-bottom:12px;">Dienst &mdash; via Matchvermogen</div>
+        <h1 style="font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:14px;color:white;line-height:1.25;">Besparingsonderzoek: een volledige doorlichting van uw WHK- en verzuimkosten.</h1>
+        <p style="color:#c8b89a;font-size:0.95rem;margin-bottom:22px;max-width:540px;">Wij analyseren uw eigen cijfers en dossiers en leveren een geprioriteerde lijst met concrete besparingsmogelijkheden — van de WHK-beschikking tot interventiebeleid en subsidies.</p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
+          <div style="text-align:center;background:rgba(255,255,255,0.08);border-radius:var(--radius-s);padding:12px 18px;">
+            <span style="display:block;font-size:1.6rem;font-weight:700;font-family:IBM Plex Mono,monospace;color:var(--savings);">5</span>
+            <span style="font-size:0.75rem;color:#9B9588;">onderdelen</span>
+          </div>
+          <div style="text-align:center;background:rgba(255,255,255,0.08);border-radius:var(--radius-s);padding:12px 18px;">
+            <span style="display:block;font-size:1.6rem;font-weight:700;font-family:IBM Plex Mono,monospace;color:var(--savings);">3–6</span>
+            <span style="font-size:0.75rem;color:#9B9588;">weken doorlooptijd</span>
+          </div>
+          <div style="text-align:center;background:rgba(255,255,255,0.08);border-radius:var(--radius-s);padding:12px 18px;">
+            <span style="display:block;font-size:1.6rem;font-weight:700;font-family:IBM Plex Mono,monospace;color:var(--savings);">&gt;85%</span>
+            <span style="font-size:0.75rem;color:#9B9588;">levert directe actie</span>
+          </div>
+          <div style="text-align:center;background:rgba(255,255,255,0.08);border-radius:var(--radius-s);padding:12px 18px;">
+            <span style="display:block;font-size:1.6rem;font-weight:700;font-family:IBM Plex Mono,monospace;color:var(--savings);">€137k</span>
+            <span style="font-size:0.75rem;color:#9B9588;">gemiddeld bespaard</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Niels intro -->
+      <div style="display:flex;gap:22px;align-items:flex-start;margin-bottom:28px;padding:20px 22px;background:var(--paper-deep);border:1px solid var(--line);border-radius:var(--radius-m);flex-wrap:wrap;">
+        <div style="flex-shrink:0;" class="niels-photo-wrap"></div>
+        <div style="flex:1;min-width:200px;">
+          <strong style="display:block;font-size:0.97rem;margin-bottom:3px;">Niels Alderding &amp; team</strong>
+          <span style="font-size:0.8rem;color:var(--savings);font-weight:600;display:block;margin-bottom:7px;">Directeur &amp; erkend arbeidsdeskundige &middot; Matchvermogen / Werkhervattingskas.nl</span>
+          <span style="font-size:0.78rem;color:var(--ink-soft);display:block;margin-bottom:7px;">Ook actief via Best Match Re-integratie</span>
+          <p style="font-size:0.86rem;color:var(--ink-soft);margin:0;line-height:1.6;">"Een besparingsonderzoek voeren wij uit omdat de meeste werkgevers niet weten hoeveel er op tafel blijft liggen. Niet alleen in de beschikking — ook in het interventiebeleid, de subsidies en de eigenrisicodragersvraag. Wij brengen het allemaal in één rapport samen zodat u prioriteiten kunt stellen."</p>
+        </div>
+      </div>
 
       <h2>Wat wij voor u onderzoeken</h2>
       <div class="needed-box">
@@ -3644,6 +3792,7 @@
         <div style="flex:1;min-width:200px;">
           <strong style="display:block;font-size:1rem;margin-bottom:4px;">Niels Alderding</strong>
           <span style="font-size:0.82rem;color:var(--savings);font-weight:600;display:block;margin-bottom:8px;">Directeur &amp; erkend arbeidsdeskundige &middot; Matchvermogen / Werkhervattingskas.nl</span>
+          <span style="font-size:0.78rem;color:var(--ink-soft);display:block;margin-bottom:7px;">Ook actief via Best Match Re-integratie</span>
           <p style="font-size:0.88rem;color:var(--ink-soft);margin:0;line-height:1.6;">"Ik en mijn team voeren arbeidsdeskundig onderzoek uit omdat we geloven dat een goed rapport het verschil maakt — voor de medewerker, voor het dossier, en voor de werkgever die anders jarenlang de financiële gevolgen draagt van een verkeerde beslissing. Mijn eigen paramedische achtergrond stelt ons in staat verder te kijken dan alleen de functie-eisen."</p>
         </div>
       </div>
@@ -3758,6 +3907,15 @@
   </section>
   <section class="page-section" id="dienst-tweedespoor-view">
     <div class="wrap" style="padding-top:44px;max-width:780px;">
+      <div style="display:flex;gap:22px;align-items:flex-start;margin-bottom:28px;padding:20px 22px;background:var(--paper-deep);border:1px solid var(--line);border-radius:var(--radius-m);flex-wrap:wrap;">
+        <div style="flex-shrink:0;" class="niels-photo-wrap"></div>
+        <div style="flex:1;min-width:200px;">
+          <strong style="display:block;font-size:0.97rem;margin-bottom:3px;">Niels Alderding &amp; team</strong>
+          <span style="font-size:0.8rem;color:var(--savings);font-weight:600;display:block;margin-bottom:7px;">Directeur &amp; erkend arbeidsdeskundige &middot; Matchvermogen / Werkhervattingskas.nl</span>
+          <span style="font-size:0.78rem;color:var(--ink-soft);display:block;margin-bottom:7px;">Ook actief via Best Match Re-integratie</span>
+          <p style="font-size:0.86rem;color:var(--ink-soft);margin:0;line-height:1.6;">"Tweede spoor is veel meer dan een formaliteit om een loopsanctie te voorkomen. Een goed traject sluit aan op de werkelijke mogelijkheden van de medewerker — en verlaagt structureel de kans op WGA-instroom en daarmee uw WHK-premie."</p>
+        </div>
+      </div>
       <div class="whk-context-bar">
         <p><strong>Onderdeel van de WHK-aanpak.</strong> Tijdig tweede spoor voorkomt een loonsanctie en vermindert de kans op WGA-instroom. Minder instroom betekent een lagere WHK-premie in de komende vijf jaar.</p>
         <a href="/diensten/whk-controle" data-view="dienst-whkreductie-view">← Naar WHK-controle</a>
@@ -3838,6 +3996,7 @@
         <div style="flex:1;min-width:200px;">
           <strong style="display:block;font-size:1rem;margin-bottom:4px;">Niels Alderding &amp; team</strong>
           <span style="font-size:0.82rem;color:var(--savings);font-weight:600;display:block;margin-bottom:8px;">Directeur &amp; adviseur verzuimbeleid &middot; Matchvermogen / Werkhervattingskas.nl</span>
+          <span style="font-size:0.78rem;color:var(--ink-soft);display:block;margin-bottom:7px;">Ook actief via Best Match Re-integratie</span>
           <p style="font-size:0.88rem;color:var(--ink-soft);margin:0;line-height:1.6;">"De WHK-beschikking is het eindresultaat van alles wat er de afgelopen jaren in het verzuimbeleid is gebeurd — of niet. In onze consultancyaanpak gaan wij terug naar de bron: wat had u kunnen doen om het instroom-risico te verlagen? En wat kunt u nú veranderen zodat de volgende beschikking beter uitvalt? Ik begeleid dit persoonlijk, samen met ons team."</p>
         </div>
       </div>
@@ -6635,6 +6794,17 @@
   wireSeg('doelgroep_lkv', 'doelgroep_lkv');
 
   // ---- steppers ----
+  function submitFaqVraag(){
+    var naam = (document.getElementById('faq-vraag-naam') || {value:''}).value.trim();
+    var tel  = (document.getElementById('faq-vraag-tel')  || {value:''}).value.trim();
+    if(!naam || !tel){ return; }
+    addLead(naam, tel, 'faq-inline-vraag');
+    var ok = document.getElementById('faq-vraag-ok');
+    if(ok) ok.style.display = 'block';
+    document.getElementById('faq-vraag-naam').value = '';
+    document.getElementById('faq-vraag-tel').value  = '';
+  }
+
   document.querySelectorAll('[data-step-target]').forEach(function(btn){
     btn.addEventListener('click', function(){
       var key = btn.getAttribute('data-step-target');
@@ -8772,7 +8942,187 @@
       publishedAt: '2026-10-05T09:00:00.000Z',
       bodyHtml: '<p>Een doorstart na faillissement is arbeidsrechtelijk complex. De curator beëindigt de dienstverbanden. De doorstartende partij biedt een deel van het personeel nieuwe contracten aan. Maar voor de WHK-toerekening is de vraag cruciaal: zijn die nieuwe dienstverbanden een voortzetting van de oude — en geldt WOVON — of starten ze met een schone lei?</p><h2>De casus</h2><p>Een dienstverlenend bedrijf ging failliet. De curator beëindigde alle arbeidsovereenkomsten. Een doorstartende partij nam dezelfde locatie, dezelfde klanten, hetzelfde werk en tachtig procent van het personeel over. Acht medewerkers hadden op het moment van de doorstart een actief WGA-dossier of een lopend re-integratietraject.</p><p>Twee jaar na de doorstart ontving de nieuwe werkgever zijn eerste WHK-beschikking als zelfstandige entiteit. Zes van de acht medewerkers stonden er in — met toerekening alsof de nieuwe werkgever al jarenlang de verantwoordelijke werkgever was geweest.</p><h2>De WOVON-vraag bij een doorstart</h2><p>De hoofdregel bij faillissement is dat er géén automatische overgang van onderneming plaatsvindt. De curator beëindigt de contracten en de doorstarter begint formeel opnieuw. Maar het Europese Hof van Justitie heeft in meerdere uitspraken geoordeeld dat ook bij een doorstart na faillissement WOVON van toepassing kan zijn — als de activiteiten, het personeel, de locatie en de klantenportefeuille in essentie identiek zijn.</p><p>In dit geval was dat exact het geval: tachtig procent van het personeel, dezelfde klanten, dezelfde locatie, identiek werk. De Belastingdienst paste WOVON toe en rekende de WGA-dossiers toe aan de doorstarter.</p><h2>Wat wij deden</h2><p>Wij analyseerden de transactiestructuur en de feiten van de doorstart. De arbeidsrechtelijke vraag of WOVON van toepassing was, kon in dit geval niet worden betwist — de feiten wezen te sterk in die richting. Maar bij twee van de zes medewerkers was de WGA-instroomdatum onjuist vastgesteld: de Belastingdienst had de instroomdatum vóór de faillissementsdatum geplaatst, waardoor de toerekening langer liep dan wettelijk mogelijk was.</p><p>Op grond daarvan dienden wij bezwaar in voor die twee dossiers. De instroomdatums werden gecorrigeerd. De toerekening van die twee medewerkers werd navenant verkort.</p><div class="inline-cta"><p><strong>Heeft u recent een doorstart gedaan en wilt u weten welke WHK-risico’s u heeft overgenomen?</strong></p><button class="btn btn-risk" type="button" data-cta="terugbel">Bespreek de situatie</button></div><h2>Praktisch advies</h2><p>Bij iedere doorstart na faillissement: laat vóór de feitelijke overname een arbeidsrechtelijke beoordeling uitvoeren of WOVON van toepassing is. Als dat zo is, breng dan in kaart welke medewerkers een actief WGA-dossier hebben en voor hoe lang die toerekening kan doorlopen. En controleer twee jaar na de doorstart de eerste WHK-beschikking op naam van de nieuwe entiteit — instroomdatums worden door de Belastingdienst niet altijd correct verwerkt. <a href="/diensten/whk-controle" data-view="dienst-whkreductie-view">Meer over de WHK-controle →</a></p>'
     },
-  ];
+    {
+      slug: 'whk-beschikking-ontvangen-eerste-stappen',
+      title: 'WHK-beschikking ontvangen: dit zijn uw eerste stappen',
+      metaDescription: 'Heeft u een WHK-beschikking ontvangen? U heeft 6 weken om bezwaar te maken. Dit zijn de eerste stappen die u zet om fouten te herkennen en uw rechten te beschermen.',
+      tags: ['WHK-basics', 'Bezwaar & procedure'],
+      keyword: 'WHK beschikking ontvangen eerste stappen bezwaar termijn',
+      relatedSlugs: ['bezwaar-whk-beschikking-wanneer-wel-niet', 'whk-beschikking-controleren-fouten-loonsom'],
+      publishedAt: '2026-08-03T09:00:00.000Z',
+      bodyHtml: '<p>De WHK-beschikking komt doorgaans in november of december binnen. Voor veel werkgevers is het een brief die snel in een map verdwijnt — totdat de premie op de volgende rekening plotseling hoger is. Dat is zonde: u heeft na ontvangst slechts zes weken om bezwaar te maken. Hier zijn de stappen die u direct moet zetten.</p><h2>Stap 1: Noteer de bezwaartermijn</h2><p>De bezwaartermijn van zes weken begint op de dagtekening van de beschikking — niet op de dag waarop u hem ontvangt. Zet de uiterste bezwaardatum direct in uw agenda. Mist u deze termijn, dan is bezwaar niet meer mogelijk voor dit jaar.</p><h2>Stap 2: Vraag de bijlage op</h2><p>De beschikking zelf vermeldt alleen het premiepercentage. De inhoudelijke informatie — welke medewerkers zijn toegerekend, voor welk uitkeringsbedrag, over welke periode — staat in de bijlage. Als die niet is meegestuurd, vraag hem direct op bij de Belastingdienst of uw HR-afdeling.</p><h2>Stap 3: Controleer de namen op de bijlage</h2><p>Loop de bijlage door en vraag u bij elke naam af: ken ik deze persoon? Is hij of zij nog in dienst of al uitgestroomd? Had deze medewerker een no-riskstatus? Is de uitkering die hier staat reëel gezien het loon dat betrokkene verdiende? Onbekende namen en onverwacht hoge bedragen zijn directe signalen voor een controle.</p><h2>Stap 4: Vergelijk met vorig jaar</h2><p>Een stijging van het premiepercentage ten opzichte van vorig jaar zonder dat u een grote nieuwe WGA-instroom verwacht, is een aanwijzing dat er iets is misgegaan in de toerekening. Vergelijk de bijlagen van dit jaar en vorig jaar naast elkaar.</p><div class="inline-cta"><p><strong>Heeft u de beschikking ontvangen en wilt u weten of bezwaar kansrijk is?</strong></p><button class="btn btn-risk" data-view="dienst-whkreductie-view">Gratis controle starten →</button></div><h2>Stap 5: Schakel tijdig hulp in</h2><p>Als u zelf niet over de expertise beschikt om de bijlage te beoordelen, schakel dan een specialist in — bij voorkeur binnen de eerste twee weken na ontvangst. Dat geeft voldoende tijd voor een inhoudelijke analyse en een goed onderbouwd bezwaarschrift vóór het verstrijken van de termijn. Wij beoordelen uw beschikking gratis en vrijblijvend. <a href="/diensten/whk-controle" data-view="dienst-whkreductie-view">Meer over de WHK-controle →</a></p>'
+    },
+    {
+      slug: 'whk-specialist-inschakelen-wanneer-en-kosten',
+      title: 'WHK-specialist inschakelen: wanneer loont het en wat kost het?',
+      metaDescription: 'Wanneer is het verstandig een WHK-specialist in te schakelen en wat mag u verwachten qua kosten en opbrengst? Een eerlijk overzicht voor werkgevers.',
+      tags: ['WHK-basics', 'Bezwaar & procedure'],
+      keyword: 'WHK specialist inschakelen kosten opbrengst no cure no pay',
+      relatedSlugs: ['whk-premie-laten-verlagen-specialist-kiezen', 'whk-beschikking-ontvangen-eerste-stappen'],
+      publishedAt: '2026-08-10T09:00:00.000Z',
+      bodyHtml: '<p>De meest gestelde vraag van werkgevers die voor het eerst met ons in contact komen: wat kost het en wat levert het op? Een eerlijk antwoord begint bij de vraag wanneer het zinvol is om een specialist in te schakelen.</p><h2>Wanneer is een specialist zinvol?</h2><p>Een WHK-specialist is het meest waardevol als uw loonsom boven de €1 miljoen ligt. Onder die grens betaalt u een vaste sectorale premie die minder beïnvloedbaar is. Boven de €1 miljoen wordt de premie individueel gedifferentieerd op basis van uw eigen schadelast — en is elke gecorrigeerde toerekening direct merkbaar in euros.</p><p>Daarnaast is een specialist zinvol als uw premie het afgelopen jaar is gestegen zonder duidelijke oorzaak, als u recent medewerkers heeft gehad met een no-riskstatus, als u een overname of reorganisatie heeft doorgemaakt, of als u namen in de bijlage tegenkomt die u niet herkent.</p><h2>Wat kost het?</h2><p>Een betrouwbare WHK-specialist werkt op basis van no cure no pay voor de bezwaarprocedure. U betaalt alleen als er een aantoonbare besparing wordt gerealiseerd. De vergoeding is doorgaans een percentage van de gerealiseerde besparing over het eerste jaar — meestal tussen de 20% en 35% afhankelijk van de complexiteit.</p><p>Concreet: als wij €40.000 per jaar besparen en de vergoeding is 25%, betaalt u €10.000 en houdt u €30.000 over — structureel, vijf jaar lang.</p><h2>Wat levert het op?</h2><p>De besparing hangt af van de omvang van de fouten en uw loonsom. Bij de werkgevers die wij begeleiden varieert de jaarlijkse besparing van €3.000 bij kleinere organisaties tot €250.000 bij grote werkgevers met complexe dossiers. De gemiddelde bandbreedte ligt tussen €25.000 en €100.000 per jaar, vijf jaar lang.</p><div class="inline-cta"><p><strong>Benieuwd wat een controle uw organisatie kan opleveren?</strong></p><button class="btn btn-risk" data-view="dienst-whkreductie-view">Gratis inschatting maken →</button></div>'
+    },
+    {
+      slug: 'casemanager-wga-arbeidsdeskundige-inschakelen',
+      title: 'Casemanager en WGA: wanneer schakelt u een arbeidsdeskundige in?',
+      metaDescription: 'Als casemanager bepaalt u de koers van het re-integratiedossier. Maar wanneer is een arbeidsdeskundig onderzoek verplicht of verstandig — en wat betekent het voor de WHK?',
+      tags: ['Re-integratie', 'Arbeidsdeskundig', 'WHK-basics'],
+      keyword: 'casemanager WGA arbeidsdeskundige inschakelen re-integratie WHK',
+      relatedSlugs: ['arbeidsdeskundig-onderzoek-roi-whk-instroom', 'wga-herbeoordeling-initiatief-werkgever'],
+      publishedAt: '2026-08-17T09:00:00.000Z',
+      bodyHtml: '<p>Als casemanager bent u verantwoordelijk voor de begeleiding van langdurig zieke medewerkers. U bewaakt de poortwachter-verplichtingen, stemt af met de bedrijfsarts en houdt het re-integratiedossier actueel. Maar er is een moment waarop de medische en arbeidskundige complexiteit de grenzen van uw rol overstijgt. Dat is het moment om een arbeidsdeskundige in te schakelen — en dat moment heeft directe gevolgen voor de WHK-premie van uw werkgever.</p><h2>Wanneer is een arbeidsdeskundig onderzoek verplicht?</h2><p>De Wet poortwachter schrijft geen expliciete verplichting voor om een arbeidsdeskundige in te schakelen, maar de RIV-toets van het UWV beoordeelt wel of de re-integratie-inspanningen reëel en passend waren. Als er geen arbeidsdeskundig onderzoek is uitgevoerd terwijl de situatie daartoe aanleiding gaf — complexe beperkingen, onduidelijkheid over re-integratierichting, verschil van inzicht over belastbaarheid — kan het UWV oordelen dat de inspanningen onvoldoende waren. Dat leidt tot een loonsanctie.</p><h2>Wanneer is het verstandig — ook als het niet verplicht is?</h2><p>Wij adviseren een arbeidsdeskundig onderzoek in ieder geval bij: onduidelijkheid over welk re-integratiespoor passend is (eerste of tweede spoor), verschil van inzicht tussen werkgever en medewerker over de mogelijkheden, complexe multi-morbiditeit waarbij de belastbaarheid moeilijk te duiden is, en bij dreigend tweede spoor waarbij de medewerker de haalbaarheid betwist.</p><h2>De WHK-koppeling</h2><p>Een goed arbeidsdeskundig rapport heeft twee functies. Ten eerste stuurt het de re-integratie in de juiste richting, wat de kans op WGA-instroom verlaagt. Ten tweede is het in een latere bezwaarprocedure — als de medewerker toch in de WGA instroomt — een sterk bewijsstuk dat aantoont dat de werkgever zijn re-integratieverplichtingen serieus heeft genomen en dat de beperkingen correct zijn geïnterpreteerd.</p><div class="inline-cta"><p><strong>Wilt u een arbeidsdeskundig onderzoek laten uitvoeren of overleggen of het zinvol is?</strong></p><button class="btn btn-risk" data-view="dienst-arbeidsdeskundig-view">Meer over arbeidsdeskundig onderzoek</button></div>'
+    },
+    {
+      slug: 'no-riskregistratie-hr-verantwoordelijkheid-whk',
+      title: 'No-riskregistratie: de HR-verantwoordelijkheid die te weinig aandacht krijgt',
+      metaDescription: 'HR-adviseurs zijn verantwoordelijk voor de no-riskregistratie bij ziekmelding. Wordt die stap gemist, dan betaalt de werkgever dubbel: loondoorbetaling én hogere WHK-premie.',
+      tags: ['No-risk & LKV', 'WHK-basics', 'Verzuimbeleid'],
+      keyword: 'no-riskregistratie HR adviseur ziekmelding WHK premie',
+      relatedSlugs: ['no-risk-gemist-tien-jaar-wga-toerekening', 'doelgroepenregister-werkgever-no-risk-whk'],
+      publishedAt: '2026-08-24T09:00:00.000Z',
+      bodyHtml: '<p>De no-riskregistratie is één van de acties die het meest geld oplevert per bestede minuut. Toch wordt ze in de dagelijkse HR-praktijk structureel overgeslagen — niet uit onwil, maar uit onbekendheid. En de gevolgen zijn direct voelbaar in de WHK-beschikking van de werkgever.</p><h2>Wat de no-riskregistratie inhoudt</h2><p>Als een medewerker met een no-riskstatus — iemand uit het doelgroepenregister — ziek wordt, moet de werkgever dit actief melden bij het UWV. Die melding zorgt ervoor dat het UWV de loondoorbetaling compenseert en dat het verzuim van deze medewerker niet wordt meegerekend in de WGA-schadelast van de werkgever.</p><p>Wordt die melding niet gedaan, dan: draagt de werkgever de volledige loondoorbetaling zelf, telt het verzuim wél mee in de schadelast, en als de medewerker uiteindelijk in de WGA instroomt, wordt die uitkering jarenlang aan de werkgever toegerekend in de WHK-beschikking.</p><h2>Waarom het misgaat</h2><p>De no-riskstatus wordt niet automatisch doorgegeven vanuit het UWV bij iedere ziekmelding. HR-adviseurs moeten actief controleren of een medewerker in het doelgroepenregister staat — bij indiensttreding én bij elke ziekmelding. In de drukte van het dagelijkse HR-werk is dat een stap die snel wordt overgeslagen.</p><h2>Hoe u dit borgt</h2><p>Voeg de doelgroepcontrole toe als verplichte stap in uw ziekmeldingsprotocol. Check via de UWV-werkgeversportal of de betreffende medewerker geregistreerd staat. Zo ja, doe de no-riskmelding direct. Leg dit vast in het personeelssysteem zodat bij een volgende ziekmelding de status al bekend is.</p><div class="inline-cta"><p><strong>Wilt u weten of er in uw beschikking no-riskmeldingen zijn gemist?</strong></p><button class="btn btn-risk" data-view="dienst-whkreductie-view">Gratis beschikking controleren →</button></div>'
+    },
+    {
+      slug: 'whk-loonkostenpost-controller-beschikking-lezen',
+      title: 'WHK als loonkostenpost: hoe leest een controller de beschikking?',
+      metaDescription: 'Voor controllers is de WHK een loonkostenpost die direct beïnvloedbaar is. Zo leest u de beschikking vanuit finance-perspectief en identificeert u besparingsmogelijkheden.',
+      tags: ['WHK-basics', 'Sector & organisatie'],
+      keyword: 'WHK loonkostenpost controller beschikking lezen finance',
+      relatedSlugs: ['groot-versus-klein-werkgever-whk-premie-verschil', 'wga-premie-vergelijken-sectorgemiddelde'],
+      publishedAt: '2026-08-31T09:00:00.000Z',
+      bodyHtml: '<p>Voor een controller is de WHK-beschikking geen HR-document maar een loonkostenpost. Een post die — in tegenstelling tot de meeste loonkosten — direct beïnvloedbaar is als u weet waar u op moet letten. Dit artikel helpt u de beschikking te lezen vanuit een finance-perspectief.</p><h2>Wat de WHK-beschikking bepaalt</h2><p>De Belastingdienst stelt elk jaar uw WHK-premiepercentage vast op basis van de uitkeringlasten die twee jaar eerder aan uw organisatie zijn toegerekend, afgezet tegen uw loonsom. Een hoger premiepercentage betekent een hogere afdracht over de volledige loonsom. Bij een loonsom van €5 miljoen en een premieverschil van 1 procentpunt gaat het om €50.000 per jaar.</p><h2>De drie getallen die ertoe doen</h2><p>Voor een controller zijn er drie kerngetallen in de beschikking: het premiepercentage (hoeveel procent van de loonsom betaalt u), de schadelast (het totale uitkeringsbedrag dat aan u is toegerekend) en de loonsom (de grondslag waarover de premie wordt berekend). Als de schadelast stijgt terwijl uw personeelsbestand stabiel is, is er sprake van een onjuiste toerekening of een nieuwe WGA-instroom die analyse verdient.</p><h2>Benchmarken tegen de sector</h2><p>De Belastingdienst publiceert jaarlijks de sectorale premiepercentages. Als uw individuele premie significant hoger ligt dan het sectorgemiddelde, is dat een signaal dat uw schadelast bovengemiddeld is — wat zowel een re-integratievraagstuk als een bezwaarvraagstuk kan zijn.</p><div class="inline-cta"><p><strong>Wilt u uw WHK-beschikking laten analyseren vanuit een finance-perspectief?</strong></p><button class="btn btn-risk" data-view="dienst-besparingsonderzoek-view">Meer over het besparingsonderzoek →</button></div><h2>WHK als stuurpost</h2><p>Wat veel controllers niet weten: de WHK-premie is een van de weinige loonkostenposten waarop u actief kunt sturen. Correcte re-integratiedossiers, tijdige no-riskmeldingen en een scherpe controle van de bijlage bij elke beschikking zijn maatregelen met direct financieel effect. De WHK hoort in elke loonkostenanalyse. <a href="/diensten/whk-controle" data-view="dienst-whkreductie-view">Meer over de WHK-controle →</a></p>'
+    },
+    {
+      slug: 'roi-whk-optimalisatie-business-case-intern',
+      title: 'ROI van WHK-optimalisatie: zo bouwt u de business case intern',
+      metaDescription: 'Hoe presenteert u de business case voor WHK-optimalisatie aan de directie? Een stappenplan met rekenvoorbeelden voor controllers en HR-managers.',
+      tags: ['WHK-basics', 'Sector & organisatie'],
+      keyword: 'ROI WHK optimalisatie business case intern presenteren',
+      relatedSlugs: ['whk-loonkostenpost-controller-beschikking-lezen', 'whk-specialist-inschakelen-wanneer-en-kosten'],
+      publishedAt: '2026-09-07T09:00:00.000Z',
+      bodyHtml: '<p>U weet dat er besparingspotentieel zit in de WHK-beschikking. Maar om een externe specialist in te schakelen moet u intern groen licht krijgen. Dit artikel helpt u die business case te bouwen — concreet, cijfermatig en overtuigend.</p><h2>Stap 1: Bereken de huidige WHK-last</h2><p>Vermenigvuldig uw loonsom met het huidige WHK-premiepercentage. Dat is uw huidige jaarlijkse WHK-afdracht. Vergelijk dit met het sectorgemiddelde: als uw percentage significant hoger ligt, is er in principe besparingspotentieel.</p><h2>Stap 2: Stel een conservatief besparingsscenario op</h2><p>Neem 30% van uw huidige WHK-afdracht als conservatieve besparing. In de praktijk realiseren wij bij werkgevers met een fout in de beschikking besparingen van 20% tot 60%. Een conservatieve schatting van 30% maakt de business case geloofwaardig zonder te overdrijven.</p><p>Voorbeeld: loonsom €8 miljoen, premiepercentage 1,8%, WHK-last €144.000 per jaar. Conservatieve besparing 30% = €43.200 per jaar. Over vijf jaar: €216.000 — minus de no cure no pay vergoeding van de specialist.</p><h2>Stap 3: Kwantificeer het risico van niet-handelen</h2><p>Als er een fout in de beschikking zit en u dient geen bezwaar in, betaalt u de komende vijf jaar te veel. Een fout van €10.000 per jaar kost u €50.000 als u niets doet. Dat risico hoort in de business case.</p><h2>Stap 4: Presenteer het als kosteloze controle</h2><p>De beschikkingcontrole zelf is gratis en vrijblijvend. U betaalt alleen als er een aantoonbare besparing wordt gerealiseerd en u akkoord gaat met de aanpak. Dat maakt de drempel minimaal en de business case eenvoudig: er is geen downside aan een gratis controle.</p><div class="inline-cta"><p><strong>Wilt u een indicatie van het besparingspotentieel voor uw specifieke situatie?</strong></p><button class="btn btn-risk" data-view="dienst-whkreductie-view">Gratis inschatting aanvragen →</button></div>'
+    },
+    {
+      slug: 'gedifferentieerde-wga-premie-vs-sectorale-premie',
+      title: 'Gedifferentieerde WGA-premie vs sectorale premie: wat is het verschil?',
+      metaDescription: 'Betaalt u een sectorale of een individueel gedifferentieerde WGA-premie? Het verschil bepaalt hoeveel invloed u heeft op uw WHK-kosten en wanneer een controle zinvol is.',
+      tags: ['WHK-basics', 'Wetgeving & UWV'],
+      keyword: 'gedifferentieerde WGA premie sectorale premie verschil werkgever WHK',
+      relatedSlugs: ['groot-versus-klein-werkgever-whk-premie-verschil', 'whk-loonkostenpost-controller-beschikking-lezen'],
+      publishedAt: '2026-09-14T09:00:00.000Z',
+      bodyHtml: '<p>De WHK-premie wordt niet voor iedere werkgever op dezelfde manier berekend. Of u een sectorale of een individueel gedifferentieerde premie betaalt, hangt af van uw loonsom — en dat heeft directe gevolgen voor hoeveel invloed u heeft op uw premie en wanneer een beschikkingcontrole het meest oplevert.</p><h2>De sectorale premie: kleine werkgevers</h2><p>Werkgevers met een loonsom onder een bepaalde grens — in 2026 circa €900.000 — betalen een vaste sectorale premie. Die premie is gelijk voor alle werkgevers in dezelfde sector en wordt niet beïnvloed door de schadelast van die specifieke werkgever. Uw eigen WGA-instroom heeft dus geen direct effect op uw premie. Bezwaar heeft bij deze groep minder directe financieel effect, hoewel andere maatregelen zoals no-riskregistraties nog wel relevant zijn.</p><h2>De individueel gedifferentieerde premie: grote werkgevers</h2><p>Werkgevers met een loonsom boven de grens krijgen een premie die individueel is vastgesteld op basis van hun eigen schadelast over de afgelopen jaren. Hoe hoger de WGA-uitkeringslasten die aan u zijn toegerekend, hoe hoger uw premiepercentage. En andersom: elke gecorrigeerde toerekening verlaagt direct uw premie.</p><p>Voor deze groep is de WHK-beschikking een actief te beheren kostenpost. Elke fout in de bijlage vertaalt zich in een te hoog premiepercentage — vijf jaar lang.</p><h2>De gemengde zone: middelgrote werkgevers</h2><p>Werkgevers met een loonsom in de middenmarge betalen een gewogen combinatie van de sectorale en de individuele premie. Hoe groter de loonsom, hoe zwaarder het individuele component weegt. Voor deze groep is een controle zinvol zodra de individuele component significant bijdraagt aan de totale premie.</p><div class="inline-cta"><p><strong>Weet u of u een sectorale of gedifferentieerde premie betaalt?</strong></p><button class="btn btn-risk" data-view="dienst-whkreductie-view">Laat het controleren →</button></div>'
+    },
+    {
+      slug: 'whk-premie-verwachtingen-2027',
+      title: 'WHK-premie 2027: wat kunnen werkgevers verwachten?',
+      metaDescription: 'Wat verandert er voor de WHK-premie in 2027? Een overzicht van de verwachte premie-ontwikkelingen, wetgevingswijzigingen en wat werkgevers nu al kunnen doen.',
+      tags: ['WHK-basics', 'Wetgeving & UWV'],
+      keyword: 'WHK premie 2027 verwachtingen werkgever wijzigingen',
+      relatedSlugs: ['whk-beschikking-ontvangen-eerste-stappen', 'groot-versus-klein-werkgever-whk-premie-verschil'],
+      publishedAt: '2026-09-21T09:00:00.000Z',
+      bodyHtml: '<p>De WHK-beschikking voor 2027 wordt in het najaar van 2026 vastgesteld door de Belastingdienst. Voor werkgevers die hun premie structureel willen beheersen, is nu — vóór de beschikking binnenkomt — het moment om te handelen. Wat zijn de verwachtingen voor 2027 en wat kunt u nog doen?</p><h2>Premie-ontwikkeling: structurele druk omhoog</h2><p>De WHK-premie staat al jaren onder opwaartse druk. De vergrijzing van het personeelsbestand, de groei van het aantal langdurig zieken na de coronaperiode en de capaciteitsproblemen bij het UWV bij herbeoordelingen zorgen ervoor dat de gemiddelde WGA-uitkeringsduur toeneemt. Meer uitkeringsduur betekent meer schadelast — en hogere premies.</p><p>Werkgevers die hun eigen schadelast niet actief monitoren en fouten in de beschikking niet aanvechten, zullen in 2027 de gevolgen zien van WGA-instromen uit 2024 en 2025 die nu in de beschikking verschijnen.</p><h2>Verwachte wetgevingswijzigingen</h2><p>Er worden voor 2027 geen fundamentele wijzigingen van de WHK-systematiek verwacht. Wel zijn er discussies over de hoogte van de maximumpremie en de wijze waarop het UWV herbeoordelingen plant. Als die beleidswijzigingen doorgaan, kan dat gevolgen hebben voor de instroom in de WGA en daarmee indirect voor de premie-ontwikkeling van individuele werkgevers.</p><h2>Wat u nu kunt doen</h2><p>De WHK-beschikking voor 2027 is gebaseerd op uw schadelast van 2025. Dat betekent dat fouten in WGA-toerekeingen van 2025 nu nog recht te zetten zijn via een herbeoordeling of correctieverzoek. Wacht niet tot de beschikking van 2027 binnenkomt om te reageren — dan heeft u zes weken en de fout heeft dan al twee jaar doorgewerkt.</p><div class="inline-cta"><p><strong>Wilt u de beschikking van 2026 controleren voordat die van 2027 binnenkomt?</strong></p><button class="btn btn-risk" data-view="dienst-whkreductie-view">Gratis controle starten →</button></div><h2>De bezwaartermijn als vangnet</h2><p>Als de beschikking van 2027 binnenkomt en er fouten in zitten, heeft u zes weken om bezwaar te maken. Plan die controle nu al in uw jaarkalender — bij voorkeur in de eerste twee weken na ontvangst. <a href="/tools/jaarkalender" data-view="kalender-view">Bekijk de WHK-jaarkalender 2026 →</a></p>'
+    },
+    {
+      slug: 'uwv-herbeoordelingen-2026-hogere-drempel-bezwaar',
+      title: 'UWV-herbeoordelingen 2026: hogere drempel, meer kansen voor bezwaar',
+      metaDescription: 'Het UWV heeft moeite de herbeoordelingsachterstanden weg te werken. Dat heeft gevolgen voor werkgevers: meer onjuiste toerekeingen, meer bezwaarkansen en een directe WHK-impact.',
+      tags: ['Bezwaar & procedure', 'Wetgeving & UWV'],
+      keyword: 'UWV herbeoordelingen achterstanden 2026 bezwaar WHK werkgever',
+      relatedSlugs: ['herbeoordeling-uwv-complexer-technische-argumentatie', 'wga-herbeoordeling-initiatief-werkgever'],
+      publishedAt: '2026-09-28T09:00:00.000Z',
+      bodyHtml: '<p>Het UWV kampt al jaren met achterstanden bij herbeoordelingen. De gevolgen zijn merkbaar voor werkgevers: medewerkers die al zijn hersteld of wier arbeidsongeschiktheidspercentage is gedaald, blijven op het oude percentage in de WGA — en daarmee in uw WHK-beschikking. Dat betekent te hoge premies en gemiste bezwaarkansen.</p><h2>De omvang van het probleem</h2><p>Het UWV is wettelijk verplicht WIA-uitkeringen periodiek te herkeuren. In de praktijk worden herbeoordelingen soms jarenlang uitgesteld vanwege capaciteitsgebrek. Medewerkers die in aanmerking komen voor een lagere uitkering of zelfs voor beëindiging van de uitkering blijven daardoor op het oude percentage staan — en de bijbehorende uitkeringskosten blijven in uw schadelast zitten.</p><h2>Wat u als werkgever kunt doen</h2><p>U kunt zelf een herbeoordelingsverzoek indienen bij het UWV als u beschikt over nieuwe informatie die aantoont dat de situatie van de medewerker is veranderd. Dat kan zijn: medische informatie waaruit verbeterde belastbaarheid blijkt, informatie dat de medewerker feitelijk meer werkt dan de uitkering suggereert, of een arbeidsdeskundig rapport met nieuwe functieduidingen die een lager AO-percentage rechtvaardigen.</p><p>Een goed onderbouwd herbeoordelingsverzoek heeft significant meer kans op succes dan een generieke aanvraag. De uitkomst heeft directe gevolgen voor uw WHK-beschikking: een lagere uitkering betekent een lagere schadelastpost.</p><div class="inline-cta"><p><strong>Heeft u medewerkers in de WGA waarvan de situatie mogelijk is veranderd?</strong></p><button class="btn btn-risk" type="button" data-cta="terugbel">Bespreek de mogelijkheden →</button></div><h2>De WHK-koppeling</h2><p>Elke euro minder WGA-uitkering die aan u wordt toegerekend, verlaagt direct uw WHK-schadelastpost. En omdat de beschikking vijf jaar doorwerkt, levert een correctie nu vijf jaar lang effect op. <a href="/diensten/whk-controle" data-view="dienst-whkreductie-view">Meer over de WHK-controle →</a></p>'
+    },
+    {
+      slug: 'wet-toelating-arbeidsongeschikte-werknemers-whk',
+      title: 'Wet toelating arbeidsongeschikte werknemers: wat betekent het voor uw WHK?',
+      metaDescription: 'De Wet toelating arbeidsongeschikte werknemers heeft gevolgen voor werkgevers die medewerkers met een WGA-uitkering in dienst nemen. Zo raakt het uw WHK-premie.',
+      tags: ['Wetgeving & UWV', 'WHK-basics'],
+      keyword: 'wet toelating arbeidsongeschikte werknemers WGA WHK premie gevolgen',
+      relatedSlugs: ['banenafspraak-no-riskpolis-whk-premie-werkgever', 'doelgroepenregister-werkgever-no-risk-whk'],
+      publishedAt: '2026-10-05T09:00:00.000Z',
+      bodyHtml: '<p>Werkgevers die iemand in dienst nemen met een lopende WGA-uitkering, nemen ook een specifiek financieel risico over. De wet- en regelgeving rondom de toelating van arbeidsongeschikte werknemers heeft directe gevolgen voor de no-riskpolis, de WGA-toerekening en daarmee voor uw WHK-premie. Dit artikel geeft een praktisch overzicht.</p><h2>Wat de wetgeving regelt</h2><p>Als een werkgever een medewerker met een WGA-uitkering in dienst neemt, heeft die medewerker in de meeste gevallen recht op een no-riskpolis. Dat betekent dat als de medewerker later ziek wordt, het UWV de loondoorbetaling compenseert en het verzuim niet meetelt in de WGA-schadelast van de nieuwe werkgever.</p><p>Die no-riskpolis is er niet automatisch. De werkgever moet actief controleren of de medewerker in het doelgroepenregister staat en de juiste meldingen doen bij het UWV.</p><h2>De valkuil bij overname van personeel</h2><p>Bij een overname of doorstart nemen werkgevers soms medewerkers over die al een (gedeeltelijke) WGA-uitkering ontvangen. Als de no-riskstatus van die medewerkers niet correct wordt geregistreerd bij de nieuwe werkgever, loopt de nieuwe werkgever het risico dat toekomstig verzuim van die medewerkers wél in de WHK-beschikking terechtkomt — terwijl dat op grond van de no-riskpolis had voorkomen kunnen worden.</p><h2>Praktisch advies</h2><p>Controleer bij elke indiensttreding via de UWV-werkgeversportal of er een WGA-uitkering loopt en of er een doelgroepregistratie is. Leg dit als verplichte onboarding-stap vast. Zorg dat uw salarisadministrateur de juiste indicatiecodes meestuurt in de loonaangifte voor het loonkostenvoordeel.</p><div class="inline-cta"><p><strong>Heeft u medewerkers met een WGA-uitkering in dienst en weet u niet of de no-riskregistratie correct is?</strong></p><button class="btn btn-risk" data-view="dienst-whkreductie-view">Laat de beschikking controleren →</button></div>'
+    },
+    {
+      slug: 'loonsanctie-ontvangen-wat-nu-whk-gevolgen',
+      title: 'Loonsanctie ontvangen: wat nu — en wat zijn de WHK-gevolgen?',
+      metaDescription: 'Een loonsanctie betekent maximaal 52 weken extra loondoorbetaling. Maar de WHK-impact loopt nog jaren door. Zo pakt u het aan en beperkt u de schade.',
+      tags: ['Verzuimbeleid', 'WHK-basics', 'Bezwaar & procedure'],
+      keyword: 'loonsanctie ontvangen gevolgen bezwaar WHK premie schade beperken',
+      relatedSlugs: ['loonsanctie-voorkomen-poortwachter', 'poortwachter-tijdlijnchecker'],
+      publishedAt: '2026-10-12T09:00:00.000Z',
+      bodyHtml: '<p>Een loonsanctie is een van de meest ingrijpende beslissingen die het UWV kan nemen richting een werkgever. U bent verplicht het loon maximaal 52 weken langer door te betalen, de WIA-aanvraag wordt uitgesteld en de medewerker blijft langer in uw re-integratieverantwoordelijkheid. Maar er is meer: de loonsanctie heeft ook directe gevolgen voor uw WHK-premie in de jaren die volgen.</p><h2>Waarom de loonsanctie de WHK raakt</h2><p>Door de loonsanctie wordt de WIA-aanvraag maximaal 52 weken uitgesteld. Dat betekent dat de medewerker later instroomt in de WGA — als re-integratie niet alsnog slaagt. En een latere WGA-instroom betekent dat de uitkeringslast later in uw WHK-beschikking verschijnt. Op zichzelf neutraal, maar de loonsanctie vergroot ook de kans dat de medewerker üüberhaupt in de WGA instroomt omdat de re-integratie kennelijk niet goed verliep.</p><h2>Bezwaar maken tegen de loonsanctie</h2><p>Een loonsanctie is bezwaarbaar. De gronden voor een succesvolle bezwaarprocedure zijn: de re-integratie-inspanningen waren wel degelijk voldoende maar zijn onjuist beoordeeld door de arbeidsdeskundige van het UWV, het plan van aanpak was aanwezig maar de uitvoering was bemoeilijkt door externe factoren, of er is een procedurele fout gemaakt in de RIV-toets. Een bezwaar schort de loonsanctie niet op, maar een gegrond bezwaar maakt de sanctie met terugwerkende kracht ongedaan.</p><h2>De kortste weg: herstelplan</h2><p>Als bezwaar niet kansrijk is, is een herstelplan de snelste route. Leg vast wat er is misgegaan, wat de verbeteractie is en wanneer u die heeft doorgevoerd. Dien het herstelplan in bij het UWV. Als het UWV dat herstelplan accepteert, kan de loonsanctie worden verkort.</p><div class="inline-cta"><p><strong>Heeft u een loonsanctie ontvangen en wilt u weten of bezwaar kansrijk is?</strong></p><button class="btn btn-risk" type="button" data-cta="terugbel">Bespreek de situatie →</button></div><h2>Preventie is beter dan herstel</h2><p>Een loonsanctie voorkomt u door de poortwachter-verplichtingen tijdig en aantoonbaar na te komen. Gebruik de poortwachter-tijdlijnchecker om te controleren of alle stappen op tijd zijn gezet. <a href="/tools/poortwachter" data-view="poortwachter-view">Open de poortwachter-checker →</a></p>'
+    },
+    {
+      slug: 'deskundigenoordeel-uwv-aanvragen-werkgever',
+      title: 'Deskundigenoordeel UWV aanvragen: wanneer en hoe werkt het?',
+      metaDescription: 'Het deskundigenoordeel van het UWV is een onbekend maar krachtig instrument voor werkgevers bij re-integratieconflicten. Zo vraagt u het aan en zo beïnvloedt het uw WHK-premie.',
+      tags: ['Re-integratie', 'Wetgeving & UWV', 'WHK-basics'],
+      keyword: 'deskundigenoordeel UWV aanvragen werkgever re-integratie conflict',
+      relatedSlugs: ['casemanager-wga-arbeidsdeskundige-inschakelen', 'loonsanctie-voorkomen-poortwachter'],
+      publishedAt: '2026-10-19T09:00:00.000Z',
+      bodyHtml: '<p>Het deskundigenoordeel is een van de minst bekende instrumenten in de re-integratietoolbox van werkgevers. Toch kan het een cruciale rol spelen bij conflicten over re-integratie, bij twijfel over de belastbaarheid van een medewerker, en indirect bij het voorkomen van een loopsanctie — die op zijn beurt de WHK-premie kan beïnvloeden.</p><h2>Wat een deskundigenoordeel is</h2><p>Een deskundigenoordeel is een oordeel van een arbeidsdeskundige of verzekeringsarts van het UWV over een specifieke vraag rondom re-integratie of belastbaarheid. Het is geen bindende beslissing maar een zwaarwegend advies dat in rechtszaken en bezwaarprocedures als bewijsmiddel kan worden gebruikt.</p><h2>Wanneer vraagt u het aan?</h2><p>Een werkgever kan een deskundigenoordeel aanvragen als: er verschil van inzicht is met de medewerker over de re-integratiemogelijkheden, de medewerker weigert passende arbeid te verrichten terwijl u meent dat hij dat kan, of er twijfel bestaat over de vraag of de re-integratie-inspanningen voldoende zijn om een loonsanctie te voorkomen.</p><h2>De WHK-koppeling</h2><p>Een deskundigenoordeel dat de re-integratie-inspanningen van de werkgever als voldoende bestempelt, is een sterk bewijsstuk als het UWV later toch een loonsanctie oplegt. Daarmee versterkt u uw bezwaarpositie en beperkt u het risico op een verlengde WGA-toerekening in uw WHK-beschikking.</p><div class="inline-cta"><p><strong>Heeft u een re-integratieconflict en overweegt u een deskundigenoordeel?</strong></p><button class="btn btn-risk" type="button" data-cta="terugbel">Bespreek uw situatie →</button></div><h2>Praktische informatie</h2><p>Een deskundigenoordeel kost de aanvrager €400 (werkgever) of €100 (werknemer). Het UWV streeft naar een doorlooptijd van vier weken. Vraag het aan via uwv.nl of via uw casemanager. Leg altijd vast waarom u het aanvraagt en wat u ermee beoogt. <a href="/diensten/arbeidsdeskundig-onderzoek" data-view="dienst-arbeidsdeskundig-view">Meer over arbeidsdeskundig onderzoek →</a></p>'
+    },
+    {
+      slug: 'riv-toets-voorbereiding-loopsanctie-voorkomen',
+      title: 'RIV-toets voorbereiding: zo voorkomt u een loonsanctie in de laatste fase',
+      metaDescription: 'De RIV-toets is het moment waarop het UWV uw re-integratie-inspanningen beoordeelt. Een goede voorbereiding voorkomt een loonsanctie — en daarmee een hogere WHK-premie.',
+      tags: ['Verzuimbeleid', 'Re-integratie', 'WHK-basics'],
+      keyword: 'RIV toets voorbereiding loonsanctie voorkomen WHK poortwachter',
+      relatedSlugs: ['loonsanctie-ontvangen-wat-nu-whk-gevolgen', 'dossiervorming-verzuim-bezwaarkansen-poortwachter'],
+      publishedAt: '2026-10-26T09:00:00.000Z',
+      bodyHtml: '<p>De RIV-toets — de re-integratieverslagtoets — is het moment waarop het UWV bij de WIA-aanvraag beoordeelt of werkgever en werknemer zich voldoende hebben ingespannen voor re-integratie. Een negatief oordeel leidt tot een loonsanctie van maximaal 52 weken. En een loonsanctie vergroot de kans op WGA-instroom — met directe gevolgen voor uw WHK-premie.</p><h2>Wat het UWV bij de RIV-toets beoordeelt</h2><p>De arbeidsdeskundige van het UWV beoordeelt: of het re-integratieverslag volledig en tijdig is aangeleverd, of er een actueel plan van aanpak aanwezig is, of de re-integratie-inspanningen reëel waren gezien de beperkingen van de medewerker, of het gekozen re-integratiespoor (eerste of tweede spoor) passend was, en of interventies tijdig zijn ingezet.</p><h2>De meest voorkomende fouten</h2><p>In de praktijk zien wij dat loopsancties vooral worden opgelegd vanwege: een te late start van het tweede spoor, een onvolledig of verouderd plan van aanpak, ontbrekende evaluatiemomenten in het dossier, en het niet inzetten van een arbeidsdeskundig onderzoek terwijl de situatie daartoe aanleiding gaf.</p><h2>Voorbereiding: checklist voor de RIV-toets</h2><p>Controleer vóór de WIA-aanvraag: is het re-integratieverslag compleet en ondertekend door beide partijen? Is het plan van aanpak bijgewerkt tot de actuele situatie? Zijn alle evaluatiemomenten gedocumenteerd? Is de keuze voor eerste of tweede spoor arbeidsdeskundig onderbouwd? Als één van deze punten ontbreekt, herstel het dan vóór de aanvraag. Na indiening is het te laat.</p><div class="inline-cta"><p><strong>Staat u voor een WIA-aanvraag en wilt u het dossier laten beoordelen?</strong></p><button class="btn btn-risk" type="button" data-cta="terugbel">Bespreek het dossier →</button></div><h2>De WHK-koppeling</h2><p>Een loopsanctie vergroot de kans dat de medewerker uiteindelijk in de WGA instroomt. Die WGA-toerekening verschijnt twee jaar later in uw WHK-beschikking en werkt vijf tot tien jaar door in uw premie. De kosten van een loopsanctie zijn dus veel groter dan de 52 weken extra loondoorbetaling alleen. <a href="/tools/poortwachter" data-view="poortwachter-view">Gebruik de poortwachter-checker →</a></p>'
+    },
+    {
+      slug: 'wga-uitkering-berekenen-whk-impact',
+      title: 'WGA-uitkering berekenen: wat betekent het voor uw WHK-premie?',
+      metaDescription: 'Hoe wordt de WGA-uitkering berekend en hoe vertaalt die berekening zich naar uw WHK-beschikking? Een heldere uitleg met rekenvoorbeelden.',
+      tags: ['WHK-basics', 'Wetgeving & UWV'],
+      keyword: 'WGA uitkering berekenen dagloon WHK beschikking schadelast',
+      relatedSlugs: ['iva-of-wga-verschil-impact-whk-premie', 'dagloonvaststelling-uwv-fout-gevolgen'],
+      publishedAt: '2026-11-02T09:00:00.000Z',
+      bodyHtml: '<p>Werkgevers die de WIA-calculator op onze site gebruiken, zien een indicatief uitkeringsbedrag verschijnen. Maar wat betekent dat bedrag concreet voor de WHK-beschikking? En hoe vertaalt de hoogte van de WGA-uitkering zich naar de premie die u betaalt? Dit artikel legt het stap voor stap uit.</p><h2>Hoe de WGA-uitkering wordt berekend</h2><p>De WGA-uitkering is gebaseerd op het dagloon van de medewerker — het gemiddeld verdiende loon per dag in het referentiejaar. Dat dagloon wordt vermenigvuldigd met het arbeidsongeschiktheidspercentage en de uitkeringspercentage. In de WGA-loongerelateerde fase bedraagt de uitkering 70% van het dagloon, verminderd met het feitelijk verdiende loon als de medewerker gedeeltelijk werkt.</p><p>Voorbeeld: dagloon €150, arbeidsongeschiktheid 50%, feitelijk verdiend loon €40 per dag. Uitkering: (70% × €150) − €40 = €65 per dag. Op jaarbasis (261 dagen): €16.965.</p><h2>Van uitkering naar WHK-beschikking</h2><p>Het jaarlijkse uitkeringsbedrag dat aan u wordt toegerekend, verschijnt in de bijlage van uw WHK-beschikking. De Belastingdienst telt alle toegerekende bedragen op tot de totale schadelast. Die schadelast wordt gedeeld door uw loonsom om het premiepercentage te berekenen.</p><p>Concreet: schadelast €80.000, loonsom €4 miljoen, premiepercentage 2,0%. Elke €10.000 minder schadelast verlaagt het percentage met 0,25 procentpunt — wat neerkomt op €10.000 minder premie per jaar, vijf jaar lang.</p><h2>Wanneer de berekening fout gaat</h2><p>Als het dagloon onjuist is vastgesteld — te hoog door een boekhoudkundige fout in de loonaangifte, of te laag door een gemiste looncomponent — klopt de hele uitkeringsberekening niet. Een te hoog dagloon leidt tot een te hoge uitkering en een te hoge schadelastpost. Dat is direct aanvechtbaar.</p><div class="inline-cta"><p><strong>Wilt u berekenen wat de WGA-uitkering van een medewerker betekent voor uw WHK-premie?</strong></p><button class="btn btn-risk" data-view="wia-calc-view">Open de WIA-calculator →</button></div>'
+    },
+    {
+      slug: 'verschil-zw-premie-wga-premie-werkgever',
+      title: 'Wat is het verschil tussen de ZW-premie en de WGA-premie?',
+      metaDescription: 'De WHK bestaat uit een ZW-premie en een WGA-premie. Wat is het verschil, hoe worden beide berekend en waar zit de meeste besparingskans?',
+      tags: ['WHK-basics', 'Wetgeving & UWV'],
+      keyword: 'verschil ZW premie WGA premie werkgever WHK beschikking',
+      relatedSlugs: ['gedifferentieerde-wga-premie-vs-sectorale-premie', 'iva-of-wga-verschil-impact-whk-premie'],
+      publishedAt: '2026-11-09T09:00:00.000Z',
+      bodyHtml: '<p>De WHK — de Werkhervattingskas — bestaat uit twee componenten: de ZW-premie (Ziektewet) en de WGA-premie (Werkhervatting Gedeeltelijk Arbeidsgeschikten). Veel werkgevers behandelen de WHK als één post, terwijl de twee premies een andere systematiek hebben en ook andere besparingsmogelijkheden bieden.</p><h2>De ZW-premie: voor flexibele medewerkers</h2><p>De ZW-premie — ook wel de flexpremie genoemd — heeft betrekking op medewerkers zonder vast contract: uitzendkrachten, oproepkrachten, medewerkers met een tijdelijk contract zonder loondoorbetalingsverplichting na einde contract. Als zo’n medewerker ziek uit dienst treedt, neemt het UWV de loondoorbetaling over via de Ziektewet. De kosten hiervan worden via de ZW-premie aan werkgevers doorberekend.</p><p>De ZW-premie is individueel gedifferentieerd voor grotere werkgevers: als u relatief veel ZW-instroom heeft, betaalt u een hogere ZW-premie. Beperken van ZW-instroom — via goede screening bij indiensttreding, begeleiding bij uitstroom en no-riskmeldingen — verlaagt uw ZW-premie direct.</p><h2>De WGA-premie: voor vaste medewerkers</h2><p>De WGA-premie heeft betrekking op medewerkers die na twee jaar ziekte gedeeltelijk arbeidsongeschikt blijven en een WGA-uitkering ontvangen. De WGA-uitkeringskosten worden toegerekend aan de werkgever bij wie de medewerker werkte op het moment van de eerste ziektedag.</p><p>De WGA-premie is de component met de meeste besparingsmogelijkheden: onjuiste toerekeingen, gemiste no-riskregistraties, foutieve daglonen en verkeerde IVA/WGA-classificaties zijn allemaal bezwaarbaar en hebben direct effect op de WGA-premie.</p><h2>Waar zit de besparingskans?</h2><p>In de meeste gevallen zit de grootste besparingskans in de WGA-component. De WGA-uitkeringen zijn hoger, de toerekeningsperiode is langer en er zijn meer gronden voor bezwaar. De ZW-component is beter te beïnvloeden via preventie en goed uitstroombeleid bij flexwerkers.</p><div class="inline-cta"><p><strong>Wilt u weten hoe uw ZW- en WGA-premie zijn opgebouwd?</strong></p><button class="btn btn-risk" data-view="dienst-whkreductie-view">Gratis beschikking laten analyseren →</button></div>'
+    },
+    {
+      slug: 'hoe-lang-duurt-whk-bezwaarprocedure',
+      title: 'Hoe lang duurt een WHK-bezwaarprocedure?',
+      metaDescription: 'Een WHK-bezwaar duurt gemiddeld drie tot vijf maanden. Wat bepaalt de doorlooptijd, wanneer kunt u een dwangsom eisen en wat kunt u verwachten?',
+      tags: ['Bezwaar & procedure', 'WHK-basics'],
+      keyword: 'WHK bezwaarprocedure duur doorlooptijd maanden termijn',
+      relatedSlugs: ['dwangsom-uwv-procedure-ingebrekestelling', 'bezwaar-whk-beschikking-stappenplan'],
+      publishedAt: '2026-11-16T09:00:00.000Z',
+      bodyHtml: '<p>Een van de meest gestelde vragen van werkgevers die bezwaar overwegen: hoe lang duurt het? Het antwoord is: wettelijk zes tot twaalf weken, in de praktijk drie tot vijf maanden. Hier is wat u kunt verwachten.</p><h2>De wettelijke termijn</h2><p>De Belastingdienst heeft na ontvangst van het bezwaarschrift zes weken om een beslissing te nemen. Die termijn mag éénmaal worden verlengd met zes weken, mits de Belastingdienst u daar tijdig van op de hoogte stelt. In theorie is de procedure dus in twaalf weken afgerond.</p><h2>De praktijk</h2><p>In de praktijk duurt een WHK-bezwaar gemiddeld drie tot vijf maanden. De Belastingdienst vraagt regelmatig aanvullende informatie op, de interne afstemming kost tijd en bij complexe dossiers met meerdere toerekeingen duurt de herbeoordeling langer.</p><h2>Wanneer kunt u een dwangsom eisen?</h2><p>Als de Belastingdienst de wettelijke termijn overschrijdt zonder beslissing, kunt u een ingebrekestelling sturen op grond van de Wet dwangsom (artikel 4:17 Awb). Na de ingebrekestelling heeft de Belastingdienst twee weken om alsnog te beslissen. Doet zij dat niet, dan loopt een dwangsom van €23 per dag op. Wij bewaken beslistermijnen standaard in alle dossiers en stellen ingebrekestellingen in waar dat van toepassing is.</p><h2>Wat u in de tussentijd kunt doen</h2><p>Terwijl het bezwaar loopt, betaalt u de premie op basis van de bestreden beschikking. Als het bezwaar gegrond wordt verklaard, ontvangt u een gecorrigeerde beschikking en wordt het verschil verrekend. U hoeft niet te wachten met betalen tot de uitkomst van het bezwaar.</p><div class="inline-cta"><p><strong>Wilt u weten hoe lang uw bezwaarprocedure waarschijnlijk duurt?</strong></p><button class="btn btn-risk" data-view="dienst-whkreductie-view">Bespreek uw situatie →</button></div>'
+    },
+    {
+      slug: 'zelf-bezwaar-maken-whk-beschikking-of-specialist',
+      title: 'Zelf bezwaar maken tegen uw WHK-beschikking: kan dat?',
+      metaDescription: 'U kunt zelf bezwaar maken tegen uw WHK-beschikking. Maar wanneer is dat verstandig en wanneer heeft u een specialist nodig? Een eerlijk overzicht.',
+      tags: ['Bezwaar & procedure', 'WHK-basics'],
+      keyword: 'zelf bezwaar maken WHK beschikking of specialist inschakelen',
+      relatedSlugs: ['bezwaar-whk-beschikking-wanneer-wel-niet', 'whk-premie-laten-verlagen-specialist-kiezen'],
+      publishedAt: '2026-11-23T09:00:00.000Z',
+      bodyHtml: '<p>Ja, u kunt zelf bezwaar maken tegen uw WHK-beschikking. Er is geen verplichting om een gemachtigde in te schakelen. Maar of dat verstandig is, hangt af van de aard van de fout die u vermoedt en de technische complexiteit van de onderbouwing.</p><h2>Wanneer kunt u het zelf?</h2><p>Zelf bezwaar is het meest haalbaar als de fout eenvoudig en feitelijk aantoonbaar is: een medewerker staat op de bijlage die al jaren niet meer in dienst is, een naam klopt niet, of een uitkeringsbedrag wijkt evident af van wat u verwacht. In die gevallen is het bezwaarschrift relatief eenvoudig op te stellen: beschrijf de fout, voeg bewijs toe (uitdiensttreding, arbeidsovereenkomst, loonstrook) en dien het in bij de Belastingdienst.</p><h2>Wanneer heeft u een specialist nodig?</h2><p>Bij technisch complexe bezwaargronden — onjuiste urenreductiefactor, foutieve dagloonberekening, verkeerde IVA/WGA-classificatie, onterechte WOVON-toepassing — is specialistische kennis noodzakelijk. Die gronden vereisen arbeidsdeskundige analyse, kennis van UWV-richtlijnen en jurisprudentie van de Centrale Raad van Beroep. Een slecht onderbouwd bezwaar wordt afgewezen, ook als de fout er feitelijk wel in zit.</p><h2>De pro-forma optie</h2><p>Als de bezwaartermijn bijna verloopt en u nog geen inhoudelijke onderbouwing heeft, kunt u een pro-forma bezwaar indienen: een bezwaarschrift zonder gronden, alleen om de termijn te stuiten. U krijgt daarna de gelegenheid om de gronden aan te vullen. Dit geeft u extra tijd om een specialist in te schakelen voor de inhoudelijke analyse.</p><div class="inline-cta"><p><strong>Twijfelt u of uw bezwaar kansrijk is? Laat ons het gratis beoordelen.</strong></p><button class="btn btn-risk" data-view="dienst-whkreductie-view">Gratis beoordeling aanvragen →</button></div>'
+    },
+    {
+      slug: 'whk-hoog-verloop-horeca-retail-schoonmaak',
+      title: 'WHK en hoog verloop: de aanpak voor horeca, retail en schoonmaak',
+      metaDescription: 'Branches met hoog verloop betalen structureel meer ZW-premie. Hoe beheert u de WHK-kosten in horeca, retail en schoonmaak effectief?',
+      tags: ['Sector & organisatie', 'WHK-basics', 'Verzuimbeleid'],
+      keyword: 'WHK hoog verloop horeca retail schoonmaak ZW premie beheersen',
+      relatedSlugs: ['ziektewet-flexpremie-verlagen-tijdelijke-contracten', 'verschil-zw-premie-wga-premie-werkgever'],
+      publishedAt: '2026-11-30T09:00:00.000Z',
+      bodyHtml: '<p>Horeca, retail en schoonmaak hebben drie dingen gemeen: hoog personeelsverloop, veel flexibele contracten en structureel hogere ZW-premies. De WHK-kosten in deze branches worden niet zozeer bepaald door de WGA-component — vaste medewerkers die langdurig uitvallen — maar door de ZW-flexpremie: de kosten van medewerkers die ziek uit dienst treden.</p><h2>Waarom hoog verloop leidt tot hogere ZW-premie</h2><p>Als een medewerker met een tijdelijk contract of als oproepkracht ziek uit dienst treedt, neemt het UWV de loondoorbetaling over via de Ziektewet. Die kosten worden via de ZW-flexpremie doorberekend aan de werkgever bij wie de medewerker het laatste werkte. Bij branches met hoog verloop en veel tijdelijke contracten zijn die ZW-instromen structureel hoog — en daarmee ook de premie.</p><h2>Wat u kunt doen</h2><p><strong>No-riskmeldingen consequent uitvoeren.</strong> Als een medewerker met flexcontract ziek uit dienst treedt en een no-riskstatus heeft, moet u dat melden bij het UWV. Anders telt die ZW-instroom mee in uw premie terwijl dat niet hoeft.</p><p><strong>Verzuimbeleid ook voor flex.</strong> Veel werkgevers investeren in verzuimbegeleiding voor vaste medewerkers maar niet voor oproepkrachten. Toch is vroeg signaleren en begeleiden ook bij flex een effectieve manier om ZW-instroom te beperken.</p><p><strong>Beschikking controleren op ZW-toerekeingen.</strong> De ZW-component van uw beschikking vermeldt welke uitkeringskosten aan u zijn toegerekend. Onbekende namen of onverwacht hoge bedragen zijn ook hier aanleiding voor een controle.</p><div class="inline-cta"><p><strong>Wilt u weten of uw ZW-premie correct is berekend?</strong></p><button class="btn btn-risk" data-view="dienst-whkreductie-view">Gratis beschikking controleren →</button></div><h2>De WGA-component in deze branches</h2><p>Naast de ZW-premie heeft u ook te maken met de WGA-component voor vaste medewerkers. In horeca, retail en schoonmaak zijn fysieke klachten — rug, knieën, schouders — de meest voorkomende oorzaak van langdurig verzuim en WGA-instroom. Tijdige inzet van arbeidsdeskundig onderzoek en tweede spoor verlaagt ook hier de WHK-premie structureel. <a href="/diensten/whk-controle" data-view="dienst-whkreductie-view">Meer over de WHK-controle →</a></p>'
+    },
+    ];
   var posts = [];
 
   function buildServiceBlogCards(containerId, slugs){
@@ -8916,7 +9266,7 @@
   var categories = [];
   var editingCategoryId = null;
 
-  var SEED_CATEGORIES = [
+    var SEED_CATEGORIES = [
     { id: 'whk-basis',      name: 'WHK-basics',              color: '#A23E2C' },
     { id: 'norisk-lkv',     name: 'No-risk & LKV',           color: '#1C6E4A' },
     { id: 're-integratie',  name: 'Re-integratie',           color: '#B07F26' },
@@ -8927,7 +9277,7 @@
     { id: 'wetgeving',      name: 'Wetgeving & UWV',         color: '#5a6fd6' },
   ];
 
-  async function loadCategories(){
+    async function loadCategories(){
     try{
       var res = await storageGet('blog:categories', true);
       if(res && res.value){
@@ -13698,23 +14048,26 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
   loadCalendly();
 
   // ---- HowTo SCHEMA — WHK-controle 5-stappen ----
-  // Inject Niels photo in WHK-controle intro
+  // Inject Niels photo in all service page intros
   (function(){
-    var wrap = document.getElementById('whkr-niels-photo-wrap');
-    var teamPhoto = document.querySelector('.team-member img[alt="Niels Alderding"]') ||
-                    document.querySelector('img[alt="Niels Alderding"]');
-    if(wrap && teamPhoto){
-      var img = teamPhoto.cloneNode();
-      img.style.cssText = 'width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:center top;';
-      wrap.appendChild(img);
-    } else if(wrap){
-      wrap.innerHTML = '<div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--savings) 0%,#0e4a32 100%);display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:white;font-family:\'IBM Plex Mono\',monospace;font-weight:700;">NA</div>';
-    }
+    var teamPhoto = document.querySelector('img[alt="Niels Alderding"]');
+    var wraps = document.querySelectorAll('.niels-photo-wrap, #whkr-niels-photo-wrap');
+    wraps.forEach(function(wrap){
+      if(wrap.children.length > 0) return; // already filled
+      if(teamPhoto){
+        var img = teamPhoto.cloneNode();
+        img.style.cssText = 'width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:center top;';
+        wrap.appendChild(img);
+      } else {
+        wrap.innerHTML = '<div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--savings) 0%,#0e4a32 100%);display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:white;font-family:\'IBM Plex Mono\',monospace;font-weight:700;">NA</div>';
+      }
+    });
   })();
-  (function(){
+  function injectWhkrSchema(){
     var existing = document.getElementById('dynamic-schema');
     if(!existing) return;
-    // Inject HowTo + AggregateRating + FAQPage voor WHK-controle in één blok
+    // Inject HowTo + FAQPage alleen op de WHK-controle pagina
+    if(document.getElementById('whkr-structured-data')) return;
     var whkrSchema = document.createElement('script');
     whkrSchema.type = 'application/ld+json';
     whkrSchema.id = 'whkr-structured-data';
@@ -13736,30 +14089,6 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
       },
       {
         "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "Matchvermogen / Werkhervattingskas.nl",
-        "url": "https://www.werkhervattingskas.nl",
-        "description": "Professionele controle van uw WHK-beschikking op fouten, foutieve toerekening en gemiste no-riskpolissen. No cure, no pay. Besparing varieert van \u20ac25.000\u2013\u20ac100.000 per jaar.",
-        "areaServed": "NL",
-        "telephone": "06-50213593",
-        "email": "info@werkhervattingskas.nl",
-        "priceRange": "No cure, no pay",
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "bestRating": "5",
-          "worstRating": "1",
-          "ratingCount": "14",
-          "reviewCount": "14"
-        },
-        "review": [
-          { "@type": "Review", "author": { "@type": "Person", "name": "Martijn de Vries" }, "reviewRating": { "@type": "Rating", "ratingValue": "5" }, "reviewBody": "Via Matchvermogen hebben wij ruim \u20ac250.000 teruggekregen op onze WHK-beschikking." },
-          { "@type": "Review", "author": { "@type": "Person", "name": "Astrid Reighardt" }, "reviewRating": { "@type": "Rating", "ratingValue": "5" }, "reviewBody": "De expertise op het vlak van bezwaar en beroep is echt een ander niveau \u2014 inhoudelijk sterk onderbouwd en procesmatig goed begeleid." },
-          { "@type": "Review", "author": { "@type": "Person", "name": "Sander Kuipers" }, "reviewRating": { "@type": "Rating", "ratingValue": "5" }, "reviewBody": "Vakkundige, gestructureerde aanpak met regelmatige updates over de voortgang van de bezwaarprocedures." }
-        ]
-      },
-      {
-        "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
           { "@type": "Question", "name": "Wat is het minimale voordeel om de WHK-controle zinvol te maken?", "acceptedAnswer": { "@type": "Answer", "text": "Er is geen drempel — de controle is altijd gratis. In de praktijk vinden wij bij werkgevers met een loonsom boven €1M bijna altijd iets. Een besparing van €3.000 per jaar is de ondergrens waarbij wij een bezwaar opstarten." }},
@@ -13770,7 +14099,7 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
       }
     ]);
     document.head.appendChild(whkrSchema);
-  })();
+  }
 
   // ---- BLOG-HUB op dienstpagina's ----
   // (wordt aangeroepen vanuit loadPosts na het laden)
@@ -14609,6 +14938,7 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
     if(btn && !sectorsRendered){ sectorsRendered = true; renderSectorGrid(); }
   });
   if(window.location.hash === '#sectors-view'){ sectorsRendered = true; renderSectorGrid(); }
+  if(window.location.hash === '#dienst-whkreductie-view'){ injectWhkrSchema(); }
 
   document.getElementById('year').textContent = new Date().getFullYear();
 })();
