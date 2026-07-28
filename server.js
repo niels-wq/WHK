@@ -402,6 +402,7 @@ app.get('/sitemap.xml', async (req, res) => {
     const prio = p === '/' ? '1.0' : p.startsWith('/diensten') ? '0.9' : '0.7';
     xml += `  <url><loc>${SITE_URL}${p}</loc><changefreq>monthly</changefreq><priority>${prio}</priority></url>\n`;
   });
+  xml += `  <url><loc>${SITE_URL}/whk_checklist.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>\n`;
   Object.keys(SECTOR_META).forEach(s => {
     xml += `  <url><loc>${SITE_URL}/sectoren/${s}</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>\n`;
   });
@@ -462,11 +463,17 @@ app.get('/og-image.png', (req, res) => {
 });
 
 // Checklist download
+// Redirect zonder .html naar canonical met .html
+app.get('/whk_checklist', (req, res) => {
+  res.redirect(301, `${SITE_URL}/whk_checklist.html`);
+});
+
 app.get('/whk_checklist.html', (req, res) => {
   const p = path.join(__dirname, 'whk_checklist.html');
   if (!fs.existsSync(p)) return res.status(404).send('Checklist niet gevonden');
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 'public, max-age=86400');
+  res.setHeader('Link', `<${SITE_URL}/whk_checklist.html>; rel="canonical"`);
   res.sendFile(p);
 });
 
