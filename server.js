@@ -14,7 +14,7 @@ const pool = new Pool({ connectionString: process.env.DATABASE_URL, ssl: { rejec
 
 const ADMIN_PASSWORD    = process.env.ADMIN_PASSWORD    || 'verander-dit';
 const JWT_SECRET        = process.env.JWT_SECRET        || 'verander-dit-secret';
-const SITE_URL          = (process.env.SITE_URL         || 'https://www.werkhervattingskas.nl').replace(/\/$/, '');
+const SITE_URL          = (process.env.SITE_URL         || 'https://werkhervattingskas.nl').replace(/\/$/, '').replace('https://www.', 'https://');
 const PORT              = process.env.PORT              || 3000;
 const NOTIFICATION_EMAIL= process.env.NOTIFICATION_EMAIL|| 'info@matchvermogen.nl';
 const RESEND_API_KEY    = process.env.RESEND_API_KEY    || '';
@@ -22,6 +22,15 @@ const FROM_EMAIL        = process.env.FROM_EMAIL        || 'noreply@werkhervatti
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
+
+// Redirect www naar non-www
+app.use((req, res, next) => {
+  if (req.hostname && req.hostname.startsWith('www.')) {
+    const nonWww = req.hostname.slice(4);
+    return res.redirect(301, `https://${nonWww}${req.originalUrl}`);
+  }
+  next();
+});
 
 // ================================================================
 // E-MAIL VIA RESEND API
