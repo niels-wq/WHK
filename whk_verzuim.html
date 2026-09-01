@@ -9439,10 +9439,16 @@
   }
 
   async function addLead(name, phone, source, message){
+    // Weiger lege leads
+    var n = (name || '').trim();
+    var p = (phone || '').trim();
+    if(!n && !p) return;  // beide leeg = spam/bot
+    if(!n) n = '(geen naam)';
+    if(!p) p = '(geen telefoon)';
     var lead = {
       id: 'lead_' + Date.now(),
-      name: name || '',
-      phone: phone || '',
+      name: n,
+      phone: p,
       source: source,
       message: message || '',
       createdAt: new Date().toISOString(),
