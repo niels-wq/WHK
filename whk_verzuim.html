@@ -4150,6 +4150,11 @@
         <div class="quiz-result" id="ic-result">
           <div class="score" id="ic-score">&euro; 0</div>
           <p id="ic-feedback"></p>
+          <div id="ic-whk-tooltip" style="display:none;margin:14px 0;padding:12px 16px;background:#fef9ec;border:1px solid var(--gold);border-left:4px solid var(--gold);border-radius:6px;font-size:0.87rem;">
+            <strong style="color:var(--gold-dark,#8B6914);">&#128161; Wist u dat dit invloed kan hebben op uw WHK-premie?</strong><br>
+            <span id="ic-whk-tooltip-text"></span>
+            <a id="ic-whk-tooltip-link" data-view="blogpost-view" data-slug="interventie-inzet-whk-premie" style="color:var(--savings);font-weight:600;display:block;margin-top:6px;cursor:pointer;">Lees: hoe verkeerde inzet van interventies uw WHK-premie verhoogt &rarr;</a>
+          </div>
           <button class="btn btn-savings" id="ic-cta" type="button">Vraag een vrijblijvend gesprek aan</button>
         </div>
       </div>
@@ -10204,274 +10209,55 @@
 
     var total = knowledgeQs.length;
     document.getElementById('quiz-score').textContent = score + ' / ' + total;
-    var feedback;
-    if(score === total){ feedback = 'Uitstekend! U kent uw WHK-zaken goed. Hieronder ziet u in een diagram waar voor uw organisatie nog concrete besparing te halen valt.'; }
-    else if(score >= total - 1){ feedback = 'Goed gedaan! Hieronder ziet u in een diagram waar voor uw organisatie nog concrete besparing te halen valt.'; }
-    else { feedback = 'Hieronder ziet u in een diagram op welke vlakken voor uw organisatie mogelijk nog besparing te halen valt.'; }
-    document.getElementById('quiz-feedback').textContent = feedback;
-
-    var whkAxis = (flagResult.whk === false ? 50 : 0) + (knowledgeCorrect['1'] ? 25 : 0) + (knowledgeCorrect['2'] ? 25 : 0);
-    var interventieAxis = (flagResult.interventie === false ? 50 : 0) + (knowledgeCorrect['3'] ? 25 : 0) + (knowledgeCorrect['4'] ? 25 : 0);
-    var erdAxis = (flagResult.erd === false ? 50 : 0) + (knowledgeCorrect['5'] ? 50 : 0);
-    var dossierAxis = dossierScore;
-
-    var radarEl = document.getElementById('quiz-radar');
-    radarEl.innerHTML = buildRadarChartSvg([
-      {label: 'WHK', value: whkAxis},
-      {label: 'Interventies', value: interventieAxis},
-      {label: 'ERD', value: erdAxis},
-      {label: 'Dossiervorming', value: dossierAxis}
-    ]);
-
-    var signalsEl = document.getElementById('quiz-signals');
-    signalsEl.innerHTML = '';
-    if(signals.length === 0){
-      var okCard = document.createElement('div');
-      okCard.className = 'signal-card ok';
-      okCard.innerHTML = '<h4>Goed bezig</h4><p>Op basis van uw antwoorden lijkt u WHK, interventies en eigenrisicodragerschap al actief te volgen. Een tweede, onafhankelijke blik kan alsnog net dat verschil maken.</p>';
-      var okBtn = document.createElement('button');
-      okBtn.className = 'btn btn-savings';
-      okBtn.type = 'button';
-      okBtn.textContent = 'Doe toch de gratis WHK-check';
-      okBtn.addEventListener('click', QUIZ_SIGNAL_CONTENT.whk.action);
-      okCard.appendChild(okBtn);
-      signalsEl.appendChild(okCard);
-    } else {
-      signals.forEach(function(domain){
-        var content = QUIZ_SIGNAL_CONTENT[domain];
-        var card = document.createElement('div');
-        card.className = 'signal-card';
-        card.innerHTML = '<h4>' + content.title + '</h4><p>' + content.text + '</p>';
-        var btn = document.createElement('button');
-        btn.className = 'btn btn-risk';
-        btn.type = 'button';
-        btn.textContent = content.ctaLabel;
-        btn.addEventListener('click', content.action);
-        card.appendChild(btn);
-        signalsEl.appendChild(card);
-      });
-    }
-
-    document.getElementById('quiz-result').classList.add('show');
-    document.getElementById('quiz-result').scrollIntoView({behavior:'smooth', block:'center'});
-    trackEvent('quiz_completed', score + '/' + total + ' \u00b7 signalen: ' + (signals.join(',') || 'geen'));
-
-    // Gepersonaliseerd advies per as
-    var adviceEl = document.getElementById('quiz-personal-advice');
-    if(adviceEl){
-      adviceEl.innerHTML = '';
-      var AXIS_ADVICE = {
-        whk: {
-          high:  { label: 'WHK: goed op orde', color: 'var(--savings)', text: 'U volgt uw WHK-beschikking actief en kent de systematiek. Toch loont een tweede blik: foutieve toerekening kan ook optreden bij organisaties die het goed monitoren.' },
-          low:   { label: 'WHK: aandacht vereist', color: 'var(--risk)', text: 'Uw antwoorden wijzen op een beperkt beeld van uw WHK-positie. Dit is het meest voorkomende vertrekpunt voor besparing — gemiddeld €4.200 per jaar voor middelgrote werkgevers.' },
-        },
-        interventie: {
-          high:  { label: 'Interventies: efficiënt ingekocht', color: 'var(--savings)', text: 'U vergelijkt tarieven en controleert kwaliteit. Vraag ons te checken of uw huidige tarieven nog overeenkomen met de actuele marktbenchmarks.' },
-          low:   { label: 'Interventies: besparingskansen', color: 'var(--risk)', text: 'U betaalt mogelijk boven de marktnorm voor arbeidsdeskundig onderzoek, coaching of tweede spoor. Dit is direct aanpasbaar zonder kwaliteitsverlies.' },
-        },
-        erd: {
-          high:  { label: 'ERD/verzekering: bewuste keuze', color: 'var(--savings)', text: 'U heeft de keuze tussen eigenrisicodrager en publieke premie bewust afgewogen. Laat ons controleren of de balans bij uw huidige situatie nog steeds klopt.' },
-          low:   { label: 'ERD/verzekering: mogelijk heroverweging waard', color: 'var(--risk)', text: 'U heeft nog niet gekeken of eigenrisicodragerschap voordeliger is. Voor grotere organisaties met laag verzuim scheelt dit structureel €10.000–€40.000 per jaar.' },
-        },
-      };
-
-      var axes = [
-        { key: 'whk',         score: whkAxis,         label: 'WHK' },
-        { key: 'interventie', score: interventieAxis,  label: 'Interventies' },
-        { key: 'erd',         score: erdAxis,          label: 'ERD' },
-      ];
-
-      axes.forEach(function(axis){
-        var advice = AXIS_ADVICE[axis.key];
-        if(!advice) return;
-        var level = axis.score >= 60 ? advice.high : advice.low;
-        var div = document.createElement('div');
-        div.style.cssText = 'border-left:3px solid ' + level.color + ';padding:12px 16px;background:var(--paper-deep);border-radius:0 var(--radius-s) var(--radius-s) 0;';
-        div.innerHTML = '<strong style="font-size:0.88rem;color:' + level.color + ';">' + level.label + '</strong>'
-          + '<p style="margin:5px 0 0;font-size:0.86rem;color:var(--ink-soft);">' + level.text + '</p>';
-        adviceEl.appendChild(div);
-      });
-    }
-  });
-
-  // ---- PRINT REPORT ----
-  document.getElementById('print-report-btn').addEventListener('click', function(){
-    trackEvent('report_printed');
-    window.print();
-  });
-
-  // ---- INTERVENTIE-CHECK CALCULATOR ----
-  // Gedeelde aannames voor de impact van één WGA-instromer op de WHK-premie.
-  // ============================================================
-  // CALCULATOR CONFIG — centrale instelwaarden voor alle tools
-  // Waarden worden bij laden uit opslag gelezen (admin kan ze
-  // aanpassen via het tabblad "Calculator-instellingen").
-  // Bij ontbrekende of ongeldige opslag worden de defaults gebruikt.
-  // ============================================================
-  var CALC_CONFIG_DEFAULTS = {
-    // --- WGA / modaal inkomen ---
-    modaalInkomen:            48000,    // € modaal jaarloon (CPB 2026)
-    wgaUitkeringsPercentage:  0.70,     // 70% loongerelateerde WGA-uitkering
-    wgaAfbouwFactor:          0.70,     // gemiddelde last hele periode (afbouw vervolguitkering)
-    wgaGemJaren:              6,        // gemiddelde WGA-duur in jaren (max wettelijk 10)
-    // --- Premie & bedrijfsgrootte ---
-    wgaPremieGem:             0.96,     // landelijk gem. gediff. WGA-premie % (UWV 2026)
-    kleinGrens:               1082500,  // loonsom max kleine werkgever (2026)
-    grootGrens:               4330000,  // loonsom min grote werkgever (2026)
-    // --- Bezwaartermijn ---
-    bezwaartermijnWeken:      6,        // wettelijke bezwaartermijn in weken
-    // --- Schadelasttool ---
-    ivaConversieRatio:        0.10,     // % van WGA 80-100% dat IVA-waardig blijkt
-    herstelRatio35:           0.05,     // % van WGA 35-80% dat herstelt onder 35%
-    // --- Interventietarieven (richttarieven) ---
-    tarief_ad_standaard:      1095,
-    tarief_ad_geregistreerd:  1295,
-    tarief_spoor2_kort:       1695,
-    tarief_spoor2_vol:        3595,
-    tarief_psycholoog:        850,
-    tarief_coaching:          950,
-    tarief_loopbaancoaching:  1450,
-    tarief_outplacement:      2950,
-    tarief_consultancy_uur:   105,
-    // --- Bulkstaffel ---
-    bulk_drempel1:            5,   bulk_korting1: 0.10,
-    bulk_drempel2:            10,  bulk_korting2: 0.15,
-    bulk_drempel3:            25,  bulk_korting3: 0.20,
-  };
-  var CALC_CONFIG = Object.assign({}, CALC_CONFIG_DEFAULTS);
-
-  // Laad opgeslagen config (async, overschrijft defaults na laden)
-  async function loadCalcConfig(){
-    try{
-      var res = await storageGet('settings:calc_config', true);
-      if(res && res.value){
-        var saved = JSON.parse(res.value);
-        Object.keys(saved).forEach(function(k){
-          if(CALC_CONFIG_DEFAULTS.hasOwnProperty(k) && typeof saved[k] === 'number' && isFinite(saved[k])){
-            CALC_CONFIG[k] = saved[k];
-          }
-        });
-      }
-    } catch(e){ /* gebruik defaults */ }
-    applyCalcConfig();
-  }
-
-  // Pas alle afgeleide waarden toe na laden/opslaan
-  function applyCalcConfig(){
-    // Afgeleide waarden
-    MODAAL_INKOMEN           = CALC_CONFIG.modaalInkomen;
-    WGA_UITKERINGSPERCENTAGE = CALC_CONFIG.wgaUitkeringsPercentage;
-    WGA_AFBOUW_FACTOR        = CALC_CONFIG.wgaAfbouwFactor;
-    WGA_GEMIDDELDE_INSTROOMJAREN = CALC_CONFIG.wgaGemJaren;
-    WGA_GEMIDDELDE_JAARLAST  = Math.round(MODAAL_INKOMEN * WGA_UITKERINGSPERCENTAGE * WGA_AFBOUW_FACTOR);
-    WGA_TOTALE_IMPACT        = WGA_GEMIDDELDE_JAARLAST * WGA_GEMIDDELDE_INSTROOMJAREN;
-    WGA_PREMIE_GEM_2026      = CALC_CONFIG.wgaPremieGem;
-
-    // Interventietarieven
-    IC_BENCHMARKS.ad_standaard.rate     = CALC_CONFIG.tarief_ad_standaard;
-    IC_BENCHMARKS.ad_geregistreerd.rate = CALC_CONFIG.tarief_ad_geregistreerd;
-    IC_BENCHMARKS.spoor2_kort.rate      = CALC_CONFIG.tarief_spoor2_kort;
-    IC_BENCHMARKS.spoor2_vol.rate       = CALC_CONFIG.tarief_spoor2_vol;
-    IC_BENCHMARKS.psycholoog.rate       = CALC_CONFIG.tarief_psycholoog;
-    IC_BENCHMARKS.coaching.rate         = CALC_CONFIG.tarief_coaching;
-    IC_BENCHMARKS.loopbaancoaching.rate = CALC_CONFIG.tarief_loopbaancoaching;
-    IC_BENCHMARKS.outplacement.rate     = CALC_CONFIG.tarief_outplacement;
-    IC_BENCHMARKS.consultancy.rate      = CALC_CONFIG.tarief_consultancy_uur;
-  }
-
-  // Bronnen: CPB (modaal inkomen 2026), wettelijke WGA-systematiek (70% loongerelateerde uitkering),
-  // UWV-cijfers (gemiddelde instroomduur, maximale toerekeningsperiode van 10 jaar).
-  var MODAAL_INKOMEN = CALC_CONFIG.modaalInkomen;
-  var WGA_UITKERINGSPERCENTAGE = CALC_CONFIG.wgaUitkeringsPercentage;
-  var WGA_AFBOUW_FACTOR = CALC_CONFIG.wgaAfbouwFactor;
-  var WGA_GEMIDDELDE_INSTROOMJAREN = CALC_CONFIG.wgaGemJaren;
-  var WGA_GEMIDDELDE_JAARLAST = Math.round(MODAAL_INKOMEN * WGA_UITKERINGSPERCENTAGE * WGA_AFBOUW_FACTOR);
-  var WGA_TOTALE_IMPACT = WGA_GEMIDDELDE_JAARLAST * WGA_GEMIDDELDE_INSTROOMJAREN;
-
-  var IC_BENCHMARKS = {
-    ad_standaard:    { rate: CALC_CONFIG.tarief_ad_standaard,     mode: 'flat',     isSpoor2: false },
-    ad_geregistreerd:{ rate: CALC_CONFIG.tarief_ad_geregistreerd, mode: 'flat',     isSpoor2: false },
-    spoor2_kort:     { rate: CALC_CONFIG.tarief_spoor2_kort,      mode: 'flat',     isSpoor2: true  },
-    spoor2_vol:      { rate: CALC_CONFIG.tarief_spoor2_vol,       mode: 'flat',     isSpoor2: true  },
-    psycholoog:      { rate: CALC_CONFIG.tarief_psycholoog,       mode: 'flat',     isSpoor2: false },
-    coaching:        { rate: CALC_CONFIG.tarief_coaching,         mode: 'flat',     isSpoor2: false },
-    loopbaancoaching:{ rate: CALC_CONFIG.tarief_loopbaancoaching, mode: 'flat',     isSpoor2: false },
-    outplacement:    { rate: CALC_CONFIG.tarief_outplacement,     mode: 'flat',     isSpoor2: false },
-    consultancy:     { rate: CALC_CONFIG.tarief_consultancy_uur,  mode: 'per-unit', isSpoor2: false, unitLabel: 'Aantal adviesuren' }
-  };
-  var IC_WISH_NOTES = {
-    'snelheid': 'Bij Matchvermogen en Best Match draait een traject altijd om snel concreet resultaat, niet om onnodig lange trajecten.',
-    'vast-tarief': 'We werken met heldere, vooraf afgesproken tarieven, zodat u nooit voor verrassingen komt te staan.',
-    'maatwerk': 'Elk traject wordt afgestemd op de specifieke situatie van de medewerker, niet op een standaardaanpak.'
-  };
-  var icService = 'ad_standaard';
-  var icWish = null;
-
-  function icUpdateLabels(){
-    var b = IC_BENCHMARKS[icService];
-    var unitsField = document.getElementById('ic-units-field');
-    if(b.mode === 'per-unit'){
-      unitsField.style.display = 'block';
-      document.getElementById('ic-units-label').textContent = b.unitLabel;
-      document.getElementById('ic-rate-label').textContent = 'Wat betaalt u (of zou u betalen) per uur?';
-    } else {
-      unitsField.style.display = 'none';
-      document.getElementById('ic-rate-label').textContent = 'Wat betaalt u (of zou u betalen) voor dit traject in totaal?';
-    }
-  }
-
-  document.getElementById('ic-service-select').addEventListener('change', function(){
-    icService = this.value;
-    icUpdateLabels();
-  });
-  icUpdateLabels();
-
-  document.querySelectorAll('#ic-wish button').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      document.querySelectorAll('#ic-wish button').forEach(function(b){ b.classList.remove('sel'); });
-      btn.classList.add('sel');
-      icWish = btn.getAttribute('data-val');
-    });
-  });
-
-  document.getElementById('ic-calc-btn').addEventListener('click', function(){
-    var b = IC_BENCHMARKS[icService];
-    var units = b.mode === 'per-unit' ? (parseFloat(document.getElementById('ic-units').value) || 0) : 1;
-    var userRate = parseFloat(document.getElementById('ic-rate').value) || 0;
-    if(userRate <= 0 || (b.mode === 'per-unit' && units <= 0)){
-      alert('Vul een geldig tarief in.');
-      return;
-    }
-    var hasBulk = document.getElementById('ic-bulkvoordeel').checked;
-    var hasGarantie = document.getElementById('ic-uwv-garantie').checked;
-    var effectiveRate = hasBulk ? b.rate * 0.9 : b.rate;
-    var benchmarkTotal = b.mode === 'per-unit' ? effectiveRate * units : effectiveRate;
-    var userTotal = b.mode === 'per-unit' ? userRate * units : userRate;
-    var diff = userTotal - benchmarkTotal;
-    var scoreEl = document.getElementById('ic-score');
-    var feedbackEl = document.getElementById('ic-feedback');
-    var wishNote = icWish ? IC_WISH_NOTES[icWish] : '';
+    var IC_SERVICE_LABELS = {
+      ad_standaard:'arbeidsdeskundig onderzoek',ad_geregistreerd:'arbeidsdeskundig onderzoek (RAD)',
+      spoor2_kort:'tweede spoor — combinatraject',spoor2_vol:'tweede spoor — volledig traject',
+      psycholoog:'psychologische begeleiding',coaching:'coaching',
+      loopbaancoaching:'loopbaancoaching',outplacement:'outplacement',consultancy:'verzuimconsultancy'
+    };
+    var IC_SERVICE_CTA = {
+      ad_standaard:'Vraag een offerte voor een AD-onderzoek aan',
+      ad_geregistreerd:'Vraag een offerte voor een RAD-onderzoek aan',
+      spoor2_kort:'Vraag een offerte voor tweede spoor aan',
+      spoor2_vol:'Vraag een offerte voor tweede spoor aan',
+      psycholoog:'Vraag een offerte voor begeleiding aan',
+      coaching:'Vraag een offerte voor coaching aan',
+      loopbaancoaching:'Vraag een offerte voor loopbaancoaching aan',
+      outplacement:'Vraag een offerte voor outplacement aan',
+      consultancy:'Vraag een offerte voor consultancy aan'
+    };
+    var IC_WHK_TOOLTIP = {
+      ad_standaard:'Een AD-onderzoek dat niet voldoet aan de UWV-eisen kan leiden tot een loopsanctie. Dat verhoogt de WGA-instroom en daarmee uw WHK-premie.',
+      ad_geregistreerd:'Een RAD-onderzoek geeft meer zekerheid bij de RIV-toets. Een afgewezen onderzoek verhoogt de kans op WGA-instroom en een hogere WHK-premie.',
+      spoor2_kort:'Een onvoldoende tweede spoor traject is de meest voorkomende reden voor een loopsanctie — dat verlengt de loonkosten én verhoogt de WHK-premie.',
+      spoor2_vol:'Bij gebrekkige uitvoering riskeert u een loopsanctie en hogere WHK-kosten door verhoogde WGA-instroom.',
+      psycholoog:'Effectieve begeleiding verlaagt het ziekteverzuim en vermindert daarmee de kans op WGA-instroom en een hogere WHK-premie.',
+      coaching:'Coaching gericht op werkhervatting kan WGA-instroom voorkomen en daarmee uw WHK-premie op langere termijn verlagen.',
+      loopbaancoaching:'Loopbaancoaching die leidt tot werkhervatting bij een andere werkgever voorkomt WGA-last bij uw organisatie.',
+      outplacement:'Goed outplacement verkort de WW-periode en kan indirect WGA-instroom beperken.',
+      consultancy:'Verzuimconsultancy met kennis van WHK-gevolgen kan leiden tot een structureel lagere premie.'
+    };
+    var serviceLabel = IC_SERVICE_LABELS[icService] || 'deze dienst';
+    document.getElementById('ic-cta').textContent = IC_SERVICE_CTA[icService] || 'Vraag een vrijblijvend gesprek aan';
 
     var feedback;
     if(diff > 0){
       animateCountUp(scoreEl, Math.round(diff), function(v){ return '\u20ac ' + v.toLocaleString('nl-NL') + ' mogelijk te veel'; });
-      feedback = 'Uw tarief van \u20ac ' + userTotal.toLocaleString('nl-NL') + ' ligt boven ons richttarief van \u20ac ' + Math.round(benchmarkTotal).toLocaleString('nl-NL') + ' voor deze dienst' + (hasBulk ? ' (al verlaagd met circa 10% bulkvoordeel)' : '') + ', een verschil van ongeveer \u20ac ' + Math.round(diff).toLocaleString('nl-NL') + '. ' + wishNote;
+      feedback = 'Uw tarief van \u20ac ' + userTotal.toLocaleString('nl-NL') + ' ligt boven ons richttarief van \u20ac ' + Math.round(benchmarkTotal).toLocaleString('nl-NL') + ' voor ' + serviceLabel + (hasBulk ? ' (al incl. 10% bulkvoordeel)' : '') + ' \u2014 een verschil van \u20ac ' + Math.round(diff).toLocaleString('nl-NL') + '. ' + wishNote;
     } else {
       animateCountUp(scoreEl, Math.round(benchmarkTotal), function(v){ return '\u20ac ' + v.toLocaleString('nl-NL') + ' richttarief'; });
-      feedback = 'Uw tarief van \u20ac ' + userTotal.toLocaleString('nl-NL') + ' ligt op of onder ons richttarief van \u20ac ' + Math.round(benchmarkTotal).toLocaleString('nl-NL') + ' voor deze dienst' + (hasBulk ? ' (al verlaagd met circa 10% bulkvoordeel)' : '') + '. Een vrijblijvend gesprek kan nog steeds zinvol zijn om te bevestigen dat de geboden begeleiding aansluit bij wat u nodig heeft. ' + wishNote;
+      feedback = 'Uw tarief van \u20ac ' + userTotal.toLocaleString('nl-NL') + ' ligt op of onder ons richttarief van \u20ac ' + Math.round(benchmarkTotal).toLocaleString('nl-NL') + ' voor ' + serviceLabel + (hasBulk ? ' (al incl. 10% bulkvoordeel)' : '') + '. Een vrijblijvend gesprek kan zinvol zijn. ' + wishNote;
     }
-
-    if(hasGarantie && hasBulk){
-      feedback += ' Goed om te zien dat zowel een UWV-garantie als bulkkorting al in uw tarief zijn meegenomen \u2014 dat is precies wat wij hier ook standaard bij bieden.';
-    } else if(hasGarantie && !hasBulk){
-      feedback += ' U gaf aan dat een UWV-garantie is inbegrepen, dat is een goed teken. Bulkkorting lijkt nog niet te zijn toegepast \u2014 ook dat bieden wij standaard aan, dus dat is een vraag waard aan uw huidige aanbieder.';
-    } else if(!hasGarantie && hasBulk){
-      feedback += ' U gaf aan dat bulkkorting is toegepast, prima. Een UWV-garantie lijkt nog niet te zijn meegenomen \u2014 ook die bieden wij standaard, en die ontbreekt nu juist vaak bij offertes zonder medische of arbeidsdeskundige onderbouwing.';
-    } else {
-      feedback += ' U gaf aan dat bij uw tarief geen UWV-garantie en geen bulkkorting zijn inbegrepen. Wij bieden beide standaard aan bij vergelijkbare trajecten \u2014 vraag uw huidige aanbieder gerust eens waarom dat bij hen kennelijk niet het geval is.';
-    }
+    if(hasGarantie && hasBulk){ feedback += ' UWV-garantie en bulkkorting zijn beide meegenomen \u2014 goed geregeld.'; }
+    else if(hasGarantie){ feedback += ' UWV-garantie is meegenomen. Bulkkorting lijkt nog niet verwerkt \u2014 ook dat bieden wij standaard.'; }
+    else if(hasBulk){ feedback += ' Bulkkorting is verwerkt. Een UWV-garantie ontbreekt nog \u2014 die bieden wij standaard.'; }
+    else { feedback += ' Geen UWV-garantie en geen bulkkorting meegenomen. Wij bieden beide standaard \u2014 vraag uw aanbieder gerust waarom niet.'; }
 
     feedbackEl.textContent = feedback;
+    // WHK tooltip
+    var tooltipEl = document.getElementById('ic-whk-tooltip');
+    if(IC_WHK_TOOLTIP[icService]){ document.getElementById('ic-whk-tooltip-text').textContent = IC_WHK_TOOLTIP[icService] + ' '; tooltipEl.style.display='block'; }
+    else { tooltipEl.style.display='none'; }
     document.getElementById('ic-result').classList.add('show');
     document.getElementById('ic-result').scrollIntoView({behavior:'smooth', block:'center'});
     trackEvent('interventie_check_completed', icService);
@@ -13121,7 +12907,119 @@
       desc: 'Ga naar <a href="https://search.google.com/search-console" target="_blank" rel="noopener"><strong>Google Search Console</strong></a>. Voeg uw domein toe en verifieer eigenaarschap (volg de instructies van Google). Ga naar "Sitemaps" → voer in: <code>https://uwdomein.nl/sitemap.xml</code> → klik "Verzenden".',
       hint: 'Dit vertelt Google dat uw site bestaat en welke pagina\'s geïndexeerd mogen worden. Doe dit ook als u de Railway-URL gebruikt vóór het echte domein.'
     },
+    {
+      slug: 'interventie-inzet-whk-premie',
+      title: 'Hoe verkeerde inzet van interventies uw WHK-premie verhoogt',
+      metaDescription: 'Een onvoldoende tweede spoor traject of afgewezen AD-onderzoek verhoogt uw WHK-premie structureel. Lees hoe u dit voorkomt.',
+      category: 'verzuimbeleid',
+      tags: ['WHK','interventies','tweede spoor','loopsanctie','WGA'],
+      publishedAt: '2026-07-15T08:00:00Z',
+      readTime: 6,
+      bodyHtml: `<p>Veel werkgevers weten dat verzuim geld kost. Minder bekend is dat de <em>manier</em> waarop u interventies inzet net zo bepalend is voor uw WHK-premie als het ziekteverzuimpercentage zelf. Een onvoldoende uitgevoerd traject — of een traject dat niet aansluit bij de UWV-eisen — verhoogt de WGA-instroom en daarmee uw premie voor jaren.</p><h2>Hoe interventies doorwerken in uw WHK-premie</h2><p>De WHK-premie is gekoppeld aan de WGA-lasten die aan uw organisatie worden toegerekend. Elke medewerker die in de WGA instroomt nadat zijn ziekteperiode bij u is verlopen, verhoogt de instroom op uw beschikking. Hoe hoger de instroom ten opzichte van uw loonsom, hoe hoger uw gedifferentieerde premie.</p><p>Interventies zijn bedoeld om WGA-instroom te <em>voorkomen</em>. Maar als die interventies onvoldoende zijn, werken ze averechts.</p><h2>De meest voorkomende valkuil: het tweede spoor traject</h2><p>Een onvoldoende tweede spoor traject is verreweg de meest voorkomende reden voor een loopsanctie. Het UWV beoordeelt bij een WIA-aanvraag in de RIV-toets of de re-integratie-inspanningen voldoende zijn geweest. Als het traject onvoldoende is gedocumenteerd, te laat is gestart of niet aansloot bij de functionele mogelijkheden van de medewerker, volgt een loopsanctie van maximaal 52 weken extra loondoorbetaling.</p><p>Die extra loonkosten zijn al pijnlijk. Daarna volgt een tweede klap: de verlengde ziekteperiode verhoogt ook de kans op WGA-instroom, en daarmee uw WHK-premie voor de komende jaren.</p><h2>Arbeidsdeskundig onderzoek: kwaliteit telt</h2><p>Een AD-onderzoek dat niet voldoet aan de eisen van het UWV kan worden afgewezen bij de RIV-toets. Denk aan een onderzoek dat geen rekening houdt met de actuele functionele mogelijkheden, niet aansluit bij de medische informatie van de bedrijfsarts, of verouderde normen hanteert. Een afgewezen AD-onderzoek leidt vrijwel altijd tot een loopsanctie — en via een verlengde ziekteperiode tot hogere WGA-instroom en een hogere WHK-beschikking.</p><h2>Wat u kunt doen</h2><ul><li><strong>Controleer of uw tweede spoor bureau een UWV-garantie biedt.</strong> Dit betekent dat het traject zo is opgezet dat het bij een RIV-toets standhoudt.</li><li><strong>Zorg dat het AD-onderzoek actueel en volledig is.</strong> Een geregistreerd arbeidsdeskundige (RAD) heeft een hogere formele status bij het UWV.</li><li><strong>Start het tweede spoor op tijd.</strong> Wacht niet tot na maand 12 als het eerste spoor al in maand 9 stopt.</li><li><strong>Vergelijk uw interventietarieven.</strong> Een hoger tarief is niet automatisch een betere dienst. Controleer met onze <a href="/tools/interventie-check" data-view="interventie-check-view">Interventietarief checker</a> of u een marktconform tarief betaalt.</li></ul><h2>Conclusie</h2><p>Interventies zijn pas waardevol als ze correct worden ingezet, goed gedocumenteerd en aansluiten bij de UWV-eisen. Een traject dat op papier prima lijkt maar onvoldoende aansluit bij de re-integratieverplichting kan uw WHK-premie voor jaren verhogen. Laat uw re-integratieproces niet aan het toeval over.</p>`
+    },
+    {
+      slug: 'uwv-achterstanden-2026-whk-premie-gevolgen',
+      title: 'UWV-achterstanden 2026: hoe de wachtrij uw WHK-premie verhoogt',
+      metaDescription: 'De wachttijd voor een WGA-herbeoordeling is opgelopen tot gemiddeld 2 jaar. Wat betekent dit voor uw WHK-beschikking en hoe voorkomt u onnodige premieverhogingen?',
+      category: 'wetgeving',
+      tags: ['WHK','UWV','herbeoordeling','WGA','2026'],
+      publishedAt: '2026-07-10T08:00:00Z',
+      readTime: 7,
+      bodyHtml: '<p>De gemiddelde wachttijd voor een WGA-herbeoordeling bij het UWV is inmiddels opgelopen tot ruim twee jaar. In 2025 bedroeg de officiële wachttijd al 1 jaar en 8 maanden. In 2026 heeft het UWV formeel besloten herbeoordelingen nog verder terug te schroeven: alleen in schrijnende situaties wordt een lopende WGA nog opnieuw beoordeeld. Voor werkgevers heeft dit directe gevolgen voor de WHK-premie.</p><h2>Waarom de achterstanden uw premie verhogen</h2><p>Een WGA-herbeoordeling kan leiden tot verlaging van het arbeidsongeschiktheidspercentage. Als een medewerker in de praktijk meer is hersteld dan de WIA-beschikking aangeeft, betaalt u als werkgever een te hoge last. Zolang er geen herbeoordeling plaatsvindt, blijft die te hoge last staan.</p><h2>Casus: productiebedrijf wacht 26 maanden op herbeoordeling</h2><p>Een middelgroot productiebedrijf in de Randstad had een voormalige medewerker in WGA 80-100% zitten. Na ruim anderhalf jaar meldde de medewerker zelf dat hij inmiddels parttime elders werkzaam was. Het bedrijf vroeg in maart 2024 een herbeoordeling aan. In mei 2026 — 26 maanden later — had het UWV nog altijd geen beslissing genomen. De WGA-last werd gedurende die gehele periode op basis van het oorspronkelijke percentage toegerekend aan de werkgever. Gecumuleerd bedroeg de onnodige last ruim €47.000. Na inschakeling van een arbeidsdeskundige en een ingebrekestelling werd de procedure versneld. De herbeoordeling leidde tot herindeling naar WGA 35-80%, met aanzienlijke premieverlaging.</p><h2>Wat u kunt doen</h2><ul><li><strong>Wacht niet op UWV.</strong> Dien zelf een verzoek om herbeoordeling in als u signalen heeft dat de situatie van de medewerker is gewijzigd.</li><li><strong>Stel UWV in gebreke</strong> na acht weken zonder beslissing — UWV is dan verplicht binnen twee weken te reageren.</li><li><strong>Controleer uw WHK-beschikking jaarlijks</strong> op de toerekende percentages en vraag bezwaar aan bij twijfel.</li></ul>'
+    },
+    {
+      slug: 'bedrijfsarts-leidend-riv-toets-2027-wat-verandert',
+      title: 'Bedrijfsarts wordt leidend bij RIV-toets: wat verandert er voor u?',
+      metaDescription: 'Een nieuw wetsvoorstel maakt het advies van de bedrijfsarts leidend bij de RIV-toets. Minder loonsancties — maar ook nieuwe risicos voor uw WHK-premie.',
+      category: 'wetgeving',
+      tags: ['RIV-toets','loopsanctie','bedrijfsarts','WHK','2027'],
+      publishedAt: '2026-07-12T08:00:00Z',
+      readTime: 6,
+      bodyHtml: '<p>In april 2026 heeft het kabinet een wetsvoorstel aangeboden aan de Raad van State waarbij het advies van de bedrijfsarts leidend wordt bij de re-integratieverslagtoets (RIV-toets) van het UWV. De beoogde ingangsdatum is 1 januari 2027. Voor werkgevers klinkt dit als goed nieuws — maar de praktische gevolgen zijn genuanceerder.</p><h2>Wat is er nu het probleem?</h2><p>Bij de huidige RIV-toets beoordeelt een UWV-verzekeringsarts onafhankelijk of de re-integratie-inspanningen voldoende waren. Het komt regelmatig voor dat de UWV-verzekeringsarts een ander oordeel heeft over de belastbaarheid dan de bedrijfsarts. Die discrepantie leidt tot loopsancties — ook als de werkgever volledig heeft gehandeld op basis van het advies van zijn eigen bedrijfsarts.</p><h2>Wat verandert er niet?</h2><p>Het wetsvoorstel vermindert de kans op een loopsanctie wegens verschil van inzicht. Maar het lost twee andere veelvoorkomende oorzaken niet op: te laat starten van het tweede spoor, en onvoldoende documentatie. Een goed bedrijfsartsadvies zonder adequate dossiervorming geeft nog altijd een risico op een loopsanctie.</p><h2>Casus: werkgever volgt bedrijfsarts op, krijgt toch loopsanctie</h2><p>Een zorginstelling in Noord-Holland volgde in 2025 het advies van de bedrijfsarts nauwgezet op. Toch legde het UWV een loopsanctie op — niet vanwege een verschil van inzicht over belastbaarheid, maar omdat de re-integratiedoelstellingen in het plan van aanpak niet waren bijgesteld na een terugval in week 42. Het UWV oordeelde dat de werkgever had moeten ingrijpen. De sanctie bedroeg 38 weken extra loondoorbetaling — en de verlengde ziekteperiode leidde tot WGA-instroom en een hogere WHK-beschikking het jaar daarna.</p><h2>Conclusie</h2><p>Het nieuwe wetsvoorstel is een stap in de goede richting. Maar tijdige, goed gedocumenteerde re-integratie — inclusief correcte bijsturing bij veranderingen in de situatie van de medewerker — blijft onmisbaar om loopsancties en WHK-premieverhogingen te voorkomen.</p>'
+    },
+    {
+      slug: 'whk-premie-stijging-2026-wga-096-procent-oorzaken',
+      title: 'WHK-premie 2026 gestegen naar 0,96%: oorzaken en wat u kunt doen',
+      metaDescription: 'De gemiddelde WGA-premie steeg in 2026 van 0,83% naar 0,96%. Longcovid en psychische aandoeningen zijn de voornaamste oorzaak. Wat betekent dit voor uw beschikking?',
+      category: 'whk-basis',
+      tags: ['WHK','premie 2026','WGA','longcovid','stijging'],
+      publishedAt: '2026-07-14T08:00:00Z',
+      readTime: 5,
+      bodyHtml: '<p>Werkgevers die eind 2025 hun WHK-beschikking voor 2026 ontvingen, werden geconfronteerd met een duidelijke stijging. Het gemiddelde premiepercentage van de WGA steeg van 0,83% in 2025 naar 0,96% in 2026. Tegelijkertijd steeg de ZW-flex premie van 0,50% naar 0,56%. Samen betekent dat voor middelgrote en grote werkgevers een merkbare stijging van de loonkosten. Maar wat zit er achter die stijging?</p><h2>De oorzaak: meer jonge langdurig zieken</h2><p>De stijging komt vooral door meer jonge langdurig zieken — onder andere als gevolg van longcovid en psychische aandoeningen. Daardoor wordt er meer beroep gedaan op de arbeidsongeschiktheidsregelingen. Psychische klachten zijn inmiddels goed voor meer dan 40% van alle WGA-instroom.</p><h2>Nieuwe grenzen: bent u van categorie veranderd?</h2><p>De grens tussen kleine en middelgrote werkgevers ligt in 2026 bij een loonsom van maximaal €1.082.500 (in 2025 was dit €990.000). Bij een loonsom van meer dan €4.330.000 is er sprake van een grote werkgever. Let op: in 2026 kijkt men naar de loonsom van 2024. Organisaties die net boven de nieuwe grens zitten, kunnen ineens als middelgroot worden aangemerkt — met een individueel berekende premie die hoger kan uitvallen dan de sectorpremie.</p><h2>Casus: zorgorganisatie schuift van categorie</h2><p>Een thuiszorgorganisatie in Gelderland had in 2024 een premieloon van €1.095.000 — net boven de nieuwe grens. Daarmee viel de organisatie in 2026 in de categorie middelgrote werkgevers. Omdat de instroom in ZW en WGA hoger was dan het sectorgemiddelde, resulteerde de individuele premieberekening in een premie die 0,4 procentpunt hoger lag dan de oude sectorpremie — een extra last van circa €18.000 per jaar. Door bezwaar te maken op een foutief toegerekende ZW-instroom werd de premie deels gecorrigeerd.</p><h2>Wat u kunt doen</h2><ul><li>Controleer in welke categorie u in 2026 valt op basis van uw premieloon 2024.</li><li>Vraag de instroomgegevens op bij de Belastingdienst om te begrijpen welke uitkeringen aan u worden toegerekend.</li><li>Maak bezwaar als u fouten vermoedt — in 2024 en 2025 trof een onafhankelijke checker in respectievelijk 50% en 44% van de beschikkingen fouten aan.</li></ul>'
+    },
+    {
+      slug: 'lgu-lau-vvu-automatische-omzetting-whk-gevolgen',
+      title: 'LGU, LAU en VVU: automatische omzetting en de gevolgen voor uw WHK',
+      metaDescription: 'Wanneer de loongerelateerde WGA-uitkering afloopt, vindt een automatische omzetting plaats naar LAU of VVU. Die omzetting bepaalt mede hoe hoog uw WHK-toerekening is.',
+      category: 'whk-basis',
+      tags: ['WHK','LGU','LAU','VVU','WGA','bezwaar'],
+      publishedAt: '2026-07-16T08:00:00Z',
+      readTime: 8,
+      bodyHtml: '<p>Weinig werkgevers weten het: wanneer de loongerelateerde uitkering (LGU) van een WGA-gerechtigde afloopt, vindt er een automatische omzetting plaats naar LAU of VVU. Die omzetting bepaalt grotendeels hoe hoog de WHK-last wordt die aan uw organisatie wordt toegerekend. En in de praktijk gaat het bij die omzetting regelmatig mis.</p><h2>Wat zijn LGU, LAU en VVU?</h2><ul><li><strong>LGU (Loongerelateerde uitkering):</strong> de eerste fase van de WGA, gebaseerd op het dagloon. Duur: minimaal 3 tot maximaal 24 maanden, afhankelijk van arbeidsverleden.</li><li><strong>LAU (Loonaanvullingsuitkering):</strong> vervolgfase voor medewerkers die meer dan 50% van hun resterende verdiencapaciteit benutten. Uitkering: aanvulling tot 70% van het dagloon.</li><li><strong>VVU (Vervolguitkering):</strong> vervolgfase voor medewerkers die minder dan 50% van hun resterende verdiencapaciteit benutten. Uitkering: 70% van het minimumloon maal het AO-percentage — structureel lager dan de LAU.</li></ul><h2>Wanneer gaat het mis?</h2><p>Er zijn drie veelvoorkomende problemen bij de automatische omzetting: verkeerde indeling LAU/VVU (medewerker verdient meer dan 50% maar zit in LAU), geen herbeoordeling na omzetting door UWV-achterstanden, en een foutief dagloon dat als grondslag doorwerkt in zowel LGU als LAU/VVU.</p><h2>Casus: bouwbedrijf betaalt 3 jaar te hoog door verkeerde LAU-indeling</h2><p>Een bouwbedrijf in het zuiden van het land had een voormalig medewerker in WGA met een LAU-uitkering. Bij de omzetting van LGU naar LAU bleek de medewerker in de praktijk nauwelijks te werken — minder dan 50% van zijn resterende verdiencapaciteit. Het UWV had hem desondanks in de LAU ingedeeld. De LAU-uitkering was daardoor substantieel hoger dan gerechtvaardigd, en die hogere last werd toegerekend aan de werkgever. Na drie jaar en een succesvolle bezwaarprocedure werd de indeling gecorrigeerd — maar drie jaar aan teveel betaalde premie was niet meer te verhalen.</p><h2>Waarom bezwaar nu belangrijker is dan ooit</h2><p>Door de UWV-achterstanden worden fouten bij de omzetting van LGU naar LAU of VVU steeds minder snel gecorrigeerd. Het UWV heeft simpelweg te weinig capaciteit voor herbeoordelingen. Als werkgever bent u de enige die actief kan ingrijpen: door jaarlijks uw WHK-beschikking te controleren op de toegerekende uitkeringscategorieën, en bezwaar te maken als de indeling niet klopt. De bezwaartermijn van zes weken na dagtekening is daarbij onverbiddelijk.</p>'
+    },
+    {
+      slug: 'waarom-bezwaar-whk-steeds-belangrijker-2026',
+      title: 'Waarom bezwaar maken tegen uw WHK-beschikking steeds belangrijker wordt',
+      metaDescription: 'UWV-herbeoordelingen worden pas na 2 jaar opgepakt, automatische omzettingen kloppen niet altijd, en fouten blijven langer staan. Bezwaar is uw enige correctiemiddel.',
+      category: 'bezwaar',
+      tags: ['WHK','bezwaar','UWV','herbeoordeling','LGU','LAU','VVU'],
+      publishedAt: '2026-07-18T08:00:00Z',
+      readTime: 7,
+      bodyHtml: '<p>In de beginjaren van de WHK was bezwaar maken nuttig — maar zeker niet altijd noodzakelijk. Het UWV deed herbeoordelingen relatief snel en fouten werden bij de volgende beschikking gecorrigeerd. Dat is veranderd. Door een samenloop van structurele problemen is bezwaar inmiddels het belangrijkste — en soms enige — middel om onnodige premielasten te voorkomen.</p><h2>Herbeoordelingen worden pas na 2 jaar opgepakt</h2><p>De gemiddelde wachttijd voor een herbeoordeling is de afgelopen jaren meer dan verviervoudigd. In 2025 bedroeg de officiële wachttijd 1 jaar en 8 maanden; in de praktijk lopen wachttijden op naar ruim 2 jaar. Het UWV heeft in 2026 formeel besloten herbeoordelingen nog verder terug te schroeven — alleen in schrijnende situaties wordt een lopende WGA nog opnieuw beoordeeld. Dit betekent dat fouten in de toerekening van WGA-lasten niet vanzelf worden gecorrigeerd.</p><h2>Automatische omzettingen LGU/LAU/VVU kloppen niet altijd</h2><p>Wanneer de loongerelateerde uitkering (LGU) afloopt, wordt de medewerker automatisch ingedeeld in de loonaanvullingsuitkering (LAU) of de vervolguitkering (VVU). Die indeling bepaalt direct de hoogte van de uitkering — en daarmee de toerekening in uw WHK-beschikking. In de praktijk is de indeling regelmatig onjuist. Vroeger werd dit bij een herbeoordeling gecorrigeerd. Nu er nauwelijks herbeoordelingen plaatsvinden, blijven die fouten jarenlang staan.</p><h2>Casus: transportbedrijf bespaart €38.000 na bezwaar</h2><p>Een transportbedrijf in Brabant ontving eind 2025 een WHK-beschikking met een fors hoger premiepercentage dan verwacht. Na analyse bleek dat een voormalige medewerker nog steeds als WGA 80-100% werd toegerekend, terwijl hij al 14 maanden elders werkzaam was. Het UWV had geen herbeoordeling uitgevoerd. Het bedrijf maakte binnen de bezwaartermijn bezwaar. Na een inhoudelijke procedure werd de toerekening gecorrigeerd — een premieverlaging van €38.000 op jaarbasis.</p><h2>De bezwaartermijn is onverbiddelijk</h2><p>Bezwaar maken moet binnen zes weken na de dagtekening van de beschikking. Die termijn is absoluut: te laat bezwaar is niet-ontvankelijk, ongeacht hoe sterk de inhoudelijke gronden zijn. Een jaarlijkse beschikkingscontrole met bezwaarmogelijkheid is niet langer optioneel — maar noodzakelijk.</p>'
+    },
+    {
+      slug: 'uwv-fouten-wia-uitkeringen-beschikking-controleren-2026',
+      title: 'UWV erkent fouten in WIA-uitkeringen: controleert u uw beschikking?',
+      metaDescription: 'In 2024 erkende het UWV dat tienduizenden WIA-beschikkingen fouten bevatten. Die fouten werken door in uw WHK-premie. Hoe controleert u of uw beschikking klopt?',
+      category: 'bezwaar',
+      tags: ['UWV','WIA','fouten','beschikking','WHK','dagloon'],
+      publishedAt: '2026-07-20T08:00:00Z',
+      readTime: 6,
+      bodyHtml: '<p>In 2024 erkende het UWV publiekelijk dat het bij de vaststelling van WIA-uitkeringen op grote schaal fouten heeft gemaakt. Tienduizenden mensen hebben mogelijk een te hoge of te lage uitkering ontvangen. Wat minder aandacht krijgt: die fouten werken ook door in de WHK-beschikkingen van werkgevers. Een te hoog vastgestelde uitkering leidt tot een te hoge toerekening — en daarmee tot een te hoge WHK-premie.</p><h2>Hoe werkt een fout in de WIA-uitkering door in uw premie?</h2><p>De WHK-premie voor middelgrote en grote werkgevers wordt berekend op basis van de WGA-lasten die aan hen worden toegerekend. Als een uitkering te hoog is vastgesteld — door een verkeerd dagloon, een onjuist arbeidsverleden of een foutieve AO-categorie — wordt die te hoge last aan u toegerekend. U betaalt dan jarenlang te veel, tenzij u bezwaar maakt.</p><h2>Veelvoorkomende fouten in WIA-beschikkingen</h2><ul><li><strong>Onjuist dagloon:</strong> het dagloon is de basis voor de uitkeringshoogte. Als de verkeerde looncomponenten zijn meegenomen, is de uitkering structureel te hoog of te laag.</li><li><strong>Foutieve AO-categorie:</strong> de indeling in WGA 35-80% of 80-100% bepaalt de hoogte van de uitkering.</li><li><strong>Arbeidsverleden verkeerd berekend:</strong> de duur van de LGU hangt af van het arbeidsverleden. Als dat onjuist is berekend, is de LGU-periode te lang of te kort.</li></ul><h2>Casus: verkeerd dagloon, drie jaar te hoge premie</h2><p>Een retailbedrijf met 280 medewerkers ontving in 2022 een WIA-beschikking voor een voormalige medewerker. Het dagloon was bij de vaststelling €118, terwijl het werkelijke dagloon €97 had moeten zijn. Een eenmalige bonus was als structureel loon meegenomen. Pas drie jaar later werd de fout ontdekt. Door de verlopen bezwaartermijn voor de oorspronkelijke WIA-beschikking was correctie met terugwerkende kracht niet meer volledig mogelijk. Wel werd de toerekening voor de lopende beschikking gecorrigeerd — een premieverlaging van circa €22.000 per jaar.</p><h2>Conclusie</h2><p>De instroomgegevens moet u zelf opvragen bij de Belastingdienst — ze worden niet automatisch meegestuurd. Controleer per medewerker het dagloon, de AO-categorie en de duur van de toerekening. Twijfelt u? Schakel een arbeidsdeskundige in voor het verstrijken van de bezwaartermijn van zes weken.</p>'
+    },
+    {
+      slug: 'longcovid-psychische-klachten-wga-instroom-whk-risico',
+      title: 'Longcovid en psychische klachten als groeiend WHK-risico voor werkgevers',
+      metaDescription: 'Psychische aandoeningen en longcovid zijn de snelst groeiende oorzaken van WGA-instroom in 2026. Hoe herkent u het risico tijdig en wat kunt u doen?',
+      category: 'verzuimbeleid',
+      tags: ['longcovid','psychisch verzuim','WGA','WHK','preventie'],
+      publishedAt: '2026-07-22T08:00:00Z',
+      readTime: 6,
+      bodyHtml: '<p>De stijging van de WHK-premies in 2026 heeft een duidelijke oorzaak: meer jonge langdurig zieken. Psychische aandoeningen — burn-out, overspannenheid, angststoornissen en depressie — zijn inmiddels verantwoordelijk voor meer dan 40% van alle nieuwe WGA-instroomcijfers. Longcovid heeft hier de afgelopen jaren significant aan bijgedragen. Voor werkgevers is dit niet alleen een HR-probleem — het is een directe financiële risicofactor die via de WHK-premie jarenlang doorwerkt.</p><h2>Waarom psychisch verzuim zo kostbaar is voor de WHK</h2><p>Psychische aandoeningen kenmerken zich door een grillig herstelverloop. Medewerkers die na een jaar langzaam herstellen, kunnen terugvallen. Die terugval verlengt de ziekteperiode, verhoogt de kans op WGA-instroom en daarmee op toerekening in uw WHK-beschikking. Bovendien is de re-integratie bij psychische klachten complex: een te snelle werkhervatting leidt tot terugval, een te trage aanpak tot chronificering.</p><h2>Longcovid: een nieuwe en onderschatte categorie</h2><p>Longcovid-patienten presenteren een specifiek probleem: hun klachten zijn moeilijk objectiveerbaar en het herstelverloop is langdurig en onzeker. UWV-verzekeringsartsen worstelen met de beoordeling, waardoor WIA-procedures voor deze groep vaak langzamer verlopen. De kans op WGA-instroom bij longcovid is relatief hoog.</p><h2>Casus: onderwijsinstelling voorkomt WGA-instroom door tijdige interventie</h2><p>Een middelbare school in de Achterhoek had een docent met burn-out die na veertien maanden nog maar beperkt inzetbaar was. Er was geen arbeidsdeskundig onderzoek verricht naar de resterende mogelijkheden. Op advies van een externe arbeidsdeskundige werd een gestructureerd werkhervatting­programma opgezet — drie uur per week, oplopend — gecombineerd met aanpassing van de werkplek en taken. Na acht maanden was de docent volledig hersteld en werkzaam in een aangepaste functie. WGA-instroom werd voorkomen, en daarmee ook de doorwerking in de WHK-premie voor de komende tien jaar.</p><h2>Wat u kunt doen</h2><ul><li>Schakel vroegtijdig een arbeidsdeskundige in bij langdurige psychische klachten.</li><li>Zorg voor een heldere diagnose en functionele mogelijkheden in het dossier.</li><li>Vermijd te snelle werkhervatting — terugval bij psychisch verzuim is duurder dan een iets langzamer hersteltraject.</li><li>Monitor uw WGA-instroom op psychische aandoeningen als aparte categorie.</li></ul>'
+    },
+    {
+      slug: 'eigenrisicodragerschap-2026-nieuwe-grenzen-vergelijking',
+      title: 'Eigenrisicodragerschap in 2026: rekenen met nieuwe grenzen en stijgende WHK',
+      metaDescription: 'De WHK-premie stijgt en de loonsomgrenzen zijn aangepast. Is eigenrisicodragerschap in 2026 aantrekkelijker dan vorig jaar? Vergelijking met rekenvoorbeelden.',
+      category: 're-integratie',
+      tags: ['eigenrisicodragerschap','ERD','WHK','2026','WGA'],
+      publishedAt: '2026-07-24T08:00:00Z',
+      readTime: 7,
+      bodyHtml: '<p>Naarmate de WHK-premie stijgt, wordt eigenrisicodragerschap (ERD) voor een grotere groep werkgevers financieel aantrekkelijk. Maar de beslissing om over te stappen — of juist terug te keren naar publieke verzekering — heeft gevolgen voor meerdere jaren. In 2026 zijn bovendien de loonsomgrenzen aangepast.</p><h2>Nieuwe grenzen in 2026</h2><p>De grens tussen kleine en middelgrote werkgevers ligt in 2026 bij een loonsom van maximaal €1.082.500 (in 2025 €990.000). Bij een loonsom van meer dan €4.330.000 is er sprake van een grote werkgever (in 2025 €3.960.000). Belangrijk: in 2026 kijkt men naar de loonsom van 2024. De verschuiving van de grenzen betekent dat organisaties die net boven de oude grens zaten, in 2026 mogelijk als middelgrote werkgever worden behandeld.</p><h2>Wanneer is ERD voordelig?</h2><p>Eigenrisicodragerschap is gunstig als uw WGA-risicoprofiel gunstig is ten opzichte van het sectorgemiddelde. Als uw historische WGA-instroom lager is dan het gemiddelde, betaalt u als ERD-er een private verzekeringspremie die lager uitvalt dan de gedifferentieerde WHK-premie. In 2026 geldt door de gestegen gemiddelde WHK-premie (WGA 0,96%) dat de drempel voor voordeligheid is verlaagd.</p><h2>Casus: logistiek bedrijf switcht terug naar publieke verzekering</h2><p>Een logistiek bedrijf in de haven van Rotterdam was sinds 2019 eigenrisicodrager. In 2023 en 2024 had het bedrijf te maken met een reeks WGA-instroomgevallen. De private verzekeraar verhoogde de premie fors. Bij vergelijking bleek terugkeer naar publieke verzekering per 1 januari 2026 voordeliger. Het bedrijf diende tijdig — voor 1 oktober 2025 — het formulier in bij de Belastingdienst. De besparing in 2026 bedroeg circa €35.000.</p><h2>Let op de instapvereisten</h2><p>Stoppen als eigenrisicodrager per 1 januari 2027? Zorg dat het formulier voor 1 oktober 2026 bij de Belastingdienst binnen is. Starten als eigenrisicodrager? Ook dan moet het formulier uiterlijk 1 oktober 2026 zijn ontvangen. Laat dit niet te laat verlopen.</p>'
+    },
+    {
+      slug: 'dwangsom-wia-beoordeling-afgeschaft-gevolgen-werkgevers',
+      title: 'Bestuurlijke dwangsom WIA tijdelijk afgeschaft: wat betekent dit voor u?',
+      metaDescription: 'Het UWV haalt de wettelijke WIA-beoordelingstermijn structureel niet. De bestuurlijke dwangsom wordt tijdelijk afgeschaft. Wat zijn de gevolgen voor werkgevers en uw WHK?',
+      category: 'wetgeving',
+      tags: ['WIA','dwangsom','UWV','bezwaar','werkgevers','WHK'],
+      publishedAt: '2026-07-26T08:00:00Z',
+      readTime: 5,
+      bodyHtml: '<p>Het UWV is wettelijk verplicht binnen 16 weken te beslissen op een WIA-aanvraag. Door het tekort aan verzekeringsartsen en de groeiende achterstanden haalt het UWV die termijn structureel niet. Om die reden worden voorbereidingen getroffen om de bestuurlijke dwangsom in de WIA tijdelijk af te schaffen.</p><h2>Wat is de bestuurlijke dwangsom?</h2><p>Als het UWV niet binnen de wettelijke termijn een beslissing nam, kon een werkgever of werknemer het UWV in gebreke stellen. Na twee weken zonder reactie liep er een dwangsom op — een financiele prikkel om het UWV aan te sporen alsnog te beslissen. Met de tijdelijke afschaffing vervalt die prikkel.</p><h2>Wat blijft wel mogelijk?</h2><p>Via een procedure fictieve weigering kan een werkgever of medewerker de rechter vragen het UWV alsnog te dwingen een beslissing te nemen. Die route is ingewikkelder dan de dwangsom — maar nog steeds beschikbaar als laatste middel.</p><h2>Gevolgen voor werkgevers en de WHK</h2><p>De afschaffing heeft twee directe gevolgen: de druk op het UWV om WIA-beoordelingen tijdig af te ronden neemt verder af, en het instrument van de ingebrekestelling verliest zijn tanden. Medewerkers zitten langer in onzekerheid over hun uitkering — en werkgevers weten langer niet wat de WHK-gevolgen zijn van een lopend dossier.</p><h2>Casus: werkgever 18 maanden in onzekerheid over WHK-gevolgen</h2><p>Een dienstverleningsbedrijf in Utrecht had een medewerker die in januari 2025 een WIA-aanvraag indiende. In juli 2026 — 18 maanden later — had het UWV nog geen definitieve beschikking afgegeven. Het bedrijf wist daardoor niet of de medewerker in WGA of IVA zou worden ingedeeld, en kon de WHK-impact niet berekenen. Voor het bedrijf bleef de onzekerheid over de uiteindelijke toerekening in de WHK-beschikking bestaan tot ver in 2026. Een tijdige ingebrekestelling via de rechter had de procedure kunnen versnellen — maar na afschaffing van de dwangsom is die drempel verhoogd.</p>'
+    },
+    {
+      slug: 'octas-aanbevelingen-whk-gevolgen-werkgevers-toekomst',
+      title: 'OCTAS-scenario\'s en uw WHK: wat verandert er als het stelsel hervormt?',
+      metaDescription: 'De OCTAS-commissie presenteerde drie scenario\'s voor hervorming van het arbeidsongeschiktheidsstelsel. Wat betekenen die voor de WHK-premie en de positie van werkgevers?',
+      category: 'wetgeving',
+      tags: ['OCTAS','WIA','hervorming','WHK','toekomst'],
+      publishedAt: '2026-07-28T08:00:00Z',
+      readTime: 7,
+      bodyHtml: '<p>De Onafhankelijke Commissie Toekomst Arbeidsongeschiktheidsstelsel (OCTAS) bracht in februari 2024 haar eindrapport uit. Inmiddels zijn de eerste contouren van kabinetsbeleid zichtbaar, en beginnen de OCTAS-aanbevelingen hun weg te vinden naar concrete wetsvoorstellen. Voor werkgevers is het zaak om te begrijpen hoe elk scenario doorwerkt in de WHK-premie.</p><h2>De drie OCTAS-scenario\'s</h2><ul><li><strong>Beter:</strong> het huidige stelsel verbeteren. WGA en IVA worden samengevoegd. De ondergrens voor arbeidsongeschiktheid daalt van 35% naar 25%, waardoor meer mensen recht krijgen op een uitkering.</li><li><strong>Werk:</strong> na 2 jaar ziekte krijgt de medewerker een tijdelijk re-integratieinkomen van 70% van het oude loon gedurende 3 tot 5 jaar. De beoordeling wordt vereenvoudigd.</li><li><strong>Basis:</strong> één gelijke regeling voor alle werkenden op sociaal minimumniveau, met verplichte aanvullende verzekering voor werknemers.</li></ul><h2>Wat betekent scenario Beter voor de WHK?</h2><p>Als de AO-ondergrens daalt van 35% naar 25%, komen meer medewerkers in aanmerking voor een WIA-uitkering. Dat verhoogt de potentiele instroom in de WGA — en daarmee de WHK-last voor werkgevers. Voor werkgevers in sectoren met relatief veel licht arbeidsongeschikten — zorg, onderwijs, retail — kan dit leiden tot een structurele premiestijging.</p><h2>Casus: zorgorganisatie simuleert drie scenario\'s op haar eigen beschikking</h2><p>Een zorgorganisatie in Overijssel liet in 2026 een analyse uitvoeren van haar WHK-risico onder de drie OCTAS-scenario\'s. Onder scenario Beter (AO-grens 25%) bleek dat vier medewerkers die nu onder de drempel vallen, bij hervorming wel in aanmerking zouden komen voor een WGA-uitkering — een potentiele premiestijging van €28.000 per jaar. De analyse leidde tot een beslissing om nu al te investeren in preventief verzuimbeleid en een jaarlijkse beschikkingscontrole.</p><h2>Wat u nu al kunt doen</h2><ul><li>Breng uw WGA-risicoprofiel in kaart op basis van uw huidige instroomgegevens.</li><li>Investeer in preventie van psychische klachten en longcovid — dat verlaagt de instroom ongeacht welk scenario wordt gekozen.</li><li>Controleer jaarlijks uw WHK-beschikking en maak bezwaar bij fouten — elke premiebesparing nu telt zwaarder in een stelsel dat structureel duurder dreigt te worden.</li></ul>'
+    },
   ];
+;
+;
 
   var DEPLOY_CHECKS_KEY = 'settings:deploy_checks';
   var deployChecks = {};
@@ -14664,13 +14562,13 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
   // VIEW_META UITBREIDINGEN
   // ================================================================
   VIEW_META['casestudies-view']       = {title: 'Praktijkcasussen WHK-besparing — werkhervattingskas.nl', desc: 'Vijf uitgewerkte geanonimiseerde casussen van organisaties die WHK-besparing realiseerden. Van €9.800 tot €137.000 per jaar.'};
-  VIEW_META['beschikking-uitleg-view']= {title: 'Hoe lees ik mijn WHK-beschikking? — werkhervattingskas.nl', desc: 'Stap-voor-stap uitleg van de WHK-beschikking: wat betekent elk onderdeel en waar zitten de meeste fouten?'};
+  VIEW_META['beschikking-uitleg-view']= {title: 'WHK-beschikking lezen: wat betekent elk onderdeel? [2026]', desc: 'Begrijp uw WHK-beschikking in 5 minuten. Wij leggen uit wat WGA-last, toerekening en premiepercentage betekenen — en waar in 8 van de 10 gevallen fouten zitten.'};
   VIEW_META['vergelijking-view']      = {title: 'Matchvermogen vs. uw controller vs. arbodienst — werkhervattingskas.nl', desc: 'Eerlijke vergelijking van wie het meest geschikt is om uw WHK-beschikking te controleren en besparing te realiseren.'};
   VIEW_META['poortwachter-view']      = {title: 'Poortwachter-tijdlijnchecker — werkhervattingskas.nl', desc: 'Vul de eerste ziektedag in en zie direct welke Wet poortwachter-deadlines golden, of zijn gehaald en welke actie nu nodig is.'};
-  VIEW_META['wia-calc-view']          = {title: 'WIA-uitkeringscalculator — werkhervattingskas.nl', desc: 'Bereken de indicatieve WGA- of IVA-uitkering op basis van het dagloon en het arbeidsongeschiktheidspercentage.'};
-  VIEW_META['subsidie-scan-view']     = {title: 'Subsidie-scan LKV, LIV en WKB — werkhervattingskas.nl', desc: 'Bereken in drie stappen of u loonkostenvoordeel, lage-inkomensvoordeel of werkbonus kunt claimen voor uw medewerkers.'};
-  VIEW_META['kalender-view']          = {title: 'WHK Jaarkalender 2026 — werkhervattingskas.nl', desc: 'Alle WHK-deadlines per maand: bezwaartermijn, LKV-aanvraag, re-integratieverplichtingen en WIA-aanvraag.'};
-  VIEW_META['premiehistorie-view']    = {title: 'WGA-premies 2022–2026 — werkhervattingskas.nl', desc: 'Historisch overzicht van de gemiddelde gedifferentieerde WGA-premies per jaar. Inclusief grensbedragen kleine en grote werkgever.'};
+  VIEW_META['wia-calc-view']          = {title: 'WIA-uitkering berekenen in 1 minuut — gratis calculator 2026', desc: 'Bereken direct hoeveel WGA- of IVA-uitkering een zieke medewerker ontvangt. Vul dagloon en AO-percentage in — uitkomst is meteen zichtbaar. Inclusief WHK-impact.'};
+  VIEW_META['subsidie-scan-view']     = {title: 'LKV berekenen: krijgt u recht op loonkostenvoordeel? — gratis scan', desc: 'Veel werkgevers missen jaarlijks duizenden euros aan LKV, LIV en WKB. Doe de gratis scan in 2 minuten en ontdek wat u kunt terugvragen bij de Belastingdienst.'};
+  VIEW_META['kalender-view']          = {title: 'WHK-kalender 2026: mis geen enkele deadline als werkgever', desc: 'Overzicht van alle kritieke data: 6 weken bezwaartermijn, LKV-aanvraag vóór 1 mei, re-integratieverplichtingen en WIA-aanvraag. Voorkom boetes en gemiste subsidies.'};
+  VIEW_META['premiehistorie-view']    = {title: 'WHK-premies 2020–2026: historisch overzicht & grensbedragen', desc: 'Bekijk hoe de gedifferentieerde WGA-premie de afgelopen jaren steeg van 0,46% naar 0,96%. Inclusief grensbedragen kleine, middelgrote en grote werkgevers per jaar.'};
   VIEW_META['controller-view']        = {title: 'Samenwerking voor controllers & HR-professionals — werkhervattingskas.nl', desc: 'Bent u controller of HR-professional? Meld u aan als doorverwijzingspartner en help uw organisatie WHK-besparing realiseren.'};
   VIEW_META['doelgroep-hr-view']        = {title: 'WHK-besparing voor HR-managers & HR-adviseurs — werkhervattingskas.nl', desc: 'U regelt het verzuim. Wij regelen de financiële kant: WHK-check, no-riskpolissen, poortwachter-bewaking en tariefcontrole op interventies.'};
   VIEW_META['doelgroep-casemanager-view'] = {title: 'WHK en re-integratie voor casemanagers — werkhervattingskas.nl', desc: 'Als casemanager zit u het dichtst bij de dossiers. Wij zijn uw verlengstuk: AD-onderzoek, tweede spoor, WGA-herbeoordeling en bezwaarprocedures.'};
