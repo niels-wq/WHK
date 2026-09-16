@@ -10,24 +10,40 @@ const fs         = require('fs');
 const https      = require('https');
 
 const app  = express();
-const pool = new Pool({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
+const pool = process.env.DATABASE_URL
+  ? new Pool({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } })
+  : null;
 
 const ADMIN_PASSWORD    = process.env.ADMIN_PASSWORD    || 'verander-dit';
 const JWT_SECRET        = process.env.JWT_SECRET        || 'verander-dit-secret';
+// Primary host is the apex domain. www is redirected here; www currently has a
+// separate DNS/cert issue outside this repo. Canonicals, hreflang, sitemap and
+// robots all use SITE_URL (apex).
 const SITE_URL          = (process.env.SITE_URL         || 'https://werkhervattingskas.nl').replace(/\/$/, '').replace('https://www.', 'https://');
 const PORT              = process.env.PORT              || 3000;
 const NOTIFICATION_EMAIL= process.env.NOTIFICATION_EMAIL|| 'info@matchvermogen.nl';
 const RESEND_API_KEY    = process.env.RESEND_API_KEY    || '';
 const FROM_EMAIL        = process.env.FROM_EMAIL        || 'noreply@werkhervattingskas.nl';
+const ARTICLES_DIR      = path.join(__dirname, 'content', 'articles');
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
-// Redirect www naar non-www
+// Redirect www naar non-www (apex is canonical)
 app.use((req, res, next) => {
   if (req.hostname && req.hostname.startsWith('www.')) {
     const nonWww = req.hostname.slice(4);
     return res.redirect(301, `https://${nonWww}${req.originalUrl}`);
+  }
+  next();
+});
+
+// Collapse trailing slashes so /over-ons/ and /over-ons share one URL
+app.use((req, res, next) => {
+  if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+  if (req.path.length > 1 && req.path.endsWith('/')) {
+    const rest = req.url.slice(req.path.length);
+    return res.redirect(301, req.path.slice(0, -1) + rest);
   }
   next();
 });
@@ -133,10 +149,17 @@ app.post('/api/auth/verify', (req, res) => {
 // KV-DATABASE
 // ================================================================
 async function kvGet(key) {
-  const r = await pool.query('SELECT value FROM kv_store WHERE key=$1', [key]);
-  return r.rows[0] ? r.rows[0].value : null;
+  if (!pool) return null;
+  try {
+    const r = await pool.query('SELECT value FROM kv_store WHERE key=$1', [key]);
+    return r.rows[0] ? r.rows[0].value : null;
+  } catch (e) {
+    console.error('kvGet', key, e.message);
+    return null;
+  }
 }
 async function kvSet(key, value) {
+  if (!pool) throw new Error('Database niet geconfigureerd');
   const v = typeof value === 'string' ? value : JSON.stringify(value);
   await pool.query(
     'INSERT INTO kv_store(key,value,updated_at) VALUES($1,$2,NOW()) ON CONFLICT(key) DO UPDATE SET value=$2,updated_at=NOW()',
@@ -145,6 +168,98 @@ async function kvSet(key, value) {
 }
 function defaultFor(key) {
   return ['posts','categories','leads','newsletter','activity_log'].includes(key) ? [] : {};
+}
+
+// ================================================================
+// FILE-BASED ARTICLES — content/articles/*.md (frontmatter + markdown)
+// Additive to the existing SEED_POSTS (in HTML) and admin CMS (/api/posts).
+// On slug conflict, database/CMS posts win.
+// ================================================================
+function inlineMd(s) {
+  return String(s || '')
+    .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a href="$2">$1</a>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+}
+function mdToHtml(md) {
+  return String(md || '').split(/\n{2,}/).map(function(block) {
+    const b = block.trim();
+    if (!b) return '';
+    if (b.startsWith('### ')) return '<h3>' + inlineMd(b.slice(4)) + '</h3>';
+    if (b.startsWith('## ')) return '<h2>' + inlineMd(b.slice(3)) + '</h2>';
+    if (b.startsWith('# ')) return '<h2>' + inlineMd(b.slice(2)) + '</h2>';
+    if (/^[-*] /.test(b)) {
+      const items = b.split('\n').map(function(line) {
+        return '<li>' + inlineMd(line.replace(/^[-*] /, '')) + '</li>';
+      }).join('');
+      return '<ul>' + items + '</ul>';
+    }
+    return '<p>' + inlineMd(b).replace(/\n/g, '<br>') + '</p>';
+  }).join('\n');
+}
+function parseFrontmatter(raw) {
+  const m = String(raw || '').match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  if (!m) return null;
+  const meta = {};
+  m[1].split(/\r?\n/).forEach(function(line) {
+    const i = line.indexOf(':');
+    if (i === -1) return;
+    const k = line.slice(0, i).trim();
+    let v = line.slice(i + 1).trim();
+    if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) v = v.slice(1, -1);
+    meta[k] = v;
+  });
+  return { meta: meta, body: m[2].trim() };
+}
+function loadMarkdownArticles() {
+  const posts = [];
+  if (!fs.existsSync(ARTICLES_DIR)) return posts;
+  fs.readdirSync(ARTICLES_DIR).forEach(function(file) {
+    if (!file.endsWith('.md') || file.toLowerCase() === 'readme.md') return;
+    const parsed = parseFrontmatter(fs.readFileSync(path.join(ARTICLES_DIR, file), 'utf8'));
+    if (!parsed || !parsed.meta.title) return;
+    const slug = parsed.meta.slug || file.replace(/\.md$/, '');
+    posts.push({
+      slug: slug,
+      title: parsed.meta.title,
+      metaDescription: parsed.meta.description || parsed.meta.title,
+      tags: parsed.meta.tags ? parsed.meta.tags.split(',').map(function(t){ return t.trim(); }).filter(Boolean) : [],
+      publishedAt: parsed.meta.publishedAt || parsed.meta.date || new Date().toISOString(),
+      archived: parsed.meta.archived === 'true',
+      source: 'markdown',
+      bodyHtml: mdToHtml(parsed.body)
+    });
+  });
+  return posts;
+}
+function mergePostSources(dbPosts) {
+  const bySlug = new Map();
+  loadMarkdownArticles().forEach(function(p) { if (p.slug) bySlug.set(p.slug, p); });
+  (Array.isArray(dbPosts) ? dbPosts : []).forEach(function(p) { if (p && p.slug) bySlug.set(p.slug, p); });
+  return Array.from(bySlug.values());
+}
+function extractSeedBlogSlugs(html) {
+  const slugs = [];
+  const start = html.indexOf('var SEED_POSTS = [');
+  if (start === -1) return slugs;
+  const end = html.indexOf('var posts = [];', start);
+  const chunk = html.slice(start, end === -1 ? start + 800000 : end);
+  const re = /^\s+slug:\s*'([a-z0-9-]+)'/gm;
+  let m;
+  while ((m = re.exec(chunk))) slugs.push(m[1]);
+  return slugs;
+}
+function findSeedPostMeta(html, slug) {
+  if (!html || !slug) return null;
+  const start = html.indexOf("slug: '" + slug + "'");
+  if (start === -1) return null;
+  const chunk = html.slice(start, start + 2500);
+  const title = chunk.match(/title:\s*'((?:\\'|[^'])*)'/);
+  const desc = chunk.match(/metaDescription:\s*'((?:\\'|[^'])*)'/);
+  if (!title) return null;
+  return {
+    title: title[1].replace(/\\'/g, "'") + ' — werkhervattingskas.nl',
+    desc: desc ? desc[1].replace(/\\'/g, "'") : title[1]
+  };
 }
 
 // ================================================================
@@ -219,8 +334,11 @@ ENDPOINTS.forEach(([p, key, open]) => {
   app.get(p, ...mw, async (req, res) => {
     try {
       const v = await kvGet(key);
-      if (v === null) return res.json(defaultFor(key));
-      try { res.json(JSON.parse(v)); } catch (e) { res.send(v); }
+      let data;
+      if (v === null) data = defaultFor(key);
+      else { try { data = JSON.parse(v); } catch (e) { return res.send(v); } }
+      if (key === 'posts') data = mergePostSources(data);
+      res.json(data);
     } catch (e) { res.status(500).json({ error: e.message }); }
   });
   app.put(p, auth, async (req, res) => {
@@ -268,7 +386,6 @@ const URL_META = {
   '/diensten/arbeidsdeskundig-onderzoek': { title: 'Arbeidsdeskundig onderzoek: kosten, inhoud & wanneer verplicht? [2026]', desc: 'Erkend arbeidsdeskundige voert uw AD-onderzoek uit. Voorkomt loonsanctie bij RIV-toets. Vanaf €1.095 — geen verborgen kosten. Resultaat binnen 5 werkdagen.' },
   '/diensten/tweede-spoor':        { title: 'Tweede spoor re-integratie — werkhervattingskas.nl', desc: 'Tijdig tweede spoor voorkomt loonsanctie. Volledig begeleid traject.' },
   '/diensten/consultancy':         { title: 'Verzuimconsultancy — werkhervattingskas.nl', desc: 'Structurele verbetering van uw verzuimbeleid en re-integratiemanagement.' },
-  '/whk_checklist.html':           { title: 'Gratis WHK-checklist 2026: 25 controlepunten — werkhervattingskas.nl', desc: 'Download de gratis WHK-checklist voor werkgevers. 25 punten om fouten in uw beschikking te vinden. No cure, no pay bij gevonden fouten.' },
   '/diensten/erd-partneradvies':   { title: 'Eigenrisicodragerschap & partneradvies — werkhervattingskas.nl', desc: 'Is eigenrisicodragerschap voordeliger? Wij vergelijken en begeleiden de overgang.' },
 };
 
@@ -302,17 +419,65 @@ function getHtml() {
 function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
-function serveWithMeta(res, meta, canonPath) {
+function serveWithMeta(res, meta, canonPath, statusCode) {
   const html = getHtml();
   if (!html) return res.status(404).send('<h2>Site niet gevonden</h2><p>Upload whk_verzuim.html naar GitHub.</p>');
   const t = esc(meta.title), d = esc(meta.desc), c = SITE_URL + canonPath;
+  const noindex = meta.robots || ((canonPath === '/admin') ? 'noindex, nofollow' : 'index, follow');
   const modified = html
     .replace(/<title>[^<]*<\/title>/, `<title>${t}</title>`)
     .replace(/<meta name="description" content="[^"]*"/, `<meta name="description" content="${d}"`)
-    .replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${c}"`);
+    .replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${c}"`)
+    .replace(/<link rel="alternate" hreflang="nl" href="[^"]*"/, `<link rel="alternate" hreflang="nl" href="${c}"`)
+    .replace(/<link rel="alternate" hreflang="x-default" href="[^"]*"/, `<link rel="alternate" hreflang="x-default" href="${c}"`)
+    .replace(/<meta property="og:url" content="[^"]*"/, `<meta property="og:url" content="${c}"`)
+    .replace(/<meta property="og:title" content="[^"]*"/, `<meta property="og:title" content="${t}"`)
+    .replace(/<meta property="og:description" content="[^"]*"/, `<meta property="og:description" content="${d}"`)
+    .replace(/<meta name="twitter:title" content="[^"]*"/, `<meta name="twitter:title" content="${t}"`)
+    .replace(/<meta name="twitter:description" content="[^"]*"/, `<meta name="twitter:description" content="${d}"`)
+    .replace(/<meta name="robots" content="[^"]*"/, `<meta name="robots" content="${noindex}"`);
+  res.status(statusCode || 200);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.setHeader('Cache-Control', 'public, max-age=300');
+  res.setHeader('Cache-Control', canonPath === '/admin' ? 'no-store' : 'public, max-age=300');
   res.send(modified);
+}
+
+function serveNotFound(res) {
+  const html = `<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pagina niet gevonden — werkhervattingskas.nl</title>
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="${SITE_URL}/">
+  <style>
+    body{margin:0;font-family:IBM Plex Sans,Arial,sans-serif;background:#F7F3EA;color:#11192B;}
+    .wrap{max-width:640px;margin:12vh auto;padding:0 24px;}
+    h1{font-family:Georgia,serif;font-size:2rem;margin:0 0 12px;}
+    p{color:#5B5547;line-height:1.6;}
+    a{color:#A23E2C;}
+    ul{padding-left:18px;line-height:1.8;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p style="letter-spacing:.08em;text-transform:uppercase;font-size:.75rem;color:#A23E2C;font-weight:700;">404</p>
+    <h1>Deze pagina bestaat niet</h1>
+    <p>De URL die u opvroeg hoort niet bij werkhervattingskas.nl. Ga terug naar een bestaande pagina:</p>
+    <ul>
+      <li><a href="/">Home — WHK-check</a></li>
+      <li><a href="/over-ons">Over ons</a></li>
+      <li><a href="/blog">Kennisbank</a></li>
+      <li><a href="/diensten/whk-controle">WHK-beschikking controleren</a></li>
+    </ul>
+  </div>
+</body>
+</html>`;
+  res.status(404);
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-store');
+  res.send(html);
 }
 
 // ================================================================
@@ -321,20 +486,23 @@ function serveWithMeta(res, meta, canonPath) {
 app.get('/blog/:slug', async (req, res) => {
   try {
     const raw = await kvGet('posts');
-    const posts = raw ? JSON.parse(raw) : [];
+    const dbPosts = raw ? JSON.parse(raw) : [];
+    const posts = mergePostSources(Array.isArray(dbPosts) ? dbPosts : []);
     const post = posts.find(p => p.slug === req.params.slug && !p.archived);
-    const meta = post
+    let meta = post
       ? { title: post.title + ' — werkhervattingskas.nl', desc: post.metaDescription || post.title }
-      : URL_META['/blog'];
+      : findSeedPostMeta(getHtml() || '', req.params.slug);
+    if (!meta) meta = URL_META['/blog'];
     serveWithMeta(res, meta, '/blog/' + req.params.slug);
-  } catch (e) { serveWithMeta(res, URL_META['/blog'], '/blog'); }
+  } catch (e) { serveWithMeta(res, URL_META['/blog'], '/blog/' + req.params.slug); }
 });
 
 // ================================================================
 // SECTOR ROUTE
 // ================================================================
 app.get('/sectoren/:sector', (req, res) => {
-  const meta = SECTOR_META[req.params.sector] || URL_META['/sectoren'];
+  const meta = SECTOR_META[req.params.sector];
+  if (!meta) return serveNotFound(res);
   serveWithMeta(res, meta, '/sectoren/' + req.params.sector);
 });
 
@@ -404,54 +572,79 @@ ${SITE_URL}/sitemap.xml
 // SITEMAP
 // ================================================================
 app.get('/sitemap.xml', async (req, res) => {
-  const raw = await kvGet('posts').catch(() => null);
-  const posts = raw ? JSON.parse(raw) : [];
-  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
-  Object.keys(URL_META).forEach(p => {
-    const prio = p === '/' ? '1.0' : p.startsWith('/diensten') ? '0.9' : '0.7';
-    xml += `  <url><loc>${SITE_URL}${p}</loc><changefreq>monthly</changefreq><priority>${prio}</priority></url>\n`;
-  });
-  xml += `  <url><loc>${SITE_URL}/whk_checklist.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>\n`;
-  Object.keys(SECTOR_META).forEach(s => {
-    xml += `  <url><loc>${SITE_URL}/sectoren/${s}</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>\n`;
-  });
-  posts.filter(p => !p.archived && new Date(p.publishedAt) <= new Date()).forEach(p => {
-    xml += `  <url><loc>${SITE_URL}/blog/${p.slug}</loc><lastmod>${p.publishedAt.slice(0,10)}</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>\n`;
-  });
-  xml += '</urlset>';
-  res.setHeader('Content-Type','application/xml');
-  res.setHeader('Cache-Control','public, max-age=3600');
-  res.send(xml);
+  try {
+    const raw = await kvGet('posts');
+    let dbPosts = [];
+    try { dbPosts = raw ? JSON.parse(raw) : []; } catch (e) { dbPosts = []; }
+    const posts = mergePostSources(Array.isArray(dbPosts) ? dbPosts : []);
+    const seen = new Set();
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+    function addUrl(loc, changefreq, priority, lastmod) {
+      if (!loc || seen.has(loc)) return;
+      seen.add(loc);
+      xml += `  <url><loc>${loc}</loc>`;
+      if (lastmod) xml += `<lastmod>${lastmod}</lastmod>`;
+      xml += `<changefreq>${changefreq}</changefreq><priority>${priority}</priority></url>\n`;
+    }
+    Object.keys(URL_META).forEach(p => {
+      const prio = p === '/' ? '1.0' : p.startsWith('/diensten') ? '0.9' : '0.7';
+      addUrl(SITE_URL + p, 'monthly', prio);
+    });
+    addUrl(SITE_URL + '/whk_checklist.html', 'monthly', '0.8');
+    Object.keys(SECTOR_META).forEach(s => {
+      addUrl(SITE_URL + '/sectoren/' + s, 'monthly', '0.7');
+    });
+    const now = new Date();
+    posts.filter(p => p && p.slug && !p.archived && (!p.publishedAt || new Date(p.publishedAt) <= now)).forEach(p => {
+      const lastmod = p.publishedAt ? String(p.publishedAt).slice(0, 10) : undefined;
+      addUrl(SITE_URL + '/blog/' + p.slug, 'yearly', '0.6', lastmod);
+    });
+    const html = getHtml();
+    if (html) {
+      extractSeedBlogSlugs(html).forEach(slug => {
+        addUrl(SITE_URL + '/blog/' + slug, 'yearly', '0.6');
+      });
+    }
+    xml += '</urlset>';
+    res.setHeader('Content-Type', 'application/xml');
+    res.setHeader('Cache-Control', 'public, max-age=3600');
+    res.send(xml);
+  } catch (e) {
+    console.error('Sitemap fout:', e.message);
+    res.status(500).type('text/plain').send('Sitemap tijdelijk niet beschikbaar');
+  }
 });
 
 // ================================================================
 // ROBOTS.TXT
 // ================================================================
 app.get('/robots.txt', (req, res) => {
-  res.setHeader('Content-Type','text/plain');
-  res.send(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.send(
+    'User-agent: *\n' +
+    'Allow: /\n' +
+    'Disallow: /api/\n' +
+    'Disallow: /admin\n' +
+    'Sitemap: ' + SITE_URL + '/sitemap.xml\n' +
+    'Host: werkhervattingskas.nl\n'
+  );
 });
 
 // ================================================================
 // GEZONDHEIDSCHECK
 // ================================================================
 app.get('/health', async (req, res) => {
+  if (!pool) return res.json({ ok: true, db: 'not_configured', email: emailReady });
   try { await pool.query('SELECT 1'); res.json({ ok: true, db: 'connected', email: emailReady }); }
   catch (e) { res.status(500).json({ ok: false, error: e.message }); }
 });
 
+app.get('/kennisbank', (req, res) => {
+  res.redirect(301, '/blog');
+});
 
-// JSON-LD voor blogpagina (Blog index)
-app.get(['/blog', '/kennisbank'], (req, res, next) => {
-  req.seoExtra = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    "name": "WHK-kennisbank",
-    "description": "Actuele artikelen over WHK-premie optimalisatie, no-riskpolissen, bezwaarprocedures en re-integratie.",
-    "url": "https://werkhervattingskas.nl/blog",
-    "publisher": { "@type": "Organization", "name": "Matchvermogen / Werkhervattingskas.nl" }
-  });
-  next();
+app.get('/admin', (req, res) => {
+  serveWithMeta(res, { title: 'Beheer — werkhervattingskas.nl', desc: 'Beheerderslogin.' }, '/admin');
 });
 
 
@@ -487,7 +680,7 @@ app.get('/whk_checklist.html', (req, res) => {
 });
 
 // Catch-all
-app.get('*', (req, res) => serveWithMeta(res, URL_META['/'], '/'));
+app.get('*', (req, res) => serveNotFound(res));
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`werkhervattingskas.nl v3.0 op poort ${PORT} | ${SITE_URL}`);
