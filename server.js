@@ -29,14 +29,24 @@ const leadGuard         = require('./lib/lead-guard');
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
+// Railway / GSC send Host or X-Forwarded-Host; needed to see www behind the proxy.
+app.set('trust proxy', 1);
 
-// Redirect www naar non-www (apex is canonical).
-// GSC's 11× 404s are all www host — DNS/TLS on www, not missing routes.
-// Keep this 301 only; do not add extra redirects that paper over the broken www cert.
+function requestHost(req) {
+  const raw = String(req.get('x-forwarded-host') || req.get('host') || req.hostname || '')
+    .split(',')[0]
+    .trim()
+    .toLowerCase();
+  return raw.replace(/:\d+$/, '');
+}
+
+// Host www → 301 apex (https://werkhervattingskas.nl + path).
+// GSC's 11× 404s are all www — DNS/TLS on www is still required outside this repo.
+// This 301 only fires after a request reaches the app; it does not paper over a broken www cert.
 app.use((req, res, next) => {
-  if (req.hostname && req.hostname.startsWith('www.')) {
-    const nonWww = req.hostname.slice(4);
-    return res.redirect(301, `https://${nonWww}${req.originalUrl}`);
+  const host = requestHost(req);
+  if (host === 'www.werkhervattingskas.nl' || host.startsWith('www.')) {
+    return res.redirect(301, SITE_URL + (req.originalUrl || '/'));
   }
   next();
 });
@@ -437,17 +447,34 @@ function getHtml() {
 function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
-function slimLocalBusinessLd() {
+function innerLocalBusinessLd() {
+  // Same parent as homepage: LocalBusiness + ProfessionalService owns aggregateRating.
+  // OfferCatalog (Service "WHK-beschikking controleren") stays homepage-only so GSC
+  // does not treat that Service as the Review parent on inner URLs like /voor/casemanager.
   return `<script type="application/ld+json" id="localbusiness-schema">
 {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "ProfessionalService"],
   "@id": "${SITE_URL}/#localbusiness",
   "name": "werkhervattingskas.nl – Matchvermogen",
+  "description": "Onafhankelijke controle van WHK-beschikkingen, arbeidsdeskundig onderzoek, tweede spoor re-integratie en verzuimoptimalisatie. No cure, no pay.",
   "url": "${SITE_URL}/",
   "telephone": "+31650213593",
   "email": "info@werkhervattingskas.nl",
-  "areaServed": "NL"
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "NL"
+  },
+  "areaServed": "NL",
+  "priceRange": "No cure, no pay",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "14",
+    "reviewCount": "14"
+  }
 }
 </script>`;
 }
@@ -469,13 +496,10 @@ function serveWithMeta(res, meta, canonPath, statusCode) {
     .replace(/<meta name="twitter:title" content="[^"]*"/, `<meta name="twitter:title" content="${t}"`)
     .replace(/<meta name="twitter:description" content="[^"]*"/, `<meta name="twitter:description" content="${d}"`)
     .replace(/<meta name="robots" content="[^"]*"/, `<meta name="robots" content="${noindex}"`);
-  // Homepage keeps aggregateRating on LocalBusiness+ProfessionalService.
-  // Inner URLs (e.g. /voor/casemanager) must not repeat rating + OfferCatalog
-  // Service "WHK-beschikking controleren" — GSC reports that as an invalid Review parent.
   if (canonPath !== '/') {
     modified = modified.replace(
       /<script type="application\/ld\+json" id="localbusiness-schema">[\s\S]*?<\/script>/,
-      slimLocalBusinessLd()
+      innerLocalBusinessLd()
     );
   }
   res.status(statusCode || 200);
