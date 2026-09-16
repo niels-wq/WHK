@@ -25,6 +25,7 @@ const NOTIFICATION_EMAIL= process.env.NOTIFICATION_EMAIL|| 'info@matchvermogen.n
 const RESEND_API_KEY    = process.env.RESEND_API_KEY    || '';
 const FROM_EMAIL        = process.env.FROM_EMAIL        || 'noreply@werkhervattingskas.nl';
 const ARTICLES_DIR      = path.join(__dirname, 'content', 'articles');
+const leadGuard         = require('./lib/lead-guard');
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
@@ -263,49 +264,64 @@ function findSeedPostMeta(html, slug) {
 }
 
 // ================================================================
-// LEAD NOTIFICATIE ENDPOINT — nieuw, stuurt ook e-mail
+// LEAD NOTIFICATIE — naam + (telefoon of e-mail); test/spam niet naar info@
 // ================================================================
-app.post('/api/lead/notify', async (req, res) => {
+async function handleLeadPost(req, res) {
   try {
+    const classified = leadGuard.classify(req.body || {});
+    if (!classified.ok) {
+      return res.status(400).json({ error: classified.error, reason: classified.reason });
+    }
+    const n = classified.lead;
     const lead = {
       id: 'lead_' + Date.now(),
-      name:    req.body.name    || '',
-      phone:   req.body.phone   || '',
-      email:   req.body.email   || '',
-      source:  req.body.source  || 'onbekend',
-      message: req.body.message || req.body.summary || '',
-      page:    req.body.page    || '',
+      name:    n.name,
+      phone:   n.phone,
+      email:   n.email,
+      source:  n.source || 'onbekend',
+      message: n.message,
+      page:    n.page,
       createdAt: new Date().toISOString(),
-      status: 'new'
+      status: classified.status,
+      flagReason: classified.reason === 'ok' ? undefined : classified.reason
     };
 
-    // Opslaan in database
-    const existing = await kvGet('leads');
-    const leads = existing ? JSON.parse(existing) : [];
-    leads.unshift(lead);
-    await kvSet('leads', JSON.stringify(leads));
-
-    // E-mail sturen
-    await sendLeadEmail(lead);
-
-    // Webhook (optioneel)
-    const webhookRaw = await kvGet('settings_webhook_url');
-    if (webhookRaw) {
-      const webhookUrl = typeof webhookRaw === 'string' ? webhookRaw.replace(/^"|"$/g,'') : '';
-      if (webhookUrl && webhookUrl.startsWith('http')) {
-        fetch(webhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type: 'new_lead', lead })
-        }).catch(() => {});
-      }
+    if (pool) {
+      const existing = await kvGet('leads');
+      const leads = existing ? JSON.parse(existing) : [];
+      leads.unshift(lead);
+      await kvSet('leads', JSON.stringify(leads));
     }
 
-    res.json({ ok: true, id: lead.id });
+    if (classified.notify) {
+      await sendLeadEmail(lead);
+      const webhookRaw = await kvGet('settings_webhook_url');
+      if (webhookRaw) {
+        const webhookUrl = typeof webhookRaw === 'string' ? webhookRaw.replace(/^"|"$/g,'') : '';
+        if (webhookUrl && webhookUrl.startsWith('http')) {
+          fetch(webhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type: 'new_lead', lead })
+          }).catch(() => {});
+        }
+      }
+    } else {
+      console.log(`Lead ${lead.id} opgeslagen als ${lead.status} (${classified.reason}) — geen e-mail naar ${NOTIFICATION_EMAIL}`);
+    }
+
+    res.json({ ok: true, id: lead.id, status: lead.status, notified: !!classified.notify });
   } catch (e) {
     console.error('Lead notify fout:', e.message);
     res.status(500).json({ error: e.message });
   }
+}
+app.post('/api/lead/notify', handleLeadPost);
+app.post('/api/leads', handleLeadPost);
+
+app.get('/lib/lead-guard.js', (req, res) => {
+  res.type('application/javascript');
+  res.sendFile(path.join(__dirname, 'lib', 'lead-guard.js'));
 });
 
 // ================================================================

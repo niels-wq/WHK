@@ -682,6 +682,9 @@
   .admin-tab-panel.show{display:block;}
   .lead-status-new{color:var(--risk);font-weight:600;}
   .lead-status-done{color:var(--savings);font-weight:600;}
+  .lead-status-test{color:var(--gold);font-weight:600;}
+  .lead-status-spam{color:var(--ink-soft);font-weight:600;}
+  .hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;}
   .gen-status{font-size:0.85rem;color:var(--ink-soft);margin-top:10px;display:none;}
   .gen-status.active{display:block;}
   .img-pick-btn{background:var(--paper-deep);border:2px solid var(--line);border-radius:var(--radius-s);padding:4px 10px;font-size:0.8rem;cursor:pointer;color:var(--ink-soft);transition:border-color .15s,color .15s;}
@@ -1849,16 +1852,18 @@
               <h3 style="font-size:1.2rem;margin-bottom:6px;">Uw indicatieve besparingsrapport staat klaar</h3>
               <p class="hint" style="margin-bottom:18px;">Vul uw gegevens in en ontvang het rapport direct op het scherm.</p>
 
+              <div class="hp-field" aria-hidden="true"><label for="calc-honeypot">Website</label><input type="text" id="calc-honeypot" name="website" tabindex="-1" autocomplete="off"></div>
               <div class="field"><label for="naam">Naam en achternaam</label><input type="text" id="naam" placeholder="Voor- en achternaam"></div>
               <div class="field"><label for="bedrijfsnaam">Bedrijfsnaam</label><input type="text" id="bedrijfsnaam" placeholder="Bedrijfsnaam"></div>
-              <div class="field"><label for="telefoon">Telefoonnummer</label><input type="tel" id="telefoon" placeholder="06 &#8211; 12345678"></div>
-              <div class="field"><label for="email">E-mailadres</label><input type="email" id="email" placeholder="naam@bedrijf.nl"></div>
+              <div class="field"><label for="telefoon">Telefoonnummer</label><input type="tel" id="telefoon" placeholder="06 &#8211; "></div>
+              <div class="field"><label for="email">E-mailadres</label><input type="email" id="email" placeholder="uw.naam@bedrijf.nl"></div>
+              <p class="hint" style="margin:0 0 8px;">Vul uw naam in, plus telefoonnummer of e-mailadres.</p>
 
               <div class="dossier-nav">
                 <button class="btn btn-ghost" id="to-step-2b">&larr; Terug</button>
                 <button class="btn btn-savings" id="submit-calc">Bereken mijn besparing</button>
               </div>
-              <p class="hint" id="form-error" style="color:var(--risk);display:none;margin-top:10px;">Vul minimaal uw naam en telefoonnummer in.</p>
+              <p class="hint" id="form-error" style="color:var(--risk);display:none;margin-top:10px;">Vul uw naam in, plus telefoonnummer of e-mailadres.</p>
             </div>
           </div>
         </div>
@@ -2261,9 +2266,11 @@
           <!-- Stap 1: naam + telefoon -->
           <div id="report-tb-step1">
             <form id="report-terugbel-form" style="display:flex;flex-direction:column;gap:10px;margin-top:16px;">
+              <div class="hp-field" aria-hidden="true"><label for="report-hp">Website</label><input type="text" id="report-hp" name="website" tabindex="-1" autocomplete="off"></div>
               <input type="text" id="report-naam" placeholder="Uw naam" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);">
               <input type="tel" id="report-tel" placeholder="Telefoonnummer" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);">
-              <input type="text" id="report-hp" tabindex="-1" style="position:absolute;left:-9999px;opacity:0;height:0;">
+              <input type="email" id="report-email" placeholder="E-mail (als u liever geen nummer achterlaat)" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);">
+              <p class="hint" id="report-tb-err" style="color:var(--risk);display:none;margin:0;">Vul uw naam in, plus telefoonnummer of e-mailadres.</p>
               <button class="btn btn-risk" type="submit" style="justify-content:center;">Verder &rarr;</button>
             </form>
           </div>
@@ -2283,7 +2290,14 @@
 
         <div class="split-card">
           <h3>Start direct de formele controle</h3>
-          <p class="sub">Upload hier veilig uw WHK-beschikking. Wij controleren de data binnen 48 uur op feitelijke fouten. U kunt BSN-nummers vooraf onleesbaar maken.</p>
+          <p class="sub">Upload hier veilig uw WHK-beschikking. Wij controleren de data binnen 48 uur op feitelijke fouten. U kunt BSN-nummers vooraf onleesbaar maken. Vul eerst uw naam in, plus telefoon of e-mail.</p>
+          <div id="upload-contact" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+            <div class="hp-field" aria-hidden="true"><label for="upload-honeypot">Website</label><input type="text" id="upload-honeypot" name="website" tabindex="-1" autocomplete="off"></div>
+            <input type="text" id="upload-naam" placeholder="Uw naam" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);">
+            <input type="tel" id="upload-tel" placeholder="Telefoonnummer" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);">
+            <input type="email" id="upload-email" placeholder="E-mailadres" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);">
+            <p class="hint" id="upload-err" style="color:var(--risk);display:none;margin:0;">Vul uw naam in, plus telefoonnummer of e-mailadres, voordat u een bestand toevoegt.</p>
+          </div>
           <div class="drop" id="drop-zone">
             <div id="drop-label">Sleep uw WHK-beschikking hierheen, of <u>klik om te bladeren</u></div>
             <input type="file" id="file-input" style="display:none;">
@@ -2916,8 +2930,10 @@
           <h3 style="color:white;font-size:1rem;margin-bottom:6px;">Staat uw vraag er niet bij?</h3>
           <p style="color:#9B9588;font-size:0.87rem;margin-bottom:16px;">Stel uw vraag direct — wij reageren binnen 1 werkdag.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <div class="hp-field" aria-hidden="true"><label for="faq-honeypot">Website</label><input type="text" id="faq-honeypot" name="website" tabindex="-1" autocomplete="off"></div>
             <input type="text" id="faq-vraag-naam" placeholder="Uw naam" style="flex:1;min-width:140px;padding:10px 14px;border:1px solid #333;background:#1a2236;color:white;border-radius:6px;font-size:0.88rem;font-family:inherit;">
             <input type="tel" id="faq-vraag-tel" placeholder="Telefoonnummer" style="flex:1;min-width:140px;padding:10px 14px;border:1px solid #333;background:#1a2236;color:white;border-radius:6px;font-size:0.88rem;font-family:inherit;">
+            <input type="email" id="faq-vraag-email" placeholder="E-mail (optioneel als u een nummer invult)" style="flex:1;min-width:160px;padding:10px 14px;border:1px solid #333;background:#1a2236;color:white;border-radius:6px;font-size:0.88rem;font-family:inherit;">
             <button onclick="submitFaqVraag()" style="padding:10px 18px;background:var(--risk);color:white;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:0.88rem;white-space:nowrap;">Bel mij terug</button>
           </div>
           <div id="faq-vraag-ok" style="display:none;margin-top:12px;color:#4ade80;font-size:0.87rem;font-weight:600;">✓ Ontvangen — wij bellen u zo snel mogelijk terug!</div>
@@ -5433,6 +5449,7 @@
       <h3 style="font-size:1rem;margin-bottom:16px;">Meld u aan als doorverwijzingspartner</h3>
       <div style="background:var(--paper-deep);border:1px solid var(--line);border-radius:var(--radius-s);padding:22px 24px;">
         <form id="controller-form" style="display:flex;flex-direction:column;gap:12px;">
+          <div class="hp-field" aria-hidden="true"><label for="ctrl-honeypot">Website</label><input type="text" id="ctrl-honeypot" name="website" tabindex="-1" autocomplete="off"></div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
             <div class="field"><label for="ctrl-naam">Naam</label><input type="text" id="ctrl-naam" placeholder="Uw naam"></div>
             <div class="field"><label for="ctrl-functie">Functie</label><input type="text" id="ctrl-functie" placeholder="bv. Controller, HR-directeur"></div>
@@ -5735,8 +5752,9 @@
         <h3 style="font-size:1rem;margin-bottom:6px;">Klant doorverwijzen of samenwerking bespreken</h3>
         <p style="font-size:0.88rem;color:var(--ink-soft);margin-bottom:20px;">Vul het formulier in — wij nemen binnen één werkdag contact op voor een korte kennismaking of om de doorverwijzing direct op te pakken.</p>
         <div style="display:flex;flex-direction:column;gap:12px;" id="partner-form">
-          <div class="field"><label for="pf-naam">Uw naam en organisatie</label><input type="text" id="pf-naam" placeholder="Jan de Vries — Intermediair Verzuim BV"></div>
-          <div class="field"><label for="pf-email">Uw e-mailadres</label><input type="email" id="pf-email" placeholder="j.devries@intermediair.nl"></div>
+          <div class="hp-field" aria-hidden="true"><label for="pf-honeypot">Website</label><input type="text" id="pf-honeypot" name="website" tabindex="-1" autocomplete="off"></div>
+          <div class="field"><label for="pf-naam">Uw naam en organisatie</label><input type="text" id="pf-naam" placeholder="Uw naam — organisatie"></div>
+          <div class="field"><label for="pf-email">Uw e-mailadres</label><input type="email" id="pf-email" placeholder="uw.naam@organisatie.nl"></div>
           <div class="field"><label for="pf-tel">Uw telefoonnummer</label><input type="tel" id="pf-tel" placeholder="06-"></div>
           <div class="field">
             <label for="pf-type">Uw rol</label>
@@ -6203,6 +6221,8 @@
               <option value="conversation">🔵 Gesprek</option>
               <option value="client">🟢 Klant</option>
               <option value="closed">⚫ Afgesloten</option>
+              <option value="test">🧪 Test</option>
+              <option value="spam">⛔ Spam</option>
             </select>
           </div>
           <div id="admin-lead-list"></div>
@@ -6739,9 +6759,10 @@
         <h3 style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9B9588;margin-bottom:14px;">Direct contact</h3>
         <p style="color:#C9C3B4;font-size:0.84rem;margin-bottom:12px;">Laat uw nummer achter — wij bellen u binnen 1 werkdag terug.</p>
         <form class="mini-form" id="terugbel-form">
-          <input type="text" name="website" id="fb-honeypot" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;">
+          <div class="hp-field" aria-hidden="true"><label for="fb-honeypot">Website</label><input type="text" name="website" id="fb-honeypot" tabindex="-1" autocomplete="off"></div>
           <input type="text" placeholder="Naam" id="fb-naam">
           <input type="tel" placeholder="Telefoonnummer" id="fb-tel">
+          <input type="email" placeholder="E-mail (als u liever geen nummer achterlaat)" id="fb-email">
           <select id="fb-onderwerp" style="padding:9px 12px;border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-s);background:rgba(255,255,255,0.08);color:var(--paper);font-size:0.88rem;font-family:inherit;">
             <option value="" style="background:var(--ink);">Waar gaat uw vraag over?</option>
             <option value="WHK-beschikking" style="background:var(--ink);">WHK-beschikking controleren</option>
@@ -6789,8 +6810,12 @@
         </div>
         <div class="field">
           <label for="m-tel">Telefoonnummer <span style="color:var(--risk);">*</span></label>
-          <input type="tel" id="m-tel" required placeholder="06-12345678">
-          <span id="m-tel-err" style="display:none;color:var(--risk);font-size:0.8rem;margin-top:3px;">Vul een geldig telefoonnummer in</span>
+          <input type="tel" id="m-tel" placeholder="06-">
+          <span id="m-tel-err" style="display:none;color:var(--risk);font-size:0.8rem;margin-top:3px;">Vul een geldig telefoonnummer of e-mailadres in</span>
+        </div>
+        <div class="field">
+          <label for="m-email">E-mailadres</label>
+          <input type="email" id="m-email" placeholder="uw.naam@bedrijf.nl">
         </div>
         <div class="field">
           <label for="m-onderwerp">Waar gaat uw vraag over?</label>
@@ -6875,8 +6900,10 @@
       <p style="font-size:0.88rem;color:var(--ink-soft);margin-bottom:20px;">5 veelgemaakte fouten in uw WHK-beschikking &mdash; en hoe u ze herkent. Direct inzichtelijk, ook zonder specialist.</p>
       <div id="lead-magnet-form-wrap">
         <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="hp-field" aria-hidden="true"><label for="lm-honeypot">Website</label><input type="text" id="lm-honeypot" name="website" tabindex="-1" autocomplete="off"></div>
           <input type="text" id="lm-naam" placeholder="Uw naam" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);width:100%;box-sizing:border-box;">
           <input type="email" id="lm-email" placeholder="Uw e-mailadres" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);width:100%;box-sizing:border-box;">
+          <input type="tel" id="lm-tel" placeholder="Telefoon (optioneel als u e-mail invult)" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);width:100%;box-sizing:border-box;">
           <button class="btn btn-risk" id="lm-submit" type="button" style="justify-content:center;">Stuur mij de checklist</button>
         </div>
         <p style="font-size:0.76rem;color:var(--ink-soft);margin-top:10px;">Uw gegevens worden niet gedeeld en u kunt zich altijd uitschrijven.</p>
@@ -6903,6 +6930,7 @@
 
 </div>
 
+<script src="/lib/lead-guard.js"></script>
 <script>
 (function(){
   var state = {
@@ -6917,6 +6945,27 @@
 
   function fmtEUR(n){
     return '€ ' + Math.round(n).toLocaleString('nl-NL');
+  }
+
+  function classifyLeadFields(fields){
+    if(typeof LeadGuard !== 'undefined' && LeadGuard.classify) return LeadGuard.classify(fields);
+    var name = String(fields.name || '').trim();
+    var phone = String(fields.phone || '').trim();
+    var email = String(fields.email || '').trim();
+    if(fields.honeypot) return { ok:true, notify:false, status:'spam', lead:fields };
+    if(!name || (!phone && !email)) return { ok:false, error:'Naam en telefoon of e-mail zijn verplicht.', lead:fields };
+    return { ok:true, notify:true, status:'new', lead:fields };
+  }
+  function hpVal(id){
+    var el = document.getElementById(id);
+    return el ? el.value : '';
+  }
+  function markContactError(ids, msgEl){
+    (ids || []).forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.style.borderColor = 'var(--risk)';
+    });
+    if(msgEl){ msgEl.style.display = 'block'; }
   }
 
   // Calculator defaults (admin can override). Needed at parse time — later
@@ -6996,12 +7045,15 @@
   function submitFaqVraag(){
     var naam = (document.getElementById('faq-vraag-naam') || {value:''}).value.trim();
     var tel  = (document.getElementById('faq-vraag-tel')  || {value:''}).value.trim();
-    if(!naam || !tel){ return; }
-    addLead(naam, tel, 'faq-inline-vraag');
+    var email = (document.getElementById('faq-vraag-email') || {value:''}).value.trim();
+    var classified = classifyLeadFields({ name: naam, phone: tel, email: email, honeypot: hpVal('faq-honeypot') });
+    if(!classified.ok){ markContactError(['faq-vraag-naam','faq-vraag-tel','faq-vraag-email']); return; }
+    addLead(naam, tel, 'faq-inline-vraag', '', email, hpVal('faq-honeypot'));
     var ok = document.getElementById('faq-vraag-ok');
     if(ok) ok.style.display = 'block';
     document.getElementById('faq-vraag-naam').value = '';
     document.getElementById('faq-vraag-tel').value  = '';
+    if(document.getElementById('faq-vraag-email')) document.getElementById('faq-vraag-email').value = '';
   }
 
   document.querySelectorAll('[data-step-target]').forEach(function(btn){
@@ -7194,15 +7246,23 @@
   if(reportTbForm){
     reportTbForm.addEventListener('submit', function(e){
       e.preventDefault();
-      var hp = document.getElementById('report-hp');
-      if(hp && hp.value) return;
       var naam = (document.getElementById('report-naam')||{value:''}).value.trim();
       var tel  = (document.getElementById('report-tel') ||{value:''}).value.trim();
-      if(!naam || !tel) return;
+      var email = (document.getElementById('report-email')||{value:''}).value.trim();
+      var classified = classifyLeadFields({ name: naam, phone: tel, email: email, honeypot: hpVal('report-hp') });
+      var err = document.getElementById('report-tb-err');
+      if(!classified.ok){
+        if(err) err.style.display = 'block';
+        markContactError(['report-naam','report-tel','report-email']);
+        return;
+      }
+      if(err) err.style.display = 'none';
       reportTbForm.style.display = 'none';
       if(reportStep2) reportStep2.style.display = 'block';
       reportTbForm._naam = naam;
       reportTbForm._tel  = tel;
+      reportTbForm._email = email;
+      reportTbForm._hp = hpVal('report-hp');
     });
   }
 
@@ -7213,7 +7273,8 @@
       selectedSlot = btn.getAttribute('data-slot');
       var naam = reportTbForm ? (reportTbForm._naam || '') : '';
       var tel  = reportTbForm ? (reportTbForm._tel  || '') : '';
-      addLead(naam, tel, 'rapport-terugbel:' + selectedSlot);
+      var email = reportTbForm ? (reportTbForm._email || '') : '';
+      addLead(naam, tel, 'rapport-terugbel:' + selectedSlot, '', email, reportTbForm ? reportTbForm._hp : '');
       if(reportStep2) reportStep2.style.display = 'none';
       if(reportTbOk)  reportTbOk.style.display = 'block';
     });
@@ -7238,12 +7299,13 @@
     lmSubmit.addEventListener('click', function(){
       var email = (document.getElementById('lm-email')||{value:''}).value.trim();
       var naam  = (document.getElementById('lm-naam') ||{value:''}).value.trim();
-      if(!naam){ var nEl = document.getElementById('lm-naam'); if(nEl){ nEl.style.borderColor='var(--risk)'; nEl.placeholder='Naam verplicht'; nEl.focus(); } return; }
-      if(!email || email.indexOf('@')===-1){ var eEl = document.getElementById('lm-email'); if(eEl){ eEl.style.borderColor='var(--risk)'; eEl.placeholder='Geldig e-mail verplicht'; eEl.focus(); } return; }
+      var tel   = (document.getElementById('lm-tel') ||{value:''}).value.trim();
+      var classified = classifyLeadFields({ name: naam, phone: tel, email: email, honeypot: hpVal('lm-honeypot') });
+      if(!classified.ok){ markContactError(['lm-naam','lm-email','lm-tel']); return; }
       if(document.getElementById('lm-naam')) document.getElementById('lm-naam').style.borderColor='';
       if(document.getElementById('lm-email')) document.getElementById('lm-email').style.borderColor='';
       addNewsletterSub(email);
-      if(naam) addLead(naam, email, 'lead-magnet-checklist');
+      addLead(naam, tel, 'lead-magnet-checklist', '', email, hpVal('lm-honeypot'));
       trackEvent('lead_magnet_converted');
       // Doorsturen naar de checklistpagina
       window.open('/whk_checklist.html', '_blank');
@@ -7323,13 +7385,16 @@
   document.getElementById('submit-calc').addEventListener('click', function(){
     var naam = document.getElementById('naam').value.trim();
     var telefoon = document.getElementById('telefoon').value.trim();
+    var email = (document.getElementById('email') || {value:''}).value.trim();
     var errorEl = document.getElementById('form-error');
-    if(!naam || !telefoon){
+    var classified = classifyLeadFields({ name: naam, phone: telefoon, email: email, honeypot: hpVal('calc-honeypot') });
+    if(!classified.ok){
       errorEl.style.display = 'block';
+      markContactError(['naam','telefoon','email'], errorEl);
       return;
     }
     errorEl.style.display = 'none';
-    addLead(naam, telefoon, 'calculator');
+    addLead(naam, telefoon, 'calculator', '', email, hpVal('calc-honeypot'));
     showResults();
   });
 
@@ -7363,17 +7428,43 @@
     });
   }
 
-  // ---- drag & drop upload (front-end demo only) ----
+  // ---- drag & drop upload — lead vereist naam + contact ----
   var dropZone = document.getElementById('drop-zone');
   var fileInput = document.getElementById('file-input');
   var dropLabel = document.getElementById('drop-label');
-  dropZone.addEventListener('click', function(){ fileInput.click(); });
+  function uploadFields(){
+    return {
+      name: (document.getElementById('upload-naam')||{value:''}).value.trim(),
+      phone: (document.getElementById('upload-tel')||{value:''}).value.trim(),
+      email: (document.getElementById('upload-email')||{value:''}).value.trim(),
+      honeypot: hpVal('upload-honeypot')
+    };
+  }
+  function uploadContactOk(){
+    var classified = classifyLeadFields(uploadFields());
+    var err = document.getElementById('upload-err');
+    if(!classified.ok){
+      if(err) err.style.display = 'block';
+      markContactError(['upload-naam','upload-tel','upload-email']);
+      return null;
+    }
+    if(err) err.style.display = 'none';
+    return classified;
+  }
+  dropZone.addEventListener('click', function(){
+    if(!uploadContactOk()) return;
+    fileInput.click();
+  });
   dropZone.addEventListener('dragover', function(e){ e.preventDefault(); dropZone.classList.add('over'); });
   dropZone.addEventListener('dragleave', function(){ dropZone.classList.remove('over'); });
   function handleFile(name){
+    var fields = uploadFields();
+    var classified = uploadContactOk();
+    if(!classified) return;
     dropZone.classList.remove('over');
     dropZone.classList.add('done');
     dropLabel.textContent = '"' + name + '" toegevoegd — we controleren binnen 48 uur.';
+    addLead(fields.name, fields.phone, 'beschikking-upload', 'Bestand: ' + name, fields.email, fields.honeypot);
   }
   dropZone.addEventListener('drop', function(e){
     e.preventDefault();
@@ -7386,30 +7477,23 @@
   // ---- terugbel footer form ----
   document.getElementById('terugbel-form').addEventListener('submit', function(e){
     e.preventDefault();
-    var hp = document.getElementById('fb-honeypot');
-    if(hp && hp.value) return;
     var naam = document.getElementById('fb-naam').value.trim();
     var tel  = document.getElementById('fb-tel').value.trim();
+    var email = (document.getElementById('fb-email') || {value:''}).value.trim();
     var onderwerp = (document.getElementById('fb-onderwerp') || {value:''}).value;
-
-    // Validatie
-    if(!naam){
-      var nEl = document.getElementById('fb-naam');
-      nEl.style.borderColor = 'var(--risk)';
-      nEl.focus();
-      return;
-    }
-    if(!tel || tel.replace(/\D/g,'').length < 9){
-      var tEl = document.getElementById('fb-tel');
-      tEl.style.borderColor = 'var(--risk)';
-      tEl.focus();
+    var classified = classifyLeadFields({ name: naam, phone: tel, email: email, honeypot: hpVal('fb-honeypot') });
+    if(!classified.ok){
+      markContactError(['fb-naam','fb-tel','fb-email']);
+      if(!naam) document.getElementById('fb-naam').focus();
+      else if(!tel && !email) document.getElementById('fb-tel').focus();
       return;
     }
     document.getElementById('fb-naam').style.borderColor = '';
     document.getElementById('fb-tel').style.borderColor = '';
+    if(document.getElementById('fb-email')) document.getElementById('fb-email').style.borderColor = '';
 
     var source = 'footer-terugbel' + (onderwerp ? ':' + onderwerp : '');
-    addLead(naam, tel, source);
+    addLead(naam, tel, source, '', email, hpVal('fb-honeypot'));
     document.getElementById('fb-ok').style.display = 'block';
     this.reset();
   });
@@ -7441,41 +7525,37 @@
     bg.addEventListener('click', function(e){ if(e.target === bg) bg.classList.remove('show'); });
   });
   document.getElementById('m-submit').addEventListener('click', function(){
-    // Honeypot check — bots vullen dit in, mensen niet
-    var honeypot = (document.getElementById('m-honeypot') || {value:''}).value;
-    if(honeypot){ return; } // stilletjes weggooien
-
     var naam      = document.getElementById('m-naam').value.trim();
     var tel       = document.getElementById('m-tel').value.trim();
+    var email     = (document.getElementById('m-email') || {value:''}).value.trim();
     var onderwerp = (document.getElementById('m-onderwerp') || {value:''}).value;
+    var classified = classifyLeadFields({ name: naam, phone: tel, email: email, honeypot: hpVal('m-honeypot') });
 
-    if(!naam){
-      var nEl = document.getElementById('m-naam');
-      nEl.style.borderColor = 'var(--risk)';
-      nEl.placeholder = 'Naam is verplicht';
-      nEl.focus();
-      document.getElementById('m-naam-err').style.display = 'block';
+    if(!classified.ok){
+      if(!naam){
+        var nEl = document.getElementById('m-naam');
+        nEl.style.borderColor = 'var(--risk)';
+        nEl.placeholder = 'Naam is verplicht';
+        nEl.focus();
+        document.getElementById('m-naam-err').style.display = 'block';
+      } else {
+        var tEl = document.getElementById('m-tel');
+        tEl.style.borderColor = 'var(--risk)';
+        tEl.focus();
+        document.getElementById('m-tel-err').style.display = 'block';
+      }
       return;
     }
-    if(!tel || tel.replace(/\D/g,'').length < 9){
-      var tEl = document.getElementById('m-tel');
-      tEl.style.borderColor = 'var(--risk)';
-      tEl.placeholder = 'Geldig telefoonnummer verplicht';
-      tEl.focus();
-      document.getElementById('m-tel-err').style.display = 'block';
-      return;
-    }
-    // Reset borders
     document.getElementById('m-naam').style.borderColor = '';
     document.getElementById('m-tel').style.borderColor = '';
     document.getElementById('m-naam-err').style.display = 'none';
     document.getElementById('m-tel-err').style.display = 'none';
-    // Toon stap 2: tijdselectie
     document.getElementById('modal-tb-step1').style.display = 'none';
     document.getElementById('modal-tb-step2').style.display = 'block';
-    // Bewaar voor als slot wordt gekozen
     document.getElementById('m-submit')._naam = naam;
     document.getElementById('m-submit')._tel  = tel;
+    document.getElementById('m-submit')._email = email;
+    document.getElementById('m-submit')._hp = hpVal('m-honeypot');
     document.getElementById('m-submit')._onderwerp = onderwerp;
   });
 
@@ -7487,17 +7567,19 @@
       var submitBtn = document.getElementById('m-submit');
       var naam      = submitBtn._naam || '';
       var tel       = submitBtn._tel  || '';
+      var email     = submitBtn._email || '';
       var onderwerp = submitBtn._onderwerp || '';
       var paginaNaam = (typeof activeViewId !== 'undefined' ? activeViewId : 'onbekend').replace('-view', '');
       var source = 'terugbel-modal' + (onderwerp ? ':' + onderwerp : '') + ':' + slot;
       var message = 'Pagina: ' + paginaNaam + ' | Tijdstip: ' + slot;
-      addLead(naam, tel, source, message);
+      addLead(naam, tel, source, message, email, submitBtn._hp);
       document.getElementById('modal-tb-step2').style.display = 'none';
       document.getElementById('m-ok').style.display = 'block';
       // Reset voor volgende keer
       setTimeout(function(){
         document.getElementById('m-naam').value = '';
         document.getElementById('m-tel').value = '';
+        if(document.getElementById('m-email')) document.getElementById('m-email').value = '';
         if(document.getElementById('m-onderwerp')) document.getElementById('m-onderwerp').value = '';
         document.getElementById('modal-tb-step1').style.display = 'block';
         document.getElementById('modal-tb-step2').style.display = 'none';
@@ -7598,6 +7680,9 @@
   // De rest van de code hoeft niet te veranderen.
   // ================================================================
   var BACKEND_URL = 'https://whk-production.up.railway.app'; // Railway URL — ingesteld op 27-6-2026
+  if(typeof location !== 'undefined' && /^(localhost|127\.0\.0\.1)$/.test(location.hostname)){
+    BACKEND_URL = location.origin;
+  }
 
   // API-contract — alle endpoints die de Railway-backend moet leveren:
   // GET    /api/posts                → array van posts
@@ -9687,58 +9772,49 @@
     } catch(e){ console.error('Opslaan van leads is mislukt', e); }
   }
 
-  async function addLead(name, phone, source, message){
-    // Weiger lege leads
-    var n = (name || '').trim();
-    var p = (phone || '').trim();
-    if(!n && !p) return;  // beide leeg = spam/bot
-    if(!n) n = '(geen naam)';
-    if(!p) p = '(geen telefoon)';
+  async function addLead(name, phone, source, message, email, honeypot){
+    var classified = classifyLeadFields({ name: name, phone: phone, email: email, honeypot: honeypot });
+    if(!classified.ok) return classified;
+    var n = classified.lead || {};
     var lead = {
       id: 'lead_' + Date.now(),
-      name: n,
-      phone: p,
+      name: n.name || String(name || '').trim(),
+      phone: n.phone || String(phone || '').trim(),
+      email: n.email || String(email || '').trim(),
       source: source,
       message: message || '',
       createdAt: new Date().toISOString(),
-      status: 'new'
+      status: classified.status || 'new'
     };
     leads.unshift(lead);
     await saveLeads();
     trackEvent('lead_submitted', source);
     renderLiveCounter();
     if(isAdmin) renderLeadAdmin();
-    if(typeof fireWebhook === 'function') fireWebhook(lead);
+    if(classified.notify && typeof fireWebhook === 'function') fireWebhook(lead);
 
-    // E-mail notificatie via Railway
     if(BACKEND_URL){
       try{
         fetch(BACKEND_URL + '/api/lead/notify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: name, phone: phone, source: source, message: message, page: window.location.href })
+          body: JSON.stringify({
+            name: lead.name,
+            phone: lead.phone,
+            email: lead.email,
+            source: source,
+            message: message,
+            page: window.location.href,
+            website: honeypot || ''
+          })
         });
       } catch(e){ /* stille fout — lead is al opgeslagen */ }
     }
+    return classified;
   }
 
-  async function addReportRequest(email, source, summary){
-    var lead = {
-      id: 'lead_' + Date.now(),
-      name: '',
-      phone: '',
-      email: email || '',
-      summary: summary || '',
-      source: source,
-      createdAt: new Date().toISOString(),
-      status: 'new'
-    };
-    leads.unshift(lead);
-    await saveLeads();
-    trackEvent('lead_submitted', source);
-    renderLiveCounter();
-    if(isAdmin) renderLeadAdmin();
-    if(typeof fireWebhook === 'function') fireWebhook(lead);
+  async function addReportRequest(email, source, summary, name, phone, honeypot){
+    return addLead(name || '', phone || '', source, summary, email, honeypot);
   }
 
   // ---- newsletter signup ----
@@ -11139,28 +11215,38 @@
   // ---- EMAIL-GATE (lichte follow-up na een rekenresultaat) ----
   function buildEmailGateHtml(){
     var html = '<p class="email-gate-label">Ontvang deze uitkomst ook per e-mail</p>';
-    html += '<div class="email-gate-row"><input type="email" class="eg-email-input" placeholder="naam@bedrijf.nl"><button type="button" class="btn btn-savings eg-submit-btn">Verstuur</button></div>';
+    html += '<div class="hp-field" aria-hidden="true"><label>Website</label><input type="text" class="eg-honeypot" name="website" tabindex="-1" autocomplete="off"></div>';
+    html += '<div class="email-gate-row"><input type="text" class="eg-name-input" placeholder="Uw naam"><input type="email" class="eg-email-input" placeholder="uw.naam@bedrijf.nl"><button type="button" class="btn btn-savings eg-submit-btn">Verstuur</button></div>';
+    html += '<p class="eg-err" style="display:none;color:var(--risk);font-size:0.84rem;">Vul uw naam in, plus een e-mailadres of telefoonnummer.</p>';
     html += '<p class="eg-ok" style="display:none;">De checklist opent in een nieuw tabblad. Wij nemen ook contact met u op.</p>';
     return html;
   }
   function initEmailGate(root, sourceLabel, getSummaryFn){
     if(!root) return;
+    var nameInput = root.querySelector('.eg-name-input');
     var input = root.querySelector('.eg-email-input');
     var btn = root.querySelector('.eg-submit-btn');
     var ok = root.querySelector('.eg-ok');
+    var err = root.querySelector('.eg-err');
+    var hp = root.querySelector('.eg-honeypot');
     btn.addEventListener('click', function(){
+      var naam = nameInput ? (nameInput.value || '').trim() : '';
       var email = (input.value || '').trim();
-      if(!email || email.indexOf('@') === -1 || email.indexOf('.') === -1){
-        alert('Vul een geldig e-mailadres in.');
+      var classified = classifyLeadFields({ name: naam, email: email, honeypot: hp ? hp.value : '' });
+      if(!classified.ok){
+        if(err) err.style.display = 'block';
+        if(nameInput) nameInput.style.borderColor = 'var(--risk)';
+        input.style.borderColor = 'var(--risk)';
         return;
       }
+      if(err) err.style.display = 'none';
       var summary = getSummaryFn ? getSummaryFn() : '';
-      addReportRequest(email, sourceLabel, summary);
+      addReportRequest(email, sourceLabel, summary, naam, '', hp ? hp.value : '');
       ok.style.display = 'block';
+      if(nameInput){ nameInput.value = ''; nameInput.disabled = true; }
       input.value = '';
       input.disabled = true;
       btn.disabled = true;
-      // Checklist direct openen als download
       setTimeout(function(){
         var a = document.createElement('a');
         a.href = (typeof BACKEND_URL !== 'undefined' && BACKEND_URL)
@@ -12745,6 +12831,9 @@
     el.innerHTML = '';
     if(!leads.length){ el.innerHTML = '<p class="hint">Nog geen leads binnengekomen.</p>'; return; }
     var filtered = selectedSource ? leads.filter(function(l){ return l.source === selectedSource; }) : leads;
+    var statusSel = document.getElementById('admin-lead-status-filter');
+    var selectedStatus = statusSel ? statusSel.value : '';
+    if(selectedStatus) filtered = filtered.filter(function(l){ return (l.status || 'new') === selectedStatus; });
     if(!filtered.length){ el.innerHTML = '<p class="hint">Geen leads voor deze bron.</p>'; return; }
     filtered.slice().sort(function(a,b){ return new Date(b.createdAt)-new Date(a.createdAt); }).forEach(function(l){
       var div = document.createElement('div');
@@ -12767,7 +12856,9 @@
         + '<button class="icon-btn lead-note-save" type="button" title="Opslaan">💾</button>'
         + '</div>';
       div.querySelector('.ttl').textContent = (l.name||'Onbekend') + (l.phone?' — '+l.phone:'') + (l.email?' — '+l.email:'');
-      div.querySelector('.meta-sm').textContent = new Date(l.createdAt).toLocaleDateString('nl-NL') + ' · ' + (l.source||'?');
+      var st = l.status || 'new';
+      var statusLabels = { new:'nieuw', done:'opgevolgd', test:'test', spam:'spam', called:'gebeld', conversation:'gesprek', client:'klant', closed:'afgesloten' };
+      div.querySelector('.meta-sm').innerHTML = new Date(l.createdAt).toLocaleDateString('nl-NL') + ' · ' + (l.source||'?') + ' · <span class="lead-status-' + st + '">' + (statusLabels[st] || st) + '</span>';
       div.querySelector('.lead-note-field').value = l.note||'';
       div.querySelector('.pipeline-sel').addEventListener('change', function(){
         l.pipeline = this.value;
@@ -14358,19 +14449,10 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
       var tel   = (document.getElementById('pf-tel')   || {value:''}).value.trim();
       var type  = (document.getElementById('pf-type')  || {value:''}).value;
       var vraag = (document.getElementById('pf-vraag') || {value:''}).value.trim();
-      if(!naam){
-        var nEl = document.getElementById('pf-naam');
-        if(nEl){ nEl.style.borderColor='var(--risk)'; nEl.focus(); }
-        return;
-      }
-      if(!email || email.indexOf('@') === -1){
-        var eEl = document.getElementById('pf-email');
-        if(eEl){ eEl.style.borderColor='var(--risk)'; eEl.focus(); }
-        return;
-      }
-      if(!tel || tel.replace(/\D/g,'').length < 9){
-        var tEl = document.getElementById('pf-tel');
-        if(tEl){ tEl.style.borderColor='var(--risk)'; tEl.placeholder='Telefoonnummer verplicht'; tEl.focus(); }
+      var classified = classifyLeadFields({ name: naam, phone: tel, email: email, honeypot: hpVal('pf-honeypot') });
+      if(!classified.ok){
+        markContactError(['pf-naam','pf-email','pf-tel']);
+        if(!naam){ var nEl = document.getElementById('pf-naam'); if(nEl) nEl.focus(); }
         return;
       }
       document.getElementById('pf-naam').style.borderColor='';
@@ -14378,8 +14460,8 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
       if(document.getElementById('pf-tel')) document.getElementById('pf-tel').style.borderColor='';
       pfSubmitBtn.disabled = true;
       pfSubmitBtn.textContent = 'Versturen\u2026';
-      var bericht = (type ? 'Rol: ' + type + ' | ' : '') + (vraag || '') + (email ? ' | e-mail: ' + email : '');
-      await addLead(naam, tel, 'partner-doorverwijzing', bericht);
+      var bericht = (type ? 'Rol: ' + type + ' | ' : '') + (vraag || '');
+      await addLead(naam, tel, 'partner-doorverwijzing', bericht, email, hpVal('pf-honeypot'));
       var st = document.getElementById('pf-status');
       if(st) st.style.display = 'block';
       pfSubmitBtn.style.display = 'none';
@@ -14787,19 +14869,16 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
       var functie = document.getElementById('ctrl-functie').value.trim();
       var org     = document.getElementById('ctrl-org').value.trim();
       var rol     = document.getElementById('ctrl-rol').value;
-      if(!naam){
-        var nEl = document.getElementById('ctrl-naam');
-        if(nEl){ nEl.style.borderColor='var(--risk)'; nEl.focus(); }
-        return;
-      }
-      if(!email || email.indexOf('@') === -1){
-        var eEl = document.getElementById('ctrl-email');
-        if(eEl){ eEl.style.borderColor='var(--risk)'; eEl.focus(); }
+      var classified = classifyLeadFields({ name: naam, email: email, honeypot: hpVal('ctrl-honeypot') });
+      if(!classified.ok){
+        markContactError(['ctrl-naam','ctrl-email']);
+        if(!naam){ var nEl = document.getElementById('ctrl-naam'); if(nEl) nEl.focus(); }
+        else { var eEl = document.getElementById('ctrl-email'); if(eEl) eEl.focus(); }
         return;
       }
       document.getElementById('ctrl-naam').style.borderColor='';
       document.getElementById('ctrl-email').style.borderColor='';
-      addLead(naam, '', 'controller-intermediair:' + rol + ':' + org);
+      addLead(naam, '', 'controller-intermediair:' + rol + ':' + org, functie, email, hpVal('ctrl-honeypot'));
       addNewsletterSub(email);
       ctrlForm.style.display = 'none';
       document.getElementById('ctrl-ok').style.display = 'block';
