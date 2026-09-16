@@ -30,7 +30,9 @@ const leadGuard         = require('./lib/lead-guard');
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
-// Redirect www naar non-www (apex is canonical)
+// Redirect www naar non-www (apex is canonical).
+// GSC's 11× 404s are all www host — DNS/TLS on www, not missing routes.
+// Keep this 301 only; do not add extra redirects that paper over the broken www cert.
 app.use((req, res, next) => {
   if (req.hostname && req.hostname.startsWith('www.')) {
     const nonWww = req.hostname.slice(4);
@@ -435,12 +437,27 @@ function getHtml() {
 function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
+function slimLocalBusinessLd() {
+  return `<script type="application/ld+json" id="localbusiness-schema">
+{
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "ProfessionalService"],
+  "@id": "${SITE_URL}/#localbusiness",
+  "name": "werkhervattingskas.nl – Matchvermogen",
+  "url": "${SITE_URL}/",
+  "telephone": "+31650213593",
+  "email": "info@werkhervattingskas.nl",
+  "areaServed": "NL"
+}
+</script>`;
+}
+
 function serveWithMeta(res, meta, canonPath, statusCode) {
   const html = getHtml();
   if (!html) return res.status(404).send('<h2>Site niet gevonden</h2><p>Upload whk_verzuim.html naar GitHub.</p>');
   const t = esc(meta.title), d = esc(meta.desc), c = SITE_URL + canonPath;
   const noindex = meta.robots || ((canonPath === '/admin') ? 'noindex, nofollow' : 'index, follow');
-  const modified = html
+  let modified = html
     .replace(/<title>[^<]*<\/title>/, `<title>${t}</title>`)
     .replace(/<meta name="description" content="[^"]*"/, `<meta name="description" content="${d}"`)
     .replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${c}"`)
@@ -452,6 +469,15 @@ function serveWithMeta(res, meta, canonPath, statusCode) {
     .replace(/<meta name="twitter:title" content="[^"]*"/, `<meta name="twitter:title" content="${t}"`)
     .replace(/<meta name="twitter:description" content="[^"]*"/, `<meta name="twitter:description" content="${d}"`)
     .replace(/<meta name="robots" content="[^"]*"/, `<meta name="robots" content="${noindex}"`);
+  // Homepage keeps aggregateRating on LocalBusiness+ProfessionalService.
+  // Inner URLs (e.g. /voor/casemanager) must not repeat rating + OfferCatalog
+  // Service "WHK-beschikking controleren" — GSC reports that as an invalid Review parent.
+  if (canonPath !== '/') {
+    modified = modified.replace(
+      /<script type="application\/ld\+json" id="localbusiness-schema">[\s\S]*?<\/script>/,
+      slimLocalBusinessLd()
+    );
+  }
   res.status(statusCode || 200);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', canonPath === '/admin' ? 'no-store' : 'public, max-age=300');
