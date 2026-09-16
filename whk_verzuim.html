@@ -9519,6 +9519,15 @@
       savePosts();
     }
     renderBlogGrid();
+    if(window._initialBlogSlug){
+      var bootSlug = window._initialBlogSlug;
+      window._initialBlogSlug = null;
+      var bootPost = posts.find(function(x){ return x.slug === bootSlug; });
+      if(bootPost){
+        openBlogPost(bootSlug);
+        showView('blogpost-view');
+      }
+    }
     // Blog-hub blokken op dienstpagina's vullen na laden posts
     if(typeof buildServiceBlogCards === 'function'){
       buildServiceBlogCards('whkr-blog-cards', [
