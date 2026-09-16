@@ -6919,6 +6919,39 @@
     return '€ ' + Math.round(n).toLocaleString('nl-NL');
   }
 
+  // Calculator defaults (admin can override). Needed at parse time — later
+  // tools (WIA, premiehistorie) live in this same script and must not abort.
+  var CALC_CONFIG_DEFAULTS = {
+    modaalInkomen: 44000,
+    wgaUitkeringsPercentage: 0.70,
+    wgaAfbouwFactor: 0.70,
+    wgaGemJaren: 5,
+    wgaPremieGem: 0.96,
+    kleinGrens: 1082500,
+    grootGrens: 4330000,
+    bezwaartermijnWeken: 6,
+    ivaConversieRatio: 0.15,
+    herstelRatio35: 0.10,
+    tarief_ad_standaard: 1095,
+    tarief_ad_geregistreerd: 1295,
+    tarief_spoor2_kort: 2500,
+    tarief_spoor2_vol: 4500,
+    tarief_psycholoog: 1800,
+    tarief_coaching: 1500,
+    tarief_loopbaancoaching: 2000,
+    tarief_outplacement: 4500,
+    tarief_consultancy_uur: 165,
+    bulk_drempel1: 5,
+    bulk_drempel2: 10,
+    bulk_drempel3: 20,
+    bulk_korting1: 0.10,
+    bulk_korting2: 0.15,
+    bulk_korting3: 0.20
+  };
+  var CALC_CONFIG = {};
+  Object.keys(CALC_CONFIG_DEFAULTS).forEach(function(k){ CALC_CONFIG[k] = CALC_CONFIG_DEFAULTS[k]; });
+  function applyCalcConfig(){ /* tarieven/grenzen are read live from CALC_CONFIG */ }
+
   // ---- slider ----
   var loonsomEl = document.getElementById('loonsom');
   var loonsomVal = document.getElementById('loonsom-val');
