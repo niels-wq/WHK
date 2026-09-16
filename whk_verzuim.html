@@ -6951,6 +6951,19 @@
   var CALC_CONFIG = {};
   Object.keys(CALC_CONFIG_DEFAULTS).forEach(function(k){ CALC_CONFIG[k] = CALC_CONFIG_DEFAULTS[k]; });
   function applyCalcConfig(){ /* tarieven/grenzen are read live from CALC_CONFIG */ }
+  function loadCalcConfig(){
+    if (typeof storageGet !== 'function') return;
+    storageGet('settings:calc_config', true).then(function(res){
+      try {
+        if (res && res.value) {
+          var parsed = typeof res.value === 'string' ? JSON.parse(res.value) : res.value;
+          if (parsed && typeof parsed === 'object') Object.assign(CALC_CONFIG, parsed);
+        }
+      } catch (e) {}
+      if (typeof applyCalcConfig === 'function') applyCalcConfig();
+      if (typeof renderCalcConfigAdmin === 'function') renderCalcConfigAdmin();
+    }).catch(function(){ /* local / unconfigured API */ });
+  }
 
   // ---- slider ----
   var loonsomEl = document.getElementById('loonsom');
