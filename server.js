@@ -8,6 +8,8 @@ const cors       = require('cors');
 const path       = require('path');
 const fs         = require('fs');
 const https      = require('https');
+const seo        = require('./lib/seo');
+const leadGuard  = require('./lib/lead-guard');
 
 const app  = express();
 const pool = process.env.DATABASE_URL
@@ -18,14 +20,23 @@ const ADMIN_PASSWORD    = process.env.ADMIN_PASSWORD    || 'verander-dit';
 const JWT_SECRET        = process.env.JWT_SECRET        || 'verander-dit-secret';
 // Primary host is the apex domain. www is redirected here; www currently has a
 // separate DNS/cert issue outside this repo. Canonicals, hreflang, sitemap and
-// robots all use SITE_URL (apex).
-const SITE_URL          = (process.env.SITE_URL         || 'https://werkhervattingskas.nl').replace(/\/$/, '').replace('https://www.', 'https://');
+// robots always use the apex origin — SITE_URL env (including www) cannot override.
+const APEX_ORIGIN       = seo.APEX_ORIGIN;
+const SITE_URL          = seo.toApexOrigin(process.env.SITE_URL);
 const PORT              = process.env.PORT              || 3000;
 const NOTIFICATION_EMAIL= process.env.NOTIFICATION_EMAIL|| 'info@matchvermogen.nl';
 const RESEND_API_KEY    = process.env.RESEND_API_KEY    || '';
 const FROM_EMAIL        = process.env.FROM_EMAIL        || 'noreply@werkhervattingskas.nl';
 const ARTICLES_DIR      = path.join(__dirname, 'content', 'articles');
-const leadGuard         = require('./lib/lead-guard');
+// Bump this date when the URL set changes so GSC re-reads sitemap.xml.
+const SITEMAP_LASTMOD   = '2026-09-17';
+const REQUIRED_SITEMAP_PATHS = [
+  '/tools/wia-calculator',
+  '/beschikking-uitleg',
+  '/blog/bezwaar-maken-bij-het-uwv',
+  '/blog/uwv-herbeoordeling-2026',
+  '/blog/wat-is-de-werkhervattingskas-en-waarom-stijgt-jouw-premie'
+];
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
@@ -447,18 +458,25 @@ function getHtml() {
 function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
+function webpageLd(pageUrl, title, desc) {
+  return `<script type="application/ld+json" id="webpage-schema">
+{"@context":"https://schema.org","@type":"WebPage","@id":"${pageUrl}","url":"${pageUrl}","name":"${title}","description":"${desc}","inLanguage":"nl-NL","isPartOf":{"@type":"WebSite","url":"${APEX_ORIGIN}/"}}
+</script>`;
+}
+
 function innerLocalBusinessLd() {
   // Same parent as homepage: LocalBusiness + ProfessionalService owns aggregateRating.
   // OfferCatalog (Service "WHK-beschikking controleren") stays homepage-only so GSC
   // does not treat that Service as the Review parent on inner URLs like /voor/casemanager.
+  // Business url stays apex homepage; the page URL lives on WebPage JSON-LD.
   return `<script type="application/ld+json" id="localbusiness-schema">
 {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "ProfessionalService"],
-  "@id": "${SITE_URL}/#localbusiness",
+  "@id": "${APEX_ORIGIN}/#localbusiness",
   "name": "werkhervattingskas.nl – Matchvermogen",
   "description": "Onafhankelijke controle van WHK-beschikkingen, arbeidsdeskundig onderzoek, tweede spoor re-integratie en verzuimoptimalisatie. No cure, no pay.",
-  "url": "${SITE_URL}/",
+  "url": "${APEX_ORIGIN}/",
   "telephone": "+31650213593",
   "email": "info@werkhervattingskas.nl",
   "address": {
@@ -482,7 +500,7 @@ function innerLocalBusinessLd() {
 function serveWithMeta(res, meta, canonPath, statusCode) {
   const html = getHtml();
   if (!html) return res.status(404).send('<h2>Site niet gevonden</h2><p>Upload whk_verzuim.html naar GitHub.</p>');
-  const t = esc(meta.title), d = esc(meta.desc), c = SITE_URL + canonPath;
+  const t = esc(meta.title), d = esc(meta.desc), c = seo.apexPageUrl(canonPath);
   const noindex = meta.robots || ((canonPath === '/admin') ? 'noindex, nofollow' : 'index, follow');
   let modified = html
     .replace(/<title>[^<]*<\/title>/, `<title>${t}</title>`)
@@ -502,9 +520,26 @@ function serveWithMeta(res, meta, canonPath, statusCode) {
       innerLocalBusinessLd()
     );
   }
+  modified = modified.replace(
+    /<script type="application\/ld\+json" id="webpage-schema">[\s\S]*?<\/script>\s*/g,
+    ''
+  );
+  const ldMarker = '<script type="application/ld+json" id="dynamic-schema"></script>';
+  const pageLd = webpageLd(c, t, d);
+  if (modified.indexOf(ldMarker) !== -1) {
+    modified = modified.replace(ldMarker, ldMarker + '\n' + pageLd);
+  } else {
+    modified = modified.replace(
+      `<meta property="og:url" content="${c}"`,
+      `<meta property="og:url" content="${c}">\n` + pageLd
+    );
+  }
+  // Never let a www host leak into canonical / og:url / hreflang / JSON-LD url.
+  modified = seo.stripWwwHost(modified);
   res.status(statusCode || 200);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', canonPath === '/admin' ? 'no-store' : 'public, max-age=300');
+  res.setHeader('Link', `<${c}>; rel="canonical"`);
   res.send(modified);
 }
 
@@ -516,7 +551,7 @@ function serveNotFound(res) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pagina niet gevonden — werkhervattingskas.nl</title>
   <meta name="robots" content="noindex, follow">
-  <link rel="canonical" href="${SITE_URL}/">
+  <link rel="canonical" href="${APEX_ORIGIN}/">
   <style>
     body{margin:0;font-family:IBM Plex Sans,Arial,sans-serif;background:#F7F3EA;color:#11192B;}
     .wrap{max-width:640px;margin:12vh auto;padding:0 24px;}
@@ -639,43 +674,58 @@ ${SITE_URL}/sitemap.xml
 // ================================================================
 // SITEMAP
 // ================================================================
+function buildSitemapXml(dbPosts, html) {
+  const posts = mergePostSources(Array.isArray(dbPosts) ? dbPosts : []);
+  const seen = new Set();
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+  function addUrl(loc, changefreq, priority, lastmod) {
+    loc = seo.stripWwwHost(String(loc || ''));
+    if (!loc || seen.has(loc) || seo.hasWwwSiteHost(loc)) return;
+    seen.add(loc);
+    xml += `  <url><loc>${loc}</loc>`;
+    xml += `<lastmod>${lastmod || SITEMAP_LASTMOD}</lastmod>`;
+    xml += `<changefreq>${changefreq}</changefreq><priority>${priority}</priority></url>\n`;
+  }
+  Object.keys(URL_META).forEach(p => {
+    const prio = p === '/' ? '1.0' : p.startsWith('/diensten') ? '0.9' : '0.7';
+    addUrl(seo.apexPageUrl(p), 'monthly', prio, SITEMAP_LASTMOD);
+  });
+  addUrl(seo.apexPageUrl('/whk_checklist.html'), 'monthly', '0.8', SITEMAP_LASTMOD);
+  Object.keys(SECTOR_META).forEach(s => {
+    addUrl(seo.apexPageUrl('/sectoren/' + s), 'monthly', '0.7', SITEMAP_LASTMOD);
+  });
+  REQUIRED_SITEMAP_PATHS.forEach(p => {
+    const prio = p.indexOf('/blog/') === 0 ? '0.6' : (p.startsWith('/tools') ? '0.7' : '0.7');
+    addUrl(seo.apexPageUrl(p), p.indexOf('/blog/') === 0 ? 'yearly' : 'monthly', prio, SITEMAP_LASTMOD);
+  });
+  loadMarkdownArticles().forEach(p => {
+    if (!p || !p.slug || p.archived) return;
+    const lastmod = p.publishedAt ? String(p.publishedAt).slice(0, 10) : SITEMAP_LASTMOD;
+    addUrl(seo.apexPageUrl('/blog/' + p.slug), 'yearly', '0.6', lastmod);
+  });
+  const now = new Date();
+  posts.filter(p => p && p.slug && !p.archived && (!p.publishedAt || new Date(p.publishedAt) <= now)).forEach(p => {
+    const lastmod = p.publishedAt ? String(p.publishedAt).slice(0, 10) : SITEMAP_LASTMOD;
+    addUrl(seo.apexPageUrl('/blog/' + p.slug), 'yearly', '0.6', lastmod);
+  });
+  if (html) {
+    extractSeedBlogSlugs(html).forEach(slug => {
+      addUrl(seo.apexPageUrl('/blog/' + slug), 'yearly', '0.6', SITEMAP_LASTMOD);
+    });
+  }
+  xml += '</urlset>';
+  return xml;
+}
+
 app.get('/sitemap.xml', async (req, res) => {
   try {
     const raw = await kvGet('posts');
     let dbPosts = [];
     try { dbPosts = raw ? JSON.parse(raw) : []; } catch (e) { dbPosts = []; }
-    const posts = mergePostSources(Array.isArray(dbPosts) ? dbPosts : []);
-    const seen = new Set();
-    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
-    function addUrl(loc, changefreq, priority, lastmod) {
-      if (!loc || seen.has(loc)) return;
-      seen.add(loc);
-      xml += `  <url><loc>${loc}</loc>`;
-      if (lastmod) xml += `<lastmod>${lastmod}</lastmod>`;
-      xml += `<changefreq>${changefreq}</changefreq><priority>${priority}</priority></url>\n`;
-    }
-    Object.keys(URL_META).forEach(p => {
-      const prio = p === '/' ? '1.0' : p.startsWith('/diensten') ? '0.9' : '0.7';
-      addUrl(SITE_URL + p, 'monthly', prio);
-    });
-    addUrl(SITE_URL + '/whk_checklist.html', 'monthly', '0.8');
-    Object.keys(SECTOR_META).forEach(s => {
-      addUrl(SITE_URL + '/sectoren/' + s, 'monthly', '0.7');
-    });
-    const now = new Date();
-    posts.filter(p => p && p.slug && !p.archived && (!p.publishedAt || new Date(p.publishedAt) <= now)).forEach(p => {
-      const lastmod = p.publishedAt ? String(p.publishedAt).slice(0, 10) : undefined;
-      addUrl(SITE_URL + '/blog/' + p.slug, 'yearly', '0.6', lastmod);
-    });
-    const html = getHtml();
-    if (html) {
-      extractSeedBlogSlugs(html).forEach(slug => {
-        addUrl(SITE_URL + '/blog/' + slug, 'yearly', '0.6');
-      });
-    }
-    xml += '</urlset>';
-    res.setHeader('Content-Type', 'application/xml');
-    res.setHeader('Cache-Control', 'public, max-age=3600');
+    const xml = buildSitemapXml(dbPosts, getHtml());
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=300, must-revalidate');
+    res.setHeader('Last-Modified', new Date(SITEMAP_LASTMOD + 'T00:00:00Z').toUTCString());
     res.send(xml);
   } catch (e) {
     console.error('Sitemap fout:', e.message);
@@ -735,22 +785,42 @@ app.get('/og-image.png', (req, res) => {
 // Checklist download
 // Redirect zonder .html naar canonical met .html
 app.get('/whk_checklist', (req, res) => {
-  res.redirect(301, `${SITE_URL}/whk_checklist.html`);
+  res.redirect(301, seo.apexPageUrl('/whk_checklist.html'));
 });
 
 app.get('/whk_checklist.html', (req, res) => {
   const p = path.join(__dirname, 'whk_checklist.html');
   if (!fs.existsSync(p)) return res.status(404).send('Checklist niet gevonden');
+  let html = fs.readFileSync(p, 'utf8');
+  html = seo.stripWwwHost(html);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 'public, max-age=86400');
-  res.setHeader('Link', `<${SITE_URL}/whk_checklist.html>; rel="canonical"`);
-  res.sendFile(p);
+  res.setHeader('Link', `<${seo.apexPageUrl('/whk_checklist.html')}>; rel="canonical"`);
+  res.send(html);
 });
 
 // Catch-all
 app.get('*', (req, res) => serveNotFound(res));
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`werkhervattingskas.nl v3.0 op poort ${PORT} | ${SITE_URL}`);
-  console.log(`E-mail: ${emailReady ? 'ACTIEF via Resend' : 'NIET geconfigureerd'}`);
-});
+function startServer() {
+  return app.listen(PORT, '0.0.0.0', () => {
+    console.log(`werkhervattingskas.nl v3.0 op poort ${PORT} | ${SITE_URL}`);
+    console.log(`E-mail: ${emailReady ? 'ACTIEF via Resend' : 'NIET geconfigureerd'}`);
+  });
+}
+
+if (require.main === module) {
+  startServer();
+}
+
+module.exports = {
+  app,
+  startServer,
+  SITE_URL,
+  APEX_ORIGIN,
+  SITEMAP_LASTMOD,
+  REQUIRED_SITEMAP_PATHS,
+  buildSitemapXml,
+  extractSeedBlogSlugs,
+  loadMarkdownArticles
+};

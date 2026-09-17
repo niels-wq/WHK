@@ -7893,9 +7893,41 @@
     'sector-view':  {title: 'Sector — werkhervattingskas.nl', desc: 'Sector-specifieke WHK-besparing.'}
   };
 
+  var APEX_ORIGIN = 'https://werkhervattingskas.nl';
+
+  function toApexPageUrl(path){
+    var p = String(path || window.location.pathname || '/');
+    p = p.replace(/https?:\/\/www\.werkhervattingskas\.nl/gi, '');
+    p = p.replace(/https?:\/\/werkhervattingskas\.nl/gi, '');
+    if(p.charAt(0) !== '/') p = '/' + p;
+    if(p.length > 1) p = p.replace(/\/+$/, '');
+    return p === '/' ? APEX_ORIGIN + '/' : APEX_ORIGIN + p;
+  }
+
+  function stripWwwInSeoTags(){
+    document.querySelectorAll('link[rel="canonical"], link[rel="alternate"][hreflang]').forEach(function(el){
+      var href = el.getAttribute('href') || '';
+      if(/www\.werkhervattingskas\.nl/i.test(href)){
+        el.setAttribute('href', href.replace(/https?:\/\/www\.werkhervattingskas\.nl/gi, APEX_ORIGIN));
+      }
+    });
+    var ogUrl = document.querySelector('meta[property="og:url"]');
+    if(ogUrl){
+      var content = ogUrl.getAttribute('content') || '';
+      if(/www\.werkhervattingskas\.nl/i.test(content)){
+        ogUrl.setAttribute('content', content.replace(/https?:\/\/www\.werkhervattingskas\.nl/gi, APEX_ORIGIN));
+      }
+    }
+    document.querySelectorAll('script[type="application/ld+json"]').forEach(function(el){
+      var txt = el.textContent || '';
+      if(/www\.werkhervattingskas\.nl/i.test(txt)){
+        el.textContent = txt.replace(/https?:\/\/www\.werkhervattingskas\.nl/gi, APEX_ORIGIN);
+      }
+    });
+  }
+
   function updateCanonical(path){
-    var canonPath = path || window.location.pathname || '/';
-    var url = 'https://werkhervattingskas.nl' + (canonPath === '/' ? '/' : canonPath);
+    var url = toApexPageUrl(path || window.location.pathname || '/');
     var c = document.querySelector('link[rel="canonical"]');
     if(c) c.setAttribute('href', url);
     document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(function(el){
@@ -7903,10 +7935,20 @@
     });
     var ogUrl = document.querySelector('meta[property="og:url"]');
     if(ogUrl) ogUrl.setAttribute('content', url);
+    var webpage = document.getElementById('webpage-schema');
+    if(webpage){
+      try {
+        var data = JSON.parse(webpage.textContent);
+        data.url = url;
+        data['@id'] = url;
+        webpage.textContent = JSON.stringify(data);
+      } catch(e) {}
+    }
     var ogTitle = document.querySelector('meta[property="og:title"]');
     if(ogTitle) ogTitle.setAttribute('content', document.title);
     var twTitle = document.querySelector('meta[name="twitter:title"]');
     if(twTitle) twTitle.setAttribute('content', document.title);
+    stripWwwInSeoTags();
   }
 
   function updateMeta(title, desc, path){
@@ -7920,7 +7962,7 @@
     updateCanonical(path);
   }
 
-  var SITE_BASE_URL = 'https://werkhervattingskas.nl/';
+  var SITE_BASE_URL = APEX_ORIGIN + '/';
 
   function setDynamicSchema(schemaArray){
     var el = document.getElementById('dynamic-schema');
@@ -7962,7 +8004,7 @@
     if(viewId === 'blogpost-view'){ return; }
     var label = BREADCRUMB_LABELS[viewId];
     if(!label){ setDynamicSchema(null); return; }
-    var base = 'https://werkhervattingskas.nl';
+    var base = APEX_ORIGIN;
     var items = [{name: 'Home', url: base + '/'}];
     if(DIENST_VIEWS.indexOf(viewId) !== -1){
       items.push({name: 'Diensten', url: base + '/diensten/whk-controle'});
@@ -10137,7 +10179,8 @@
   }
 
   function generateSitemap(){
-    var base = 'https://werkhervattingskas.nl/';
+    var base = APEX_ORIGIN + '/';
+    var lastmod = '2026-09-17';
     var staticUrls = [
       {loc: base, priority: '1.0'},
       {loc: base + 'over-ons', priority: '0.6'},
@@ -10145,11 +10188,16 @@
       {loc: base + 'faq', priority: '0.6'},
       {loc: base + 'blog', priority: '0.7'},
       {loc: base + 'lexicon', priority: '0.5'},
-      {loc: base + 'quiz', priority: '0.4'}
+      {loc: base + 'quiz', priority: '0.4'},
+      {loc: base + 'tools/wia-calculator', priority: '0.7'},
+      {loc: base + 'beschikking-uitleg', priority: '0.7'},
+      {loc: base + 'blog/bezwaar-maken-bij-het-uwv', priority: '0.6'},
+      {loc: base + 'blog/uwv-herbeoordeling-2026', priority: '0.6'},
+      {loc: base + 'blog/wat-is-de-werkhervattingskas-en-waarom-stijgt-jouw-premie', priority: '0.6'}
     ];
     var lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'];
     staticUrls.forEach(function(u){
-      lines.push('  <url><loc>' + u.loc + '</loc><priority>' + u.priority + '</priority></url>');
+      lines.push('  <url><loc>' + u.loc + '</loc><lastmod>' + lastmod + '</lastmod><priority>' + u.priority + '</priority></url>');
     });
     sortedPosts().forEach(function(p){
       var lastmod = (p.lastReviewedAt || p.publishedAt || '').slice(0,10);
@@ -10160,7 +10208,7 @@
   }
 
   function generateRobots(){
-    var content = 'User-agent: *\nAllow: /\n\nSitemap: https://werkhervattingskas.nl/sitemap.xml\n';
+    var content = 'User-agent: *\nAllow: /\n\nSitemap: ' + APEX_ORIGIN + '/sitemap.xml\nHost: werkhervattingskas.nl\n';
     downloadTextFile('robots.txt', content, 'text/plain');
   }
 
@@ -10423,7 +10471,7 @@
       });
       relatedWrap.appendChild(list);
     }
-    updateMeta(p.title + ' \u2014 werkhervattingskas.nl', p.metaDescription);
+    updateMeta(p.title + ' \u2014 werkhervattingskas.nl', p.metaDescription, blogPath);
     updateOgTags(p.title + ' — werkhervattingskas.nl', p.metaDescription || '');
   }
 
@@ -12773,7 +12821,7 @@
 
   // ---- SOCIAL SHARING ----
   function wireSocialShare(p){
-    var url = encodeURIComponent(location.origin + '/blog/' + p.slug);
+    var url = encodeURIComponent(APEX_ORIGIN + '/blog/' + p.slug);
     var title = encodeURIComponent(p.title);
     var waBtn   = document.getElementById('blogpost-share-wa');
     var liBtn   = document.getElementById('blogpost-share-li');
@@ -12783,7 +12831,7 @@
     if(liBtn)   liBtn.onclick   = function(){ window.open('https://www.linkedin.com/in/niels-alderding/','_blank','noopener'); };
     if(mailBtn) mailBtn.onclick = function(){ location.href = 'mailto:?subject=' + title + '&body=Lees%20dit%20artikel%3A%20' + url; };
     if(copyBtn) copyBtn.onclick = function(){
-      var bare = location.origin + '/blog/' + p.slug;
+      var bare = APEX_ORIGIN + '/blog/' + p.slug;
       if(navigator.clipboard){ navigator.clipboard.writeText(bare).then(function(){ copyBtn.textContent = '✓ Gekopieerd!'; setTimeout(function(){ copyBtn.textContent = '🔗 Kopieer link'; copyBtn.innerHTML = '🔗 Kopieer link'; }, 2000); }); }
       else { copyBtn.textContent = bare; }
     };
