@@ -190,7 +190,7 @@ function defaultFor(key) {
 // ================================================================
 function inlineMd(s) {
   return String(s || '')
-    .replace(/\[([^\]]+)\]\((https?:[^)]+|\/[^)\s]+)\)/g, '<a href="$2">$1</a>')
+    .replace(/\[([^\]]+)\]\((https?:[^)]+|\/[^)\s]*)\)/g, '<a href="$2">$1</a>')
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 }
 function mdToHtml(md) {
