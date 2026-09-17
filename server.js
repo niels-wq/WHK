@@ -10,24 +10,53 @@ const fs         = require('fs');
 const https      = require('https');
 
 const app  = express();
-const pool = new Pool({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
+const pool = process.env.DATABASE_URL
+  ? new Pool({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } })
+  : null;
 
 const ADMIN_PASSWORD    = process.env.ADMIN_PASSWORD    || 'verander-dit';
 const JWT_SECRET        = process.env.JWT_SECRET        || 'verander-dit-secret';
+// Primary host is the apex domain. www is redirected here; www currently has a
+// separate DNS/cert issue outside this repo. Canonicals, hreflang, sitemap and
+// robots all use SITE_URL (apex).
 const SITE_URL          = (process.env.SITE_URL         || 'https://werkhervattingskas.nl').replace(/\/$/, '').replace('https://www.', 'https://');
 const PORT              = process.env.PORT              || 3000;
 const NOTIFICATION_EMAIL= process.env.NOTIFICATION_EMAIL|| 'info@matchvermogen.nl';
 const RESEND_API_KEY    = process.env.RESEND_API_KEY    || '';
 const FROM_EMAIL        = process.env.FROM_EMAIL        || 'noreply@werkhervattingskas.nl';
+const ARTICLES_DIR      = path.join(__dirname, 'content', 'articles');
+const leadGuard         = require('./lib/lead-guard');
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
+// Railway / GSC send Host or X-Forwarded-Host; needed to see www behind the proxy.
+app.set('trust proxy', 1);
 
-// Redirect www naar non-www
+function requestHost(req) {
+  const raw = String(req.get('x-forwarded-host') || req.get('host') || req.hostname || '')
+    .split(',')[0]
+    .trim()
+    .toLowerCase();
+  return raw.replace(/:\d+$/, '');
+}
+
+// Host www → 301 apex (https://werkhervattingskas.nl + path).
+// GSC's 11× 404s are all www — DNS/TLS on www is still required outside this repo.
+// This 301 only fires after a request reaches the app; it does not paper over a broken www cert.
 app.use((req, res, next) => {
-  if (req.hostname && req.hostname.startsWith('www.')) {
-    const nonWww = req.hostname.slice(4);
-    return res.redirect(301, `https://${nonWww}${req.originalUrl}`);
+  const host = requestHost(req);
+  if (host === 'www.werkhervattingskas.nl' || host.startsWith('www.')) {
+    return res.redirect(301, SITE_URL + (req.originalUrl || '/'));
+  }
+  next();
+});
+
+// Collapse trailing slashes so /over-ons/ and /over-ons share one URL
+app.use((req, res, next) => {
+  if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+  if (req.path.length > 1 && req.path.endsWith('/')) {
+    const rest = req.url.slice(req.path.length);
+    return res.redirect(301, req.path.slice(0, -1) + rest);
   }
   next();
 });
@@ -133,10 +162,17 @@ app.post('/api/auth/verify', (req, res) => {
 // KV-DATABASE
 // ================================================================
 async function kvGet(key) {
-  const r = await pool.query('SELECT value FROM kv_store WHERE key=$1', [key]);
-  return r.rows[0] ? r.rows[0].value : null;
+  if (!pool) return null;
+  try {
+    const r = await pool.query('SELECT value FROM kv_store WHERE key=$1', [key]);
+    return r.rows[0] ? r.rows[0].value : null;
+  } catch (e) {
+    console.error('kvGet', key, e.message);
+    return null;
+  }
 }
 async function kvSet(key, value) {
+  if (!pool) throw new Error('Database niet geconfigureerd');
   const v = typeof value === 'string' ? value : JSON.stringify(value);
   await pool.query(
     'INSERT INTO kv_store(key,value,updated_at) VALUES($1,$2,NOW()) ON CONFLICT(key) DO UPDATE SET value=$2,updated_at=NOW()',
@@ -148,49 +184,156 @@ function defaultFor(key) {
 }
 
 // ================================================================
-// LEAD NOTIFICATIE ENDPOINT — nieuw, stuurt ook e-mail
+// FILE-BASED ARTICLES — content/articles/*.md (frontmatter + markdown)
+// Additive to the existing SEED_POSTS (in HTML) and admin CMS (/api/posts).
+// On slug conflict, database/CMS posts win.
 // ================================================================
-app.post('/api/lead/notify', async (req, res) => {
+function inlineMd(s) {
+  return String(s || '')
+    .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a href="$2">$1</a>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+}
+function mdToHtml(md) {
+  return String(md || '').split(/\n{2,}/).map(function(block) {
+    const b = block.trim();
+    if (!b) return '';
+    if (b.startsWith('### ')) return '<h3>' + inlineMd(b.slice(4)) + '</h3>';
+    if (b.startsWith('## ')) return '<h2>' + inlineMd(b.slice(3)) + '</h2>';
+    if (b.startsWith('# ')) return '<h2>' + inlineMd(b.slice(2)) + '</h2>';
+    if (/^[-*] /.test(b)) {
+      const items = b.split('\n').map(function(line) {
+        return '<li>' + inlineMd(line.replace(/^[-*] /, '')) + '</li>';
+      }).join('');
+      return '<ul>' + items + '</ul>';
+    }
+    return '<p>' + inlineMd(b).replace(/\n/g, '<br>') + '</p>';
+  }).join('\n');
+}
+function parseFrontmatter(raw) {
+  const m = String(raw || '').match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  if (!m) return null;
+  const meta = {};
+  m[1].split(/\r?\n/).forEach(function(line) {
+    const i = line.indexOf(':');
+    if (i === -1) return;
+    const k = line.slice(0, i).trim();
+    let v = line.slice(i + 1).trim();
+    if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) v = v.slice(1, -1);
+    meta[k] = v;
+  });
+  return { meta: meta, body: m[2].trim() };
+}
+function loadMarkdownArticles() {
+  const posts = [];
+  if (!fs.existsSync(ARTICLES_DIR)) return posts;
+  fs.readdirSync(ARTICLES_DIR).forEach(function(file) {
+    if (!file.endsWith('.md') || file.toLowerCase() === 'readme.md') return;
+    const parsed = parseFrontmatter(fs.readFileSync(path.join(ARTICLES_DIR, file), 'utf8'));
+    if (!parsed || !parsed.meta.title) return;
+    const slug = parsed.meta.slug || file.replace(/\.md$/, '');
+    posts.push({
+      slug: slug,
+      title: parsed.meta.title,
+      metaDescription: parsed.meta.description || parsed.meta.title,
+      tags: parsed.meta.tags ? parsed.meta.tags.split(',').map(function(t){ return t.trim(); }).filter(Boolean) : [],
+      publishedAt: parsed.meta.publishedAt || parsed.meta.date || new Date().toISOString(),
+      archived: parsed.meta.archived === 'true',
+      source: 'markdown',
+      bodyHtml: mdToHtml(parsed.body)
+    });
+  });
+  return posts;
+}
+function mergePostSources(dbPosts) {
+  const bySlug = new Map();
+  loadMarkdownArticles().forEach(function(p) { if (p.slug) bySlug.set(p.slug, p); });
+  (Array.isArray(dbPosts) ? dbPosts : []).forEach(function(p) { if (p && p.slug) bySlug.set(p.slug, p); });
+  return Array.from(bySlug.values());
+}
+function extractSeedBlogSlugs(html) {
+  const slugs = [];
+  const start = html.indexOf('var SEED_POSTS = [');
+  if (start === -1) return slugs;
+  const end = html.indexOf('var posts = [];', start);
+  const chunk = html.slice(start, end === -1 ? start + 800000 : end);
+  const re = /^\s+slug:\s*'([a-z0-9-]+)'/gm;
+  let m;
+  while ((m = re.exec(chunk))) slugs.push(m[1]);
+  return slugs;
+}
+function findSeedPostMeta(html, slug) {
+  if (!html || !slug) return null;
+  const start = html.indexOf("slug: '" + slug + "'");
+  if (start === -1) return null;
+  const chunk = html.slice(start, start + 2500);
+  const title = chunk.match(/title:\s*'((?:\\'|[^'])*)'/);
+  const desc = chunk.match(/metaDescription:\s*'((?:\\'|[^'])*)'/);
+  if (!title) return null;
+  return {
+    title: title[1].replace(/\\'/g, "'") + ' — werkhervattingskas.nl',
+    desc: desc ? desc[1].replace(/\\'/g, "'") : title[1]
+  };
+}
+
+// ================================================================
+// LEAD NOTIFICATIE — naam + (telefoon of e-mail); test/spam niet naar info@
+// ================================================================
+async function handleLeadPost(req, res) {
   try {
+    const classified = leadGuard.classify(req.body || {});
+    if (!classified.ok) {
+      return res.status(400).json({ error: classified.error, reason: classified.reason });
+    }
+    const n = classified.lead;
     const lead = {
       id: 'lead_' + Date.now(),
-      name:    req.body.name    || '',
-      phone:   req.body.phone   || '',
-      email:   req.body.email   || '',
-      source:  req.body.source  || 'onbekend',
-      message: req.body.message || req.body.summary || '',
-      page:    req.body.page    || '',
+      name:    n.name,
+      phone:   n.phone,
+      email:   n.email,
+      source:  n.source || 'onbekend',
+      message: n.message,
+      page:    n.page,
       createdAt: new Date().toISOString(),
-      status: 'new'
+      status: classified.status,
+      flagReason: classified.reason === 'ok' ? undefined : classified.reason
     };
 
-    // Opslaan in database
-    const existing = await kvGet('leads');
-    const leads = existing ? JSON.parse(existing) : [];
-    leads.unshift(lead);
-    await kvSet('leads', JSON.stringify(leads));
-
-    // E-mail sturen
-    await sendLeadEmail(lead);
-
-    // Webhook (optioneel)
-    const webhookRaw = await kvGet('settings_webhook_url');
-    if (webhookRaw) {
-      const webhookUrl = typeof webhookRaw === 'string' ? webhookRaw.replace(/^"|"$/g,'') : '';
-      if (webhookUrl && webhookUrl.startsWith('http')) {
-        fetch(webhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type: 'new_lead', lead })
-        }).catch(() => {});
-      }
+    if (pool) {
+      const existing = await kvGet('leads');
+      const leads = existing ? JSON.parse(existing) : [];
+      leads.unshift(lead);
+      await kvSet('leads', JSON.stringify(leads));
     }
 
-    res.json({ ok: true, id: lead.id });
+    if (classified.notify) {
+      await sendLeadEmail(lead);
+      const webhookRaw = await kvGet('settings_webhook_url');
+      if (webhookRaw) {
+        const webhookUrl = typeof webhookRaw === 'string' ? webhookRaw.replace(/^"|"$/g,'') : '';
+        if (webhookUrl && webhookUrl.startsWith('http')) {
+          fetch(webhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type: 'new_lead', lead })
+          }).catch(() => {});
+        }
+      }
+    } else {
+      console.log(`Lead ${lead.id} opgeslagen als ${lead.status} (${classified.reason}) — geen e-mail naar ${NOTIFICATION_EMAIL}`);
+    }
+
+    res.json({ ok: true, id: lead.id, status: lead.status, notified: !!classified.notify });
   } catch (e) {
     console.error('Lead notify fout:', e.message);
     res.status(500).json({ error: e.message });
   }
+}
+app.post('/api/lead/notify', handleLeadPost);
+app.post('/api/leads', handleLeadPost);
+
+app.get('/lib/lead-guard.js', (req, res) => {
+  res.type('application/javascript');
+  res.sendFile(path.join(__dirname, 'lib', 'lead-guard.js'));
 });
 
 // ================================================================
@@ -219,8 +362,11 @@ ENDPOINTS.forEach(([p, key, open]) => {
   app.get(p, ...mw, async (req, res) => {
     try {
       const v = await kvGet(key);
-      if (v === null) return res.json(defaultFor(key));
-      try { res.json(JSON.parse(v)); } catch (e) { res.send(v); }
+      let data;
+      if (v === null) data = defaultFor(key);
+      else { try { data = JSON.parse(v); } catch (e) { return res.send(v); } }
+      if (key === 'posts') data = mergePostSources(data);
+      res.json(data);
     } catch (e) { res.status(500).json({ error: e.message }); }
   });
   app.put(p, auth, async (req, res) => {
@@ -236,23 +382,23 @@ const URL_META = {
   '/':                              { title: 'WHK-beschikking controleren — in 8 van de 10 gevallen vinden wij iets', desc: 'Fout in uw WHK-beschikking? Gratis controle, no cure no pay bezwaar. Gemiddeld €47.000 besparing. Erkend arbeidsdeskundige. Resultaat binnen 5 werkdagen.' },
   '/over-ons':                      { title: 'Over Matchvermogen — werkhervattingskas.nl', desc: 'Matchvermogen is gespecialiseerd in WHK-optimalisatie, arbeidsdeskundig onderzoek en re-integratiediensten.' },
   '/aanpak':                        { title: 'Onze aanpak — werkhervattingskas.nl', desc: 'Zo werken wij: van vrijblijvende check tot bezwaarprocedure. Geen kosten tenzij wij besparing realiseren.' },
-  '/faq':                           { title: 'WHK: 29 veelgestelde vragen beantwoord door een erkend arbeidsdeskundige', desc: 'Wat is WHK? Wanneer bezwaar maken? Wat kost de controle? 29 vragen over WHK, no-riskpolis, LKV en bezwaar — direct beantwoord. Inclusief gratis check.' },
+  '/faq':                           { title: 'FAQ Werkhervattingskas (WHK): vragen over premie, WIA en bezwaar', desc: 'Wat is de Werkhervattingskas? Hoe werkt de WHK-premie, no-riskpolis, WIA/WGA en bezwaar? Antwoorden van een erkend arbeidsdeskundige, plus links naar rekentools.' },
   '/blog':                          { title: 'WHK-kennisbank voor HR en Finance — werkhervattingskas.nl', desc: 'Actuele artikelen over WHK-premies, re-integratie, no-riskpolissen en loonkostenvoordeel.' },
   '/tools':                         { title: 'Gratis WHK-tools voor werkgevers — werkhervattingskas.nl', desc: 'Poortwachter-tijdlijnchecker, WIA-uitkeringscalculator, subsidie-scan, interventietarief checker en WHK-jaarkalender. Direct inzicht, geen registratie vereist.' },
   '/tarieven':                      { title: 'Tarieven — werkhervattingskas.nl', desc: 'Transparante tarieven voor WHK-controle en arbeidsdeskundig onderzoek. Altijd no cure, no pay.' },
   '/sectoren':                      { title: 'WHK-premie per sector: wat betaalt uw branche gemiddeld? [2026]', desc: 'Zie hoe uw WHK-premie zich verhoudt tot het sectorgemiddelde. Zorg, bouw, transport, onderwijs — per sector uitgelegd inclusief typische fouten in de beschikking.' },
   '/casestudies':                   { title: 'Praktijkcasussen WHK-besparing — werkhervattingskas.nl', desc: 'Vijf geanonimiseerde casussen: van €9.800 tot €137.000 besparing per jaar.' },
-  '/beschikking-uitleg':           { title: 'Hoe lees ik mijn WHK-beschikking? — werkhervattingskas.nl', desc: 'Stap-voor-stap uitleg van de WHK-beschikking: wat betekent elk onderdeel en waar zitten de fouten?' },
+  '/beschikking-uitleg':           { title: 'Wat is de Werkhervattingskas (WHK)? Zo leest u uw beschikking', desc: 'De Werkhervattingskas is de gedifferentieerde ZW- en WGA-premie. Uitleg per onderdeel van uw WHK-beschikking: dagtekening, loonsom, toerekening en veelgemaakte fouten.' },
   '/vergelijking':                  { title: 'Matchvermogen vs. controller vs. arbodienst — werkhervattingskas.nl', desc: 'Eerlijke vergelijking: wie controleert uw WHK-beschikking het beste?' },
   '/privacy':                       { title: 'Privacyverklaring — werkhervattingskas.nl', desc: 'Hoe werkhervattingskas.nl omgaat met uw persoonsgegevens en AVG-rechten.' },
   '/quiz':                          { title: 'WHK-risicoscan — werkhervattingskas.nl', desc: 'Doe de korte scan en ontdek in 2 minuten uw WHK-besparingspotentieel.' },
   '/besparingen':                   { title: 'Alle besparingsmogelijkheden — werkhervattingskas.nl', desc: 'Compleet overzicht van alle WHK-besparingsroutes.' },
   '/lexicon':                       { title: 'WHK-lexicon — werkhervattingskas.nl', desc: 'Begrippenlijst: WGA, IVA, no-riskpolis, LKV, loonsanctie uitgelegd in gewone taal.' },
   '/tools/poortwachter':           { title: 'Poortwachter-tijdlijnchecker 2026 — werkhervattingskas.nl', desc: 'Vul de eerste ziektedag in en zie direct alle Wet poortwachter-deadlines, aanbevolen interventiemomenten en de relatie met uw WHK-premie.' },
-  '/tools/wia-calculator':         { title: 'WIA-uitkeringscalculator: WGA of IVA en uw WHK-premie — werkhervattingskas.nl', desc: 'Bereken de indicatieve WGA- of IVA-uitkering op basis van dagloon en AO-percentage. WGA telt mee in uw schadelast, IVA niet. Bereken het verschil.' },
+  '/tools/wia-calculator':         { title: 'WIA berekenen: WGA, IVA en loonaanvullingsuitkering [2026]', desc: 'WIA, WGA of IVA berekenen op basis van dagloon en AO-percentage. Inclusief loonaanvullingsuitkering en het effect op de WHK-premie van de werkgever. Indicatief, gratis.' },
   '/tools/subsidie-scan':          { title: 'Subsidie-scan LKV, LIV en WKB — werkhervattingskas.nl', desc: 'Bereken in 3 stappen of u loonkostenvoordeel (max €6.000/jaar), lage-inkomensvoordeel of werkbonus kunt claimen. Direct resultaat, gratis tool.' },
   '/tools/jaarkalender':           { title: 'WHK Jaarkalender 2026 — alle deadlines op een rij — werkhervattingskas.nl', desc: 'Alle WHK-deadlines per maand: bezwaartermijn beschikking (6 weken!), LKV-aanvraag, WIA-aanvraag en poortwachter-verplichtingen. Nooit meer een termijn missen.' },
-  '/tools/premiehistorie':         { title: 'WGA-premies 2022–2026 — werkhervattingskas.nl', desc: 'Historisch overzicht van de gedifferentieerde WGA-premies per jaar.' },
+  '/tools/premiehistorie':         { title: 'WHK- en WGA-premies 2022–2026: historisch overzicht', desc: 'Gemiddelde gedifferentieerde WGA-premie per jaar, met minimum, maximum en loonsomgrenzen. Vergelijk de reeks met het WGA-deel op uw WHK-beschikking.' },
   '/voor/tussenpersoon':           { title: 'WHK-expertise voor tussenpersonen & assurantieadviseurs — werkhervattingskas.nl', desc: 'Als assurantietussenpersoon of adviseur biedt u uw klanten meer waarde met WHK-expertise. Doorverwijzingsmodel beschikbaar, no cure no pay.' },
   '/sectoren/bouw':                { title: 'WHK-beschikking bouwsector: structureel te hoog door hoog verzuim — werkhervattingskas.nl', desc: 'Bouwbedrijven betalen structureel te veel WHK-premie door hoog verzuim, gemist letselschaderegres en foutieve sectorindeling. Wij controleren gratis. No cure, no pay.' },
   '/sectoren/zorg':                { title: 'WHK-optimalisatie voor zorginstellingen — werkhervattingskas.nl', desc: 'Zorginstellingen betalen vaak te veel WHK-premie door hoog verzuim en gemiste no-riskregistraties. Bezwaar- en herbeoordelingsprocedures zijn onze specialiteit.' },
@@ -265,10 +411,9 @@ const URL_META = {
   '/diensten/whk-controle':        { title: 'WHK-beschikking controleren: gratis check, no cure no pay [2026]', desc: 'Erkend arbeidsdeskundige controleert uw WHK-beschikking op fouten, gemiste no-riskpolissen en onjuiste toerekening. Gemiddeld €47.000 besparing. Start gratis.' },
   '/diensten/besparingsonderzoek': { title: 'WHK-besparingsonderzoek: ontdek wat u onnodig betaalt — gratis intake', desc: 'Wij onderzoeken uw volledige WHK-positie: beschikking, no-riskpolissen, interventietarieven en ERD. Gemiddeld €47.000 besparing per jaar. Volledig no cure, no pay.' },
   '/diensten/letselschade':        { title: 'Letselschaderegres: WGA-kosten verhalen op aansprakelijke partij', desc: 'Heeft een derde uw medewerker letsel toegebracht? Dan kunt u de WGA-kosten en WHK-premieverhoging op hen verhalen. Wij regelen het traject. No cure, no pay.' },
-  '/diensten/arbeidsdeskundig-onderzoek': { title: 'Arbeidsdeskundig onderzoek: kosten, inhoud & wanneer verplicht? [2026]', desc: 'Erkend arbeidsdeskundige voert uw AD-onderzoek uit. Voorkomt loonsanctie bij RIV-toets. Vanaf €1.095 — geen verborgen kosten. Resultaat binnen 5 werkdagen.' },
+  '/diensten/arbeidsdeskundig-onderzoek': { title: 'Arbeidsdeskundig onderzoek: wat het is, wanneer nodig en kosten [2026]', desc: 'Arbeidsdeskundig onderzoek door een erkende arbeidsdeskundige: belastbaarheid, spoorkeuze en dossierwaarde. Wanneer het nodig is bij poortwachter, WIA of bezwaar — en wat het inhoudt.' },
   '/diensten/tweede-spoor':        { title: 'Tweede spoor re-integratie — werkhervattingskas.nl', desc: 'Tijdig tweede spoor voorkomt loonsanctie. Volledig begeleid traject.' },
   '/diensten/consultancy':         { title: 'Verzuimconsultancy — werkhervattingskas.nl', desc: 'Structurele verbetering van uw verzuimbeleid en re-integratiemanagement.' },
-  '/whk_checklist.html':           { title: 'Gratis WHK-checklist 2026: 25 controlepunten — werkhervattingskas.nl', desc: 'Download de gratis WHK-checklist voor werkgevers. 25 punten om fouten in uw beschikking te vinden. No cure, no pay bij gevonden fouten.' },
   '/diensten/erd-partneradvies':   { title: 'Eigenrisicodragerschap & partneradvies — werkhervattingskas.nl', desc: 'Is eigenrisicodragerschap voordeliger? Wij vergelijken en begeleiden de overgang.' },
 };
 
@@ -302,17 +447,103 @@ function getHtml() {
 function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
-function serveWithMeta(res, meta, canonPath) {
+function innerLocalBusinessLd() {
+  // Same parent as homepage: LocalBusiness + ProfessionalService owns aggregateRating.
+  // OfferCatalog (Service "WHK-beschikking controleren") stays homepage-only so GSC
+  // does not treat that Service as the Review parent on inner URLs like /voor/casemanager.
+  return `<script type="application/ld+json" id="localbusiness-schema">
+{
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "ProfessionalService"],
+  "@id": "${SITE_URL}/#localbusiness",
+  "name": "werkhervattingskas.nl – Matchvermogen",
+  "description": "Onafhankelijke controle van WHK-beschikkingen, arbeidsdeskundig onderzoek, tweede spoor re-integratie en verzuimoptimalisatie. No cure, no pay.",
+  "url": "${SITE_URL}/",
+  "telephone": "+31650213593",
+  "email": "info@werkhervattingskas.nl",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "NL"
+  },
+  "areaServed": "NL",
+  "priceRange": "No cure, no pay",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "14",
+    "reviewCount": "14"
+  }
+}
+</script>`;
+}
+
+function serveWithMeta(res, meta, canonPath, statusCode) {
   const html = getHtml();
   if (!html) return res.status(404).send('<h2>Site niet gevonden</h2><p>Upload whk_verzuim.html naar GitHub.</p>');
   const t = esc(meta.title), d = esc(meta.desc), c = SITE_URL + canonPath;
-  const modified = html
+  const noindex = meta.robots || ((canonPath === '/admin') ? 'noindex, nofollow' : 'index, follow');
+  let modified = html
     .replace(/<title>[^<]*<\/title>/, `<title>${t}</title>`)
     .replace(/<meta name="description" content="[^"]*"/, `<meta name="description" content="${d}"`)
-    .replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${c}"`);
+    .replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${c}"`)
+    .replace(/<link rel="alternate" hreflang="nl" href="[^"]*"/, `<link rel="alternate" hreflang="nl" href="${c}"`)
+    .replace(/<link rel="alternate" hreflang="x-default" href="[^"]*"/, `<link rel="alternate" hreflang="x-default" href="${c}"`)
+    .replace(/<meta property="og:url" content="[^"]*"/, `<meta property="og:url" content="${c}"`)
+    .replace(/<meta property="og:title" content="[^"]*"/, `<meta property="og:title" content="${t}"`)
+    .replace(/<meta property="og:description" content="[^"]*"/, `<meta property="og:description" content="${d}"`)
+    .replace(/<meta name="twitter:title" content="[^"]*"/, `<meta name="twitter:title" content="${t}"`)
+    .replace(/<meta name="twitter:description" content="[^"]*"/, `<meta name="twitter:description" content="${d}"`)
+    .replace(/<meta name="robots" content="[^"]*"/, `<meta name="robots" content="${noindex}"`);
+  if (canonPath !== '/') {
+    modified = modified.replace(
+      /<script type="application\/ld\+json" id="localbusiness-schema">[\s\S]*?<\/script>/,
+      innerLocalBusinessLd()
+    );
+  }
+  res.status(statusCode || 200);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.setHeader('Cache-Control', 'public, max-age=300');
+  res.setHeader('Cache-Control', canonPath === '/admin' ? 'no-store' : 'public, max-age=300');
   res.send(modified);
+}
+
+function serveNotFound(res) {
+  const html = `<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pagina niet gevonden — werkhervattingskas.nl</title>
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="${SITE_URL}/">
+  <style>
+    body{margin:0;font-family:IBM Plex Sans,Arial,sans-serif;background:#F7F3EA;color:#11192B;}
+    .wrap{max-width:640px;margin:12vh auto;padding:0 24px;}
+    h1{font-family:Georgia,serif;font-size:2rem;margin:0 0 12px;}
+    p{color:#5B5547;line-height:1.6;}
+    a{color:#A23E2C;}
+    ul{padding-left:18px;line-height:1.8;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p style="letter-spacing:.08em;text-transform:uppercase;font-size:.75rem;color:#A23E2C;font-weight:700;">404</p>
+    <h1>Deze pagina bestaat niet</h1>
+    <p>De URL die u opvroeg hoort niet bij werkhervattingskas.nl. Ga terug naar een bestaande pagina:</p>
+    <ul>
+      <li><a href="/">Home — WHK-check</a></li>
+      <li><a href="/over-ons">Over ons</a></li>
+      <li><a href="/blog">Kennisbank</a></li>
+      <li><a href="/diensten/whk-controle">WHK-beschikking controleren</a></li>
+    </ul>
+  </div>
+</body>
+</html>`;
+  res.status(404);
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-store');
+  res.send(html);
 }
 
 // ================================================================
@@ -321,20 +552,23 @@ function serveWithMeta(res, meta, canonPath) {
 app.get('/blog/:slug', async (req, res) => {
   try {
     const raw = await kvGet('posts');
-    const posts = raw ? JSON.parse(raw) : [];
+    const dbPosts = raw ? JSON.parse(raw) : [];
+    const posts = mergePostSources(Array.isArray(dbPosts) ? dbPosts : []);
     const post = posts.find(p => p.slug === req.params.slug && !p.archived);
-    const meta = post
+    let meta = post
       ? { title: post.title + ' — werkhervattingskas.nl', desc: post.metaDescription || post.title }
-      : URL_META['/blog'];
+      : findSeedPostMeta(getHtml() || '', req.params.slug);
+    if (!meta) meta = URL_META['/blog'];
     serveWithMeta(res, meta, '/blog/' + req.params.slug);
-  } catch (e) { serveWithMeta(res, URL_META['/blog'], '/blog'); }
+  } catch (e) { serveWithMeta(res, URL_META['/blog'], '/blog/' + req.params.slug); }
 });
 
 // ================================================================
 // SECTOR ROUTE
 // ================================================================
 app.get('/sectoren/:sector', (req, res) => {
-  const meta = SECTOR_META[req.params.sector] || URL_META['/sectoren'];
+  const meta = SECTOR_META[req.params.sector];
+  if (!meta) return serveNotFound(res);
   serveWithMeta(res, meta, '/sectoren/' + req.params.sector);
 });
 
@@ -404,54 +638,79 @@ ${SITE_URL}/sitemap.xml
 // SITEMAP
 // ================================================================
 app.get('/sitemap.xml', async (req, res) => {
-  const raw = await kvGet('posts').catch(() => null);
-  const posts = raw ? JSON.parse(raw) : [];
-  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
-  Object.keys(URL_META).forEach(p => {
-    const prio = p === '/' ? '1.0' : p.startsWith('/diensten') ? '0.9' : '0.7';
-    xml += `  <url><loc>${SITE_URL}${p}</loc><changefreq>monthly</changefreq><priority>${prio}</priority></url>\n`;
-  });
-  xml += `  <url><loc>${SITE_URL}/whk_checklist.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>\n`;
-  Object.keys(SECTOR_META).forEach(s => {
-    xml += `  <url><loc>${SITE_URL}/sectoren/${s}</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>\n`;
-  });
-  posts.filter(p => !p.archived && new Date(p.publishedAt) <= new Date()).forEach(p => {
-    xml += `  <url><loc>${SITE_URL}/blog/${p.slug}</loc><lastmod>${p.publishedAt.slice(0,10)}</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>\n`;
-  });
-  xml += '</urlset>';
-  res.setHeader('Content-Type','application/xml');
-  res.setHeader('Cache-Control','public, max-age=3600');
-  res.send(xml);
+  try {
+    const raw = await kvGet('posts');
+    let dbPosts = [];
+    try { dbPosts = raw ? JSON.parse(raw) : []; } catch (e) { dbPosts = []; }
+    const posts = mergePostSources(Array.isArray(dbPosts) ? dbPosts : []);
+    const seen = new Set();
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+    function addUrl(loc, changefreq, priority, lastmod) {
+      if (!loc || seen.has(loc)) return;
+      seen.add(loc);
+      xml += `  <url><loc>${loc}</loc>`;
+      if (lastmod) xml += `<lastmod>${lastmod}</lastmod>`;
+      xml += `<changefreq>${changefreq}</changefreq><priority>${priority}</priority></url>\n`;
+    }
+    Object.keys(URL_META).forEach(p => {
+      const prio = p === '/' ? '1.0' : p.startsWith('/diensten') ? '0.9' : '0.7';
+      addUrl(SITE_URL + p, 'monthly', prio);
+    });
+    addUrl(SITE_URL + '/whk_checklist.html', 'monthly', '0.8');
+    Object.keys(SECTOR_META).forEach(s => {
+      addUrl(SITE_URL + '/sectoren/' + s, 'monthly', '0.7');
+    });
+    const now = new Date();
+    posts.filter(p => p && p.slug && !p.archived && (!p.publishedAt || new Date(p.publishedAt) <= now)).forEach(p => {
+      const lastmod = p.publishedAt ? String(p.publishedAt).slice(0, 10) : undefined;
+      addUrl(SITE_URL + '/blog/' + p.slug, 'yearly', '0.6', lastmod);
+    });
+    const html = getHtml();
+    if (html) {
+      extractSeedBlogSlugs(html).forEach(slug => {
+        addUrl(SITE_URL + '/blog/' + slug, 'yearly', '0.6');
+      });
+    }
+    xml += '</urlset>';
+    res.setHeader('Content-Type', 'application/xml');
+    res.setHeader('Cache-Control', 'public, max-age=3600');
+    res.send(xml);
+  } catch (e) {
+    console.error('Sitemap fout:', e.message);
+    res.status(500).type('text/plain').send('Sitemap tijdelijk niet beschikbaar');
+  }
 });
 
 // ================================================================
 // ROBOTS.TXT
 // ================================================================
 app.get('/robots.txt', (req, res) => {
-  res.setHeader('Content-Type','text/plain');
-  res.send(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.send(
+    'User-agent: *\n' +
+    'Allow: /\n' +
+    'Disallow: /api/\n' +
+    'Disallow: /admin\n' +
+    'Sitemap: ' + SITE_URL + '/sitemap.xml\n' +
+    'Host: werkhervattingskas.nl\n'
+  );
 });
 
 // ================================================================
 // GEZONDHEIDSCHECK
 // ================================================================
 app.get('/health', async (req, res) => {
+  if (!pool) return res.json({ ok: true, db: 'not_configured', email: emailReady });
   try { await pool.query('SELECT 1'); res.json({ ok: true, db: 'connected', email: emailReady }); }
   catch (e) { res.status(500).json({ ok: false, error: e.message }); }
 });
 
+app.get('/kennisbank', (req, res) => {
+  res.redirect(301, '/blog');
+});
 
-// JSON-LD voor blogpagina (Blog index)
-app.get(['/blog', '/kennisbank'], (req, res, next) => {
-  req.seoExtra = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    "name": "WHK-kennisbank",
-    "description": "Actuele artikelen over WHK-premie optimalisatie, no-riskpolissen, bezwaarprocedures en re-integratie.",
-    "url": "https://werkhervattingskas.nl/blog",
-    "publisher": { "@type": "Organization", "name": "Matchvermogen / Werkhervattingskas.nl" }
-  });
-  next();
+app.get('/admin', (req, res) => {
+  serveWithMeta(res, { title: 'Beheer — werkhervattingskas.nl', desc: 'Beheerderslogin.' }, '/admin');
 });
 
 
@@ -487,7 +746,7 @@ app.get('/whk_checklist.html', (req, res) => {
 });
 
 // Catch-all
-app.get('*', (req, res) => serveWithMeta(res, URL_META['/'], '/'));
+app.get('*', (req, res) => serveNotFound(res));
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`werkhervattingskas.nl v3.0 op poort ${PORT} | ${SITE_URL}`);

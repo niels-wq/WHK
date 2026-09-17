@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WHK-beschikking controleren — werkhervattingskas.nl</title>
 <meta name="description" content="Onafhankelijke controle van uw WHK-beschikking, no-riskpolis en loonkostenvoordeel. Geen besparing? Geen kosten. Vrijblijvende check binnen 15 minuten.">
-<link rel="alternate" hreflang="nl" href="https://www.werkhervattingskas.nl/">
-  <link rel="alternate" hreflang="x-default" href="https://www.werkhervattingskas.nl/">
-  <link rel="canonical" href="https://www.werkhervattingskas.nl/">
+<link rel="alternate" hreflang="nl" href="https://werkhervattingskas.nl/">
+  <link rel="alternate" hreflang="x-default" href="https://werkhervattingskas.nl/">
+  <link rel="canonical" href="https://werkhervattingskas.nl/">
 <meta property="og:title" content="werkhervattingskas.nl — WHK-beschikking controleren &amp; verzuimkosten verlagen">
 <meta property="og:description" content="Onafhankelijke controle van uw WHK-beschikking, no-riskpolis en loonkostenvoordeel. Geen besparing? Geen kosten.">
 <meta property="og:type" content="website">
@@ -16,13 +16,8 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="werkhervattingskas.nl — WHK-beschikking controleren, no cure no pay">
   <meta name="twitter:image" content="https://werkhervattingskas.nl/og-image.png">
-<meta property="og:url" content="https://www.werkhervattingskas.nl/">
+<meta property="og:url" content="https://werkhervattingskas.nl/">
 <meta property="og:locale" content="nl_NL">
-<meta property="og:image" content="https://www.werkhervattingskas.nl/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="werkhervattingskas.nl — Gratis WHK-check voor werkgevers">
-<meta name="twitter:image" content="https://www.werkhervattingskas.nl/og-image.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="werkhervattingskas.nl — WHK-beschikking controleren & verzuimkosten verlagen">
 <meta name="twitter:description" content="Onafhankelijke controle van uw WHK-beschikking, no-riskpolis en loonkostenvoordeel. Geen besparing? Geen kosten.">
@@ -687,6 +682,9 @@
   .admin-tab-panel.show{display:block;}
   .lead-status-new{color:var(--risk);font-weight:600;}
   .lead-status-done{color:var(--savings);font-weight:600;}
+  .lead-status-test{color:var(--gold);font-weight:600;}
+  .lead-status-spam{color:var(--ink-soft);font-weight:600;}
+  .hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;}
   .gen-status{font-size:0.85rem;color:var(--ink-soft);margin-top:10px;display:none;}
   .gen-status.active{display:block;}
   .img-pick-btn{background:var(--paper-deep);border:2px solid var(--line);border-radius:var(--radius-s);padding:4px 10px;font-size:0.8rem;cursor:pointer;color:var(--ink-soft);transition:border-color .15s,color .15s;}
@@ -863,8 +861,9 @@
   "@graph": [
     {
       "@type": "Organization",
+      "@id": "https://werkhervattingskas.nl/#organization",
       "name": "werkhervattingskas.nl",
-      "url": "https://www.werkhervattingskas.nl/",
+      "url": "https://werkhervattingskas.nl/",
       "parentOrganization": {
         "@type": "Organization",
         "name": "Matchvermogen"
@@ -874,7 +873,7 @@
     },
     {
       "@type": "Person",
-      "@id": "https://www.werkhervattingskas.nl/#niels-alderding",
+      "@id": "https://werkhervattingskas.nl/#niels-alderding",
       "name": "Niels Alderding",
       "jobTitle": "Arbeidsdeskundige",
       "worksFor": {
@@ -886,7 +885,7 @@
     {
       "@type": "Blog",
       "name": "werkhervattingskas.nl Blog",
-      "url": "https://www.werkhervattingskas.nl/#blog",
+      "url": "https://werkhervattingskas.nl/#blog",
       "blogPost": [
         {
           "@type": "BlogPosting",
@@ -894,9 +893,11 @@
           "description": "IVA en WGA 80-100% lijken op elkaar, maar het verschil bepaalt of een uitkering wel of niet meetelt in uw WHK-premie. Lees wat dit voor u betekent.",
           "datePublished": "2026-08-05T09:00:00.000Z",
           "keywords": "IVA of WGA 80-100%",
-          "url": "https://www.werkhervattingskas.nl/#blog/iva-of-wga-verschil-impact-whk-premie",
+          "url": "https://werkhervattingskas.nl/blog/iva-of-wga-verschil-impact-whk-premie",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-08-05T09:00:00.000Z"
         },
@@ -906,9 +907,11 @@
           "description": "Een deel van uw lopende WGA-dossiers blijkt bij herbeoordeling zwaarder of lichter dan de oorspronkelijke indeling. Reken uit wat dit kan opleveren.",
           "datePublished": "2026-08-27T09:00:00.000Z",
           "keywords": "WGA-schadelast herbeoordeling",
-          "url": "https://www.werkhervattingskas.nl/#blog/wga-schadelast-herbeoordeling-besparing",
+          "url": "https://werkhervattingskas.nl/blog/wga-schadelast-herbeoordeling-besparing",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-08-27T09:00:00.000Z"
         },
@@ -918,9 +921,11 @@
           "description": "Het landelijk gemiddelde gedifferentieerde WGA-premiepercentage ligt in 2026 op 0,96%. Zo ziet u of uw organisatie daar structureel boven zit.",
           "datePublished": "2026-09-16T09:00:00.000Z",
           "keywords": "WGA-premie sectorgemiddelde",
-          "url": "https://www.werkhervattingskas.nl/#blog/wga-premie-vergelijken-sectorgemiddelde",
+          "url": "https://werkhervattingskas.nl/blog/wga-premie-vergelijken-sectorgemiddelde",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-09-16T09:00:00.000Z"
         },
@@ -930,9 +935,11 @@
           "description": "De bezwaartermijn tegen een WHK-beschikking is zes weken. Gemist? Lees wanneer herstel nog mogelijk is en hoe u dit in de toekomst voorkomt.",
           "datePublished": "2026-10-07T09:00:00.000Z",
           "keywords": "bezwaartermijn WHK gemist",
-          "url": "https://www.werkhervattingskas.nl/#blog/bezwaartermijn-whk-gemist-wat-nu",
+          "url": "https://werkhervattingskas.nl/blog/bezwaartermijn-whk-gemist-wat-nu",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-10-07T09:00:00.000Z"
         },
@@ -942,9 +949,11 @@
           "description": "Niet elk verzuim door een ongeval is regresvatbaar. Lees aan welke signalen u een aansprakelijke derde herkent, en wanneer verhaal de moeite waard is.",
           "datePublished": "2026-10-28T09:00:00.000Z",
           "keywords": "aansprakelijke derde regres",
-          "url": "https://www.werkhervattingskas.nl/#blog/aansprakelijke-derde-regres-herkennen",
+          "url": "https://werkhervattingskas.nl/blog/aansprakelijke-derde-regres-herkennen",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-10-28T09:00:00.000Z"
         },
@@ -954,9 +963,11 @@
           "description": "De loonsom is de basis voor uw WHK-premie. Lees wat hier wel en niet in meetelt, en welke veelgemaakte fouten de berekening verstoren.",
           "datePublished": "2026-11-18T09:00:00.000Z",
           "keywords": "loonsom WHK-premie",
-          "url": "https://www.werkhervattingskas.nl/#blog/loonsom-whk-premie-wat-telt-mee",
+          "url": "https://werkhervattingskas.nl/blog/loonsom-whk-premie-wat-telt-mee",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-11-18T09:00:00.000Z"
         },
@@ -966,9 +977,11 @@
           "description": "Een fusie of overname raakt ook uw WHK-positie: sectorindeling, loonsom en WGA-historie kunnen meeverhuizen. Lees waar u op moet letten.",
           "datePublished": "2026-12-09T09:00:00.000Z",
           "keywords": "WHK fusie overname",
-          "url": "https://www.werkhervattingskas.nl/#blog/fusie-overname-whk-gevolgen",
+          "url": "https://werkhervattingskas.nl/blog/fusie-overname-whk-gevolgen",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-12-09T09:00:00.000Z"
         },
@@ -978,9 +991,11 @@
           "description": "Goede dossiervorming tijdens verzuim voorkomt niet alleen een loonsanctie, maar bepaalt ook hoe sterk u staat bij een latere WHK-bezwaarprocedure.",
           "datePublished": "2026-12-22T09:00:00.000Z",
           "keywords": "dossiervorming verzuim",
-          "url": "https://www.werkhervattingskas.nl/#blog/dossiervorming-verzuim-bezwaarkansen-poortwachter",
+          "url": "https://werkhervattingskas.nl/blog/dossiervorming-verzuim-bezwaarkansen-poortwachter",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-12-22T09:00:00.000Z"
         },
@@ -990,9 +1005,11 @@
           "description": "WHK-beschikking controleren in vijf stappen: zo herkent u fouten in uw loonsom en voorkomt u dat u jarenlang te veel premie betaalt.",
           "datePublished": "2026-06-10T09:00:00.000Z",
           "keywords": "WHK-beschikking controleren",
-          "url": "https://www.werkhervattingskas.nl/#blog/whk-beschikking-controleren-fouten-loonsom",
+          "url": "https://werkhervattingskas.nl/blog/whk-beschikking-controleren-fouten-loonsom",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-10T09:00:00.000Z"
         },
@@ -1002,9 +1019,11 @@
           "description": "No-riskpolis aanvragen: lees wanneer werkgevers recht hebben op compensatie bij ziekteverzuim en hoe u gemiste UWV-compensatie alsnog claimt.",
           "datePublished": "2026-06-03T09:00:00.000Z",
           "keywords": "no-riskpolis aanvragen",
-          "url": "https://www.werkhervattingskas.nl/#blog/no-riskpolis-recht-op-compensatie-bij-ziekte",
+          "url": "https://werkhervattingskas.nl/blog/no-riskpolis-recht-op-compensatie-bij-ziekte",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-03T09:00:00.000Z"
         },
@@ -1014,9 +1033,11 @@
           "description": "Eigenrisicodragerschap WGA uitgelegd: wat verandert er, welke voor- en nadelen zijn er, en hoe bepaalt u of dit past bij uw organisatie?",
           "datePublished": "2026-05-27T09:00:00.000Z",
           "keywords": "eigenrisicodragerschap WGA",
-          "url": "https://www.werkhervattingskas.nl/#blog/eigenrisicodragerschap-wga-voor-en-nadelen",
+          "url": "https://werkhervattingskas.nl/blog/eigenrisicodragerschap-wga-voor-en-nadelen",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-05-27T09:00:00.000Z"
         },
@@ -1026,9 +1047,11 @@
           "description": "Loonkostenvoordeel aanvragen: praktisch stappenplan voor het LKV, inclusief de meest gemaakte valkuilen waardoor werkgevers geld laten liggen.",
           "datePublished": "2026-05-20T09:00:00.000Z",
           "keywords": "loonkostenvoordeel aanvragen",
-          "url": "https://www.werkhervattingskas.nl/#blog/loonkostenvoordeel-lkv-aanvragen-stappenplan",
+          "url": "https://werkhervattingskas.nl/blog/loonkostenvoordeel-lkv-aanvragen-stappenplan",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-05-20T09:00:00.000Z"
         },
@@ -1038,9 +1061,11 @@
           "description": "Verzuimbeleid optimaliseren met zeven concrete maatregelen waarmee werkgevers de kosten van ziekteverzuim direct verlagen.",
           "datePublished": "2026-05-13T09:00:00.000Z",
           "keywords": "verzuimbeleid optimaliseren",
-          "url": "https://www.werkhervattingskas.nl/#blog/verzuimbeleid-optimaliseren-besparen",
+          "url": "https://werkhervattingskas.nl/blog/verzuimbeleid-optimaliseren-besparen",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-05-13T09:00:00.000Z"
         },
@@ -1050,9 +1075,11 @@
           "description": "Tweede spoor re-integratie uitgelegd: wanneer het verplicht is, hoe het proces verloopt, wat het kost en wat u moet vastleggen.",
           "datePublished": "2026-05-06T09:00:00.000Z",
           "keywords": "tweede spoor re-integratie",
-          "url": "https://www.werkhervattingskas.nl/#blog/tweede-spoor-reintegratie-werkgever",
+          "url": "https://werkhervattingskas.nl/blog/tweede-spoor-reintegratie-werkgever",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-05-06T09:00:00.000Z"
         },
@@ -1062,9 +1089,11 @@
           "description": "WHK-check kosten onder de loep: waarom werkgevers vaak te veel betalen voor een check, en hoe een eerlijker model eruitziet.",
           "datePublished": "2026-06-15T09:00:00.000Z",
           "keywords": "WHK-check kosten",
-          "url": "https://www.werkhervattingskas.nl/#blog/whk-check-waarom-werkgevers-te-veel-betalen",
+          "url": "https://werkhervattingskas.nl/blog/whk-check-waarom-werkgevers-te-veel-betalen",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-15T09:00:00.000Z"
         },
@@ -1074,9 +1103,11 @@
           "description": "WHK-premie te hoog? Dit zijn vijf concrete signalen waarmee u zelf kunt inschatten of een controle de moeite waard is.",
           "datePublished": "2026-06-14T09:00:00.000Z",
           "keywords": "WHK-premie te hoog",
-          "url": "https://www.werkhervattingskas.nl/#blog/5-signalen-whk-premie-te-hoog",
+          "url": "https://werkhervattingskas.nl/blog/5-signalen-whk-premie-te-hoog",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-14T09:00:00.000Z"
         },
@@ -1086,9 +1117,11 @@
           "description": "WHK-controle laten uitvoeren of niet? Reken zelf na wat het u kost om een controle van uw WHK-beschikking jaar na jaar uit te stellen.",
           "datePublished": "2026-06-13T09:00:00.000Z",
           "keywords": "WHK-controle laten uitvoeren",
-          "url": "https://www.werkhervattingskas.nl/#blog/kosten-van-niets-doen-whk-controle",
+          "url": "https://werkhervattingskas.nl/blog/kosten-van-niets-doen-whk-controle",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-13T09:00:00.000Z"
         },
@@ -1098,9 +1131,11 @@
           "description": "Een jaarlijkse routinecheck van uw WHK-beschikking voorkomt dat een kostbare misser jarenlang stilletjes doorloopt in uw premie.",
           "datePublished": "2026-06-12T09:00:00.000Z",
           "keywords": "WHK-beschikking fouten voorkomen",
-          "url": "https://www.werkhervattingskas.nl/#blog/kostbare-misser-whk-beschikking-voorkomen",
+          "url": "https://werkhervattingskas.nl/blog/kostbare-misser-whk-beschikking-voorkomen",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-12T09:00:00.000Z"
         },
@@ -1110,9 +1145,11 @@
           "description": "WHK-premie en verzuimkosten hangen sterker samen dan veel werkgevers beseffen. Zo grijpt u met één aanpak op beide tegelijk in.",
           "datePublished": "2026-06-11T09:00:00.000Z",
           "keywords": "WHK-premie en verzuimkosten",
-          "url": "https://www.werkhervattingskas.nl/#blog/whk-premie-en-verzuimkosten-verband",
+          "url": "https://werkhervattingskas.nl/blog/whk-premie-en-verzuimkosten-verband",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-11T09:00:00.000Z"
         },
@@ -1122,9 +1159,11 @@
           "description": "WHK-controle opnieuw laten doen: een eerdere check die niets opleverde, betekent niet dat er nooit een besparing te vinden is.",
           "datePublished": "2026-06-09T09:00:00.000Z",
           "keywords": "WHK-controle opnieuw laten doen",
-          "url": "https://www.werkhervattingskas.nl/#blog/tweede-whk-controle-ook-na-eerste-check",
+          "url": "https://werkhervattingskas.nl/blog/tweede-whk-controle-ook-na-eerste-check",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-09T09:00:00.000Z"
         },
@@ -1134,9 +1173,11 @@
           "description": "Gratis WHK-scan: niet elke gratis scan is wat hij lijkt. Dit zijn de signalen waar u op moet letten voordat u instapt.",
           "datePublished": "2026-06-08T09:00:00.000Z",
           "keywords": "gratis WHK-scan",
-          "url": "https://www.werkhervattingskas.nl/#blog/verborgen-kosten-gratis-whk-scan",
+          "url": "https://werkhervattingskas.nl/blog/verborgen-kosten-gratis-whk-scan",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-08T09:00:00.000Z"
         },
@@ -1146,9 +1187,11 @@
           "description": "AI arbeidsdeskundig onderzoek: hoe AI-ondersteunde analyse het proces versnelt, terwijl de uiteindelijke beoordeling bij specialisten blijft.",
           "datePublished": "2026-06-07T09:00:00.000Z",
           "keywords": "AI arbeidsdeskundig onderzoek",
-          "url": "https://www.werkhervattingskas.nl/#blog/ai-arbeidsdeskundig-onderzoek-sneller-resultaat",
+          "url": "https://werkhervattingskas.nl/blog/ai-arbeidsdeskundig-onderzoek-sneller-resultaat",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-07T09:00:00.000Z"
         },
@@ -1158,9 +1201,11 @@
           "description": "WIA-beoordeling voorbereiden: een naderende WIA-beoordeling vraagt om een compleet re-integratiedossier. Dit moet u op tijd op orde hebben.",
           "datePublished": "2026-06-05T09:00:00.000Z",
           "keywords": "WIA-beoordeling voorbereiden",
-          "url": "https://www.werkhervattingskas.nl/#blog/wia-beoordeling-aanstaande-werkgever-voorbereiden",
+          "url": "https://werkhervattingskas.nl/blog/wia-beoordeling-aanstaande-werkgever-voorbereiden",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-05T09:00:00.000Z"
         },
@@ -1170,9 +1215,11 @@
           "description": "WHK-audit checklist: met deze vijf vragen bepaalt u snel of uw WHK-dossier een grondige controle aankan.",
           "datePublished": "2026-06-04T09:00:00.000Z",
           "keywords": "WHK-audit checklist",
-          "url": "https://www.werkhervattingskas.nl/#blog/checklist-organisatie-klaar-voor-whk-audit",
+          "url": "https://werkhervattingskas.nl/blog/checklist-organisatie-klaar-voor-whk-audit",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-04T09:00:00.000Z"
         },
@@ -1182,9 +1229,11 @@
           "description": "Medische machtiging arbeidsdeskundige: met de juiste erkenning kan een bezwaar of beroep grondiger worden onderbouwd. Zo werkt dat proces.",
           "datePublished": "2026-06-02T09:00:00.000Z",
           "keywords": "medische machtiging arbeidsdeskundige",
-          "url": "https://www.werkhervattingskas.nl/#blog/medische-machtiging-arbeidsdeskundige-extra-waarde",
+          "url": "https://werkhervattingskas.nl/blog/medische-machtiging-arbeidsdeskundige-extra-waarde",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-02T09:00:00.000Z"
         },
@@ -1194,9 +1243,11 @@
           "description": "De kosten zieke werknemer gaan verder dan twee jaar loondoorbetaling. De echte schadepost is de WGA-instroom die daarna volgt, tot tien jaar lang.",
           "datePublished": "2026-06-19T09:00:00.000Z",
           "keywords": "kosten zieke werknemer",
-          "url": "https://www.werkhervattingskas.nl/#blog/kosten-zieke-werknemer-whk-impact",
+          "url": "https://werkhervattingskas.nl/blog/kosten-zieke-werknemer-whk-impact",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-19T09:00:00.000Z"
         },
@@ -1206,9 +1257,11 @@
           "description": "Bezwaar maken tegen uw WHK-beschikking kan tonnen aan onnodige premie terughalen. Het stappenplan, met een praktijkvoorbeeld van € 300.000 teruggave.",
           "datePublished": "2026-06-19T10:00:00.000Z",
           "keywords": "bezwaar maken WHK-beschikking",
-          "url": "https://www.werkhervattingskas.nl/#blog/bezwaar-whk-beschikking-stappenplan",
+          "url": "https://werkhervattingskas.nl/blog/bezwaar-whk-beschikking-stappenplan",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-19T10:00:00.000Z"
         },
@@ -1218,9 +1271,11 @@
           "description": "Eigenrisicodrager worden bespaart direct op de premie, maar kost ook geld: risico, administratie en claimmanagement. Een kritische blik, zonder verkooppraatje.",
           "datePublished": "2026-06-19T11:00:00.000Z",
           "keywords": "eigenrisicodrager worden",
-          "url": "https://www.werkhervattingskas.nl/#blog/wga-eigenrisicodrager-wel-of-niet-doen",
+          "url": "https://werkhervattingskas.nl/blog/wga-eigenrisicodrager-wel-of-niet-doen",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-19T11:00:00.000Z"
         },
@@ -1230,9 +1285,11 @@
           "description": "Loonsanctie voorkomen begint bij op tijd en goed re-integreren. Bezuinigen op spoor 2 is de snelste weg naar een loonsanctie en een hogere WHK-premie.",
           "datePublished": "2026-06-19T12:00:00.000Z",
           "keywords": "loonsanctie voorkomen",
-          "url": "https://www.werkhervattingskas.nl/#blog/loonsanctie-voorkomen-poortwachter",
+          "url": "https://werkhervattingskas.nl/blog/loonsanctie-voorkomen-poortwachter",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-19T12:00:00.000Z"
         },
@@ -1242,9 +1299,11 @@
           "description": "Een verkeerde sectorindeling WHK kan tienduizenden euro's per jaar kosten. Uitzendbureaus, schoonmaak, zorg en productie zitten het vaakst verkeerd.",
           "datePublished": "2026-06-19T13:00:00.000Z",
           "keywords": "sectorindeling WHK",
-          "url": "https://www.werkhervattingskas.nl/#blog/sectorindeling-werkhervattingskas-juiste-box",
+          "url": "https://werkhervattingskas.nl/blog/sectorindeling-werkhervattingskas-juiste-box",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-19T13:00:00.000Z"
         },
@@ -1254,9 +1313,11 @@
           "description": "Een arbeidsdeskundig onderzoek kost circa € 1.000 en bespaart initieel vaak € 40.000 aan schade. Het verschil tussen week 42 en week 80 is doorslaggevend.",
           "datePublished": "2026-06-19T14:00:00.000Z",
           "keywords": "arbeidsdeskundig onderzoek ROI",
-          "url": "https://www.werkhervattingskas.nl/#blog/arbeidsdeskundig-onderzoek-roi-whk-instroom",
+          "url": "https://werkhervattingskas.nl/blog/arbeidsdeskundig-onderzoek-roi-whk-instroom",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-19T14:00:00.000Z"
         },
@@ -1266,9 +1327,11 @@
           "description": "Boven een loonsom van € 4.330.000 (2026) betaalt u een volledig gedifferentieerde WHK-premie. Eén mislukt dossier raakt dan direct uw premie.",
           "datePublished": "2026-06-19T15:00:00.000Z",
           "keywords": "grote werkgever WHK",
-          "url": "https://www.werkhervattingskas.nl/#blog/grote-werkgever-grens-whk-impact",
+          "url": "https://werkhervattingskas.nl/blog/grote-werkgever-grens-whk-impact",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-19T15:00:00.000Z"
         },
@@ -1278,9 +1341,11 @@
           "description": "Na 104 weken loondoorbetaling stopt het risico niet, het begint pas. De WGA-instroom die dan volgt, kost vaak meer dan de twee jaar daarvoor samen.",
           "datePublished": "2026-06-19T16:00:00.000Z",
           "keywords": "WGA-uitkering na 2 jaar ziekte",
-          "url": "https://www.werkhervattingskas.nl/#blog/wga-uitkering-na-2-jaar-whk-premie",
+          "url": "https://werkhervattingskas.nl/blog/wga-uitkering-na-2-jaar-whk-premie",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-19T16:00:00.000Z"
         },
@@ -1290,9 +1355,11 @@
           "description": "Ex-medewerkers met een tijdelijk contract zijn de stille sluipmoordenaar van uw WHK-beschikking, soms goed voor 20 tot 30% van de totale lasten.",
           "datePublished": "2026-06-19T17:00:00.000Z",
           "keywords": "Ziektewet-flexpremie verlagen",
-          "url": "https://www.werkhervattingskas.nl/#blog/ziektewet-flexpremie-verlagen-tijdelijke-contracten",
+          "url": "https://werkhervattingskas.nl/blog/ziektewet-flexpremie-verlagen-tijdelijke-contracten",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-19T17:00:00.000Z"
         },
@@ -1302,9 +1369,11 @@
           "description": "Een goedkope verzuimpolis is geen garantie voor lage kosten. De ROI van vroege, onafhankelijke interventie is in de praktijk vrijwel altijd positief.",
           "datePublished": "2026-06-19T18:00:00.000Z",
           "keywords": "ROI vroege interventie",
-          "url": "https://www.werkhervattingskas.nl/#blog/roi-vroege-interventie-verzuimbegeleiding",
+          "url": "https://werkhervattingskas.nl/blog/roi-vroege-interventie-verzuimbegeleiding",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-19T18:00:00.000Z"
         },
@@ -1314,9 +1383,11 @@
           "description": "Regres bij letselschade: hoe werkgevers loondoorbetaling tijdens ziekte verhalen op de aansprakelijke partij, en de relatie met de WHK-premie.",
           "datePublished": "2026-06-20T09:00:00.000Z",
           "keywords": "regres letselschade werkgever",
-          "url": "https://www.werkhervattingskas.nl/#blog/regres-letselschade-werkgever-whk",
+          "url": "https://werkhervattingskas.nl/blog/regres-letselschade-werkgever-whk",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-20T09:00:00.000Z"
         },
@@ -1326,9 +1397,11 @@
           "description": "Besparen op interventies tijdens ziekte: hoe bulkinkoop bij meerdere medewerkers tegelijk tienduizenden euro's per jaar kan schelen, zonder kwaliteitsverlies.",
           "datePublished": "2026-06-20T10:00:00.000Z",
           "keywords": "besparen op interventies tijdens ziekte",
-          "url": "https://www.werkhervattingskas.nl/#blog/besparen-op-interventies-tijdens-ziekte-bulkinkoop",
+          "url": "https://werkhervattingskas.nl/blog/besparen-op-interventies-tijdens-ziekte-bulkinkoop",
           "author": {
-            "@id": "https://www.werkhervattingskas.nl/#niels-alderding"
+            "@type": "Person",
+            "@id": "https://werkhervattingskas.nl/#niels-alderding",
+            "name": "Niels Alderding"
           },
           "dateModified": "2026-06-20T10:00:00.000Z"
         }
@@ -1336,6 +1409,9 @@
     },
     {
       "@type": "FAQPage",
+      "@id": "https://werkhervattingskas.nl/faq#faq",
+      "url": "https://werkhervattingskas.nl/faq",
+      "name": "Veelgestelde vragen over de Werkhervattingskas (WHK)",
       "mainEntity": [
         {
           "@type": "Question",
@@ -1430,7 +1506,15 @@
           "name": "Wat is het verschil tussen een WGA-uitkering en een IVA-uitkering?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Een WGA-uitkering geldt bij gedeeltelijke arbeidsongeschiktheid met kans op herstel of werkhervatting, terwijl een IVA-uitkering is bedoeld voor volledige en duurzame arbeidsongeschiktheid. Een onjuiste indeling kan grote financiële gevolgen hebben, voor zowel werknemer als werkgever."
+            "text": "Een WGA-uitkering geldt bij gedeeltelijke arbeidsongeschiktheid met kans op herstel of werkhervatting, terwijl een IVA-uitkering is bedoeld voor volledige en duurzame arbeidsongeschiktheid. Een onjuiste indeling kan grote financiële gevolgen hebben, voor zowel werknemer als werkgever. Na de loongerelateerde WGA-fase kan een loonaanvullingsuitkering volgen als iemand voldoende blijft werken."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wat is een loonaanvullingsuitkering in de WGA?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Een loonaanvullingsuitkering is de WGA-vervolgfase voor mensen die voldoende blijven werken: een aanvulling op het verdiende loon tot een percentage van het oude dagloon. Wie niet of te weinig werkt, valt terug op een lagere vervolguitkering. Beide WGA-vormen tellen mee in de WHK-schadelast van de werkgever; IVA niet."
           }
         },
         {
@@ -1465,13 +1549,14 @@
 
 <script type="application/ld+json" id="dynamic-schema"></script>
 
-<script type="application/ld+json">
+<script type="application/ld+json" id="localbusiness-schema">
 {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
+  "@type": ["LocalBusiness", "ProfessionalService"],
+  "@id": "https://werkhervattingskas.nl/#localbusiness",
   "name": "werkhervattingskas.nl – Matchvermogen",
   "description": "Onafhankelijke controle van WHK-beschikkingen, arbeidsdeskundig onderzoek, tweede spoor re-integratie en verzuimoptimalisatie. No cure, no pay.",
-  "url": "https://www.werkhervattingskas.nl/",
+  "url": "https://werkhervattingskas.nl/",
   "telephone": "+31650213593",
   "email": "info@werkhervattingskas.nl",
   "address": {
@@ -1513,7 +1598,7 @@
         <span></span><span></span><span></span>
       </button>
       <nav class="wvz-nav">
-        <a href="#" data-view="overons-view">Over ons</a>
+        <a href="/over-ons" data-view="overons-view">Over ons</a>
 
         <!-- Wat wij doen: Diensten + Aanpak samengevoegd -->
         <div class="wvz-nav-dropdown">
@@ -1533,8 +1618,8 @@
           </div>
         </div>
 
-        <a href="#" data-view="blog-view">Blog</a>
-        <a href="#" data-view="faq-view">FAQ</a>
+        <a href="/blog" data-view="blog-view">Blog</a>
+        <a href="/faq" data-view="faq-view">FAQ</a>
 
         <!-- Hulpmiddelen: mega-menu in twee kolommen -->
         <div class="wvz-nav-dropdown">
@@ -1542,28 +1627,28 @@
           <div class="wvz-mega-menu" id="nav-tools-menu">
             <div>
               <div class="mega-col-title">Tools &amp; calculators</div>
-              <a href="#" data-view="home-view">🔍 WHK-check (gratis)</a>
-              <a href="#" data-view="poortwachter-view">📅 Poortwachter-tijdlijn</a>
-              <a href="#" data-view="wia-calc-view">💶 WIA-uitkeringscalculator</a>
-              <a href="#" data-view="subsidie-scan-view">🎁 Subsidie-scan LKV/LIV/WKB</a>
-              <a href="#" data-view="interventie-check-view">📊 Interventietarief checker</a>
-              <a href="#" data-view="quiz-view">🎯 Besparingsonderzoek</a>
+              <a href="/" data-view="home-view">🔍 WHK-check (gratis)</a>
+              <a href="/tools/poortwachter" data-view="poortwachter-view">📅 Poortwachter-tijdlijn</a>
+              <a href="/tools/wia-calculator" data-view="wia-calc-view">💶 WIA-uitkeringscalculator</a>
+              <a href="/tools/subsidie-scan" data-view="subsidie-scan-view">🎁 Subsidie-scan LKV/LIV/WKB</a>
+              <a href="/tools/interventie-check" data-view="interventie-check-view">📊 Interventietarief checker</a>
+              <a href="/quiz" data-view="quiz-view">🎯 Besparingsonderzoek</a>
               <a href="#" id="nav-tools-wegwijzer-link">🧭 Welke dienst past bij u?</a>
             </div>
             <div>
               <div class="mega-col-title">Kennis &amp; referentie</div>
-              <a href="#" data-view="kalender-view">🗓 WHK Jaarkalender 2026</a>
-              <a href="#" data-view="premiehistorie-view">📈 Premies 2022–2026</a>
-              <a href="#" data-view="beschikking-uitleg-view">📄 Hoe lees ik mijn beschikking?</a>
-              <a href="#" data-view="sectors-view">🏢 Besparing per sector</a>
-              <a href="#" data-view="casestudies-view">✅ Praktijkcasussen</a>
-              <a href="#" data-view="vergelijking-view">⚖️ Vergelijking</a>
-              <a href="#" data-view="lexicon-view">📖 Lexicon</a>
+              <a href="/tools/jaarkalender" data-view="kalender-view">🗓 WHK Jaarkalender 2026</a>
+              <a href="/tools/premiehistorie" data-view="premiehistorie-view">📈 Premies 2022–2026</a>
+              <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">📄 Hoe lees ik mijn beschikking?</a>
+              <a href="/sectoren" data-view="sectors-view">🏢 Besparing per sector</a>
+              <a href="/casestudies" data-view="casestudies-view">✅ Praktijkcasussen</a>
+              <a href="/vergelijking" data-view="vergelijking-view">⚖️ Vergelijking</a>
+              <a href="/lexicon" data-view="lexicon-view">📖 Lexicon</a>
             </div>
           </div>
         </div>
 
-        <a href="#" data-view="pricing-view">Tarieven</a>
+        <a href="/tarieven" data-view="pricing-view">Tarieven</a>
       </nav>
       <button class="btn" id="open-terugbel">Bel mij terug</button>
     </div>
@@ -1574,29 +1659,29 @@
     <div class="mobile-nav-inner">
       <button class="mobile-nav-close" id="mobile-nav-close" type="button" aria-label="Menu sluiten">&times;</button>
       <nav class="mobile-nav-list">
-        <a class="mobile-nav-link" data-view="home-view">🔍 Gratis WHK-check</a>
+        <a href="/" class="mobile-nav-link" data-view="home-view">🔍 Gratis WHK-check</a>
         <div class="mobile-nav-section-title">Diensten</div>
-        <a class="mobile-nav-link" data-view="dienst-whkreductie-view">WHK-schade reduceren</a>
-        <a class="mobile-nav-link" data-view="dienst-besparingsonderzoek-view">Besparingsonderzoek</a>
-        <a class="mobile-nav-link" data-view="dienst-arbeidsdeskundig-view">Arbeidsdeskundig onderzoek</a>
-        <a class="mobile-nav-link" data-view="dienst-tweedespoor-view">Tweede spoor</a>
-        <a class="mobile-nav-link" data-view="dienst-letselschade-view">Letselschade &amp; regres</a>
-        <a class="mobile-nav-link" data-view="dienst-consultancy-view">Verzuimconsultancy</a>
-        <a class="mobile-nav-link" data-view="dienst-partneradvies-view">ERD &amp; partneradvies</a>
+        <a href="/diensten/whk-controle" class="mobile-nav-link" data-view="dienst-whkreductie-view">WHK-schade reduceren</a>
+        <a href="/diensten/besparingsonderzoek" class="mobile-nav-link" data-view="dienst-besparingsonderzoek-view">Besparingsonderzoek</a>
+        <a href="/diensten/arbeidsdeskundig-onderzoek" class="mobile-nav-link" data-view="dienst-arbeidsdeskundig-view">Arbeidsdeskundig onderzoek</a>
+        <a href="/diensten/tweede-spoor" class="mobile-nav-link" data-view="dienst-tweedespoor-view">Tweede spoor</a>
+        <a href="/diensten/letselschade" class="mobile-nav-link" data-view="dienst-letselschade-view">Letselschade &amp; regres</a>
+        <a href="/diensten/consultancy" class="mobile-nav-link" data-view="dienst-consultancy-view">Verzuimconsultancy</a>
+        <a href="/diensten/erd-partneradvies" class="mobile-nav-link" data-view="dienst-partneradvies-view">ERD &amp; partneradvies</a>
         <div class="mobile-nav-section-title">Tools &amp; kennis</div>
-        <a class="mobile-nav-link" data-view="poortwachter-view">Poortwachter-tijdlijn</a>
-        <a class="mobile-nav-link" data-view="wia-calc-view">WIA-calculator</a>
-        <a class="mobile-nav-link" data-view="subsidie-scan-view">Subsidie-scan LKV/LIV</a>
-        <a class="mobile-nav-link" data-view="kalender-view">WHK Jaarkalender</a>
-        <a class="mobile-nav-link" data-view="beschikking-uitleg-view">Hoe lees ik mijn beschikking?</a>
-        <a class="mobile-nav-link" data-view="sectors-view">Besparing per sector</a>
+        <a href="/tools/poortwachter" class="mobile-nav-link" data-view="poortwachter-view">Poortwachter-tijdlijn</a>
+        <a href="/tools/wia-calculator" class="mobile-nav-link" data-view="wia-calc-view">WIA-calculator</a>
+        <a href="/tools/subsidie-scan" class="mobile-nav-link" data-view="subsidie-scan-view">Subsidie-scan LKV/LIV</a>
+        <a href="/tools/jaarkalender" class="mobile-nav-link" data-view="kalender-view">WHK Jaarkalender</a>
+        <a href="/beschikking-uitleg" class="mobile-nav-link" data-view="beschikking-uitleg-view">Hoe lees ik mijn beschikking?</a>
+        <a href="/sectoren" class="mobile-nav-link" data-view="sectors-view">Besparing per sector</a>
         <div class="mobile-nav-section-title">Over ons</div>
-        <a class="mobile-nav-link" data-view="overons-view">Over ons</a>
-        <a class="mobile-nav-link" data-view="aanpak-view">Onze aanpak</a>
-        <a class="mobile-nav-link" data-view="casestudies-view">Praktijkcasussen</a>
-        <a class="mobile-nav-link" data-view="pricing-view">Tarieven</a>
-        <a class="mobile-nav-link" data-view="faq-view">FAQ</a>
-        <a class="mobile-nav-link" data-view="vergelijking-view">Vergelijking</a>
+        <a href="/over-ons" class="mobile-nav-link" data-view="overons-view">Over ons</a>
+        <a href="/aanpak" class="mobile-nav-link" data-view="aanpak-view">Onze aanpak</a>
+        <a href="/casestudies" class="mobile-nav-link" data-view="casestudies-view">Praktijkcasussen</a>
+        <a href="/tarieven" class="mobile-nav-link" data-view="pricing-view">Tarieven</a>
+        <a href="/faq" class="mobile-nav-link" data-view="faq-view">FAQ</a>
+        <a href="/vergelijking" class="mobile-nav-link" data-view="vergelijking-view">Vergelijking</a>
         <div style="padding:20px 0 0;">
           <button class="btn btn-risk" style="width:100%;justify-content:center;" type="button" data-cta="terugbel">Bel mij terug</button>
         </div>
@@ -1767,16 +1852,18 @@
               <h3 style="font-size:1.2rem;margin-bottom:6px;">Uw indicatieve besparingsrapport staat klaar</h3>
               <p class="hint" style="margin-bottom:18px;">Vul uw gegevens in en ontvang het rapport direct op het scherm.</p>
 
+              <div class="hp-field" aria-hidden="true"><label for="calc-honeypot">Website</label><input type="text" id="calc-honeypot" name="website" tabindex="-1" autocomplete="off"></div>
               <div class="field"><label for="naam">Naam en achternaam</label><input type="text" id="naam" placeholder="Voor- en achternaam"></div>
               <div class="field"><label for="bedrijfsnaam">Bedrijfsnaam</label><input type="text" id="bedrijfsnaam" placeholder="Bedrijfsnaam"></div>
-              <div class="field"><label for="telefoon">Telefoonnummer</label><input type="tel" id="telefoon" placeholder="06 &#8211; 12345678"></div>
-              <div class="field"><label for="email">E-mailadres</label><input type="email" id="email" placeholder="naam@bedrijf.nl"></div>
+              <div class="field"><label for="telefoon">Telefoonnummer</label><input type="tel" id="telefoon" placeholder="06 &#8211; "></div>
+              <div class="field"><label for="email">E-mailadres</label><input type="email" id="email" placeholder="uw.naam@bedrijf.nl"></div>
+              <p class="hint" style="margin:0 0 8px;">Vul uw naam in, plus telefoonnummer of e-mailadres.</p>
 
               <div class="dossier-nav">
                 <button class="btn btn-ghost" id="to-step-2b">&larr; Terug</button>
                 <button class="btn btn-savings" id="submit-calc">Bereken mijn besparing</button>
               </div>
-              <p class="hint" id="form-error" style="color:var(--risk);display:none;margin-top:10px;">Vul minimaal uw naam en telefoonnummer in.</p>
+              <p class="hint" id="form-error" style="color:var(--risk);display:none;margin-top:10px;">Vul uw naam in, plus telefoonnummer of e-mailadres.</p>
             </div>
           </div>
         </div>
@@ -2179,9 +2266,11 @@
           <!-- Stap 1: naam + telefoon -->
           <div id="report-tb-step1">
             <form id="report-terugbel-form" style="display:flex;flex-direction:column;gap:10px;margin-top:16px;">
+              <div class="hp-field" aria-hidden="true"><label for="report-hp">Website</label><input type="text" id="report-hp" name="website" tabindex="-1" autocomplete="off"></div>
               <input type="text" id="report-naam" placeholder="Uw naam" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);">
               <input type="tel" id="report-tel" placeholder="Telefoonnummer" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);">
-              <input type="text" id="report-hp" tabindex="-1" style="position:absolute;left:-9999px;opacity:0;height:0;">
+              <input type="email" id="report-email" placeholder="E-mail (als u liever geen nummer achterlaat)" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);">
+              <p class="hint" id="report-tb-err" style="color:var(--risk);display:none;margin:0;">Vul uw naam in, plus telefoonnummer of e-mailadres.</p>
               <button class="btn btn-risk" type="submit" style="justify-content:center;">Verder &rarr;</button>
             </form>
           </div>
@@ -2201,7 +2290,14 @@
 
         <div class="split-card">
           <h3>Start direct de formele controle</h3>
-          <p class="sub">Upload hier veilig uw WHK-beschikking. Wij controleren de data binnen 48 uur op feitelijke fouten. U kunt BSN-nummers vooraf onleesbaar maken.</p>
+          <p class="sub">Upload hier veilig uw WHK-beschikking. Wij controleren de data binnen 48 uur op feitelijke fouten. U kunt BSN-nummers vooraf onleesbaar maken. Vul eerst uw naam in, plus telefoon of e-mail.</p>
+          <div id="upload-contact" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+            <div class="hp-field" aria-hidden="true"><label for="upload-honeypot">Website</label><input type="text" id="upload-honeypot" name="website" tabindex="-1" autocomplete="off"></div>
+            <input type="text" id="upload-naam" placeholder="Uw naam" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);">
+            <input type="tel" id="upload-tel" placeholder="Telefoonnummer" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);">
+            <input type="email" id="upload-email" placeholder="E-mailadres" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);">
+            <p class="hint" id="upload-err" style="color:var(--risk);display:none;margin:0;">Vul uw naam in, plus telefoonnummer of e-mailadres, voordat u een bestand toevoegt.</p>
+          </div>
           <div class="drop" id="drop-zone">
             <div id="drop-label">Sleep uw WHK-beschikking hierheen, of <u>klik om te bladeren</u></div>
             <input type="file" id="file-input" style="display:none;">
@@ -2232,8 +2328,8 @@
       </div>
 
       <div class="about-stats" id="about-stats">
-        <div class="about-stat"><div class="about-stat-num num" data-target="10">0</div><div class="about-stat-label">vaste specialisten</div></div>
-        <div class="about-stat"><div class="about-stat-num num" data-target="40">0</div><div class="about-stat-label">flexibele arbeidsdeskundigen &amp; adviseurs</div></div>
+        <div class="about-stat"><div class="about-stat-num num" data-target="10">10</div><div class="about-stat-label">vaste specialisten</div></div>
+        <div class="about-stat"><div class="about-stat-num num" data-target="40">40</div><div class="about-stat-label">flexibele arbeidsdeskundigen &amp; adviseurs</div></div>
         <div class="about-stat"><div class="about-stat-num num">NL</div><div class="about-stat-label">landelijk actief, door heel Nederland</div></div>
       </div>
 
@@ -2649,7 +2745,8 @@
   <section class="page-section" id="faq-view">
     <div class="wrap" style="padding-top:44px;">
       <div class="eyebrow">Veelgestelde vragen</div>
-      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:20px;max-width:680px;">Vragen over WHK, no-risk, eigenrisicodragerschap en subsidies.</h1>
+      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:12px;max-width:720px;">Veelgestelde vragen over de Werkhervattingskas (WHK).</h1>
+      <p class="lede" style="margin-bottom:20px;max-width:680px;">Antwoorden over de WHK-premie, uw beschikking, no-riskpolis, WIA/WGA en arbeidsdeskundig onderzoek. Geen verzonnen cijfers: waar we een bedrag noemen, komt dat uit onze praktijk of uit publieke UWV-/Belastingdienstkaders.</p>
 
       <!-- Urgentie-balk -->
       <div style="background:#fef3f0;border:1px solid #f5c6bc;border-left:4px solid var(--risk);border-radius:var(--radius-s);padding:12px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
@@ -2668,6 +2765,9 @@
         <a href="#faq-procedure" class="btn btn-ghost btn-sm" style="font-size:0.78rem;">Bezwaar &amp; procedure</a>
         <a href="#faq-diensten" class="btn btn-ghost btn-sm" style="font-size:0.78rem;">Onze diensten</a>
         <a href="#faq-privacy" class="btn btn-ghost btn-sm" style="font-size:0.78rem;">Privacy &amp; kosten</a>
+        <a href="/tools/wia-calculator" class="btn btn-ghost btn-sm" style="font-size:0.78rem;" data-view="wia-calc-view">WIA berekenen</a>
+        <a href="/beschikking-uitleg" class="btn btn-ghost btn-sm" style="font-size:0.78rem;" data-view="beschikking-uitleg-view">WHK-beschikking</a>
+        <a href="/tools/premiehistorie" class="btn btn-ghost btn-sm" style="font-size:0.78rem;" data-view="premiehistorie-view">Premies 2022–2026</a>
       </div>
 
       <div class="faq-list" id="faq-list">
@@ -2768,7 +2868,13 @@
         <div class="faq-item">
           <button class="faq-q">Wat is het verschil tussen een WGA-uitkering en een IVA-uitkering?<span class="faq-chevron">&#8964;</span></button>
           <div class="faq-a"><p>Beide zijn onderdeel van de WIA (Wet werk en inkomen naar arbeidsvermogen). Een WGA-uitkering (Werkhervatting Gedeeltelijk Arbeidsgeschikten) is bedoeld voor mensen die gedeeltelijk arbeidsongeschikt zijn of volledig maar met kans op herstel. Een IVA-uitkering (Inkomensvoorziening Volledig Arbeidsongeschikten) geldt voor mensen die volledig &eacute;n duurzaam arbeidsongeschikt zijn. Het cruciale verschil voor werkgevers: WGA-uitkeringen worden in het systeem van gedifferentieerde premies toegerekend aan de (ex-)werkgever, wat uw WHK-premie verhoogt. IVA-uitkeringen vallen buiten die toerekening. Als iemand ten onrechte een WGA-uitkering ontvangt terwijl hij of zij feitelijk IVA-waardig is, betaalt u dus onnodig hogere premie. Wij signaleren dit bij herbeoordelingen.</p>
-          <p style="margin-top:8px;font-size:0.87rem;"><a href="/tools/wia-calculator" data-view="wia-calc-view">Bereken de WIA-uitkering →</a></p></div>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/tools/wia-calculator" data-view="wia-calc-view">WIA, WGA of loonaanvullingsuitkering berekenen →</a></p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">Wat is een loonaanvullingsuitkering in de WGA?<span class="faq-chevron">&#8964;</span></button>
+          <div class="faq-a"><p>Na de loongerelateerde fase van de WGA volgt een vervolgfase. Wie voldoende blijft werken, kan een loonaanvullingsuitkering ontvangen: een aanvulling op het verdiende loon tot een percentage van het oude dagloon. Wie niet of te weinig werkt, valt terug op een (lagere) vervolguitkering. Voor werkgevers telt beide mee in de WGA-schadelast van de Werkhervattingskas; een IVA-uitkering niet. De calculator op deze site geeft een indicatie, geen UWV-beschikking.</p>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/tools/wia-calculator" data-view="wia-calc-view">WIA-uitkering en loonaanvulling berekenen →</a></p></div>
         </div>
 
         <div class="faq-group-title" id="faq-privacy">Privacy, kosten &amp; samenwerking</div>
@@ -2824,8 +2930,10 @@
           <h3 style="color:white;font-size:1rem;margin-bottom:6px;">Staat uw vraag er niet bij?</h3>
           <p style="color:#9B9588;font-size:0.87rem;margin-bottom:16px;">Stel uw vraag direct — wij reageren binnen 1 werkdag.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <div class="hp-field" aria-hidden="true"><label for="faq-honeypot">Website</label><input type="text" id="faq-honeypot" name="website" tabindex="-1" autocomplete="off"></div>
             <input type="text" id="faq-vraag-naam" placeholder="Uw naam" style="flex:1;min-width:140px;padding:10px 14px;border:1px solid #333;background:#1a2236;color:white;border-radius:6px;font-size:0.88rem;font-family:inherit;">
             <input type="tel" id="faq-vraag-tel" placeholder="Telefoonnummer" style="flex:1;min-width:140px;padding:10px 14px;border:1px solid #333;background:#1a2236;color:white;border-radius:6px;font-size:0.88rem;font-family:inherit;">
+            <input type="email" id="faq-vraag-email" placeholder="E-mail (optioneel als u een nummer invult)" style="flex:1;min-width:160px;padding:10px 14px;border:1px solid #333;background:#1a2236;color:white;border-radius:6px;font-size:0.88rem;font-family:inherit;">
             <button onclick="submitFaqVraag()" style="padding:10px 18px;background:var(--risk);color:white;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:0.88rem;white-space:nowrap;">Bel mij terug</button>
           </div>
           <div id="faq-vraag-ok" style="display:none;margin-top:12px;color:#4ade80;font-size:0.87rem;font-weight:600;">✓ Ontvangen — wij bellen u zo snel mogelijk terug!</div>
@@ -2840,7 +2948,7 @@
         <div class="faq-item">
           <button class="faq-q">Kunnen jullie samenwerken met onze bestaande arbodienst of casemanager?<span class="faq-chevron">&#8964;</span></button>
           <div class="faq-a"><p>Ja, en dat doen we regelmatig. Wij opereren als verlengstuk: uw casemanager bewaakt de dagelijkse begeleiding, wij nemen de financieel-juridische kant over — WHK-check, no-riskregistratie, bezwaarprocedures en arbeidsdeskundig onderzoek. De kennis blijft bij de juiste specialist.</p>
-          <p style="margin-top:8px;font-size:0.87rem;"><a href="/voor/casemanager" data-view="voor-casemanager-view">Meer voor casemanagers →</a></p></div>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/voor/casemanager" data-view="doelgroep-casemanager-view">Meer voor casemanagers →</a></p></div>
         </div>
 
         <div class="faq-group-title" id="faq-extra">Meer over WHK &amp; premies</div>
@@ -3820,8 +3928,9 @@
       </div>
 
       <div class="eyebrow">Dienst &mdash; via Matchvermogen</div>
-      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:18px;">Arbeidsdeskundig onderzoek: heldere duidelijkheid over wat een medewerker nog kan.</h1>
-      <p class="lede" style="margin-bottom:36px;">Een arbeidsdeskundig onderzoek brengt objectief in kaart welke mogelijkheden een zieke medewerker nog heeft, en welk re-integratiespoor daarbij past &mdash; voordat er kostbare maanden verstrijken met de verkeerde aanpak.</p>
+      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:18px;">Arbeidsdeskundig onderzoek: wat het is, wanneer u het nodig heeft, en wat het oplevert.</h1>
+      <p class="lede" style="margin-bottom:20px;">Een arbeidsdeskundig onderzoek beoordeelt de belastbaarheid van een zieke medewerker tegen de eisen van de functie. Het rapport onderbouwt eerste spoor, tweede spoor of een combinatie &mdash; en is vaak het stuk dat bij de RIV-toets of een WIA-beoordeling het verschil maakt.</p>
+      <p style="font-size:0.9rem;color:var(--ink-soft);margin-bottom:36px;">Gerelateerd: <a href="/diensten/tweede-spoor" data-view="dienst-tweedespoor-view">tweede spoor re-integratie</a> · <a href="/tools/poortwachter" data-view="poortwachter-view">poortwachter-tijdlijn</a> · <a href="/tools/wia-calculator" data-view="wia-calc-view">WIA berekenen</a> · <a href="/faq" data-view="faq-view">FAQ</a></p>
 
       <h2>Wat houdt het onderzoek in?</h2>
       <div class="needed-box">
@@ -3920,6 +4029,19 @@
           <p style="font-size:0.88rem;color:var(--ink-soft);">Zijn er problemen met het UWV na afronding van het onderzoek? Dan laten we u niet alleen staan. Wij helpen bij bezwaar, escalatie en vervolgstappen — zonder dat u opnieuw van voor af aan hoeft te beginnen bij een nieuwe partij.</p>
         </div>
       </div>
+
+      <h2>Wanneer is een arbeidsdeskundig onderzoek nodig?</h2>
+      <p style="font-size:0.92rem;color:var(--ink-soft);margin-bottom:16px;">De Wet poortwachter noemt niet in elke zin “verplicht arbeidsdeskundig onderzoek”. De RIV-toets van het UWV beoordeelt wél of de re-integratie-inspanningen passend waren. In de praktijk is een AD-rapport nodig of sterk aangewezen wanneer:</p>
+      <div class="needed-box">
+        <ul class="needed-list">
+          <li>Terugkeer in de eigen functie onduidelijk is, of eerste en tweede spoor naast elkaar lopen</li>
+          <li>Er verschil van inzicht is over belastbaarheid tussen medewerker, werkgever of bedrijfsarts</li>
+          <li>Een WIA-aanvraag nadert (rond week 87) en het dossier een arbeidskundige onderbouwing mist</li>
+          <li>U bezwaar wilt maken tegen een WIA- of WGA-beslissing, of de indeling WGA versus IVA betwist</li>
+        </ul>
+        <p class="hint">Het richttarief voor een standaard AD-onderzoek dat we elders op deze site hanteren (2026) is €1.095–€1.295. Exacte prijs hangt af van dossierzwaarte; die spreken we vooraf af. Doorlooptijd is doorgaans twee tot drie weken.</p>
+      </div>
+      <p style="font-size:0.9rem;color:var(--ink-soft);margin:18px 0 28px;">Twijfelt u over de timing? Gebruik de <a href="/tools/poortwachter" data-view="poortwachter-view">poortwachter-tijdlijnchecker</a> of lees de <a href="/faq" data-view="faq-view">vraag over arbeidsdeskundig onderzoek in de FAQ</a>.</p>
 
       <div class="cta-row">
         <button class="btn btn-risk" data-view="interventie-check-view">Check of u hier nu te veel voor betaalt</button>
@@ -4838,8 +4960,9 @@
         </div>
         <button class="btn" style="background:white;color:var(--risk);font-weight:700;flex-shrink:0;" data-view="dienst-whkreductie-view">Gratis controleren →</button>
       </div>
-      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;">Hoe lees ik mijn WHK-beschikking?</h1>
-      <p class="lede" style="margin-bottom:28px;">De WHK-beschikking van de Belastingdienst ziet er op het eerste gezicht ondoorzichtig uit. Hier leggen we per onderdeel uit wat het betekent en waar u op moet letten.</p>
+      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;">Wat is de Werkhervattingskas (WHK)? Zo leest u uw beschikking</h1>
+      <p class="lede" style="margin-bottom:16px;">De Werkhervattingskas is de gedifferentieerde premie die werkgevers betalen voor Ziektewet- en WGA-lasten van (ex-)werknemers. Die premie staat op de WHK-beschikking van de Belastingdienst. Hieronder per onderdeel: wat het betekent en waar fouten zitten.</p>
+      <p style="font-size:0.9rem;color:var(--ink-soft);margin-bottom:28px;">Verder lezen: <a href="/faq" data-view="faq-view">FAQ Werkhervattingskas</a> · <a href="/tools/premiehistorie" data-view="premiehistorie-view">WGA-premies 2022–2026</a> · <a href="/tools/wia-calculator" data-view="wia-calc-view">WIA/WGA berekenen</a> · <a href="/diensten/whk-controle" data-view="dienst-whkreductie-view">WHK-controle</a></p>
 
       <!-- SVG INFOGRAPHIC: WHK premie opbouw -->
       <div style="margin-bottom:40px;" aria-label="Infographic: zo is uw WHK-premie opgebouwd">
@@ -4922,6 +5045,7 @@
       <div style="background:var(--paper-deep);border:1px solid var(--line);border-radius:var(--radius-m);padding:22px 26px;margin-top:36px;">
         <h3 style="font-size:1rem;margin-bottom:10px;">Wat is de conclusie?</h3>
         <p style="font-size:0.9rem;color:var(--ink-soft);">De meeste fouten zitten in de bijlage bij de beschikking — de lijst met toegerekende personen. Controleer per persoon of ze er terecht in staan. Heeft u twijfel? Stuur ons de beschikking en wij controleren gratis of er een bezwaarkans is.</p>
+        <p style="font-size:0.9rem;color:var(--ink-soft);margin-top:10px;">Wilt u het WGA-percentage naast de landelijke reeks leggen? Zie <a href="/tools/premiehistorie" data-view="premiehistorie-view">WHK- en WGA-premies 2022–2026</a>. Voor de uitkering achter een toerekening: <a href="/tools/wia-calculator" data-view="wia-calc-view">WIA berekenen</a>.</p>
       </div>
 
       <div class="cta-row" style="margin-top:30px;">
@@ -5121,9 +5245,9 @@
   <!-- WIA-UITKERINGSCALCULATOR -->
   <section class="page-section" id="wia-calc-view">
     <div class="wrap" style="padding-top:44px;max-width:680px;">
-      <div class="eyebrow">Gratis tool &mdash; WIA-berekening</div>
-      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;">WIA-uitkeringscalculator: wat kost een WGA-instroom uw premie?</h1>
-      <p class="lede" style="margin-bottom:16px;">Bereken op basis van het dagloon wat de indicatieve WGA- of IVA-uitkering bedraagt, en wat dit betekent voor uw WHK-premie.</p>
+      <div class="eyebrow">Gratis tool &mdash; WIA berekenen</div>
+      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;">WIA berekenen: WGA, IVA of loonaanvullingsuitkering</h1>
+      <p class="lede" style="margin-bottom:16px;">Bereken indicatief een WIA-uitkering: WGA loongerelateerd, loonaanvullingsuitkering, WGA-vervolg of IVA. Op basis van dagloon en arbeidsongeschiktheidspercentage, inclusief wat dat betekent voor de WHK-premie van de werkgever.</p>
       <div class="whk-context-bar" style="margin-bottom:28px;">
         <p><strong>WGA vs. IVA maakt groot verschil.</strong> Een WGA-uitkering wordt toegerekend aan uw WHK-schadelast. Een IVA-uitkering (volledig en duurzaam arbeidsongeschikt) niet. Als een medewerker ten onrechte als WGA in plaats van IVA is geclassificeerd, betaalt u jarenlang te veel premie. Wij controleren dit voor u.</p>
         <a href="/diensten/whk-controle" data-view="dienst-whkreductie-view">Bekijk de WHK-controle &rarr;</a>
@@ -5138,10 +5262,10 @@
         <div class="field">
           <label for="wia-type">Type uitkering</label>
           <select id="wia-type">
-            <option value="wga_loongerelateerd">WGA — loongerelateerde uitkering (eerste fase)</option>
-            <option value="wga_vervolg_werk">WGA — vervolguitkering (werkende)</option>
-            <option value="wga_vervolg_niet">WGA — vervolguitkering (niet-werkende)</option>
-            <option value="iva">IVA — volledig &amp; duurzaam arbeidsongeschikt</option>
+            <option value="wga_loongerelateerd">WGA berekenen — loongerelateerde uitkering (eerste fase)</option>
+            <option value="wga_vervolg_werk">WGA — loonaanvullingsuitkering (vervolg, wel werk)</option>
+            <option value="wga_vervolg_niet">WGA — vervolguitkering (geen of te weinig werk)</option>
+            <option value="iva">IVA berekenen — volledig en duurzaam arbeidsongeschikt</option>
           </select>
         </div>
         <div class="field">
@@ -5169,6 +5293,19 @@
       </div>
 
       <p style="font-size:0.8rem;color:var(--ink-soft);margin-top:20px;">Alle berekeningen zijn indicatief. Exacte uitkeringshoogte wordt vastgesteld door het UWV op basis van het officiële dagloon en de beoordeling.</p>
+
+      <h2 style="margin-top:36px;">WIA, WGA, IVA en loonaanvullingsuitkering</h2>
+      <p style="font-size:0.92rem;color:var(--ink-soft);margin-bottom:14px;">De WIA (Wet werk en inkomen naar arbeidsvermogen) kent twee hoofdstromen. Deze tool rekent ze niet “hard” zoals het UWV, maar laat de orde van grootte zien.</p>
+      <div class="needed-box">
+        <ul class="needed-list">
+          <li><strong>WGA berekenen (loongerelateerd):</strong> eerste fase na de WIA-beslissing. Hoogte hangt af van dagloon, AO-percentage en of iemand nog werkt.</li>
+          <li><strong>Loonaanvullingsuitkering:</strong> vervolgfase van de WGA als iemand voldoende blijft verdienen. Aanvulling op het loon tot een percentage van het oude dagloon.</li>
+          <li><strong>WGA-vervolguitkering:</strong> vervolgfase als iemand niet of te weinig werkt. Percentage van het dagloon, afhankelijk van de AO-klasse.</li>
+          <li><strong>IVA berekenen:</strong> volledig en duurzaam arbeidsongeschikt. Telt niet mee in de WHK-schadelast van de werkgever; WGA wel.</li>
+        </ul>
+        <p class="hint">Voor een arbeidskundige herbeoordeling of bezwaar tegen WGA versus IVA is vaak een <a href="/diensten/arbeidsdeskundig-onderzoek" data-view="dienst-arbeidsdeskundig-view">arbeidsdeskundig onderzoek</a> nodig. Staat de uitkering op uw beschikking? Zie <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">wat de Werkhervattingskas op de beschikking toont</a>.</p>
+      </div>
+      <p style="font-size:0.9rem;color:var(--ink-soft);margin:18px 0 0;">Ook nuttig: <a href="/faq" data-view="faq-view">FAQ over WGA en IVA</a> · <a href="/tools/premiehistorie" data-view="premiehistorie-view">historische WGA-premies</a></p>
     </div>
       <!-- CTA na berekening -->
       <div id="wia-followup-cta" style="margin-top:24px;padding:20px 24px;background:var(--paper-deep);border:1px solid var(--line);border-radius:var(--radius-m);border-left:4px solid var(--risk);">
@@ -5248,8 +5385,9 @@
   <section class="page-section" id="premiehistorie-view">
     <div class="wrap" style="padding-top:44px;">
       <div class="eyebrow">Referentiedata</div>
-      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;">WGA-sectorpremies 2022–2026</h1>
-      <p class="lede" style="max-width:640px;margin-bottom:36px;">Historisch overzicht van de gemiddelde gedifferentieerde WGA-premies per jaar. Gebruik dit om te beoordelen of uw premie in lijn is met de markt en om trendmatige verhogingen vroegtijdig te signaleren.</p>
+      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;">WHK- en WGA-premies 2022–2026</h1>
+      <p class="lede" style="max-width:640px;margin-bottom:16px;">Historisch overzicht van de gemiddelde gedifferentieerde WGA-premie per jaar. Gebruik de reeks om het WGA-deel op uw WHK-beschikking te vergelijken met het landelijk beeld, en om trendmatige verhogingen vroeg te zien.</p>
+      <p style="font-size:0.9rem;color:var(--ink-soft);margin-bottom:28px;">Uitleg bij de beschikking: <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">wat is de Werkhervattingskas?</a> · <a href="/sectoren" data-view="sectors-view">premie per sector</a> (o.a. <a href="/sectoren/onderwijs">onderwijs</a>) · <a href="/tools/wia-calculator" data-view="wia-calc-view">WIA/WGA berekenen</a></p>
       <div style="overflow-x:auto;">
         <table style="width:100%;border-collapse:collapse;font-size:0.86rem;min-width:540px;">
           <thead>
@@ -5267,6 +5405,10 @@
         </table>
       </div>
       <p style="font-size:0.8rem;color:var(--ink-soft);margin-top:14px;">Bron: UWV / Belastingdienst. Exacte sectorpremies per sector zijn op te vragen bij het UWV of de Belastingdienst.</p>
+      <h2 style="margin-top:32px;">Hoe leest u deze reeks naast uw WHK-beschikking?</h2>
+      <p style="font-size:0.92rem;color:var(--ink-soft);max-width:720px;margin-bottom:14px;">De Werkhervattingskas-premie bestaat uit een ZW-deel (vaak sectoraal) en een WGA-deel (bij middelgrote en grote werkgevers deels of volledig individueel). Alleen het WGA-deel beweegt mee met uw eigen schadelast. Zit uw gedifferentieerde WGA-percentage duidelijk boven het jaargemiddelde in de tabel, dan is dat een reden om de bijlage met toegerekende personen te controleren — niet om het percentage “blind” te verlagen.</p>
+      <p style="font-size:0.92rem;color:var(--ink-soft);max-width:720px;margin-bottom:14px;">Kleine werkgevers betalen een sectorale premie; de loonsomgrenzen in de tabel markeren de overgang naar middelgroot en groot. Die grenzen schuiven jaarlijks. Sectorpagina’s (zorg, onderwijs, bouw, overheid) lichten typische fouten per branche toe; de landelijke reeks hierboven is het ijkpunt.</p>
+      <p style="font-size:0.9rem;color:var(--ink-soft);margin-bottom:8px;">Vervolg: <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">beschikking lezen</a> · <a href="/faq" data-view="faq-view">FAQ Werkhervattingskas</a> · <a href="/diensten/whk-controle" data-view="dienst-whkreductie-view">gratis WHK-check</a></p>
       <div class="cta-row" style="margin-top:30px;">
         <button class="btn btn-risk" data-view="home-view">Check uw eigen premie</button>
         <button class="btn btn-savings" data-view="sectors-view">Bekijk uw sector</button>
@@ -5307,6 +5449,7 @@
       <h3 style="font-size:1rem;margin-bottom:16px;">Meld u aan als doorverwijzingspartner</h3>
       <div style="background:var(--paper-deep);border:1px solid var(--line);border-radius:var(--radius-s);padding:22px 24px;">
         <form id="controller-form" style="display:flex;flex-direction:column;gap:12px;">
+          <div class="hp-field" aria-hidden="true"><label for="ctrl-honeypot">Website</label><input type="text" id="ctrl-honeypot" name="website" tabindex="-1" autocomplete="off"></div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
             <div class="field"><label for="ctrl-naam">Naam</label><input type="text" id="ctrl-naam" placeholder="Uw naam"></div>
             <div class="field"><label for="ctrl-functie">Functie</label><input type="text" id="ctrl-functie" placeholder="bv. Controller, HR-directeur"></div>
@@ -5609,8 +5752,9 @@
         <h3 style="font-size:1rem;margin-bottom:6px;">Klant doorverwijzen of samenwerking bespreken</h3>
         <p style="font-size:0.88rem;color:var(--ink-soft);margin-bottom:20px;">Vul het formulier in — wij nemen binnen één werkdag contact op voor een korte kennismaking of om de doorverwijzing direct op te pakken.</p>
         <div style="display:flex;flex-direction:column;gap:12px;" id="partner-form">
-          <div class="field"><label for="pf-naam">Uw naam en organisatie</label><input type="text" id="pf-naam" placeholder="Jan de Vries — Intermediair Verzuim BV"></div>
-          <div class="field"><label for="pf-email">Uw e-mailadres</label><input type="email" id="pf-email" placeholder="j.devries@intermediair.nl"></div>
+          <div class="hp-field" aria-hidden="true"><label for="pf-honeypot">Website</label><input type="text" id="pf-honeypot" name="website" tabindex="-1" autocomplete="off"></div>
+          <div class="field"><label for="pf-naam">Uw naam en organisatie</label><input type="text" id="pf-naam" placeholder="Uw naam — organisatie"></div>
+          <div class="field"><label for="pf-email">Uw e-mailadres</label><input type="email" id="pf-email" placeholder="uw.naam@organisatie.nl"></div>
           <div class="field"><label for="pf-tel">Uw telefoonnummer</label><input type="tel" id="pf-tel" placeholder="06-"></div>
           <div class="field">
             <label for="pf-type">Uw rol</label>
@@ -6077,6 +6221,8 @@
               <option value="conversation">🔵 Gesprek</option>
               <option value="client">🟢 Klant</option>
               <option value="closed">⚫ Afgesloten</option>
+              <option value="test">🧪 Test</option>
+              <option value="spam">⛔ Spam</option>
             </select>
           </div>
           <div id="admin-lead-list"></div>
@@ -6613,9 +6759,10 @@
         <h3 style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9B9588;margin-bottom:14px;">Direct contact</h3>
         <p style="color:#C9C3B4;font-size:0.84rem;margin-bottom:12px;">Laat uw nummer achter — wij bellen u binnen 1 werkdag terug.</p>
         <form class="mini-form" id="terugbel-form">
-          <input type="text" name="website" id="fb-honeypot" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;">
+          <div class="hp-field" aria-hidden="true"><label for="fb-honeypot">Website</label><input type="text" name="website" id="fb-honeypot" tabindex="-1" autocomplete="off"></div>
           <input type="text" placeholder="Naam" id="fb-naam">
           <input type="tel" placeholder="Telefoonnummer" id="fb-tel">
+          <input type="email" placeholder="E-mail (als u liever geen nummer achterlaat)" id="fb-email">
           <select id="fb-onderwerp" style="padding:9px 12px;border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-s);background:rgba(255,255,255,0.08);color:var(--paper);font-size:0.88rem;font-family:inherit;">
             <option value="" style="background:var(--ink);">Waar gaat uw vraag over?</option>
             <option value="WHK-beschikking" style="background:var(--ink);">WHK-beschikking controleren</option>
@@ -6638,7 +6785,7 @@
         <a href="/privacy" data-view="privacy-view" id="footer-privacy" style="color:#9B9588;font-size:0.8rem;text-decoration:none;">Privacyverklaring</a>
         <a href="/faq" data-view="faq-view" style="color:#9B9588;font-size:0.8rem;text-decoration:none;">FAQ</a>
         <a href="/sitemap.xml" target="_blank" style="color:#9B9588;font-size:0.8rem;text-decoration:none;">Sitemap</a>
-        <a href="#" data-view="login-view" style="color:#9B9588;font-size:0.8rem;text-decoration:none;">Beheerderslogin</a>
+        <a href="/admin" data-view="login-view" style="color:#9B9588;font-size:0.8rem;text-decoration:none;">Beheerderslogin</a>
       </div>
     </div>
   </footer>
@@ -6663,8 +6810,12 @@
         </div>
         <div class="field">
           <label for="m-tel">Telefoonnummer <span style="color:var(--risk);">*</span></label>
-          <input type="tel" id="m-tel" required placeholder="06-12345678">
-          <span id="m-tel-err" style="display:none;color:var(--risk);font-size:0.8rem;margin-top:3px;">Vul een geldig telefoonnummer in</span>
+          <input type="tel" id="m-tel" placeholder="06-">
+          <span id="m-tel-err" style="display:none;color:var(--risk);font-size:0.8rem;margin-top:3px;">Vul een geldig telefoonnummer of e-mailadres in</span>
+        </div>
+        <div class="field">
+          <label for="m-email">E-mailadres</label>
+          <input type="email" id="m-email" placeholder="uw.naam@bedrijf.nl">
         </div>
         <div class="field">
           <label for="m-onderwerp">Waar gaat uw vraag over?</label>
@@ -6749,8 +6900,10 @@
       <p style="font-size:0.88rem;color:var(--ink-soft);margin-bottom:20px;">5 veelgemaakte fouten in uw WHK-beschikking &mdash; en hoe u ze herkent. Direct inzichtelijk, ook zonder specialist.</p>
       <div id="lead-magnet-form-wrap">
         <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="hp-field" aria-hidden="true"><label for="lm-honeypot">Website</label><input type="text" id="lm-honeypot" name="website" tabindex="-1" autocomplete="off"></div>
           <input type="text" id="lm-naam" placeholder="Uw naam" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);width:100%;box-sizing:border-box;">
           <input type="email" id="lm-email" placeholder="Uw e-mailadres" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);width:100%;box-sizing:border-box;">
+          <input type="tel" id="lm-tel" placeholder="Telefoon (optioneel als u e-mail invult)" style="padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.9rem;background:var(--paper-deep);width:100%;box-sizing:border-box;">
           <button class="btn btn-risk" id="lm-submit" type="button" style="justify-content:center;">Stuur mij de checklist</button>
         </div>
         <p style="font-size:0.76rem;color:var(--ink-soft);margin-top:10px;">Uw gegevens worden niet gedeeld en u kunt zich altijd uitschrijven.</p>
@@ -6777,6 +6930,7 @@
 
 </div>
 
+<script src="/lib/lead-guard.js"></script>
 <script>
 (function(){
   var state = {
@@ -6791,6 +6945,73 @@
 
   function fmtEUR(n){
     return '€ ' + Math.round(n).toLocaleString('nl-NL');
+  }
+
+  function classifyLeadFields(fields){
+    if(typeof LeadGuard !== 'undefined' && LeadGuard.classify) return LeadGuard.classify(fields);
+    var name = String(fields.name || '').trim();
+    var phone = String(fields.phone || '').trim();
+    var email = String(fields.email || '').trim();
+    if(fields.honeypot) return { ok:true, notify:false, status:'spam', lead:fields };
+    if(!name || (!phone && !email)) return { ok:false, error:'Naam en telefoon of e-mail zijn verplicht.', lead:fields };
+    return { ok:true, notify:true, status:'new', lead:fields };
+  }
+  function hpVal(id){
+    var el = document.getElementById(id);
+    return el ? el.value : '';
+  }
+  function markContactError(ids, msgEl){
+    (ids || []).forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.style.borderColor = 'var(--risk)';
+    });
+    if(msgEl){ msgEl.style.display = 'block'; }
+  }
+
+  // Calculator defaults (admin can override). Needed at parse time — later
+  // tools (WIA, premiehistorie) live in this same script and must not abort.
+  var CALC_CONFIG_DEFAULTS = {
+    modaalInkomen: 44000,
+    wgaUitkeringsPercentage: 0.70,
+    wgaAfbouwFactor: 0.70,
+    wgaGemJaren: 5,
+    wgaPremieGem: 0.96,
+    kleinGrens: 1082500,
+    grootGrens: 4330000,
+    bezwaartermijnWeken: 6,
+    ivaConversieRatio: 0.15,
+    herstelRatio35: 0.10,
+    tarief_ad_standaard: 1095,
+    tarief_ad_geregistreerd: 1295,
+    tarief_spoor2_kort: 2500,
+    tarief_spoor2_vol: 4500,
+    tarief_psycholoog: 1800,
+    tarief_coaching: 1500,
+    tarief_loopbaancoaching: 2000,
+    tarief_outplacement: 4500,
+    tarief_consultancy_uur: 165,
+    bulk_drempel1: 5,
+    bulk_drempel2: 10,
+    bulk_drempel3: 20,
+    bulk_korting1: 0.10,
+    bulk_korting2: 0.15,
+    bulk_korting3: 0.20
+  };
+  var CALC_CONFIG = {};
+  Object.keys(CALC_CONFIG_DEFAULTS).forEach(function(k){ CALC_CONFIG[k] = CALC_CONFIG_DEFAULTS[k]; });
+  function applyCalcConfig(){ /* tarieven/grenzen are read live from CALC_CONFIG */ }
+  function loadCalcConfig(){
+    if (typeof storageGet !== 'function') return;
+    storageGet('settings:calc_config', true).then(function(res){
+      try {
+        if (res && res.value) {
+          var parsed = typeof res.value === 'string' ? JSON.parse(res.value) : res.value;
+          if (parsed && typeof parsed === 'object') Object.assign(CALC_CONFIG, parsed);
+        }
+      } catch (e) {}
+      if (typeof applyCalcConfig === 'function') applyCalcConfig();
+      if (typeof renderCalcConfigAdmin === 'function') renderCalcConfigAdmin();
+    }).catch(function(){ /* local / unconfigured API */ });
   }
 
   // ---- slider ----
@@ -6824,12 +7045,15 @@
   function submitFaqVraag(){
     var naam = (document.getElementById('faq-vraag-naam') || {value:''}).value.trim();
     var tel  = (document.getElementById('faq-vraag-tel')  || {value:''}).value.trim();
-    if(!naam || !tel){ return; }
-    addLead(naam, tel, 'faq-inline-vraag');
+    var email = (document.getElementById('faq-vraag-email') || {value:''}).value.trim();
+    var classified = classifyLeadFields({ name: naam, phone: tel, email: email, honeypot: hpVal('faq-honeypot') });
+    if(!classified.ok){ markContactError(['faq-vraag-naam','faq-vraag-tel','faq-vraag-email']); return; }
+    addLead(naam, tel, 'faq-inline-vraag', '', email, hpVal('faq-honeypot'));
     var ok = document.getElementById('faq-vraag-ok');
     if(ok) ok.style.display = 'block';
     document.getElementById('faq-vraag-naam').value = '';
     document.getElementById('faq-vraag-tel').value  = '';
+    if(document.getElementById('faq-vraag-email')) document.getElementById('faq-vraag-email').value = '';
   }
 
   document.querySelectorAll('[data-step-target]').forEach(function(btn){
@@ -7022,15 +7246,23 @@
   if(reportTbForm){
     reportTbForm.addEventListener('submit', function(e){
       e.preventDefault();
-      var hp = document.getElementById('report-hp');
-      if(hp && hp.value) return;
       var naam = (document.getElementById('report-naam')||{value:''}).value.trim();
       var tel  = (document.getElementById('report-tel') ||{value:''}).value.trim();
-      if(!naam || !tel) return;
+      var email = (document.getElementById('report-email')||{value:''}).value.trim();
+      var classified = classifyLeadFields({ name: naam, phone: tel, email: email, honeypot: hpVal('report-hp') });
+      var err = document.getElementById('report-tb-err');
+      if(!classified.ok){
+        if(err) err.style.display = 'block';
+        markContactError(['report-naam','report-tel','report-email']);
+        return;
+      }
+      if(err) err.style.display = 'none';
       reportTbForm.style.display = 'none';
       if(reportStep2) reportStep2.style.display = 'block';
       reportTbForm._naam = naam;
       reportTbForm._tel  = tel;
+      reportTbForm._email = email;
+      reportTbForm._hp = hpVal('report-hp');
     });
   }
 
@@ -7041,7 +7273,8 @@
       selectedSlot = btn.getAttribute('data-slot');
       var naam = reportTbForm ? (reportTbForm._naam || '') : '';
       var tel  = reportTbForm ? (reportTbForm._tel  || '') : '';
-      addLead(naam, tel, 'rapport-terugbel:' + selectedSlot);
+      var email = reportTbForm ? (reportTbForm._email || '') : '';
+      addLead(naam, tel, 'rapport-terugbel:' + selectedSlot, '', email, reportTbForm ? reportTbForm._hp : '');
       if(reportStep2) reportStep2.style.display = 'none';
       if(reportTbOk)  reportTbOk.style.display = 'block';
     });
@@ -7066,12 +7299,13 @@
     lmSubmit.addEventListener('click', function(){
       var email = (document.getElementById('lm-email')||{value:''}).value.trim();
       var naam  = (document.getElementById('lm-naam') ||{value:''}).value.trim();
-      if(!naam){ var nEl = document.getElementById('lm-naam'); if(nEl){ nEl.style.borderColor='var(--risk)'; nEl.placeholder='Naam verplicht'; nEl.focus(); } return; }
-      if(!email || email.indexOf('@')===-1){ var eEl = document.getElementById('lm-email'); if(eEl){ eEl.style.borderColor='var(--risk)'; eEl.placeholder='Geldig e-mail verplicht'; eEl.focus(); } return; }
+      var tel   = (document.getElementById('lm-tel') ||{value:''}).value.trim();
+      var classified = classifyLeadFields({ name: naam, phone: tel, email: email, honeypot: hpVal('lm-honeypot') });
+      if(!classified.ok){ markContactError(['lm-naam','lm-email','lm-tel']); return; }
       if(document.getElementById('lm-naam')) document.getElementById('lm-naam').style.borderColor='';
       if(document.getElementById('lm-email')) document.getElementById('lm-email').style.borderColor='';
       addNewsletterSub(email);
-      if(naam) addLead(naam, email, 'lead-magnet-checklist');
+      addLead(naam, tel, 'lead-magnet-checklist', '', email, hpVal('lm-honeypot'));
       trackEvent('lead_magnet_converted');
       // Doorsturen naar de checklistpagina
       window.open('/whk_checklist.html', '_blank');
@@ -7151,13 +7385,16 @@
   document.getElementById('submit-calc').addEventListener('click', function(){
     var naam = document.getElementById('naam').value.trim();
     var telefoon = document.getElementById('telefoon').value.trim();
+    var email = (document.getElementById('email') || {value:''}).value.trim();
     var errorEl = document.getElementById('form-error');
-    if(!naam || !telefoon){
+    var classified = classifyLeadFields({ name: naam, phone: telefoon, email: email, honeypot: hpVal('calc-honeypot') });
+    if(!classified.ok){
       errorEl.style.display = 'block';
+      markContactError(['naam','telefoon','email'], errorEl);
       return;
     }
     errorEl.style.display = 'none';
-    addLead(naam, telefoon, 'calculator');
+    addLead(naam, telefoon, 'calculator', '', email, hpVal('calc-honeypot'));
     showResults();
   });
 
@@ -7191,17 +7428,43 @@
     });
   }
 
-  // ---- drag & drop upload (front-end demo only) ----
+  // ---- drag & drop upload — lead vereist naam + contact ----
   var dropZone = document.getElementById('drop-zone');
   var fileInput = document.getElementById('file-input');
   var dropLabel = document.getElementById('drop-label');
-  dropZone.addEventListener('click', function(){ fileInput.click(); });
+  function uploadFields(){
+    return {
+      name: (document.getElementById('upload-naam')||{value:''}).value.trim(),
+      phone: (document.getElementById('upload-tel')||{value:''}).value.trim(),
+      email: (document.getElementById('upload-email')||{value:''}).value.trim(),
+      honeypot: hpVal('upload-honeypot')
+    };
+  }
+  function uploadContactOk(){
+    var classified = classifyLeadFields(uploadFields());
+    var err = document.getElementById('upload-err');
+    if(!classified.ok){
+      if(err) err.style.display = 'block';
+      markContactError(['upload-naam','upload-tel','upload-email']);
+      return null;
+    }
+    if(err) err.style.display = 'none';
+    return classified;
+  }
+  dropZone.addEventListener('click', function(){
+    if(!uploadContactOk()) return;
+    fileInput.click();
+  });
   dropZone.addEventListener('dragover', function(e){ e.preventDefault(); dropZone.classList.add('over'); });
   dropZone.addEventListener('dragleave', function(){ dropZone.classList.remove('over'); });
   function handleFile(name){
+    var fields = uploadFields();
+    var classified = uploadContactOk();
+    if(!classified) return;
     dropZone.classList.remove('over');
     dropZone.classList.add('done');
     dropLabel.textContent = '"' + name + '" toegevoegd — we controleren binnen 48 uur.';
+    addLead(fields.name, fields.phone, 'beschikking-upload', 'Bestand: ' + name, fields.email, fields.honeypot);
   }
   dropZone.addEventListener('drop', function(e){
     e.preventDefault();
@@ -7214,30 +7477,23 @@
   // ---- terugbel footer form ----
   document.getElementById('terugbel-form').addEventListener('submit', function(e){
     e.preventDefault();
-    var hp = document.getElementById('fb-honeypot');
-    if(hp && hp.value) return;
     var naam = document.getElementById('fb-naam').value.trim();
     var tel  = document.getElementById('fb-tel').value.trim();
+    var email = (document.getElementById('fb-email') || {value:''}).value.trim();
     var onderwerp = (document.getElementById('fb-onderwerp') || {value:''}).value;
-
-    // Validatie
-    if(!naam){
-      var nEl = document.getElementById('fb-naam');
-      nEl.style.borderColor = 'var(--risk)';
-      nEl.focus();
-      return;
-    }
-    if(!tel || tel.replace(/\D/g,'').length < 9){
-      var tEl = document.getElementById('fb-tel');
-      tEl.style.borderColor = 'var(--risk)';
-      tEl.focus();
+    var classified = classifyLeadFields({ name: naam, phone: tel, email: email, honeypot: hpVal('fb-honeypot') });
+    if(!classified.ok){
+      markContactError(['fb-naam','fb-tel','fb-email']);
+      if(!naam) document.getElementById('fb-naam').focus();
+      else if(!tel && !email) document.getElementById('fb-tel').focus();
       return;
     }
     document.getElementById('fb-naam').style.borderColor = '';
     document.getElementById('fb-tel').style.borderColor = '';
+    if(document.getElementById('fb-email')) document.getElementById('fb-email').style.borderColor = '';
 
     var source = 'footer-terugbel' + (onderwerp ? ':' + onderwerp : '');
-    addLead(naam, tel, source);
+    addLead(naam, tel, source, '', email, hpVal('fb-honeypot'));
     document.getElementById('fb-ok').style.display = 'block';
     this.reset();
   });
@@ -7269,41 +7525,37 @@
     bg.addEventListener('click', function(e){ if(e.target === bg) bg.classList.remove('show'); });
   });
   document.getElementById('m-submit').addEventListener('click', function(){
-    // Honeypot check — bots vullen dit in, mensen niet
-    var honeypot = (document.getElementById('m-honeypot') || {value:''}).value;
-    if(honeypot){ return; } // stilletjes weggooien
-
     var naam      = document.getElementById('m-naam').value.trim();
     var tel       = document.getElementById('m-tel').value.trim();
+    var email     = (document.getElementById('m-email') || {value:''}).value.trim();
     var onderwerp = (document.getElementById('m-onderwerp') || {value:''}).value;
+    var classified = classifyLeadFields({ name: naam, phone: tel, email: email, honeypot: hpVal('m-honeypot') });
 
-    if(!naam){
-      var nEl = document.getElementById('m-naam');
-      nEl.style.borderColor = 'var(--risk)';
-      nEl.placeholder = 'Naam is verplicht';
-      nEl.focus();
-      document.getElementById('m-naam-err').style.display = 'block';
+    if(!classified.ok){
+      if(!naam){
+        var nEl = document.getElementById('m-naam');
+        nEl.style.borderColor = 'var(--risk)';
+        nEl.placeholder = 'Naam is verplicht';
+        nEl.focus();
+        document.getElementById('m-naam-err').style.display = 'block';
+      } else {
+        var tEl = document.getElementById('m-tel');
+        tEl.style.borderColor = 'var(--risk)';
+        tEl.focus();
+        document.getElementById('m-tel-err').style.display = 'block';
+      }
       return;
     }
-    if(!tel || tel.replace(/\D/g,'').length < 9){
-      var tEl = document.getElementById('m-tel');
-      tEl.style.borderColor = 'var(--risk)';
-      tEl.placeholder = 'Geldig telefoonnummer verplicht';
-      tEl.focus();
-      document.getElementById('m-tel-err').style.display = 'block';
-      return;
-    }
-    // Reset borders
     document.getElementById('m-naam').style.borderColor = '';
     document.getElementById('m-tel').style.borderColor = '';
     document.getElementById('m-naam-err').style.display = 'none';
     document.getElementById('m-tel-err').style.display = 'none';
-    // Toon stap 2: tijdselectie
     document.getElementById('modal-tb-step1').style.display = 'none';
     document.getElementById('modal-tb-step2').style.display = 'block';
-    // Bewaar voor als slot wordt gekozen
     document.getElementById('m-submit')._naam = naam;
     document.getElementById('m-submit')._tel  = tel;
+    document.getElementById('m-submit')._email = email;
+    document.getElementById('m-submit')._hp = hpVal('m-honeypot');
     document.getElementById('m-submit')._onderwerp = onderwerp;
   });
 
@@ -7315,17 +7567,19 @@
       var submitBtn = document.getElementById('m-submit');
       var naam      = submitBtn._naam || '';
       var tel       = submitBtn._tel  || '';
+      var email     = submitBtn._email || '';
       var onderwerp = submitBtn._onderwerp || '';
       var paginaNaam = (typeof activeViewId !== 'undefined' ? activeViewId : 'onbekend').replace('-view', '');
       var source = 'terugbel-modal' + (onderwerp ? ':' + onderwerp : '') + ':' + slot;
       var message = 'Pagina: ' + paginaNaam + ' | Tijdstip: ' + slot;
-      addLead(naam, tel, source, message);
+      addLead(naam, tel, source, message, email, submitBtn._hp);
       document.getElementById('modal-tb-step2').style.display = 'none';
       document.getElementById('m-ok').style.display = 'block';
       // Reset voor volgende keer
       setTimeout(function(){
         document.getElementById('m-naam').value = '';
         document.getElementById('m-tel').value = '';
+        if(document.getElementById('m-email')) document.getElementById('m-email').value = '';
         if(document.getElementById('m-onderwerp')) document.getElementById('m-onderwerp').value = '';
         document.getElementById('modal-tb-step1').style.display = 'block';
         document.getElementById('modal-tb-step2').style.display = 'none';
@@ -7426,6 +7680,9 @@
   // De rest van de code hoeft niet te veranderen.
   // ================================================================
   var BACKEND_URL = 'https://whk-production.up.railway.app'; // Railway URL — ingesteld op 27-6-2026
+  if(typeof location !== 'undefined' && /^(localhost|127\.0\.0\.1)$/.test(location.hostname)){
+    BACKEND_URL = location.origin;
+  }
 
   // API-contract — alle endpoints die de Railway-backend moet leveren:
   // GET    /api/posts                → array van posts
@@ -7587,11 +7844,11 @@
   var VIEWS = ['home-view','results-view','overons-view','aanpak-view','faq-view','blog-view','blogpost-view','lexicon-view','quiz-view','besparingen-overzicht-view','preventie-calculator-view','dienst-whkreductie-view','dienst-besparingsonderzoek-view','dienst-letselschade-view','dienst-arbeidsdeskundig-view','dienst-tweedespoor-view','dienst-consultancy-view','dienst-partneradvies-view','interventie-check-view','tools-view','pricing-view','sectors-view','sector-view','casestudies-view','beschikking-uitleg-view','vergelijking-view','poortwachter-view','wia-calc-view','subsidie-scan-view','kalender-view','premiehistorie-view','controller-view','doelgroep-hr-view','doelgroep-casemanager-view','doelgroep-directeur-view','doelgroep-tussenpersoon-view','privacy-view','login-view','admin-view'];
 
   var VIEW_META = {
-    'home-view': {title: 'werkhervattingskas.nl — WHK-beschikking controleren & verzuimkosten verlagen', desc: 'Onafhankelijke controle van uw WHK-beschikking, no-riskpolis en loonkostenvoordeel. Geen besparing? Geen kosten. Vrijblijvende check binnen 15 minuten.'},
-    'overons-view': {title: 'Over ons — werkhervattingskas.nl', desc: 'Maak kennis met Matchvermogen en het team achter werkhervattingskas.nl: arbeidsdeskundigen gespecialiseerd in WHK-controles en re-integratie.'},
+    'home-view': {title: 'WHK-beschikking controleren — in 8 van de 10 gevallen vinden wij iets', desc: 'Fout in uw WHK-beschikking? Gratis controle, no cure no pay bezwaar. Gemiddeld €47.000 besparing. Erkend arbeidsdeskundige. Resultaat binnen 5 werkdagen.'},
+    'overons-view': {title: 'Over Matchvermogen — werkhervattingskas.nl', desc: 'Matchvermogen is gespecialiseerd in WHK-optimalisatie, arbeidsdeskundig onderzoek en re-integratiediensten.'},
+    'faq-view': {title: 'FAQ Werkhervattingskas (WHK): vragen over premie, WIA en bezwaar', desc: 'Wat is de Werkhervattingskas? Hoe werkt de WHK-premie, no-riskpolis, WIA/WGA en bezwaar? Antwoorden van een erkend arbeidsdeskundige, plus links naar rekentools.'},
+    'blog-view': {title: 'WHK-kennisbank voor HR en Finance — werkhervattingskas.nl', desc: 'Actuele artikelen over WHK-premies, re-integratie, no-riskpolissen en loonkostenvoordeel.'},
     'aanpak-view': {title: 'Onze aanpak — werkhervattingskas.nl', desc: 'Zo werkt onze WHK-controle: van eerste check tot onderbouwd bezwaar, no cure no pay en met AI-ondersteunde analyse voor sneller resultaat.'},
-    'faq-view': {title: 'Veelgestelde vragen over WHK, no-risk en LKV — werkhervattingskas.nl', desc: 'Antwoorden op veelgestelde vragen over de WHK-beschikking, no-riskpolis, eigenrisicodragerschap, loonkostenvoordeel en arbeidsdeskundig onderzoek.'},
-    'blog-view': {title: 'Blog over WHK, verzuim en re-integratie — werkhervattingskas.nl', desc: 'Artikelen over het controleren van uw WHK-beschikking, de no-riskpolis, eigenrisicodragerschap, loonkostenvoordeel en arbeidsdeskundig onderzoek.'},
     'lexicon-view': {title: 'WHK-lexicon: begrippen uitgelegd — werkhervattingskas.nl', desc: 'Heldere uitleg van WHK- en verzuimbegrippen: WGA, IVA, no-riskpolis, eigenrisicodragerschap, loonkostenvoordeel en meer.'},
     'quiz-view': {title: 'Besparingsonderzoek: WHK, interventies en eigenrisicodragerschap — werkhervattingskas.nl', desc: 'Ontdek in acht korte vragen of er bij uw organisatie besparing blijft liggen op het gebied van WHK, interventies of eigenrisicodragerschap.'},
     'preventie-calculator-view': {title: 'Wat levert vroeg ingrijpen op? — werkhervattingskas.nl', desc: 'Bereken wat vervroegde inzet van arbeidsdeskundig onderzoek, tweede spoor, coaching of outplacement kan schelen aan voorkomen WGA-instroom en WHK-premie.'},
@@ -7599,7 +7856,7 @@
     'dienst-besparingsonderzoek-view': {title: 'Besparingsonderzoek als dienst — werkhervattingskas.nl', desc: 'Een volledige doorlichting van uw WHK-beschikking, interventiebeleid, eigenrisicodragerschap en subsidies, met een geprioriteerde rapportage.'},
     'dienst-letselschade-view': {title: 'Letselschade verhalen (regres) — werkhervattingskas.nl', desc: 'Loondoorbetaling tijdens ziekte verhalen op de aansprakelijke derde partij bij letselschade, en de relatie met uw WHK-premie.'},
     'besparingen-overzicht-view': {title: 'Alle besparingsmogelijkheden op een rij — werkhervattingskas.nl', desc: 'WHK-controle, vroege interventies, eigenrisicodragerschap en loonkostenvoordeel in één overzicht, met een persoonlijke besparingsscan.'},
-    'dienst-arbeidsdeskundig-view': {title: 'Arbeidsdeskundig onderzoek — werkhervattingskas.nl', desc: 'Arbeidsdeskundig onderzoek via Matchvermogen: heldere beoordeling van de belastbaarheid van zieke medewerkers, met directe link naar uw WHK-premie.'},
+    'dienst-arbeidsdeskundig-view': {title: 'Arbeidsdeskundig onderzoek: wat het is, wanneer nodig en kosten [2026]', desc: 'Arbeidsdeskundig onderzoek door een erkende arbeidsdeskundige: belastbaarheid, spoorkeuze en dossierwaarde. Wanneer het nodig is bij poortwachter, WIA of bezwaar — en wat het inhoudt.'},
     'dienst-tweedespoor-view': {title: 'Tweede spoor re-integratie — werkhervattingskas.nl', desc: 'Tweede spoor re-integratie via Best Match: actieve begeleiding naar een passende baan elders, om WGA-instroom en een loonsanctie te voorkomen.'},
     'dienst-consultancy-view': {title: 'Verzuimconsultancy — werkhervattingskas.nl', desc: 'Verzuimconsultancy via Best Match: structureel advies over uw verzuimbeleid, gericht op het voorkomen van toekomstige WHK-instroom.'},
     'dienst-partneradvies-view': {title: 'Verzekerde regelingen & extra advies — werkhervattingskas.nl', desc: 'Onafhankelijk advies over verzuimverzekeringen, WGA-gatverzekeringen en de keuze tussen de publieke WHK-route en eigenrisicodragerschap.'},
@@ -7607,16 +7864,51 @@
     'tools-view': {title: 'Gratis WHK-tools voor werkgevers — werkhervattingskas.nl', desc: 'Bereken uw WHK-positie zelf: bezwaartermijn, sectorvergelijking, schadelasttool, tariefchecker en besparingsonderzoek. Gratis, direct, geen aanmelding.'},
     'pricing-view': {title: 'Wat kost het? No cure, no pay — werkhervattingskas.nl', desc: 'Wij werken uitsluitend op basis van resultaat. Geen besparing gevonden? Dan betaalt u niets. Transparant percentage alleen bij gerealiseerde besparing.'},
     'sectors-view': {title: 'WHK-besparing per sector — werkhervattingskas.nl', desc: 'Ontdek wat WHK-besparing voor uw sector specifiek betekent: zorg, onderwijs, bouw, overheid, retail, industrie, transport, horeca, ICT, financieel, uitzend en schoonmaak.'},
+    'privacy-view': {title: 'Privacyverklaring — werkhervattingskas.nl', desc: 'Hoe werkhervattingskas.nl omgaat met uw persoonsgegevens en AVG-rechten.'},
+    'casestudies-view': {title: 'Praktijkcasussen WHK-besparing — werkhervattingskas.nl', desc: 'Vijf geanonimiseerde casussen: van €9.800 tot €137.000 besparing per jaar.'},
+    'beschikking-uitleg-view': {title: 'Wat is de Werkhervattingskas (WHK)? Zo leest u uw beschikking', desc: 'De Werkhervattingskas is de gedifferentieerde ZW- en WGA-premie. Uitleg per onderdeel van uw WHK-beschikking: dagtekening, loonsom, toerekening en veelgemaakte fouten.'},
+    'vergelijking-view': {title: 'Matchvermogen vs. controller vs. arbodienst — werkhervattingskas.nl', desc: 'Eerlijke vergelijking: wie controleert uw WHK-beschikking het beste?'},
+    'poortwachter-view': {title: 'Poortwachter-tijdlijnchecker 2026 — werkhervattingskas.nl', desc: 'Vul de eerste ziektedag in en zie direct alle Wet poortwachter-deadlines.'},
+    'wia-calc-view': {title: 'WIA berekenen: WGA, IVA en loonaanvullingsuitkering [2026]', desc: 'WIA, WGA of IVA berekenen op basis van dagloon en AO-percentage. Inclusief loonaanvullingsuitkering en het effect op de WHK-premie van de werkgever. Indicatief, gratis.'},
+    'subsidie-scan-view': {title: 'Subsidie-scan LKV, LIV en WKB — werkhervattingskas.nl', desc: 'Bereken in 3 stappen of u loonkostenvoordeel, lage-inkomensvoordeel of werkbonus kunt claimen.'},
+    'kalender-view': {title: 'WHK Jaarkalender 2026 — alle deadlines op een rij — werkhervattingskas.nl', desc: 'Alle WHK-deadlines per maand: bezwaartermijn beschikking, LKV-aanvraag en poortwachter-verplichtingen.'},
+    'premiehistorie-view': {title: 'WHK- en WGA-premies 2022–2026: historisch overzicht', desc: 'Gemiddelde gedifferentieerde WGA-premie per jaar, met minimum, maximum en loonsomgrenzen. Vergelijk de reeks met het WGA-deel op uw WHK-beschikking.'},
+    'controller-view': {title: 'WHK-optimalisatie voor controllers & Finance — werkhervattingskas.nl', desc: 'Verlaag de WHK-loonkostenpost structureel. No cure, no pay.'},
+    'doelgroep-hr-view': {title: 'WHK voor HR-managers & HR-adviseurs — werkhervattingskas.nl', desc: 'U regelt het verzuim. Wij regelen de financiële kant: WHK-check en no-riskpolissen.'},
+    'doelgroep-casemanager-view': {title: 'WHK en re-integratie voor casemanagers — werkhervattingskas.nl', desc: 'Wij zijn uw verlengstuk: AD-onderzoek, tweede spoor en WGA-herbeoordeling.'},
+    'doelgroep-directeur-view': {title: 'WHK-besparing voor directeuren & eigenaren — werkhervattingskas.nl', desc: 'In 8 van de 10 gevallen vinden wij besparing. No cure, no pay.'},
+    'doelgroep-tussenpersoon-view': {title: 'WHK-expertise voor tussenpersonen & assurantieadviseurs — werkhervattingskas.nl', desc: 'Als assurantietussenpersoon of adviseur biedt u uw klanten meer waarde met WHK-expertise.'},
     'sector-view':  {title: 'Sector — werkhervattingskas.nl', desc: 'Sector-specifieke WHK-besparing.'}
   };
 
-  function updateMeta(title, desc){
+  function updateCanonical(path){
+    var canonPath = path || window.location.pathname || '/';
+    var url = 'https://werkhervattingskas.nl' + (canonPath === '/' ? '/' : canonPath);
+    var c = document.querySelector('link[rel="canonical"]');
+    if(c) c.setAttribute('href', url);
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(function(el){
+      el.setAttribute('href', url);
+    });
+    var ogUrl = document.querySelector('meta[property="og:url"]');
+    if(ogUrl) ogUrl.setAttribute('content', url);
+    var ogTitle = document.querySelector('meta[property="og:title"]');
+    if(ogTitle) ogTitle.setAttribute('content', document.title);
+    var twTitle = document.querySelector('meta[name="twitter:title"]');
+    if(twTitle) twTitle.setAttribute('content', document.title);
+  }
+
+  function updateMeta(title, desc, path){
     document.title = title;
     var m = document.querySelector('meta[name="description"]');
     if(m && desc) m.setAttribute('content', desc);
+    var ogDesc = document.querySelector('meta[property="og:description"]');
+    if(ogDesc && desc) ogDesc.setAttribute('content', desc);
+    var twDesc = document.querySelector('meta[name="twitter:description"]');
+    if(twDesc && desc) twDesc.setAttribute('content', desc);
+    updateCanonical(path);
   }
 
-  var SITE_BASE_URL = 'https://www.werkhervattingskas.nl/';
+  var SITE_BASE_URL = 'https://werkhervattingskas.nl/';
 
   function setDynamicSchema(schemaArray){
     var el = document.getElementById('dynamic-schema');
@@ -7658,7 +7950,7 @@
     if(viewId === 'blogpost-view'){ return; }
     var label = BREADCRUMB_LABELS[viewId];
     if(!label){ setDynamicSchema(null); return; }
-    var base = 'https://www.werkhervattingskas.nl';
+    var base = 'https://werkhervattingskas.nl';
     var items = [{name: 'Home', url: base + '/'}];
     if(DIENST_VIEWS.indexOf(viewId) !== -1){
       items.push({name: 'Diensten', url: base + '/diensten/whk-controle'});
@@ -7731,6 +8023,7 @@
     'dienst-tweedespoor-view':      '/diensten/tweede-spoor',
     'dienst-consultancy-view':      '/diensten/consultancy',
     'dienst-partneradvies-view':    '/diensten/erd-partneradvies',
+    'login-view':                   '/admin',
   };
 
   // Omgekeerde map: pad → view-id
@@ -7751,8 +8044,8 @@
     activeViewId = id;
     window.scrollTo({top:0, behavior:'smooth'});
     if(id === 'aanpak-view'){ triggerAanpakAnimation(); }
-    if(id === 'overons-view'){ triggerHistoryAnimation(); }
-    if(VIEW_META[id]){ updateMeta(VIEW_META[id].title, VIEW_META[id].desc); }
+    if(id === 'overons-view'){ triggerHistoryAnimation(); triggerAboutStatsCountUp(); }
+    if(VIEW_META[id]){ updateMeta(VIEW_META[id].title, VIEW_META[id].desc, VIEW_TO_PATH[id]); }
     if(id !== 'login-view' && id !== 'admin-view'){ trackEvent('pageview', id); }
     updateReadingProgress();
     updateBreadcrumbSchema(id);
@@ -7766,10 +8059,26 @@
 
   // Terugknop van de browser afhandelen
   window.addEventListener('popstate', function(e){
-    if(e.state && e.state.viewId){
+    var path = window.location.pathname;
+    if(path.startsWith('/blog/') && path.length > 6){
+      var slug = path.replace('/blog/', '').replace(/\/$/, '');
+      if(typeof openBlogPost === 'function'){
+        var existing = posts && posts.find(function(x){ return x.slug === slug; });
+        if(existing){
+          openBlogPost(slug);
+          VIEWS.forEach(function(v){
+            var el = document.getElementById(v);
+            if(el) el.classList.toggle('show', v === 'blogpost-view');
+          });
+          activeViewId = 'blogpost-view';
+          return;
+        }
+      }
+    }
+    if(e.state && e.state.viewId && e.state.viewId !== 'blogpost-view'){
       showView(e.state.viewId);
     } else {
-      var view = PATH_TO_VIEW[window.location.pathname] || 'home-view';
+      var view = PATH_TO_VIEW[path] || 'home-view';
       showView(view);
     }
   });
@@ -7790,7 +8099,11 @@
         if(el) el.classList.toggle('show', v === view);
       });
       activeViewId = view;
-      if(VIEW_META[view]) updateMeta(VIEW_META[view].title, VIEW_META[view].desc);
+      if(VIEW_META[view]) updateMeta(VIEW_META[view].title, VIEW_META[view].desc, VIEW_TO_PATH[view] || path);
+      if(view === 'overons-view'){
+        triggerHistoryAnimation();
+        triggerAboutStatsCountUp();
+      }
     }
   })();
 
@@ -8020,24 +8333,37 @@
   initRevealOnScroll('regres-flow', '.reveal-item');
 
   // ---- ABOUT-US STATS COUNT-UP ----
-  (function(){
+  // IntersectionObserver does not reliably fire on parents that start as display:none
+  // (SPA views). Numbers are in the HTML as a fallback; animation is progressive enhancement.
+  var aboutStatsPlayed = false;
+  function triggerAboutStatsCountUp(){
     var section = document.getElementById('about-stats');
-    if(!section) return;
+    if(!section || aboutStatsPlayed) return;
     var targets = section.querySelectorAll('[data-target]');
+    if(!targets.length) return;
     function runCountUp(){
+      if(aboutStatsPlayed) return;
+      aboutStatsPlayed = true;
       targets.forEach(function(el){
         var target = parseInt(el.getAttribute('data-target'), 10);
+        if(!isFinite(target)) return;
+        el.textContent = '0';
         animateCountUp(el, target, function(v){ return String(v); }, 1200);
       });
     }
-    if(!('IntersectionObserver' in window)){ runCountUp(); return; }
+    requestAnimationFrame(function(){ requestAnimationFrame(runCountUp); });
+  }
+  (function(){
+    var section = document.getElementById('about-stats');
+    if(!section) return;
+    if(!('IntersectionObserver' in window)) return;
     var observer = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
         if(!entry.isIntersecting) return;
-        runCountUp();
+        triggerAboutStatsCountUp();
         observer.unobserve(section);
       });
-    }, {threshold: 0.4});
+    }, {threshold: 0.15});
     observer.observe(section);
   })();
   initRevealOnScroll('ad-timing-bar', '.timing-marker', function(){
@@ -8045,9 +8371,12 @@
     if(fill) setTimeout(function(){ fill.style.width = '100%'; }, 100);
   });
 
-  document.getElementById('preventie-cta').addEventListener('click', function(){
-    showView('preventie-calculator-view');
-  });
+  var preventieCta = document.getElementById('preventie-cta');
+  if(preventieCta){
+    preventieCta.addEventListener('click', function(){
+      showView('preventie-calculator-view');
+    });
+  }
 
   // ---- FAQ ACCORDION ----
   document.querySelectorAll('.faq-q').forEach(function(btn){
@@ -9190,6 +9519,15 @@
       savePosts();
     }
     renderBlogGrid();
+    if(window._initialBlogSlug){
+      var bootSlug = window._initialBlogSlug;
+      window._initialBlogSlug = null;
+      var bootPost = posts.find(function(x){ return x.slug === bootSlug; });
+      if(bootPost){
+        openBlogPost(bootSlug);
+        showView('blogpost-view');
+      }
+    }
     // Blog-hub blokken op dienstpagina's vullen na laden posts
     if(typeof buildServiceBlogCards === 'function'){
       buildServiceBlogCards('whkr-blog-cards', [
@@ -9443,58 +9781,49 @@
     } catch(e){ console.error('Opslaan van leads is mislukt', e); }
   }
 
-  async function addLead(name, phone, source, message){
-    // Weiger lege leads
-    var n = (name || '').trim();
-    var p = (phone || '').trim();
-    if(!n && !p) return;  // beide leeg = spam/bot
-    if(!n) n = '(geen naam)';
-    if(!p) p = '(geen telefoon)';
+  async function addLead(name, phone, source, message, email, honeypot){
+    var classified = classifyLeadFields({ name: name, phone: phone, email: email, honeypot: honeypot });
+    if(!classified.ok) return classified;
+    var n = classified.lead || {};
     var lead = {
       id: 'lead_' + Date.now(),
-      name: n,
-      phone: p,
+      name: n.name || String(name || '').trim(),
+      phone: n.phone || String(phone || '').trim(),
+      email: n.email || String(email || '').trim(),
       source: source,
       message: message || '',
       createdAt: new Date().toISOString(),
-      status: 'new'
+      status: classified.status || 'new'
     };
     leads.unshift(lead);
     await saveLeads();
     trackEvent('lead_submitted', source);
     renderLiveCounter();
     if(isAdmin) renderLeadAdmin();
-    if(typeof fireWebhook === 'function') fireWebhook(lead);
+    if(classified.notify && typeof fireWebhook === 'function') fireWebhook(lead);
 
-    // E-mail notificatie via Railway
     if(BACKEND_URL){
       try{
         fetch(BACKEND_URL + '/api/lead/notify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: name, phone: phone, source: source, message: message, page: window.location.href })
+          body: JSON.stringify({
+            name: lead.name,
+            phone: lead.phone,
+            email: lead.email,
+            source: source,
+            message: message,
+            page: window.location.href,
+            website: honeypot || ''
+          })
         });
       } catch(e){ /* stille fout — lead is al opgeslagen */ }
     }
+    return classified;
   }
 
-  async function addReportRequest(email, source, summary){
-    var lead = {
-      id: 'lead_' + Date.now(),
-      name: '',
-      phone: '',
-      email: email || '',
-      summary: summary || '',
-      source: source,
-      createdAt: new Date().toISOString(),
-      status: 'new'
-    };
-    leads.unshift(lead);
-    await saveLeads();
-    trackEvent('lead_submitted', source);
-    renderLiveCounter();
-    if(isAdmin) renderLeadAdmin();
-    if(typeof fireWebhook === 'function') fireWebhook(lead);
+  async function addReportRequest(email, source, summary, name, phone, honeypot){
+    return addLead(name || '', phone || '', source, summary, email, honeypot);
   }
 
   // ---- newsletter signup ----
@@ -9796,15 +10125,15 @@
   }
 
   function generateSitemap(){
-    var base = 'https://www.werkhervattingskas.nl/';
+    var base = 'https://werkhervattingskas.nl/';
     var staticUrls = [
       {loc: base, priority: '1.0'},
-      {loc: base + '#overons-view', priority: '0.6'},
-      {loc: base + '#aanpak-view', priority: '0.6'},
-      {loc: base + '#faq-view', priority: '0.6'},
-      {loc: base + '#blog-view', priority: '0.7'},
-      {loc: base + '#lexicon-view', priority: '0.5'},
-      {loc: base + '#quiz-view', priority: '0.4'}
+      {loc: base + 'over-ons', priority: '0.6'},
+      {loc: base + 'aanpak', priority: '0.6'},
+      {loc: base + 'faq', priority: '0.6'},
+      {loc: base + 'blog', priority: '0.7'},
+      {loc: base + 'lexicon', priority: '0.5'},
+      {loc: base + 'quiz', priority: '0.4'}
     ];
     var lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'];
     staticUrls.forEach(function(u){
@@ -9812,14 +10141,14 @@
     });
     sortedPosts().forEach(function(p){
       var lastmod = (p.lastReviewedAt || p.publishedAt || '').slice(0,10);
-      lines.push('  <url><loc>' + base + '#blog/' + p.slug + '</loc><lastmod>' + lastmod + '</lastmod><priority>0.6</priority></url>');
+      lines.push('  <url><loc>' + base + 'blog/' + p.slug + '</loc><lastmod>' + lastmod + '</lastmod><priority>0.6</priority></url>');
     });
     lines.push('</urlset>');
     downloadTextFile('sitemap.xml', lines.join('\n'), 'application/xml');
   }
 
   function generateRobots(){
-    var content = 'User-agent: *\nAllow: /\n\nSitemap: https://www.werkhervattingskas.nl/sitemap.xml\n';
+    var content = 'User-agent: *\nAllow: /\n\nSitemap: https://werkhervattingskas.nl/sitemap.xml\n';
     downloadTextFile('robots.txt', content, 'text/plain');
   }
 
@@ -10004,23 +10333,28 @@
       'datePublished': p.publishedAt,
       'dateModified': p.publishedAt,
       'author': { '@type': 'Person', 'name': 'Niels Alderding', 'jobTitle': 'Directeur & arbeidsdeskundige', 'url': 'https://www.linkedin.com/in/niels-alderding/' },
-      'publisher': { '@type': 'Organization', 'name': 'Matchvermogen / Werkhervattingskas.nl', 'url': 'https://www.werkhervattingskas.nl' },
-      'mainEntityOfPage': { '@type': 'WebPage', '@id': 'https://www.werkhervattingskas.nl/blog/' + p.slug },
+      'publisher': { '@type': 'Organization', 'name': 'Matchvermogen / Werkhervattingskas.nl', 'url': 'https://werkhervattingskas.nl' },
+      'mainEntityOfPage': { '@type': 'WebPage', '@id': 'https://werkhervattingskas.nl/blog/' + p.slug },
       'keywords': (p.tags || []).join(', ') + (p.keyword ? ', ' + p.keyword : ''),
-      'url': 'https://www.werkhervattingskas.nl/blog/' + p.slug,
+      'url': 'https://werkhervattingskas.nl/blog/' + p.slug,
       'inLanguage': 'nl-NL',
       'about': { '@type': 'Thing', 'name': 'WHK-premie optimalisatie' },
-      'isPartOf': { '@type': 'Blog', 'name': 'WHK-kennisbank', 'url': 'https://www.werkhervattingskas.nl/blog' }
+      'isPartOf': { '@type': 'Blog', 'name': 'WHK-kennisbank', 'url': 'https://werkhervattingskas.nl/blog' }
     }]);
     // Social share knoppen bekabelen
     wireSocialShare(p);
 
-    var bcItems = [{name: 'Home', url: SITE_BASE_URL}, {name: 'Blog', url: SITE_BASE_URL + '#blog-view'}, {name: p.title, url: SITE_BASE_URL + '#blog/' + p.slug}];
+    var bcItems = [{name: 'Home', url: SITE_BASE_URL}, {name: 'Blog', url: SITE_BASE_URL + 'blog'}, {name: p.title, url: SITE_BASE_URL + 'blog/' + p.slug}];
     var schemaArr = [buildBreadcrumbSchema(bcItems)];
     var faqPairs = extractFaqPairs(p.bodyHtml || '');
     if(faqPairs.length > 0){ schemaArr.push(buildFaqSchema(faqPairs)); }
     setDynamicSchema(schemaArr);
     trackEvent('blog_post_opened', p.slug);
+    var blogPath = '/blog/' + p.slug;
+    if(window.location.pathname !== blogPath){
+      history.pushState({ viewId: 'blogpost-view', slug: p.slug }, p.title, blogPath);
+    }
+    updateMeta((p.title || 'Artikel') + ' — werkhervattingskas.nl', p.metaDescription || p.title, blogPath);
     var toolSlot = document.getElementById('blogpost-tool-slot');
     toolSlot.innerHTML = '';
     if(SPOOR2_BLOG_SLUGS.indexOf(p.slug) !== -1){
@@ -10890,28 +11224,38 @@
   // ---- EMAIL-GATE (lichte follow-up na een rekenresultaat) ----
   function buildEmailGateHtml(){
     var html = '<p class="email-gate-label">Ontvang deze uitkomst ook per e-mail</p>';
-    html += '<div class="email-gate-row"><input type="email" class="eg-email-input" placeholder="naam@bedrijf.nl"><button type="button" class="btn btn-savings eg-submit-btn">Verstuur</button></div>';
+    html += '<div class="hp-field" aria-hidden="true"><label>Website</label><input type="text" class="eg-honeypot" name="website" tabindex="-1" autocomplete="off"></div>';
+    html += '<div class="email-gate-row"><input type="text" class="eg-name-input" placeholder="Uw naam"><input type="email" class="eg-email-input" placeholder="uw.naam@bedrijf.nl"><button type="button" class="btn btn-savings eg-submit-btn">Verstuur</button></div>';
+    html += '<p class="eg-err" style="display:none;color:var(--risk);font-size:0.84rem;">Vul uw naam in, plus een e-mailadres of telefoonnummer.</p>';
     html += '<p class="eg-ok" style="display:none;">De checklist opent in een nieuw tabblad. Wij nemen ook contact met u op.</p>';
     return html;
   }
   function initEmailGate(root, sourceLabel, getSummaryFn){
     if(!root) return;
+    var nameInput = root.querySelector('.eg-name-input');
     var input = root.querySelector('.eg-email-input');
     var btn = root.querySelector('.eg-submit-btn');
     var ok = root.querySelector('.eg-ok');
+    var err = root.querySelector('.eg-err');
+    var hp = root.querySelector('.eg-honeypot');
     btn.addEventListener('click', function(){
+      var naam = nameInput ? (nameInput.value || '').trim() : '';
       var email = (input.value || '').trim();
-      if(!email || email.indexOf('@') === -1 || email.indexOf('.') === -1){
-        alert('Vul een geldig e-mailadres in.');
+      var classified = classifyLeadFields({ name: naam, email: email, honeypot: hp ? hp.value : '' });
+      if(!classified.ok){
+        if(err) err.style.display = 'block';
+        if(nameInput) nameInput.style.borderColor = 'var(--risk)';
+        input.style.borderColor = 'var(--risk)';
         return;
       }
+      if(err) err.style.display = 'none';
       var summary = getSummaryFn ? getSummaryFn() : '';
-      addReportRequest(email, sourceLabel, summary);
+      addReportRequest(email, sourceLabel, summary, naam, '', hp ? hp.value : '');
       ok.style.display = 'block';
+      if(nameInput){ nameInput.value = ''; nameInput.disabled = true; }
       input.value = '';
       input.disabled = true;
       btn.disabled = true;
-      // Checklist direct openen als download
       setTimeout(function(){
         var a = document.createElement('a');
         a.href = (typeof BACKEND_URL !== 'undefined' && BACKEND_URL)
@@ -12417,7 +12761,7 @@
 
   // ---- SOCIAL SHARING ----
   function wireSocialShare(p){
-    var url = encodeURIComponent(location.origin + location.pathname + '#blog/' + p.slug);
+    var url = encodeURIComponent(location.origin + '/blog/' + p.slug);
     var title = encodeURIComponent(p.title);
     var waBtn   = document.getElementById('blogpost-share-wa');
     var liBtn   = document.getElementById('blogpost-share-li');
@@ -12427,7 +12771,7 @@
     if(liBtn)   liBtn.onclick   = function(){ window.open('https://www.linkedin.com/in/niels-alderding/','_blank','noopener'); };
     if(mailBtn) mailBtn.onclick = function(){ location.href = 'mailto:?subject=' + title + '&body=Lees%20dit%20artikel%3A%20' + url; };
     if(copyBtn) copyBtn.onclick = function(){
-      var bare = location.origin + location.pathname + '#blog/' + p.slug;
+      var bare = location.origin + '/blog/' + p.slug;
       if(navigator.clipboard){ navigator.clipboard.writeText(bare).then(function(){ copyBtn.textContent = '✓ Gekopieerd!'; setTimeout(function(){ copyBtn.textContent = '🔗 Kopieer link'; copyBtn.innerHTML = '🔗 Kopieer link'; }, 2000); }); }
       else { copyBtn.textContent = bare; }
     };
@@ -12496,6 +12840,9 @@
     el.innerHTML = '';
     if(!leads.length){ el.innerHTML = '<p class="hint">Nog geen leads binnengekomen.</p>'; return; }
     var filtered = selectedSource ? leads.filter(function(l){ return l.source === selectedSource; }) : leads;
+    var statusSel = document.getElementById('admin-lead-status-filter');
+    var selectedStatus = statusSel ? statusSel.value : '';
+    if(selectedStatus) filtered = filtered.filter(function(l){ return (l.status || 'new') === selectedStatus; });
     if(!filtered.length){ el.innerHTML = '<p class="hint">Geen leads voor deze bron.</p>'; return; }
     filtered.slice().sort(function(a,b){ return new Date(b.createdAt)-new Date(a.createdAt); }).forEach(function(l){
       var div = document.createElement('div');
@@ -12518,7 +12865,9 @@
         + '<button class="icon-btn lead-note-save" type="button" title="Opslaan">💾</button>'
         + '</div>';
       div.querySelector('.ttl').textContent = (l.name||'Onbekend') + (l.phone?' — '+l.phone:'') + (l.email?' — '+l.email:'');
-      div.querySelector('.meta-sm').textContent = new Date(l.createdAt).toLocaleDateString('nl-NL') + ' · ' + (l.source||'?');
+      var st = l.status || 'new';
+      var statusLabels = { new:'nieuw', done:'opgevolgd', test:'test', spam:'spam', called:'gebeld', conversation:'gesprek', client:'klant', closed:'afgesloten' };
+      div.querySelector('.meta-sm').innerHTML = new Date(l.createdAt).toLocaleDateString('nl-NL') + ' · ' + (l.source||'?') + ' · <span class="lead-status-' + st + '">' + (statusLabels[st] || st) + '</span>';
       div.querySelector('.lead-note-field').value = l.note||'';
       div.querySelector('.pipeline-sel').addEventListener('change', function(){
         l.pipeline = this.value;
@@ -12693,12 +13042,12 @@
   var genRssBtn = document.getElementById('gen-rss-btn');
   if(genRssBtn){
     genRssBtn.addEventListener('click', function(){
-      var base = 'https://www.werkhervattingskas.nl/';
+      var base = 'https://werkhervattingskas.nl/';
       var items = sortedPosts().filter(publiclyVisible).map(function(p){
         return '<item>'
           + '<title><![CDATA[' + p.title + ']]></title>'
-          + '<link>' + base + '#blog/' + p.slug + '</link>'
-          + '<guid>' + base + '#blog/' + p.slug + '</guid>'
+          + '<link>' + base + 'blog/' + p.slug + '</link>'
+          + '<guid>' + base + 'blog/' + p.slug + '</guid>'
           + '<pubDate>' + new Date(p.publishedAt).toUTCString() + '</pubDate>'
           + '<description><![CDATA[' + (p.metaDescription||'') + ']]></description>'
           + '</item>';
@@ -13210,7 +13559,7 @@ app.get('/sitemap.xml', async (req, res) => {
   try{
     const postsRaw = await kvGet('posts');
     const posts    = postsRaw ? JSON.parse(postsRaw) : [];
-    const base     = 'https://www.werkhervattingskas.nl';
+    const base     = 'https://werkhervattingskas.nl';
     const staticUrls = ['/', '/over-ons', '/aanpak', '/faq', '/blog', '/tools', '/tarieven', '/sectoren', '/privacy'];
     let xml = '<?xml version="1.0" encoding="UTF-8"?>\\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\\n';
     staticUrls.forEach(u => { xml += \`  <url><loc>\${base}\${u}</loc><changefreq>monthly</changefreq></url>\\n\`; });
@@ -14109,19 +14458,10 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
       var tel   = (document.getElementById('pf-tel')   || {value:''}).value.trim();
       var type  = (document.getElementById('pf-type')  || {value:''}).value;
       var vraag = (document.getElementById('pf-vraag') || {value:''}).value.trim();
-      if(!naam){
-        var nEl = document.getElementById('pf-naam');
-        if(nEl){ nEl.style.borderColor='var(--risk)'; nEl.focus(); }
-        return;
-      }
-      if(!email || email.indexOf('@') === -1){
-        var eEl = document.getElementById('pf-email');
-        if(eEl){ eEl.style.borderColor='var(--risk)'; eEl.focus(); }
-        return;
-      }
-      if(!tel || tel.replace(/\D/g,'').length < 9){
-        var tEl = document.getElementById('pf-tel');
-        if(tEl){ tEl.style.borderColor='var(--risk)'; tEl.placeholder='Telefoonnummer verplicht'; tEl.focus(); }
+      var classified = classifyLeadFields({ name: naam, phone: tel, email: email, honeypot: hpVal('pf-honeypot') });
+      if(!classified.ok){
+        markContactError(['pf-naam','pf-email','pf-tel']);
+        if(!naam){ var nEl = document.getElementById('pf-naam'); if(nEl) nEl.focus(); }
         return;
       }
       document.getElementById('pf-naam').style.borderColor='';
@@ -14129,8 +14469,8 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
       if(document.getElementById('pf-tel')) document.getElementById('pf-tel').style.borderColor='';
       pfSubmitBtn.disabled = true;
       pfSubmitBtn.textContent = 'Versturen\u2026';
-      var bericht = (type ? 'Rol: ' + type + ' | ' : '') + (vraag || '') + (email ? ' | e-mail: ' + email : '');
-      await addLead(naam, tel, 'partner-doorverwijzing', bericht);
+      var bericht = (type ? 'Rol: ' + type + ' | ' : '') + (vraag || '');
+      await addLead(naam, tel, 'partner-doorverwijzing', bericht, email, hpVal('pf-honeypot'));
       var st = document.getElementById('pf-status');
       if(st) st.style.display = 'block';
       pfSubmitBtn.style.display = 'none';
@@ -14538,19 +14878,16 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
       var functie = document.getElementById('ctrl-functie').value.trim();
       var org     = document.getElementById('ctrl-org').value.trim();
       var rol     = document.getElementById('ctrl-rol').value;
-      if(!naam){
-        var nEl = document.getElementById('ctrl-naam');
-        if(nEl){ nEl.style.borderColor='var(--risk)'; nEl.focus(); }
-        return;
-      }
-      if(!email || email.indexOf('@') === -1){
-        var eEl = document.getElementById('ctrl-email');
-        if(eEl){ eEl.style.borderColor='var(--risk)'; eEl.focus(); }
+      var classified = classifyLeadFields({ name: naam, email: email, honeypot: hpVal('ctrl-honeypot') });
+      if(!classified.ok){
+        markContactError(['ctrl-naam','ctrl-email']);
+        if(!naam){ var nEl = document.getElementById('ctrl-naam'); if(nEl) nEl.focus(); }
+        else { var eEl = document.getElementById('ctrl-email'); if(eEl) eEl.focus(); }
         return;
       }
       document.getElementById('ctrl-naam').style.borderColor='';
       document.getElementById('ctrl-email').style.borderColor='';
-      addLead(naam, '', 'controller-intermediair:' + rol + ':' + org);
+      addLead(naam, '', 'controller-intermediair:' + rol + ':' + org, functie, email, hpVal('ctrl-honeypot'));
       addNewsletterSub(email);
       ctrlForm.style.display = 'none';
       document.getElementById('ctrl-ok').style.display = 'block';

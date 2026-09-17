@@ -9,6 +9,8 @@
   <meta property="og:description" content="25 controlepunten voor uw WHK-beschikking. Gratis te downloaden als PDF.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://werkhervattingskas.nl/whk_checklist.html">
+  <link rel="alternate" hreflang="nl" href="https://werkhervattingskas.nl/whk_checklist.html">
+  <link rel="alternate" hreflang="x-default" href="https://werkhervattingskas.nl/whk_checklist.html">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap');
 
@@ -606,11 +608,17 @@
         <span style="font-size:0.88rem;font-weight:600;color:#11192B;">Ja, bel mij terug voor een gratis beschikkingcheck</span>
       </label>
       <div id="callback-phone-wrap" style="display:none;margin-top:4px;">
+        <div class="hp-field" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;">
+          <label for="callback-honeypot">Website</label>
+          <input type="text" id="callback-honeypot" name="website" tabindex="-1" autocomplete="off">
+        </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+          <input type="text" id="callback-name" placeholder="Uw naam" style="flex:1;min-width:180px;padding:10px 14px;border:1px solid #c8d4cc;border-radius:6px;font-size:0.9rem;font-family:inherit;">
           <input type="tel" id="callback-phone" placeholder="Uw telefoonnummer" style="flex:1;min-width:180px;padding:10px 14px;border:1px solid #c8d4cc;border-radius:6px;font-size:0.9rem;font-family:inherit;">
-          <input type="text" id="callback-name" placeholder="Uw naam (optioneel)" style="flex:1;min-width:180px;padding:10px 14px;border:1px solid #c8d4cc;border-radius:6px;font-size:0.9rem;font-family:inherit;">
+          <input type="email" id="callback-email" placeholder="E-mail (als u liever geen nummer achterlaat)" style="flex:1;min-width:180px;padding:10px 14px;border:1px solid #c8d4cc;border-radius:6px;font-size:0.9rem;font-family:inherit;">
           <button onclick="submitCallback()" style="padding:10px 20px;background:#A23E2C;color:white;border:none;border-radius:6px;font-size:0.9rem;font-weight:600;cursor:pointer;white-space:nowrap;">Verstuur</button>
         </div>
+        <p id="callback-err" style="display:none;font-size:0.8rem;color:#A23E2C;margin:8px 0 0;">Vul uw naam in, plus telefoonnummer of e-mailadres.</p>
         <p style="font-size:0.76rem;color:#888;margin:8px 0 0;">Uw gegevens worden niet gedeeld met derden.</p>
       </div>
       <div id="callback-ok" style="display:none;padding:12px 16px;background:#d4edda;border-radius:6px;font-size:0.88rem;color:#155724;font-weight:600;">
@@ -765,6 +773,7 @@ function generateAdvice(){
   });
 })();
 </script>
+<script src="/lib/lead-guard.js"></script>
 <script>
 document.getElementById('callback-check').addEventListener('change', function(){
   document.getElementById('callback-phone-wrap').style.display = this.checked ? 'block' : 'none';
@@ -773,22 +782,34 @@ document.getElementById('callback-check').addEventListener('change', function(){
 function submitCallback(){
   var phone = document.getElementById('callback-phone').value.trim();
   var name  = document.getElementById('callback-name').value.trim();
-  if(!phone){ document.getElementById('callback-phone').focus(); return; }
+  var email = (document.getElementById('callback-email') || {value:''}).value.trim();
+  var hp = (document.getElementById('callback-honeypot') || {value:''}).value;
+  var classified = (typeof LeadGuard !== 'undefined' && LeadGuard.classify)
+    ? LeadGuard.classify({ name: name, phone: phone, email: email, honeypot: hp })
+    : { ok: !!(name && (phone || email)), error: 'Naam en telefoon of e-mail zijn verplicht.' };
+  var err = document.getElementById('callback-err');
+  if(!classified.ok){
+    if(err) err.style.display = 'block';
+    if(!name) document.getElementById('callback-name').focus();
+    else document.getElementById('callback-phone').focus();
+    return;
+  }
+  if(err) err.style.display = 'none';
 
-  // Stuur naar de site backend
-  var siteUrl = window.location.origin.includes('railway') || window.location.origin.includes('werkhervattingskas')
+  var siteUrl = window.location.origin.includes('railway') || window.location.origin.includes('werkhervattingskas') || window.location.port
     ? window.location.origin
     : 'https://werkhervattingskas.nl';
 
-  fetch(siteUrl + '/api/leads', {
+  fetch(siteUrl + '/api/lead/notify', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      name: name || 'Onbekend',
+      name: name,
       phone: phone,
-      email: '',
+      email: email,
       message: 'Terugbelverzoek via WHK-checklist',
-      source: 'terugbel-checklist'
+      source: 'terugbel-checklist',
+      website: hp
     })
   }).catch(function(){});
 
