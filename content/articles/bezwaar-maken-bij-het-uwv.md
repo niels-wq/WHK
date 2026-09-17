@@ -50,7 +50,19 @@ Een **bezwaarschrift UWV** is geen standaardbrief van internet. Het UWV beoordee
 
 **Herbeoordeling** is iets anders: een latere, nieuwe inschatting van de belastbaarheid. Die route past als het medische of arbeidskundige beeld is veranderd, of als de oorspronkelijke termijn allang voorbij is. Herbeoordeling is geen “te laat bezwaar” en geen automatische premieverlaging.
 
+In 2026 is die tweede route extra smal: het UWV doet herbeoordelingen vooral bij een **schrijnende situatie**. Zie [UWV herbeoordeling 2026: alleen schrijnende situaties](/blog/uwv-herbeoordeling-2026).
+
 Welke van de twee past, hangt af van de datum van het besluit, de medische ontwikkeling en wat je wilt bereiken. Dat is een gesprek over stukken, geen checklist.
+
+## Bezwaar UWV WIA 2026: mag het nog, hoe maak je kans?
+
+**Bezwaar UWV WIA 2026** mag nog. De wettelijke route is niet afgeschaft. De **termijn bezwaar UWV** blijft in de regel **6 weken** na de beslissingsbrief; een **pro-forma bezwaarschrift** stuit die termijn als de inhoudelijke gronden later komen. Kijk naar wat *jouw* brief noemt.
+
+Wat wél is veranderd: de sociaal-medische capaciteit. Het UWV zet die in 2026 vooral in op WIA-claimbeoordelingen en Wajong/ABA. **Medische bezwaren** — bezwaar WIA of bezwaar WGA waarbij een verzekeringsarts of arbeidsdeskundige opnieuw moet kijken — krijgen volgens de lijn van SZW en UWV vooral **voorrang** als de situatie **urgent of schrijnend** is. Reguliere medische bezwaren blijven mogelijk, maar met **lagere prioriteit**; de behandeling kan langer duren. Een ingebrekestelling of rechterlijke dwangsom haalt een zaak volgens diezelfde lijn niet automatisch naar voren.
+
+Bron op hoofdlijn: de [voortgangsbrief van SZW (december 2025)](https://www.rijksoverheid.nl/documenten/2025/12/19/voortgangsbrief-mismatch-sociaal-medisch-beoordelen-hersteloperatie-en-kwaliteitsverbeteringen-uwv) en het [UWV-nieuws over concentratie op WIA- en Wajong-beoordelingen](https://www.uwv.nl/nl/nieuws/uwv-concentreert-zich-de-komende-tijd-op-wia-en-wajong-beoordelingen).
+
+Kans maken in 2026 betekent dus: **op tijd indienen** (6 weken, desnoods pro-forma), een **inhoudelijke grond** (feiten in het dossier passen niet bij de beslissing), en realistisch zijn over doorlooptijd. Alleen “de premie is hoog” is geen bezwaargrond. Past de zaak eerder bij herbeoordeling dan bij bezwaar, lees [UWV herbeoordeling 2026](/blog/uwv-herbeoordeling-2026).
 
 ## Wanneer hulp inschakelen
 
