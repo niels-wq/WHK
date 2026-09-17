@@ -1,74 +1,61 @@
 ---
-title: Bezwaar maken bij het UWV: wanneer het zin heeft en hoe je start
+title: Bezwaar maken bij het UWV: termijn, stappen en wanneer het loont
 slug: bezwaar-maken-bij-het-uwv
-description: Wanneer bezwaar tegen een UWV-beslissing zinvol is voor mkb-werkgevers, hoe Whk-beschikking en WIA/WGA verschillen, en hoe je een procedure start.
+description: Bezwaar maken bij het UWV: termijn van 6 weken, stappen voor een bezwaarschrift en wanneer het loont. Vraag een vrijblijvende kennismaking aan.
 publishedAt: 2026-09-17
 tags: Bezwaar & procedure, Wetgeving & UWV, WGA
 ---
 
-Een **UWV-beslissing** is voor HR en finance in het mkb zelden “alleen een brief aan de medewerker”. Een WIA- of WGA-indeling kan jaren doorwerken in de schadelast, en daarmee in de Whk-premie. Bezwaar maken is dan soms de juiste vervolgstap — en soms niet. Dit artikel helpt je het onderscheid te zien en een procedure op hoofdlijnen te starten. Het is **geen juridisch advies** en geen beoordeling van een concreet dossier.
+**Bezwaar maken bij het UWV** is voor HR en finance in het mkb geen automatische reflex. Een **bezwaar tegen een UWV-besluit** — vaak **bezwaar WIA** of **bezwaar WGA** — kan de schadelast van een (ex-)werknemer raken, en daarmee later de Whk-premie. Soms loont het. Soms is een andere route beter, of is de termijn al voorbij. Dit artikel zet de termijn, de stappen en de afweging op een rij. Het is **geen juridisch advies** en geen beoordeling van een concreet dossier.
 
-## Wanneer bezwaar tegen een UWV-beslissing relevant is
+## Wanneer is bezwaar maken bij het UWV zinvol?
 
-Bezwaar is een reactie op een **concreet besluit** waar je het niet mee eens bent, binnen de termijn die in de brief staat. Voor werkgevers gaat het in de praktijk vaak om beslissingen die de belastbaarheid, het arbeidsongeschiktheidspercentage of de uitkeringssoort vastleggen, bijvoorbeeld:
+Bezwaar UWV is een reactie op een **concreet UWV-besluit** waar je het niet mee eens bent, binnen de termijn die in de brief staat. Het UWV schrijft dat je alleen bezwaar kunt maken als dat in de beslissingsbrief staat. Bron: [Bezwaar maken bij het UWV](https://www.uwv.nl/nl/klacht-melding-bezwaar/bezwaar/bezwaar-maken).
 
-- een **WIA-beslissing**: WGA of IVA, de klasse (onder meer 35–80% of 80–100%), en of sprake is van duurzaamheid
-- een latere **WGA-beslissing** (vervolgfase, herziening van het percentage, of het resultaat van een herbeoordeling)
-- een **Ziektewet-beslissing** die aan jullie loonheffingennummer kan worden toegerekend
+Voor werkgevers gaat het in de praktijk vaak om:
 
-Relevant is het vooral als er een **inhoudelijke grond** is: de feiten in het dossier (contract, no-risk, re-integratie, medisch-arbeidskundig beeld) passen niet bij wat het UWV heeft vastgesteld. “De premie is hoog” is op zichzelf geen bezwaargrond tegen een UWV-beslissing. Een hoge premie kan wél een signaal zijn om de onderliggende toerekening en beslissingen na te lopen.
+- **bezwaar WIA**: de indeling WGA of IVA, de klasse (onder meer 35–80% of 80–100%), en of sprake is van duurzaamheid
+- **bezwaar WGA**: een latere WGA-beslissing (vervolgfase, percentage, of het resultaat van een herbeoordeling)
+- een Ziektewet-beslissing die aan jullie loonheffingennummer kan worden toegerekend
 
-Bezwaar is meestal **niet** de eerste route als:
+Zinvol is het vooral als er een **inhoudelijke grond** is: de feiten in het dossier (contract, re-integratie, medisch-arbeidskundig beeld) passen niet bij wat het UWV heeft vastgesteld. “De premie is hoog” is op zichzelf geen bezwaargrond tegen een UWV-besluit. Een hoge premie kan wél een signaal zijn om de onderliggende beslissingen na te lopen.
 
-- het om de jaarlijkse **Whk-beschikking** van de Belastingdienst gaat (dat is een ander besluit, zie hieronder)
-- de bezwaartermijn in de UWV-brief al is verstreken — dan kunnen andere routes bestaan, maar dat beoordeel je per zaak, niet vanuit een artikel
-- je vooral een latere, nieuwe inschatting van de belastbaarheid wilt. Dat raakt vaak **herbeoordeling**, niet het aanvechten van de oorspronkelijke beslissing
+Bezwaar UWV is meestal **niet** de eerste route als het om de jaarlijkse **Whk-beschikking** van de Belastingdienst gaat. Dat is een ander besluit, bij een andere instantie. Zie [hoe je de beschikking leest](/beschikking-uitleg).
 
-Of bezwaar in *jouw* dossier zin heeft, hangt af van de stukken. Zonder beslissing, bijlage en verzuimhistorie blijft elk advies algemeen.
+Of bezwaar in *jouw* dossier loont, hangt af van de stukken. Voor de orde van grootte van een WGA- of IVA-uitkering: de [WIA-calculator](/tools/wia-calculator).
 
-Voor de orde van grootte van een WGA- of IVA-uitkering: [WIA-calculator](/tools/wia-calculator). Voor de arbeidskundige kant van WGA versus IVA of belastbaarheid: [arbeidsdeskundig onderzoek](/diensten/arbeidsdeskundig-onderzoek).
+## Termijn bezwaar UWV: 6 weken
 
-## Whk-beschikking en WIA/WGA-beslissingen zijn niet hetzelfde
+De **termijn bezwaar UWV** staat in de beslissingsbrief. Wat hier volgt is bewust globaal; de brief en de officiële pagina gaan voor.
 
-Twee documenten worden in de praktijk door elkaar gehaald. Ze komen van **verschillende instanties** en hebben een eigen procedure.
+Volgens het UWV moet een bezwaar **meestal binnen 6 weken** na de datum van de beslissingsbrief binnen zijn. Bij **sommige Ziektewet-beslissingen** is de termijn **2 weken**. Kijk dus naar wat *jouw* brief noemt. Bron: [Bezwaartermijn UWV](https://www.uwv.nl/nl/klacht-melding-bezwaar/bezwaar/bezwaartermijn).
 
-**WIA- of WGA-beslissing (UWV).** Het UWV beoordeelt (ex-)werknemers en legt vast of er recht is op een uitkering, in welke vorm, en in welke mate. Werkgevers zijn daarbij vaak belanghebbende: de uitkering kan later in de Whk-toerekening terechtkomen. Bezwaar tegen zo’n beslissing loopt **bij het UWV**.
-
-**Whk-beschikking (Belastingdienst).** De Belastingdienst legt de gedifferentieerde premie Werkhervattingskas vast. De onderliggende uitkeringsgegevens komen van het UWV, maar het besluit waarop je reageert is de beschikking zelf. Bezwaar daartegen loopt **bij de Belastingdienst**, niet via hetzelfde loket als een WIA-bezwaar. Hoe je die beschikking leest, staat in [Wat is de Werkhervattingskas? Zo leest u uw beschikking](/beschikking-uitleg). Achtergrond bij de premie: [Wat is de Werkhervattingskas (Whk) en waarom stijgt jouw premie?](/blog/wat-is-de-werkhervattingskas-en-waarom-stijgt-jouw-premie).
-
-Kortom: een fout in de *toerekening* op de beschikking is iets anders dan een fout in de *UWV-indeling* van het dossier. Soms speelt allebei. Dan zijn het twee sporen, niet één brief.
-
-## Termijnen op hoofdlijnen — check altijd de brief
-
-Termijnen staan in de beslissing zelf. Wat hier volgt is bewust globaal; de brief en de officiële pagina’s gaan voor.
-
-**UWV.** Volgens het UWV moet een bezwaar **meestal binnen 6 weken** na de datum van de beslissingsbrief binnen zijn. Bij **sommige Ziektewet-beslissingen** is de termijn **2 weken**. Kijk dus naar wat *jouw* brief noemt, niet naar een vuistregel uit een artikel. Bron: [Bezwaartermijn UWV](https://www.uwv.nl/nl/klacht-melding-bezwaar/bezwaar/bezwaartermijn). Hoe je bezwaar indient (Mijn UWV, werkgeversportaal of post) staat op [Bezwaar maken bij het UWV](https://www.uwv.nl/nl/klacht-melding-bezwaar/bezwaar/bezwaar-maken). Het UWV schrijft ook dat je alleen bezwaar kunt maken als dat in de brief met de beslissing staat.
-
-Heb je meer tijd nodig voor de inhoudelijke gronden, dan kun je volgens het UWV binnen de termijn een **voorlopig (pro-forma) bezwaar** indienen en de motivering later aanvullen. De brief die je daarna krijgt, noemt hoeveel tijd je daarvoor hebt.
-
-**Whk-beschikking.** Voor beschikkingen van de Belastingdienst geldt in de regel een termijn van **6 weken na de datum op de beschikking** (niet per se de dag waarop de post binnenkomt). Bron: [Hoe maak ik bezwaar? (Belastingdienst)](https://www.belastingdienst.nl/wps/wcm/connect/nl/bezwaar-en-beroep/content/eisen-bezwaar).
+Heb je meer tijd nodig voor de inhoudelijke gronden, dan kun je volgens het UWV binnen die termijn een **voorlopig (pro-forma) bezwaar** indienen en de motivering later aanvullen. De brief die je daarna krijgt, noemt hoeveel tijd je daarvoor hebt.
 
 Na het verstrijken van de termijn is een gewoon bezwaar in de regel niet meer mogelijk. Dat is een termijn, geen advies om altijd bezwaar te maken.
 
-## Hoe je start — zonder stappenplan-mythe
+## Wat je indient: het bezwaarschrift UWV
 
-Een start is nuchter, geen truc.
+Een **bezwaarschrift UWV** is geen standaardbrief van internet. Het UWV beoordeelt het dossier. Op hoofdlijnen:
 
-- **Lees de beslissing.** Staat er dat bezwaar mogelijk is? Welke termijn? Welke instantie (UWV of Belastingdienst)?
-- **Zet de deadline in de agenda.** Bij UWV telt doorgaans de datum van de beslissingsbrief; bij de Whk-beschikking de dagtekening. Twijfel je, reken ruim en check de brief.
-- **Verzamel de stukken.** De beslissing, de bijlage, het dienstverband, no-risk of doelgroepverklaring als die speelt, en het re-integratiedossier. Zonder stukken blijft het giswerk.
-- **Dien op tijd in, via het officiële kanaal.** Voor UWV: Mijn UWV, het werkgeversportaal of post — zie de [UWV-pagina over bezwaar maken](https://www.uwv.nl/nl/klacht-melding-bezwaar/bezwaar/bezwaar-maken). Een gemachtigde kan namens de werkgever optreden; het UWV heeft daar een aparte machtigingsroute voor.
-- **Motiveer concreet, of vraag uitstel voor de gronden.** Een bezwaar zonder onderbouwing is zwak. Pro-forma stuit de termijn; de inhoud moet daarna alsnog komen.
-- **Schakel arbeidskundige inhoudelijke steun in als het om belastbaarheid of WGA/IVA gaat.** Dat is geen verplicht nummer, wel vaak de kern van een UWV-dossier. Zie [arbeidsdeskundig onderzoek](/diensten/arbeidsdeskundig-onderzoek).
+- **Lees de beslissing.** Staat er dat bezwaar mogelijk is? Welke termijn?
+- **Dien op tijd in**, via Mijn UWV, het werkgeversportaal of post. Zie [Bezwaar maken bij het UWV](https://www.uwv.nl/nl/klacht-melding-bezwaar/bezwaar/bezwaar-maken). Een gemachtigde kan namens de werkgever optreden.
+- **Zet in het bezwaarschrift** in elk geval: wie je bent, om welk besluit het gaat (datum en kenmerk), en waarom je het er niet mee eens bent. Kopieer geen algemene teksten.
+- **Voeg de stukken bij** die de grond onderbouwen: de beslissing, het dienstverband, het re-integratiedossier. Alleen als no-risk of een doelgroepstatus in *dit* besluit meespeelt, hoort dat bij de stukken — niet als apart traject.
+- **Motiveer concreet, of vraag uitstel voor de gronden.** Pro-forma stuit de termijn; de inhoud moet daarna alsnog komen.
 
-Kopieer geen standaardtekst van internet in een bezwaarschrift. Het UWV beoordeelt het dossier, niet de kwaliteit van een blog.
+## Herbeoordeling versus bezwaar
 
-Veelgestelde vragen over premie, WIA en bezwaar staan in de [FAQ Werkhervattingskas](/faq).
+**Bezwaar** vecht een recente UWV-beslissing aan, binnen de termijn van (meestal) 6 weken.
 
-## Wat je niet van dit artikel moet verwachten
+**Herbeoordeling** is iets anders: een latere, nieuwe inschatting van de belastbaarheid. Die route past als het medische of arbeidskundige beeld is veranderd, of als de oorspronkelijke termijn allang voorbij is. Herbeoordeling is geen “te laat bezwaar” en geen automatische premieverlaging.
 
-Dit is geen oordeel over jouw kans van slagen, geen invuloefening voor een bezwaarschrift, en geen rekenmodel voor “wat je terugkrijgt”. Cijfers over individuele besparingen horen bij een dossier. Of herbeoordeling beter past dan bezwaar, hangt af van de datum van de beslissing, de medische ontwikkeling en wat je wilt bereiken — dat is een gesprek over stukken, geen checklist.
+Welke van de twee past, hangt af van de datum van het besluit, de medische ontwikkeling en wat je wilt bereiken. Dat is een gesprek over stukken, geen checklist.
 
-## Volgende stap: kennismaking of adviesaanvraag
+## Wanneer hulp inschakelen
 
-Wil je weten of *jullie* UWV-beslissing of Whk-beschikking een kijk waard is? Vraag een korte, vrijblijvende **kennismaking** aan bij Matchvermogen via [WHK-beschikking controleren](/diensten/whk-controle) of laat een terugbelverzoek achter op [werkhervattingskas.nl](/). Neem de beslissing of beschikking mee; zonder die stukken blijft elk advies algemeen.
+Hulp inschakelen is zinvol als de termijn loopt, de grond inhoudelijk is (belastbaarheid, WGA versus IVA, percentage) en de stukken er liggen. Niet als je alleen “de premie te hoog” vindt, of als het eigenlijk om de Whk-beschikking van de Belastingdienst gaat.
+
+Wil je weten of *jullie* UWV-besluit een kijk waard is? Vraag een korte, vrijblijvende **kennismaking** aan bij Matchvermogen via [WHK-beschikking controleren](/diensten/whk-controle) of laat een terugbelverzoek achter op [werkhervattingskas.nl](/). Neem de beslissing mee.
+
+Reken eerst de orde van grootte na in de [WIA-calculator](/tools/wia-calculator).
