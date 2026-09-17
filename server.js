@@ -190,7 +190,7 @@ function defaultFor(key) {
 // ================================================================
 function inlineMd(s) {
   return String(s || '')
-    .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a href="$2">$1</a>')
+    .replace(/\[([^\]]+)\]\((https?:[^)]+|\/[^)\s]*)\)/g, '<a href="$2">$1</a>')
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 }
 function mdToHtml(md) {
@@ -388,14 +388,14 @@ const URL_META = {
   '/tarieven':                      { title: 'Tarieven — werkhervattingskas.nl', desc: 'Transparante tarieven voor WHK-controle en arbeidsdeskundig onderzoek. Altijd no cure, no pay.' },
   '/sectoren':                      { title: 'WHK-premie per sector: wat betaalt uw branche gemiddeld? [2026]', desc: 'Zie hoe uw WHK-premie zich verhoudt tot het sectorgemiddelde. Zorg, bouw, transport, onderwijs — per sector uitgelegd inclusief typische fouten in de beschikking.' },
   '/casestudies':                   { title: 'Praktijkcasussen WHK-besparing — werkhervattingskas.nl', desc: 'Vijf geanonimiseerde casussen: van €9.800 tot €137.000 besparing per jaar.' },
-  '/beschikking-uitleg':           { title: 'Wat is de Werkhervattingskas (WHK)? Zo leest u uw beschikking', desc: 'De Werkhervattingskas is de gedifferentieerde ZW- en WGA-premie. Uitleg per onderdeel van uw WHK-beschikking: dagtekening, loonsom, toerekening en veelgemaakte fouten.' },
+  '/beschikking-uitleg':           { title: 'Wat is de Werkhervattingskas (WHK)? Beschikking lezen en bezwaar UWV', desc: 'WHK-beschikking lezen: dagtekening, loonsom, toerekening en premie. Plus wanneer bezwaar UWV (6 weken) of bezwaar bij de Belastingdienst relevant is.' },
   '/vergelijking':                  { title: 'Matchvermogen vs. controller vs. arbodienst — werkhervattingskas.nl', desc: 'Eerlijke vergelijking: wie controleert uw WHK-beschikking het beste?' },
   '/privacy':                       { title: 'Privacyverklaring — werkhervattingskas.nl', desc: 'Hoe werkhervattingskas.nl omgaat met uw persoonsgegevens en AVG-rechten.' },
   '/quiz':                          { title: 'WHK-risicoscan — werkhervattingskas.nl', desc: 'Doe de korte scan en ontdek in 2 minuten uw WHK-besparingspotentieel.' },
   '/besparingen':                   { title: 'Alle besparingsmogelijkheden — werkhervattingskas.nl', desc: 'Compleet overzicht van alle WHK-besparingsroutes.' },
   '/lexicon':                       { title: 'WHK-lexicon — werkhervattingskas.nl', desc: 'Begrippenlijst: WGA, IVA, no-riskpolis, LKV, loonsanctie uitgelegd in gewone taal.' },
   '/tools/poortwachter':           { title: 'Poortwachter-tijdlijnchecker 2026 — werkhervattingskas.nl', desc: 'Vul de eerste ziektedag in en zie direct alle Wet poortwachter-deadlines, aanbevolen interventiemomenten en de relatie met uw WHK-premie.' },
-  '/tools/wia-calculator':         { title: 'WIA berekenen: WGA, IVA en loonaanvullingsuitkering [2026]', desc: 'WIA, WGA of IVA berekenen op basis van dagloon en AO-percentage. Inclusief loonaanvullingsuitkering en het effect op de WHK-premie van de werkgever. Indicatief, gratis.' },
+  '/tools/wia-calculator':         { title: 'WIA berekenen: WGA, IVA en bezwaar maken bij het UWV [2026]', desc: 'WIA, WGA of IVA berekenen op dagloon en AO-percentage. Inclusief WHK-impact en wanneer bezwaar UWV (6 weken) zinvol is. Indicatief, gratis.' },
   '/tools/subsidie-scan':          { title: 'Subsidie-scan LKV, LIV en WKB — werkhervattingskas.nl', desc: 'Bereken in 3 stappen of u loonkostenvoordeel (max €6.000/jaar), lage-inkomensvoordeel of werkbonus kunt claimen. Direct resultaat, gratis tool.' },
   '/tools/jaarkalender':           { title: 'WHK Jaarkalender 2026 — alle deadlines op een rij — werkhervattingskas.nl', desc: 'Alle WHK-deadlines per maand: bezwaartermijn beschikking (6 weken!), LKV-aanvraag, WIA-aanvraag en poortwachter-verplichtingen. Nooit meer een termijn missen.' },
   '/tools/premiehistorie':         { title: 'WHK- en WGA-premies 2022–2026: historisch overzicht', desc: 'Gemiddelde gedifferentieerde WGA-premie per jaar, met minimum, maximum en loonsomgrenzen. Vergelijk de reeks met het WGA-deel op uw WHK-beschikking.' },
@@ -619,6 +619,8 @@ Matchvermogen helpt werkgevers met meer dan 25 medewerkers de WHK-premie (Werkhe
 - Blog: ${SITE_URL}/blog
 - FAQ: ${SITE_URL}/faq
 - Hoe lees ik mijn WHK-beschikking: ${SITE_URL}/beschikking-uitleg
+- Bezwaar maken bij het UWV: ${SITE_URL}/blog/bezwaar-maken-bij-het-uwv
+- UWV herbeoordeling 2026: ${SITE_URL}/blog/uwv-herbeoordeling-2026
 - WHK-lexicon: ${SITE_URL}/lexicon
 - Praktijkcasussen: ${SITE_URL}/casestudies
 
