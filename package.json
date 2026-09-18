@@ -4,7 +4,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "node test/lead-guard.test.js && node test/conversion-pages.test.js"
+    "test": "node test/lead-guard.test.js && node test/conversion-pages.test.js && node test/markdown-articles.test.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
