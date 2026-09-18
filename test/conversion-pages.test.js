@@ -71,3 +71,40 @@ var names = faqPage.mainEntity.map(function (q) { return q.name; });
 assert.ok(faqPage.mainEntity.length >= 25, 'FAQ JSON-LD should cover the visible question set');
 
 console.log('conversion-pages tests ok (' + faqPage.mainEntity.length + ' FAQ JSON-LD questions)');
+
+function byId(tag, id) {
+  var re = new RegExp('<' + tag + '[^>]*id="' + id + '"[\\s\\S]*?</' + tag + '>');
+  var m = html.match(re);
+  assert.ok(m, 'missing ' + tag + '#' + id);
+  return m[0];
+}
+
+var home = byId('main', 'home-view');
+assert.ok(home.indexOf('hero-cta-row') !== -1, 'home missing hero CTA row');
+assert.ok(home.indexOf('Gratis WHK-beschikking check') !== -1, 'home missing primary CTA label');
+assert.ok(home.indexOf('data-cta="calculator"') !== -1, 'home missing calculator CTA');
+assert.ok(/hero-cta-row[\s\S]*data-cta="terugbel"/.test(home), 'home missing secondary callback in hero');
+
+var header = html.slice(html.indexOf('class="wvz-header"'), html.indexOf('id="mobile-nav-overlay"'));
+assert.ok(header.indexOf('header-cta-group') !== -1, 'header missing CTA group');
+assert.ok(header.indexOf('id="open-whk-check"') !== -1, 'header missing primary WHK-check');
+assert.ok(header.indexOf('btn-risk') !== -1, 'header primary CTA should use terracotta');
+assert.ok(/id="open-terugbel"/.test(header) && /btn-ghost" id="open-terugbel"/.test(header), 'header callback should be visually secondary');
+
+var blog = section('blog-view');
+assert.ok(blog.indexOf('blog-card-skel') !== -1, 'blog listing missing skeleton placeholders');
+assert.ok(/\.blog-grid\{[^}]*min-height:/.test(html), 'blog grid should reserve height');
+assert.ok(html.indexOf('function blogMotifKey') !== -1, 'blog cards need motif variation');
+assert.ok(html.indexOf('var posts = SEED_POSTS.slice()') !== -1, 'blog should seed posts before API load');
+
+var post = section('blogpost-view');
+assert.ok(post.indexOf('id="blogpost-end-cta"') !== -1, 'blog post layout missing end CTA');
+assert.ok(post.indexOf('Gratis WHK-beschikking check') !== -1, 'blog post CTA missing WHK-check label');
+assert.ok(post.indexOf('data-cta="calculator"') !== -1, 'blog post CTA missing calculator link');
+assert.ok(post.indexOf('beschikking-uitleg') !== -1, 'blog post CTA missing beschikking-uitleg link');
+assert.ok(post.toLowerCase().indexOf('arbeidsdeskundig onderzoek') === -1, 'blog post CTA should not use ADO language');
+assert.ok(post.indexOf('Matchvermogen') === -1, 'blog post CTA block should not use Matchvermogen language');
+assert.ok(html.indexOf('ensureInlineCta(p.bodyHtml') !== -1, 'openBlogPost should inject mid-article WHK CTA');
+assert.ok(html.indexOf('article-whk-cta') !== -1, 'inline article CTA class missing');
+
+console.log('conversion UX tests ok (hero + blog cards + article CTA)');
