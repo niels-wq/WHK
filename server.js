@@ -621,6 +621,9 @@ Matchvermogen helpt werkgevers met meer dan 25 medewerkers de WHK-premie (Werkhe
 - Hoe lees ik mijn WHK-beschikking: ${SITE_URL}/beschikking-uitleg
 - Bezwaar maken bij het UWV: ${SITE_URL}/blog/bezwaar-maken-bij-het-uwv
 - UWV herbeoordeling 2026: ${SITE_URL}/blog/uwv-herbeoordeling-2026
+- WHK-premieverhoging na één WGA-instroom (rekenvoorbeeld mkb): ${SITE_URL}/blog/whk-premieverhoging-na-een-wga-instroom-rekenvoorbeeld-mkb
+- ERD terug naar publiek, beslisboom 2026: ${SITE_URL}/blog/erd-terug-naar-publiek-beslisboom-2026
+- UWV-correctiebericht vs WHK-beschikking: ${SITE_URL}/blog/uwv-correctiebericht-vs-whk-beschikking-voorrang
 - WHK-lexicon: ${SITE_URL}/lexicon
 - Praktijkcasussen: ${SITE_URL}/casestudies
 
