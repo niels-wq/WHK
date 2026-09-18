@@ -9775,17 +9775,10 @@
       '</g>';
   }
   function blogMotifKey(p){
-    var t = ((p.keyword || '') + ' ' + (p.tags || []).join(' ') + ' ' + (p.slug || '') + ' ' + (p.title || '')).toLowerCase();
-    if(t.indexOf('bezwaar') !== -1 || t.indexOf('termijn') !== -1) return 'scale';
-    if(t.indexOf('premie') !== -1 || t.indexOf('historie') !== -1 || t.indexOf('bespar') !== -1) return 'chart';
-    if(t.indexOf('kalender') !== -1 || t.indexOf('deadline') !== -1) return 'calendar';
-    if(t.indexOf('beschikking') !== -1 || t.indexOf('controleren') !== -1 || t.indexOf('checklist') !== -1) return 'check';
-    if(t.indexOf('uwv') !== -1 || t.indexOf('wia') !== -1 || t.indexOf('wga') !== -1) return 'rings';
-    if(t.indexOf('erd') !== -1 || t.indexOf('eigenrisico') !== -1) return 'bars';
+    var keys = ['mono', 'bars', 'rings', 'chart', 'check', 'calendar', 'scale'];
     var s = p.slug || p.title || 'whk';
     var h = 0;
     for(var i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
-    var keys = ['mono', 'bars', 'rings', 'chart', 'check', 'calendar'];
     return keys[Math.abs(h) % keys.length];
   }
   function blogMotifShape(motif, cx, cy, s, colorVar){
