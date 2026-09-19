@@ -254,7 +254,7 @@ function extractSeedBlogSlugs(html) {
   const slugs = [];
   const start = html.indexOf('var SEED_POSTS = [');
   if (start === -1) return slugs;
-  const end = html.indexOf('var posts = [];', start);
+  const end = html.indexOf('var posts =', start);
   const chunk = html.slice(start, end === -1 ? start + 800000 : end);
   const re = /^\s+slug:\s*'([a-z0-9-]+)'/gm;
   let m;

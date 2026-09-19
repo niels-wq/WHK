@@ -136,6 +136,13 @@
   }
   .hero h1{font-size:clamp(1.9rem,3.4vw,2.7rem);line-height:1.12;margin-bottom:20px;}
   .hero p.lede{font-size:1.05rem;color:var(--ink-soft);max-width:480px;margin-bottom:28px;}
+  .hero-cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:22px 0 6px;}
+  .hero-cta-row .btn{font-size:0.95rem;padding:12px 22px;}
+  .header-cta-group{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+  @media (max-width:780px){
+    .header-cta-group #open-terugbel{display:none;}
+    .header-cta-group .btn{padding:7px 12px;font-size:0.78rem;}
+  }
 
   .fout-row{display:flex;gap:6px;margin-bottom:10px;}
   .fout-chip{width:18px;height:24px;border-radius:2px;border:1.5px solid var(--ink);position:relative;}
@@ -440,16 +447,20 @@
   .faq-a p{color:var(--ink-soft);font-size:0.93rem;padding:0 0 18px;margin:0;}
 
   /* ---------- BLOG ---------- */
-  .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:60px;}
+  .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:60px;min-height:360px;}
   @media (max-width:920px){.blog-grid{grid-template-columns:1fr 1fr;}}
   @media (max-width:640px){.blog-grid{grid-template-columns:1fr;}}
+  .blog-card-skel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-s);overflow:hidden;min-height:200px;pointer-events:none;}
+  .blog-card-skel .skel-thumb{height:72px;background:linear-gradient(90deg,var(--paper-deep) 0%,var(--paper) 50%,var(--paper-deep) 100%);background-size:200% 100%;}
+  .blog-card-skel .skel-line{height:10px;margin:14px 20px 0;border-radius:4px;background:var(--paper-deep);}
+  .blog-card-skel .skel-line.short{width:42%;}
   .blog-cat-chip{padding:5px 13px;border:1px solid var(--line);border-radius:20px;font-size:0.8rem;cursor:pointer;background:var(--paper);transition:background .15s,border-color .15s,color .15s;}
   .blog-cat-chip:hover,.blog-cat-chip.active{background:var(--savings);border-color:var(--savings);color:white;}
   .related-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:14px;}
   .related-card{border:1px solid var(--line);border-radius:var(--radius-s);padding:14px 16px;cursor:pointer;font-size:0.86rem;font-weight:600;color:var(--ink);transition:border-color .15s,background .15s;line-height:1.4;}
   .related-card:hover{border-color:var(--savings);background:var(--savings-soft);}
   .blog-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-s);overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:border-color .15s, transform .15s;}
-  .blog-card-thumb{width:100%;aspect-ratio:280/130;}
+  .blog-card-thumb{width:100%;aspect-ratio:280/88;background:var(--paper-deep);}
   .blog-card-body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1;}
   .blogpost-header-img{width:100%;aspect-ratio:760/200;border-radius:var(--radius-s);overflow:hidden;border:1px solid var(--line);margin:18px 0 28px;}
   .blog-card:hover{border-color:var(--risk);transform:translateY(-2px);}
@@ -1779,7 +1790,10 @@
 
         <a href="/tarieven" data-view="pricing-view">Tarieven</a>
       </nav>
-      <button class="btn" id="open-terugbel">Bel mij terug</button>
+      <div class="header-cta-group">
+        <button class="btn btn-risk" type="button" data-cta="calculator" id="open-whk-check">Gratis WHK-check</button>
+        <button class="btn btn-ghost" id="open-terugbel">Bel mij terug</button>
+      </div>
     </div>
   </header>
 
@@ -1811,8 +1825,9 @@
         <a href="/tarieven" class="mobile-nav-link" data-view="pricing-view">Tarieven</a>
         <a href="/faq" class="mobile-nav-link" data-view="faq-view">FAQ</a>
         <a href="/vergelijking" class="mobile-nav-link" data-view="vergelijking-view">Vergelijking</a>
-        <div style="padding:20px 0 0;">
-          <button class="btn btn-risk" style="width:100%;justify-content:center;" type="button" data-cta="terugbel">Bel mij terug</button>
+        <div style="padding:20px 0 0;display:flex;flex-direction:column;gap:10px;">
+          <button class="btn btn-risk" style="width:100%;justify-content:center;" type="button" data-cta="calculator">Gratis WHK-beschikking check</button>
+          <button class="btn btn-ghost" style="width:100%;justify-content:center;color:var(--paper);border-color:rgba(247,243,234,0.45);" type="button" data-cta="terugbel">Bel mij terug</button>
         </div>
       </nav>
     </div>
@@ -1860,6 +1875,11 @@
             <div class="fout-chip"></div><div class="fout-chip"></div><div class="fout-chip"></div>
           </div>
           <p class="fout-caption"><strong>8 van de 10</strong> WHK-beschikkingen bevatten een fout &mdash; <a href="#urgentie" style="text-decoration:underline;">lees waarom</a></p>
+
+          <div class="hero-cta-row">
+            <button class="btn btn-risk" type="button" data-cta="calculator">Gratis WHK-beschikking check</button>
+            <button class="btn btn-ghost" type="button" data-cta="terugbel">Bel mij terug</button>
+          </div>
 
           <div class="trust-strip">
             <span class="trust-label">Met vertrouwen gekozen door onder andere:</span>
@@ -3160,7 +3180,14 @@
       <!-- Resultaattelling -->
       <p id="blog-count" style="font-size:0.82rem;color:var(--ink-soft);margin-bottom:14px;"></p>
 
-      <div class="blog-grid" id="blog-grid"></div>
+      <div class="blog-grid" id="blog-grid">
+        <div class="blog-card-skel" aria-hidden="true"><div class="skel-thumb"></div><div class="skel-line"></div><div class="skel-line short"></div></div>
+        <div class="blog-card-skel" aria-hidden="true"><div class="skel-thumb"></div><div class="skel-line"></div><div class="skel-line short"></div></div>
+        <div class="blog-card-skel" aria-hidden="true"><div class="skel-thumb"></div><div class="skel-line"></div><div class="skel-line short"></div></div>
+        <div class="blog-card-skel" aria-hidden="true"><div class="skel-thumb"></div><div class="skel-line"></div><div class="skel-line short"></div></div>
+        <div class="blog-card-skel" aria-hidden="true"><div class="skel-thumb"></div><div class="skel-line"></div><div class="skel-line short"></div></div>
+        <div class="blog-card-skel" aria-hidden="true"><div class="skel-thumb"></div><div class="skel-line"></div><div class="skel-line short"></div></div>
+      </div>
 
       <!-- Leeg resultaat -->
       <div id="blog-empty" style="display:none;text-align:center;padding:48px 0;color:var(--ink-soft);">
@@ -3193,6 +3220,13 @@
         <div class="blogpost-header-img" id="blogpost-header-img"></div>
         <div id="blogpost-toc"></div>
         <div class="blogpost-body" id="blogpost-body"></div>
+        <aside class="conv-cta" id="blogpost-end-cta">
+          <p class="conv-cta-kicker">Volgende stap</p>
+          <strong class="conv-cta-title">Gratis WHK-beschikking check</strong>
+          <p class="conv-cta-trust">Twijfelt u of uw beschikking een fout of onterechte toerekening bevat? Check het vrijblijvend. No cure, no pay.</p>
+          <button class="btn btn-risk" type="button" data-cta="calculator">Gratis WHK-beschikking check</button>
+          <p class="conv-cta-note">Eerst de beschikking lezen? <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">Hoe lees ik mijn WHK-beschikking?</a></p>
+        </aside>
         <div id="blogpost-tool-slot"></div>
         <div class="related-posts" id="blogpost-related"></div>
       </div>
@@ -8543,11 +8577,14 @@
       .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
       .replace(/[^a-z0-9]+/g, '-').replace(/(^-+|-+$)/g, '');
   }
+  function blogWhkCtaHtml(){
+    return '<div class="inline-cta article-whk-cta"><p><strong>Gratis WHK-beschikking check</strong></p><p>Controleer of uw beschikking een fout of onterechte toerekening bevat. Vrijblijvend, no cure no pay.</p><button class="btn btn-risk" type="button" data-cta="calculator">Check je WHK-risico</button><p class="conv-cta-note" style="margin-top:12px;">Of lees eerst <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">hoe u de beschikking leest</a>.</p></div>';
+  }
   function ensureInlineCta(bodyHtml){
-    var CTA_HTML = '<div class="inline-cta"><p><strong>Twijfelt u of dit ook voor uw organisatie geldt?</strong> Doe de gratis, vrijblijvende WHK-check en weet binnen 15 minuten of er een besparing voor u klaarligt.</p><button class="btn btn-risk" type="button" data-cta="calculator">Start de gratis check</button></div>';
-    if(!bodyHtml) return bodyHtml;
-    if(bodyHtml.indexOf('data-cta="calculator"') !== -1) return bodyHtml;
-    var parts = bodyHtml.split(/(?=<h2>)/);
+    var CTA_HTML = blogWhkCtaHtml();
+    if(!bodyHtml) return CTA_HTML;
+    if(bodyHtml.indexOf('article-whk-cta') !== -1 || bodyHtml.indexOf('data-cta="calculator"') !== -1) return bodyHtml;
+    var parts = bodyHtml.split(/(?=<h2[\s>])/);
     if(parts.length < 4){ return bodyHtml + CTA_HTML; }
     var mid = Math.floor(parts.length / 2);
     return parts.slice(0, mid).join('') + CTA_HTML + parts.slice(mid).join('');
@@ -9625,7 +9662,7 @@
       bodyHtml: '<p>Horeca, retail en schoonmaak hebben drie dingen gemeen: hoog personeelsverloop, veel flexibele contracten en structureel hogere ZW-premies. De WHK-kosten in deze branches worden niet zozeer bepaald door de WGA-component — vaste medewerkers die langdurig uitvallen — maar door de ZW-flexpremie: de kosten van medewerkers die ziek uit dienst treden.</p><h2>Waarom hoog verloop leidt tot hogere ZW-premie</h2><p>Als een medewerker met een tijdelijk contract of als oproepkracht ziek uit dienst treedt, neemt het UWV de loondoorbetaling over via de Ziektewet. Die kosten worden via de ZW-flexpremie doorberekend aan de werkgever bij wie de medewerker het laatste werkte. Bij branches met hoog verloop en veel tijdelijke contracten zijn die ZW-instromen structureel hoog — en daarmee ook de premie.</p><h2>Wat u kunt doen</h2><p><strong>No-riskmeldingen consequent uitvoeren.</strong> Als een medewerker met flexcontract ziek uit dienst treedt en een no-riskstatus heeft, moet u dat melden bij het UWV. Anders telt die ZW-instroom mee in uw premie terwijl dat niet hoeft.</p><p><strong>Verzuimbeleid ook voor flex.</strong> Veel werkgevers investeren in verzuimbegeleiding voor vaste medewerkers maar niet voor oproepkrachten. Toch is vroeg signaleren en begeleiden ook bij flex een effectieve manier om ZW-instroom te beperken.</p><p><strong>Beschikking controleren op ZW-toerekeingen.</strong> De ZW-component van uw beschikking vermeldt welke uitkeringskosten aan u zijn toegerekend. Onbekende namen of onverwacht hoge bedragen zijn ook hier aanleiding voor een controle.</p><div class="inline-cta"><p><strong>Wilt u weten of uw ZW-premie correct is berekend?</strong></p><button class="btn btn-risk" data-view="dienst-whkreductie-view">Gratis beschikking controleren →</button></div><h2>De WGA-component in deze branches</h2><p>Naast de ZW-premie heeft u ook te maken met de WGA-component voor vaste medewerkers. In horeca, retail en schoonmaak zijn fysieke klachten — rug, knieën, schouders — de meest voorkomende oorzaak van langdurig verzuim en WGA-instroom. Tijdige inzet van arbeidsdeskundig onderzoek en tweede spoor verlaagt ook hier de WHK-premie structureel. <a href="/diensten/whk-controle" data-view="dienst-whkreductie-view">Meer over de WHK-controle →</a></p>'
     },
     ];
-  var posts = [];
+  var posts = SEED_POSTS.slice();
 
   function buildServiceBlogCards(containerId, slugs){
     var wrap = document.getElementById(containerId);
@@ -9653,7 +9690,7 @@
       var res = await storageGet('blog:posts', true);
         if(res && res.value) posts = JSON.parse(res.value);
     } catch(e){
-      posts = [];
+      if(!posts.length) posts = SEED_POSTS.slice();
     }
     var existingSlugs = posts.map(function(p){ return p.slug; });
     var missingSeeds = SEED_POSTS.filter(function(s){ return existingSlugs.indexOf(s.slug) === -1; });
@@ -9737,32 +9774,73 @@
       '<line x1="' + (x + 12) + '" y1="' + (y + h * 0.6) + '" x2="' + (x + w - 30) + '" y2="' + (y + h * 0.6) + '" style="stroke:var(--ink);stroke-opacity:0.12;stroke-width:1.5;"/>' +
       '</g>';
   }
+  function blogMotifKey(p){
+    var keys = ['mono', 'bars', 'rings', 'chart', 'check', 'calendar', 'scale'];
+    var s = p.slug || p.title || 'whk';
+    var h = 0;
+    for(var i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+    return keys[Math.abs(h) % keys.length];
+  }
+  function blogMotifShape(motif, cx, cy, s, colorVar){
+    if(motif === 'chart'){
+      return '<rect x="' + (cx - s) + '" y="' + (cy + s * 0.15) + '" width="' + (s * 0.42) + '" height="' + (s * 0.7) + '" rx="1.5" style="fill:' + colorVar + ';fill-opacity:0.55;"/>' +
+        '<rect x="' + (cx - s * 0.22) + '" y="' + (cy - s * 0.35) + '" width="' + (s * 0.42) + '" height="' + (s * 1.2) + '" rx="1.5" style="fill:' + colorVar + ';"/>' +
+        '<rect x="' + (cx + s * 0.5) + '" y="' + (cy - s * 0.05) + '" width="' + (s * 0.42) + '" height="' + (s * 0.9) + '" rx="1.5" style="fill:' + colorVar + ';fill-opacity:0.72;"/>';
+    }
+    if(motif === 'calendar'){
+      return '<rect x="' + (cx - s) + '" y="' + (cy - s * 0.7) + '" width="' + (s * 2) + '" height="' + (s * 1.7) + '" rx="3" style="fill:none;stroke:' + colorVar + ';stroke-width:2.4;"/>' +
+        '<line x1="' + (cx - s) + '" y1="' + (cy - s * 0.22) + '" x2="' + (cx + s) + '" y2="' + (cy - s * 0.22) + '" style="stroke:' + colorVar + ';stroke-width:2;"/>' +
+        '<line x1="' + (cx - s * 0.45) + '" y1="' + (cy - s) + '" x2="' + (cx - s * 0.45) + '" y2="' + (cy - s * 0.4) + '" style="stroke:' + colorVar + ';stroke-width:2.2;stroke-linecap:round;"/>' +
+        '<line x1="' + (cx + s * 0.45) + '" y1="' + (cy - s) + '" x2="' + (cx + s * 0.45) + '" y2="' + (cy - s * 0.4) + '" style="stroke:' + colorVar + ';stroke-width:2.2;stroke-linecap:round;"/>';
+    }
+    if(motif === 'check'){
+      return '<rect x="' + (cx - s * 0.95) + '" y="' + (cy - s * 0.85) + '" width="' + (s * 1.9) + '" height="' + (s * 1.7) + '" rx="3" style="fill:none;stroke:' + colorVar + ';stroke-width:2.2;"/>' +
+        '<polyline points="' + (cx - s * 0.45) + ',' + cy + ' ' + (cx - s * 0.1) + ',' + (cy + s * 0.38) + ' ' + (cx + s * 0.55) + ',' + (cy - s * 0.32) + '" style="fill:none;stroke:' + colorVar + ';stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;"/>';
+    }
+    if(motif === 'scale'){
+      return '<line x1="' + cx + '" y1="' + (cy - s * 0.85) + '" x2="' + cx + '" y2="' + (cy + s * 0.7) + '" style="stroke:' + colorVar + ';stroke-width:2.2;stroke-linecap:round;"/>' +
+        '<line x1="' + (cx - s * 0.95) + '" y1="' + (cy - s * 0.35) + '" x2="' + (cx + s * 0.95) + '" y2="' + (cy - s * 0.35) + '" style="stroke:' + colorVar + ';stroke-width:2.2;stroke-linecap:round;"/>' +
+        '<path d="M ' + (cx - s * 0.95) + ' ' + (cy - s * 0.35) + ' L ' + (cx - s * 0.45) + ' ' + (cy + s * 0.25) + ' L ' + (cx - s * 1.45) + ' ' + (cy + s * 0.25) + ' Z" style="fill:none;stroke:' + colorVar + ';stroke-width:1.8;"/>' +
+        '<path d="M ' + (cx + s * 0.95) + ' ' + (cy - s * 0.35) + ' L ' + (cx + s * 0.45) + ' ' + (cy + s * 0.25) + ' L ' + (cx + s * 1.45) + ' ' + (cy + s * 0.25) + ' Z" style="fill:none;stroke:' + colorVar + ';stroke-width:1.8;"/>';
+    }
+    if(motif === 'rings'){
+      return '<circle cx="' + cx + '" cy="' + cy + '" r="' + (s * 0.95) + '" style="fill:none;stroke:' + colorVar + ';stroke-width:2;stroke-opacity:0.45;"/>' +
+        '<circle cx="' + cx + '" cy="' + cy + '" r="' + (s * 0.58) + '" style="fill:none;stroke:' + colorVar + ';stroke-width:2.2;"/>' +
+        '<circle cx="' + cx + '" cy="' + cy + '" r="3" style="fill:' + colorVar + ';"/>';
+    }
+    if(motif === 'bars'){
+      return '<polyline points="' + (cx - s) + ',' + (cy + s * 0.55) + ' ' + (cx - s * 0.35) + ',' + (cy - s * 0.05) + ' ' + (cx + s * 0.15) + ',' + (cy + s * 0.25) + ' ' + (cx + s) + ',' + (cy - s * 0.7) + '" style="fill:none;stroke:' + colorVar + ';stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;"/>';
+    }
+    return '<circle cx="' + cx + '" cy="' + cy + '" r="' + (s * 0.72) + '" style="fill:none;stroke:' + colorVar + ';stroke-width:2.2;"/>';
+  }
   function buildBlogHeaderSvg(p, large){
     var category = blogAccentColor(p);
     var colorVar = 'var(--' + category + ')';
     var colorSoftVar = 'var(--' + category + '-soft)';
+    var motif = blogMotifKey(p);
     var w = large ? 760 : 280;
-    var h = large ? 200 : 130;
-    var label = p.title.replace(/"/g, '&quot;');
+    var h = large ? 200 : 88;
+    var label = (p.title || 'Artikel').replace(/"/g, '&quot;');
     var tagLabel = ((p.tags && p.tags[0]) || 'WHK').toUpperCase();
-    var stackCx = w * 0.74;
-    var stackCy = h * 0.54;
-    var docW = w * 0.24;
-    var docH = h * 0.62;
-    var fold = docW * 0.22;
-    var docX = stackCx - docW * 0.5;
-    var docY = stackCy - docH * 0.5;
-
     var svg = '<svg viewBox="0 0 ' + w + ' ' + h + '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="' + label + '" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;">';
-    svg += '<rect width="' + w + '" height="' + h + '" style="fill:var(--paper-deep);"/>';
-    svg += '<rect width="' + w + '" height="5" style="fill:' + colorVar + ';"/>';
-    svg += blogDocShape(docX, docY, docW, docH, fold, -9, stackCx, stackCy, 'fill:' + colorSoftVar);
-    svg += blogDocShape(docX + docW * 0.22, docY, docW, docH, fold, 4, stackCx + docW * 0.22, stackCy, 'fill:var(--white)');
-    svg += '<g transform="translate(' + (stackCx + docW * 0.11) + ' ' + (stackCy + docH * 0.06) + ')">' + blogIconShape(category, 0, 0, large ? 19 : 14, colorVar) + '</g>';
-    svg += '<text x="22" y="34" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="2" style="fill:' + colorVar + ';">' + tagLabel + '</text>';
-    svg += '<line x1="22" y1="' + (h - 58) + '" x2="' + (w * 0.42) + '" y2="' + (h - 58) + '" style="stroke:var(--line);stroke-width:1;"/>';
-    svg += '<line x1="22" y1="' + (h - 40) + '" x2="' + (w * 0.36) + '" y2="' + (h - 40) + '" style="stroke:var(--line);stroke-width:1;"/>';
-    svg += '<line x1="22" y1="' + (h - 22) + '" x2="' + (w * 0.26) + '" y2="' + (h - 22) + '" style="stroke:var(--line);stroke-width:1;"/>';
+    svg += '<rect width="' + w + '" height="' + h + '" style="fill:' + colorSoftVar + ';"/>';
+    svg += '<rect width="' + w + '" height="4" style="fill:' + colorVar + ';"/>';
+    if(large && motif === 'check'){
+      var stackCx = w * 0.78;
+      var stackCy = h * 0.56;
+      var docW = w * 0.2;
+      var docH = h * 0.52;
+      svg += blogDocShape(stackCx - docW * 0.5, stackCy - docH * 0.5, docW, docH, docW * 0.22, -8, stackCx, stackCy, 'fill:var(--white)');
+    } else if(large){
+      svg += '<circle cx="' + (w * 0.82) + '" cy="' + (h * 0.55) + '" r="' + (h * 0.42) + '" style="fill:var(--paper);fill-opacity:0.35;"/>';
+    }
+    var iconCx = large ? w * 0.82 : w * 0.86;
+    var iconCy = large ? h * 0.55 : h * 0.54;
+    svg += blogMotifShape(motif, iconCx, iconCy, large ? 22 : 13, colorVar);
+    if(motif === 'mono'){
+      svg += '<text x="' + (large ? 28 : 16) + '" y="' + (large ? 86 : 54) + '" font-family="Fraunces, serif" font-size="' + (large ? 42 : 22) + '" style="fill:' + colorVar + ';">' + blogMonogram(p) + '</text>';
+    }
+    svg += '<text x="' + (large ? 22 : 14) + '" y="' + (large ? 34 : 28) + '" font-family="IBM Plex Mono, monospace" font-size="' + (large ? 11 : 9) + '" letter-spacing="1.6" style="fill:' + colorVar + ';">' + tagLabel + '</text>';
     svg += '</svg>';
     return svg;
   }
@@ -10403,6 +10481,7 @@
     if(paginEl)   paginEl.style.display  = hasMore ? 'block' : 'none';
     if(paginInfo) paginInfo.textContent  = hasMore ? toShow.length + ' van ' + allFiltered.length + ' getoond' : '';
   }
+  renderBlogGrid();
 
 
   // Zoekbalk koppelen
@@ -10462,7 +10541,7 @@
       var s = document.createElement('span'); s.className = 'blog-tag'; s.textContent = t; tagsWrap.appendChild(s);
     });
     var bodyEl = document.getElementById('blogpost-body');
-    bodyEl.innerHTML = sanitizeHtml(p.bodyHtml || '');
+    bodyEl.innerHTML = sanitizeHtml(ensureInlineCta(p.bodyHtml || ''));
     // H2-ankerlinks injecteren
     injectH2Anchors(bodyEl);
     // Inhoudsopgave opbouwen
@@ -10526,14 +10605,6 @@
 
     var relatedWrap = document.getElementById('blogpost-related');
     relatedWrap.innerHTML = '';
-
-    // Altijd een teruglink naar de WHK-controle hoofddienst tonen
-    var backlink = document.createElement('div');
-    backlink.style.cssText = 'background:var(--paper-deep);border:1px solid var(--line);border-left:4px solid var(--savings);border-radius:var(--radius-s);padding:14px 18px;margin-bottom:28px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;';
-    backlink.innerHTML = '<div style="flex:1;min-width:180px;"><strong style="display:block;font-size:0.88rem;margin-bottom:2px;">Meer besparen op uw WHK-premie?</strong>'
-      + '<span style="font-size:0.82rem;color:var(--ink-soft);">Wij controleren uw beschikking gratis. No cure, no pay.</span></div>'
-      + '<button class="btn btn-savings btn-sm" data-view="dienst-whkreductie-view">Bekijk de WHK-controle \u2192</button>';
-    relatedWrap.appendChild(backlink);
 
     var relatedSlugs = p.relatedSlugs || [];
     var relatedPosts = relatedSlugs.map(function(s){ return posts.find(function(x){ return x.slug === s; }); }).filter(Boolean);
@@ -12106,7 +12177,7 @@
 
   function buildCtaHtml(ctaKey, customHtml){
     var ctas = {
-      calculator:       '<div class="inline-cta"><p><strong>Twijfelt u of dit ook voor uw organisatie geldt?</strong> Doe de gratis, vrijblijvende WHK-check en weet binnen 15 minuten of er een besparing voor u klaarligt.</p><button class="btn btn-risk" type="button" data-cta="calculator">Start de gratis check</button></div>',
+      calculator:       blogWhkCtaHtml(),
       terugbel:         '<div class="inline-cta"><p><strong>Wilt u persoonlijk advies over uw situatie?</strong> Laat uw nummer achter en wij bellen u binnen één werkdag terug.</p><button class="btn btn-risk" type="button" data-cta="terugbel">Bel mij terug</button></div>',
       sector:           '<div class="inline-cta"><p><strong>Hoe staat uw premie ten opzichte van het sectorgemiddelde?</strong> Vergelijk uw positie direct in onze sectorvergelijking.</p><button class="btn btn-risk" type="button" data-view="home-view">Naar de sectorvergelijking</button></div>',
       quiz:             '<div class="inline-cta"><p><strong>Benieuwd waar voor uw organisatie besparing kan liggen?</strong> Doe het gratis besparingsonderzoek en krijg direct een persoonlijk beeld.</p><button class="btn btn-risk" type="button" data-view="quiz-view">Start het besparingsonderzoek</button></div>',
