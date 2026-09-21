@@ -6,9 +6,8 @@ var path = require('path');
 
 var dir = path.join(__dirname, '..', 'content', 'articles');
 var NEW_SLUGS = [
-  'whk-premieverhoging-na-een-wga-instroom-rekenvoorbeeld-mkb',
-  'erd-terug-naar-publiek-beslisboom-2026',
-  'uwv-correctiebericht-vs-whk-beschikking-voorrang'
+  'no-riskpolis-7-checkpunten-voor-whk-beschikking',
+  'whk-beschikking-lezen-in-10-minuten'
 ];
 var REQUIRED_LINKS = [
   'https://werkhervattingskas.nl/tools/wia-calculator',
@@ -32,7 +31,7 @@ function parseFrontmatter(raw) {
 var files = fs.readdirSync(dir).filter(function (f) {
   return f.endsWith('.md') && f.toLowerCase() !== 'readme.md';
 });
-assert.ok(files.length >= 6, 'expected existing plus 3 new markdown articles');
+assert.ok(files.length >= 8, 'expected existing plus 2 new markdown articles');
 
 var slugs = [];
 var allNewBodies = '';
@@ -48,7 +47,11 @@ files.forEach(function (file) {
   assert.ok((parsed.body.match(/^## /gm) || []).length >= 4, file + ' needs FAQ-style H2s');
   assert.ok(parsed.body.indexOf('www.werkhervattingskas.nl') === -1, file + ' must use apex URLs');
   assert.ok(parsed.body.indexOf('calendly.com') === -1, file + ' must not hard-code Calendly');
-  if (NEW_SLUGS.indexOf(slug) !== -1) allNewBodies += parsed.body;
+  if (NEW_SLUGS.indexOf(slug) !== -1) {
+    assert.ok(parsed.body.indexOf('\u2014') === -1, file + ' must not use em dashes');
+    assert.ok(parsed.body.indexOf('Gratis WHK-beschikking check') !== -1, file + ' missing soft CTA');
+    allNewBodies += parsed.body;
+  }
 });
 
 NEW_SLUGS.forEach(function (slug) {
