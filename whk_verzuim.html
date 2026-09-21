@@ -138,6 +138,10 @@
   .hero p.lede{font-size:1.05rem;color:var(--ink-soft);max-width:480px;margin-bottom:28px;}
   .hero-cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:22px 0 6px;}
   .hero-cta-row .btn{font-size:0.95rem;padding:12px 22px;}
+  .erd-deadline-bar{background:var(--gold-soft);border-bottom:1px solid var(--gold);padding:10px 0;text-align:center;font-size:0.88rem;color:var(--ink);}
+  .erd-deadline-bar a{color:var(--risk);font-weight:700;text-decoration:underline;text-underline-offset:2px;}
+  .erd-deadline-bar .erd-deadline-note{color:var(--ink-soft);font-weight:500;}
+  .hero-erd-link{display:inline-block;margin:8px 0 0;font-size:0.88rem;font-weight:700;color:var(--risk);text-decoration:underline;text-underline-offset:2px;}
   .header-cta-group{display:flex;align-items:center;gap:8px;flex-shrink:0;}
   @media (max-width:780px){
     .header-cta-group #open-terugbel{display:none;}
@@ -1836,6 +1840,13 @@
   <!-- HOME VIEW -->
   <main id="home-view" class="page-section show">
 
+    <div class="erd-deadline-bar" id="erd-deadline-bar">
+      <div class="wrap">
+        <a href="/blog/erd-2027-aanvragen-voor-2-oktober">ERD 2027 aanvragen vóór 2 okt</a>
+        <span class="erd-deadline-note"> · Aanvraag bij de Belastingdienst voor eigenrisicodragerschap per 1 januari 2027</span>
+      </div>
+    </div>
+
     <!-- Social proof balk — direct onder de navigatie -->
     <div style="background:var(--savings-soft);border-bottom:1px solid var(--savings);padding:9px 0;text-align:center;font-size:0.84rem;color:var(--savings);font-weight:600;">
       <div class="wrap" style="display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;">
@@ -1880,6 +1891,7 @@
             <button class="btn btn-risk" type="button" data-cta="calculator">Gratis WHK-beschikking check</button>
             <button class="btn btn-ghost" type="button" data-cta="terugbel">Bel mij terug</button>
           </div>
+          <a class="hero-erd-link" href="/blog/erd-2027-aanvragen-voor-2-oktober">ERD 2027 aanvragen vóór 2 okt</a>
 
           <div class="trust-strip">
             <span class="trust-label">Met vertrouwen gekozen door onder andere:</span>

@@ -7,7 +7,8 @@ var path = require('path');
 var dir = path.join(__dirname, '..', 'content', 'articles');
 var NEW_SLUGS = [
   'no-riskpolis-7-checkpunten-voor-whk-beschikking',
-  'whk-beschikking-lezen-in-10-minuten'
+  'whk-beschikking-lezen-in-10-minuten',
+  'erd-2027-aanvragen-voor-2-oktober'
 ];
 var REQUIRED_LINKS = [
   'https://werkhervattingskas.nl/tools/wia-calculator',
@@ -31,7 +32,7 @@ function parseFrontmatter(raw) {
 var files = fs.readdirSync(dir).filter(function (f) {
   return f.endsWith('.md') && f.toLowerCase() !== 'readme.md';
 });
-assert.ok(files.length >= 8, 'expected existing plus 2 new markdown articles');
+assert.ok(files.length >= 9, 'expected existing plus new markdown articles');
 
 var slugs = [];
 var allNewBodies = '';
