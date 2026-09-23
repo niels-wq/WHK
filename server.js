@@ -391,7 +391,7 @@ const URL_META = {
   '/sectoren':                      { title: 'WHK-premie per sector: wat betaalt uw branche gemiddeld? [2026]', desc: 'Zie hoe uw WHK-premie zich verhoudt tot het sectorgemiddelde. Zorg, bouw, transport, onderwijs — per sector uitgelegd inclusief typische fouten in de beschikking.' },
   '/casestudies':                   { title: 'Praktijkcasussen WHK-besparing — werkhervattingskas.nl', desc: 'Vijf geanonimiseerde casussen: van €9.800 tot €137.000 besparing per jaar.' },
   '/beschikking-uitleg':           { title: 'WHK-beschikking lezen (2026): loonsom, premie en toerekening', desc: 'Lees de WHK-beschikking stap voor stap: dagtekening, loonsom, WGA-premie en de bijlage met personen. Bezwaartermijn is 6 weken. Laat hem gratis controleren.' },
-  '/vergelijking':                  { title: 'WHK-beschikking controleren: specialist, controller of arbodienst', desc: 'Eerlijke vergelijking: wie controleert uw WHK-beschikking het best, een specialist, uw controller, de casemanager of de arbodienst?' },
+  '/vergelijking':                  { title: 'Matchvermogen vs. controller vs. arbodienst', desc: 'Eerlijke vergelijking: wie controleert uw WHK-beschikking het beste?' },
   '/privacy':                       { title: 'Privacyverklaring — werkhervattingskas.nl', desc: 'Hoe werkhervattingskas.nl omgaat met uw persoonsgegevens en AVG-rechten.' },
   '/quiz':                          { title: 'WHK-risicoscan — werkhervattingskas.nl', desc: 'Doe de korte scan en ontdek in 2 minuten uw WHK-besparingspotentieel.' },
   '/besparingen':                   { title: 'Alle besparingsmogelijkheden — werkhervattingskas.nl', desc: 'Compleet overzicht van alle WHK-besparingsroutes.' },
@@ -409,7 +409,7 @@ const URL_META = {
   '/voor/hr-manager':              { title: 'WHK voor HR-managers & HR-adviseurs — werkhervattingskas.nl', desc: 'U regelt het verzuim. Wij regelen de financiële kant: WHK-check en no-riskpolissen.' },
   '/voor/controller':              { title: 'WHK-optimalisatie voor controllers & Finance — werkhervattingskas.nl', desc: 'Verlaag de WHK-loonkostenpost structureel. No cure, no pay.' },
   '/voor/casemanager':             { title: 'WHK en re-integratie voor casemanagers — werkhervattingskas.nl', desc: 'Wij zijn uw verlengstuk: AD-onderzoek, tweede spoor en WGA-herbeoordeling.' },
-  '/voor/directeur':               { title: 'WHK-besparing voor directeuren: in 8 van de 10 gevallen', desc: 'U betaalt de WHK-premie en hoeft hem niet zelf te controleren. In 8 van de 10 gevallen vinden wij besparing. Gratis check, no cure no pay.' },
+  '/voor/directeur':               { title: 'WHK-besparing voor directeuren en eigenaren: in 8 van de 10 gevallen', desc: 'U betaalt de WHK-premie en hoeft hem niet zelf te controleren. In 8 van de 10 gevallen vinden wij besparing. Gratis check, no cure no pay.' },
   '/diensten':                     { title: 'WHK-diensten 2026: beschikking controleren en besparen', desc: 'Overzicht van WHK-beschikking controleren, besparingsonderzoek, tweede spoor, letselschade en ERD-advies. Start met een gratis WHK-beschikking check.' },
   '/diensten/whk-controle':        { title: 'WHK-beschikking controleren: gratis check, no cure no pay [2026]', desc: 'Erkend arbeidsdeskundige controleert uw WHK-beschikking op fouten, gemiste no-riskpolissen en onjuiste toerekening. Gemiddeld €47.000 besparing. Start gratis.' },
   '/diensten/besparingsonderzoek': { title: 'WHK-besparingsonderzoek 2026: wat u onnodig betaalt', desc: 'Doorlichting van beschikking, no-riskpolissen, interventietarieven en eigenrisicodragerschap. Gemiddeld €47.000 besparing per jaar. Gratis intake, no cure no pay.' },
@@ -422,7 +422,7 @@ const URL_META = {
 
 const SECTOR_META = {
   'zorg':       { title: 'WHK-besparing in de zorgsector — werkhervattingskas.nl', desc: 'De zorgsector heeft structureel hoog verzuim. Ontdek de besparingskansen voor ziekenhuizen, GGZ en VVT.' },
-  'onderwijs':  { title: 'WHK-premie onderwijs 2026: fouten in de beschikking', desc: 'Scholen en onderwijsinstellingen betalen vaak te veel WHK-premie door psychisch verzuim, nawerking na tijdelijke contracten en gemist LKV. Zo herkent u de fouten.' },
+  'onderwijs':  { title: 'WHK-besparing in het onderwijs: de meest voorkomende fouten', desc: 'Scholen en onderwijsinstellingen betalen vaak te veel WHK-premie door psychisch verzuim, nawerking na tijdelijke contracten en gemist LKV. Zo herkent u de fouten.' },
   'bouw':       { title: 'WHK-besparing in de bouw — werkhervattingskas.nl', desc: 'Bouwbedrijven kampen met hoog verzuim door fysieke belasting. Zo beheerst u de WHK-premie.' },
   'overheid':   { title: 'WHK-besparing bij overheid & gemeenten — werkhervattingskas.nl', desc: 'Gemeenten en overheidsinstellingen als grote werkgever: effectieve beschikkingcontrole.' },
   'retail':     { title: 'WHK-besparing in de retail — werkhervattingskas.nl', desc: 'Retailbedrijven met veel parttimers: no-riskpolissen en WHK-premie optimaal beheren.' },
