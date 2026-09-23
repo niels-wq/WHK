@@ -237,6 +237,9 @@
     background:var(--white);border:1px solid var(--line);border-radius:var(--radius-s);
     padding:26px 24px 24px;position:relative;
   }
+  a.eco-card{display:block;text-decoration:none;color:inherit;}
+  .diensten-main-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:8px 0 36px;}
+  @media (max-width:700px){.diensten-main-grid{grid-template-columns:1fr;}}
   .eco-card.linkable{cursor:pointer;transition:border-color .15s,transform .15s;}
   .eco-card.linkable:hover{border-color:var(--risk);transform:translateY(-2px);}
   .eco-card.linkable .more-link{display:inline-block;margin-top:14px;font-size:0.84rem;font-weight:600;color:var(--risk);}
@@ -1757,7 +1760,8 @@
             <a href="/diensten/letselschade" data-view="dienst-letselschade-view">Letselschade &amp; regres</a>
             <a href="/diensten/consultancy" data-view="dienst-consultancy-view">Verzuimconsultancy</a>
             <a href="/diensten/erd-partneradvies" data-view="dienst-partneradvies-view">ERD &amp; partneradvies</a>
-            <a href="/aanpak" data-view="aanpak-view" style="border-top:1px solid var(--line);margin-top:4px;padding-top:10px;color:var(--ink-soft);">Onze aanpak per dienst &rarr;</a>
+            <a href="/diensten" data-view="diensten-view" style="border-top:1px solid var(--line);margin-top:4px;padding-top:10px;">Alle diensten</a>
+            <a href="/aanpak" data-view="aanpak-view" style="color:var(--ink-soft);">Onze aanpak per dienst &rarr;</a>
             <a href="#" id="nav-wegwijzer-link" style="font-weight:600;color:var(--risk);background:var(--gold-soft);border-radius:4px;display:flex;align-items:center;gap:6px;">🧭 Weet u niet zeker waar te beginnen?</a>
           </div>
         </div>
@@ -1815,6 +1819,7 @@
         <a href="/diensten/letselschade" class="mobile-nav-link" data-view="dienst-letselschade-view">Letselschade &amp; regres</a>
         <a href="/diensten/consultancy" class="mobile-nav-link" data-view="dienst-consultancy-view">Verzuimconsultancy</a>
         <a href="/diensten/erd-partneradvies" class="mobile-nav-link" data-view="dienst-partneradvies-view">ERD &amp; partneradvies</a>
+        <a href="/diensten" class="mobile-nav-link" data-view="diensten-view">Alle diensten</a>
         <div class="mobile-nav-section-title">Tools &amp; kennis</div>
         <a href="/tools/poortwachter" class="mobile-nav-link" data-view="poortwachter-view">Poortwachter-tijdlijn</a>
         <a href="/tools/wia-calculator" class="mobile-nav-link" data-view="wia-calc-view">WIA-calculator</a>
@@ -2733,6 +2738,75 @@
           <div class="testi-by">Dimitar P. <span>&middot; in samenwerking met eindklant</span></div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- DIENSTEN OVERZICHT -->
+  <section class="page-section" id="diensten-view">
+    <div class="wrap" style="padding-top:44px;">
+      <div class="eyebrow">Diensten</div>
+      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;max-width:760px;">WHK-controle, re-integratie en advies voor werkgevers.</h1>
+      <p class="lede" style="max-width:680px;margin-bottom:36px;">Van een gratis check op uw WHK-beschikking tot arbeidsdeskundig onderzoek, tweede spoor en eigenrisicodragerschap. Hieronder staan de diensten die we voor werkgevers uitvoeren.</p>
+
+      <div style="margin-bottom:14px;">
+        <span style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--risk);">Hoofddiensten</span>
+      </div>
+      <div class="diensten-main-grid">
+        <a class="eco-card linkable" href="/diensten/whk-controle" data-view="dienst-whkreductie-view" style="border-color:var(--risk);border-width:2px;">
+          <span class="tab" style="background:var(--risk);">KERNPRODUCT</span>
+          <h3>WHK-beschikking controleren</h3>
+          <p>Wij controleren uw WHK-beschikking op fouten, foutieve toerekeningen en gemiste no-riskpolissen. Indicatie: &euro;25.000 tot &euro;100.000 per jaar. No cure, no pay.</p>
+          <span class="more-link">Bekijk de dienst &rarr;</span>
+        </a>
+        <a class="eco-card linkable" href="/diensten/besparingsonderzoek" data-view="dienst-besparingsonderzoek-view" style="border-color:var(--risk);border-width:2px;">
+          <span class="tab" style="background:var(--risk);">KERNPRODUCT</span>
+          <h3>Volledig besparingsonderzoek</h3>
+          <p>Een compleet onderzoek naar beschikking, no-riskpolissen, interventietarieven en eigenrisicodragerschap, in &eacute;&eacute;n rapport.</p>
+          <span class="more-link">Bekijk de dienst &rarr;</span>
+        </a>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <span style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--savings);">Ondersteunende diensten</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin:8px 0 40px;">
+        <a class="eco-card linkable" href="/diensten/arbeidsdeskundig-onderzoek" data-view="dienst-arbeidsdeskundig-view">
+          <span class="tab">VIA MATCHVERMOGEN</span>
+          <h3>Arbeidsdeskundig onderzoek</h3>
+          <p>Voorkomt onjuiste WGA-instroom en versterkt het re-integratiedossier. Direct van invloed op uw WHK-premie.</p>
+          <span class="more-link">Bekijk de dienst &rarr;</span>
+        </a>
+        <a class="eco-card linkable" href="/diensten/tweede-spoor" data-view="dienst-tweedespoor-view">
+          <span class="tab">VIA BEST MATCH</span>
+          <h3>Tweede spoor re-integratie</h3>
+          <p>Tijdig tweede spoor voorkomt een loonsanctie en verlaagt de kans op WGA-instroom in de volgende beschikking.</p>
+          <span class="more-link">Bekijk de dienst &rarr;</span>
+        </a>
+        <a class="eco-card linkable" href="/diensten/letselschade" data-view="dienst-letselschade-view">
+          <span class="tab">VIA MATCHVERMOGEN</span>
+          <h3>Letselschade en regres</h3>
+          <p>Verhaal loondoorbetaling op een aansprakelijke derde. Dat verlaagt uw netto verzuimkosten.</p>
+          <span class="more-link">Bekijk de dienst &rarr;</span>
+        </a>
+        <a class="eco-card linkable" href="/diensten/consultancy" data-view="dienst-consultancy-view">
+          <span class="tab">VIA BEST MATCH</span>
+          <h3>Verzuimconsultancy</h3>
+          <p>Verbeter het verzuimbeleid, zodat toekomstige WHK-instroom lager blijft.</p>
+          <span class="more-link">Bekijk de dienst &rarr;</span>
+        </a>
+        <a class="eco-card linkable" href="/diensten/erd-partneradvies" data-view="dienst-partneradvies-view">
+          <span class="tab">VIA MATCHVERMOGEN</span>
+          <h3>ERD en partneradvies</h3>
+          <p>Is eigenrisicodragerschap voordeliger dan de publieke WHK? Wij vergelijken en begeleiden de overgang.</p>
+          <span class="more-link">Bekijk de dienst &rarr;</span>
+        </a>
+      </div>
+
+      <div class="cta-row" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
+        <button class="btn btn-risk" type="button" data-cta="calculator">Gratis WHK-beschikking check</button>
+        <a class="btn btn-ghost" href="/aanpak" data-view="aanpak-view">Onze aanpak per dienst</a>
+      </div>
+      <p style="font-size:0.88rem;color:var(--ink-soft);margin-top:14px;">No cure, no pay. Geen besparing, geen kosten.</p>
     </div>
   </section>
 
@@ -6906,6 +6980,7 @@
           <a href="/diensten/letselschade" data-view="dienst-letselschade-view" style="color:#C9C3B4;font-size:0.86rem;text-decoration:none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#C9C3B4'">Letselschade &amp; regres</a>
           <a href="/diensten/consultancy" data-view="dienst-consultancy-view" style="color:#C9C3B4;font-size:0.86rem;text-decoration:none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#C9C3B4'">Verzuimconsultancy</a>
           <a href="/diensten/erd-partneradvies" data-view="dienst-partneradvies-view" style="color:#C9C3B4;font-size:0.86rem;text-decoration:none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#C9C3B4'">ERD &amp; partneradvies</a>
+          <a href="/diensten" data-view="diensten-view" style="color:#9B9588;font-size:0.82rem;text-decoration:none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#9B9588'">Alle diensten &rarr;</a>
         </nav>
       </div>
 
@@ -8030,7 +8105,7 @@
   var isAdmin = false;
   var ADMIN_PASSWORD = 'werkhervatting2026'; // demo-only gate, not real server security
 
-  var VIEWS = ['home-view','results-view','overons-view','aanpak-view','faq-view','blog-view','blogpost-view','lexicon-view','quiz-view','besparingen-overzicht-view','preventie-calculator-view','dienst-whkreductie-view','dienst-besparingsonderzoek-view','dienst-letselschade-view','dienst-arbeidsdeskundig-view','dienst-tweedespoor-view','dienst-consultancy-view','dienst-partneradvies-view','interventie-check-view','tools-view','pricing-view','sectors-view','sector-view','casestudies-view','beschikking-uitleg-view','vergelijking-view','poortwachter-view','wia-calc-view','subsidie-scan-view','kalender-view','premiehistorie-view','controller-view','doelgroep-hr-view','doelgroep-casemanager-view','doelgroep-directeur-view','doelgroep-tussenpersoon-view','privacy-view','login-view','admin-view'];
+  var VIEWS = ['home-view','results-view','overons-view','aanpak-view','diensten-view','faq-view','blog-view','blogpost-view','lexicon-view','quiz-view','besparingen-overzicht-view','preventie-calculator-view','dienst-whkreductie-view','dienst-besparingsonderzoek-view','dienst-letselschade-view','dienst-arbeidsdeskundig-view','dienst-tweedespoor-view','dienst-consultancy-view','dienst-partneradvies-view','interventie-check-view','tools-view','pricing-view','sectors-view','sector-view','casestudies-view','beschikking-uitleg-view','vergelijking-view','poortwachter-view','wia-calc-view','subsidie-scan-view','kalender-view','premiehistorie-view','controller-view','doelgroep-hr-view','doelgroep-casemanager-view','doelgroep-directeur-view','doelgroep-tussenpersoon-view','privacy-view','login-view','admin-view'];
 
   var VIEW_META = {
     'home-view': {title: 'WHK-beschikking controleren — in 8 van de 10 gevallen vinden wij iets', desc: 'Fout in uw WHK-beschikking? Gratis controle, no cure no pay bezwaar. Gemiddeld €47.000 besparing. Erkend arbeidsdeskundige. Resultaat binnen 5 werkdagen.'},
@@ -8038,6 +8113,7 @@
     'faq-view': {title: 'FAQ Werkhervattingskas (WHK): vragen over premie, WIA en bezwaar', desc: 'Wat is de Werkhervattingskas? Hoe werkt de WHK-premie, no-riskpolis, WIA/WGA en bezwaar? Antwoorden van een erkend arbeidsdeskundige, plus links naar rekentools.'},
     'blog-view': {title: 'WHK-kennisbank voor HR en Finance — werkhervattingskas.nl', desc: 'Actuele artikelen over WHK-premies, re-integratie, no-riskpolissen en loonkostenvoordeel.'},
     'aanpak-view': {title: 'Onze aanpak — werkhervattingskas.nl', desc: 'Zo werkt onze WHK-controle: van eerste check tot onderbouwd bezwaar, no cure no pay en met AI-ondersteunde analyse voor sneller resultaat.'},
+    'diensten-view': {title: 'Diensten: WHK-controle, re-integratie en advies', desc: 'Overzicht van WHK-beschikking controleren, besparingsonderzoek, arbeidsdeskundig onderzoek, tweede spoor, letselschade, consultancy en ERD-advies.'},
     'lexicon-view': {title: 'WHK-lexicon: begrippen uitgelegd — werkhervattingskas.nl', desc: 'Heldere uitleg van WHK- en verzuimbegrippen: WGA, IVA, no-riskpolis, eigenrisicodragerschap, loonkostenvoordeel en meer.'},
     'quiz-view': {title: 'Besparingsonderzoek: WHK, interventies en eigenrisicodragerschap — werkhervattingskas.nl', desc: 'Ontdek in acht korte vragen of er bij uw organisatie besparing blijft liggen op het gebied van WHK, interventies of eigenrisicodragerschap.'},
     'preventie-calculator-view': {title: 'Wat levert vroeg ingrijpen op? — werkhervattingskas.nl', desc: 'Bereken wat vervroegde inzet van arbeidsdeskundig onderzoek, tweede spoor, coaching of outplacement kan schelen aan voorkomen WGA-instroom en WHK-premie.'},
@@ -8131,6 +8207,7 @@
     'faq-view': 'Veelgestelde vragen',
     'overons-view': 'Over ons',
     'aanpak-view': 'Onze aanpak',
+    'diensten-view': 'Diensten',
     'blog-view': 'Blog'
   };
   var DIENST_VIEWS = ['dienst-whkreductie-view', 'dienst-besparingsonderzoek-view', 'dienst-letselschade-view', 'dienst-arbeidsdeskundig-view', 'dienst-tweedespoor-view', 'dienst-consultancy-view', 'dienst-partneradvies-view', 'interventie-check-view', 'preventie-calculator-view'];
@@ -8142,7 +8219,7 @@
     var base = 'https://werkhervattingskas.nl';
     var items = [{name: 'Home', url: base + '/'}];
     if(DIENST_VIEWS.indexOf(viewId) !== -1){
-      items.push({name: 'Diensten', url: base + '/diensten/whk-controle'});
+      items.push({name: 'Diensten', url: base + '/diensten'});
     }
     var pagePath = VIEW_TO_PATH[viewId] || ('/' + viewId);
     items.push({name: label, url: base + pagePath});
@@ -8181,6 +8258,7 @@
     'home-view':                    '/',
     'overons-view':                 '/over-ons',
     'aanpak-view':                  '/aanpak',
+    'diensten-view':                '/diensten',
     'faq-view':                     '/faq',
     'blog-view':                    '/blog',
     'tools-view':                   '/tools',
@@ -8239,16 +8317,24 @@
     updateReadingProgress();
     updateBreadcrumbSchema(id);
 
-    // Update de URL in de adresbalk zonder pagina te herladen
+    // Update de URL in de adresbalk zonder pagina te herladen.
+    // Alleen een slash-verschil (bijv. /diensten/) wordt vervangen, geen extra history-entry.
     var newPath = VIEW_TO_PATH[id];
-    if(newPath && window.location.pathname !== newPath){
+    if(newPath && stripTrailingSlash(window.location.pathname) !== newPath){
       history.pushState({ viewId: id }, document.title, newPath);
+    } else if(newPath && window.location.pathname !== newPath){
+      history.replaceState({ viewId: id }, document.title, newPath);
     }
+  }
+
+  function stripTrailingSlash(path){
+    if(path && path.length > 1 && path.charAt(path.length - 1) === '/') return path.slice(0, -1);
+    return path || '/';
   }
 
   // Terugknop van de browser afhandelen
   window.addEventListener('popstate', function(e){
-    var path = window.location.pathname;
+    var path = stripTrailingSlash(window.location.pathname);
     if(path.startsWith('/blog/') && path.length > 6){
       var slug = path.replace('/blog/', '').replace(/\/$/, '');
       if(typeof openBlogPost === 'function'){
@@ -8275,13 +8361,17 @@
   // Bij eerste pageload: juiste view tonen op basis van URL
   (function initFromUrl(){
     if(typeof window === 'undefined' || !window.location || !window.location.pathname) return;
-    var path = window.location.pathname;
+    var rawPath = window.location.pathname;
+    var path = stripTrailingSlash(rawPath);
     if(path.startsWith('/blog/')){
       var slug = path.replace('/blog/', '').replace(/\/$/, '');
       window._initialBlogSlug = slug;
       return;
     }
     var view = PATH_TO_VIEW[path];
+    if(view && rawPath !== path){
+      history.replaceState({ viewId: view }, document.title, path);
+    }
     if(view && view !== 'home-view'){
       VIEWS.forEach(function(v){
         var el = document.getElementById(v);

@@ -51,10 +51,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// Collapse trailing slashes so /over-ons/ and /over-ons share one URL
+// Collapse trailing slashes so /over-ons/ and /over-ons share one URL.
+// /diensten/ is the services index itself: serve 200 (canonical remains /diensten).
 app.use((req, res, next) => {
   if (req.method !== 'GET' && req.method !== 'HEAD') return next();
   if (req.path.length > 1 && req.path.endsWith('/')) {
+    if (req.path === '/diensten/') return next();
     const rest = req.url.slice(req.path.length);
     return res.redirect(301, req.path.slice(0, -1) + rest);
   }
@@ -408,6 +410,7 @@ const URL_META = {
   '/voor/controller':              { title: 'WHK-optimalisatie voor controllers & Finance — werkhervattingskas.nl', desc: 'Verlaag de WHK-loonkostenpost structureel. No cure, no pay.' },
   '/voor/casemanager':             { title: 'WHK en re-integratie voor casemanagers — werkhervattingskas.nl', desc: 'Wij zijn uw verlengstuk: AD-onderzoek, tweede spoor en WGA-herbeoordeling.' },
   '/voor/directeur':               { title: 'WHK-besparing voor directeuren & eigenaren — werkhervattingskas.nl', desc: 'In 8 van de 10 gevallen vinden wij besparing. No cure, no pay.' },
+  '/diensten':                     { title: 'Diensten: WHK-controle, re-integratie en advies', desc: 'Overzicht van WHK-beschikking controleren, besparingsonderzoek, arbeidsdeskundig onderzoek, tweede spoor, letselschade, consultancy en ERD-advies.' },
   '/diensten/whk-controle':        { title: 'WHK-beschikking controleren: gratis check, no cure no pay [2026]', desc: 'Erkend arbeidsdeskundige controleert uw WHK-beschikking op fouten, gemiste no-riskpolissen en onjuiste toerekening. Gemiddeld €47.000 besparing. Start gratis.' },
   '/diensten/besparingsonderzoek': { title: 'WHK-besparingsonderzoek: ontdek wat u onnodig betaalt — gratis intake', desc: 'Wij onderzoeken uw volledige WHK-positie: beschikking, no-riskpolissen, interventietarieven en ERD. Gemiddeld €47.000 besparing per jaar. Volledig no cure, no pay.' },
   '/diensten/letselschade':        { title: 'Letselschaderegres: WGA-kosten verhalen op aansprakelijke partij', desc: 'Heeft een derde uw medewerker letsel toegebracht? Dan kunt u de WGA-kosten en WHK-premieverhoging op hen verhalen. Wij regelen het traject. No cure, no pay.' },
@@ -535,6 +538,7 @@ function serveNotFound(res) {
       <li><a href="/">Home — WHK-check</a></li>
       <li><a href="/over-ons">Over ons</a></li>
       <li><a href="/blog">Kennisbank</a></li>
+      <li><a href="/diensten">Diensten</a></li>
       <li><a href="/diensten/whk-controle">WHK-beschikking controleren</a></li>
     </ul>
   </div>
@@ -591,6 +595,7 @@ Matchvermogen helpt werkgevers met meer dan 25 medewerkers de WHK-premie (Werkhe
 
 ## Diensten
 
+- Overzicht: ${SITE_URL}/diensten
 - WHK-beschikking controleren: ${SITE_URL}/diensten/whk-controle
 - Besparingsonderzoek: ${SITE_URL}/diensten/besparingsonderzoek
 - Arbeidsdeskundig onderzoek: ${SITE_URL}/diensten/arbeidsdeskundig-onderzoek
@@ -754,7 +759,11 @@ app.get('/whk_checklist.html', (req, res) => {
 // Catch-all
 app.get('*', (req, res) => serveNotFound(res));
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`werkhervattingskas.nl v3.0 op poort ${PORT} | ${SITE_URL}`);
-  console.log(`E-mail: ${emailReady ? 'ACTIEF via Resend' : 'NIET geconfigureerd'}`);
-});
+if (require.main === module) {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`werkhervattingskas.nl v3.0 op poort ${PORT} | ${SITE_URL}`);
+    console.log(`E-mail: ${emailReady ? 'ACTIEF via Resend' : 'NIET geconfigureerd'}`);
+  });
+}
+
+module.exports = app;
