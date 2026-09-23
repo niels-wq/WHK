@@ -1434,14 +1434,22 @@
       "@type": "FAQPage",
       "@id": "https://werkhervattingskas.nl/faq#faq",
       "url": "https://werkhervattingskas.nl/faq",
-      "name": "Veelgestelde vragen over de Werkhervattingskas (WHK)",
+      "name": "Wat is de Werkhervattingskas? Vragen over premie, WIA en bezwaar",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Wat is de Werkhervattingskas (WHK) precies?",
+          "name": "Wat is de Werkhervattingskas (WHK)?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "De WHK is de premie die werkgevers betalen voor Ziektewet- en WGA-uitkeringen van (ex-)werknemers. De hoogte hangt af van uw loonsom, uw bedrijfsgrootte en de uitkeringslasten die aan uw organisatie worden toegerekend."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wat is de gemiddelde WGA-premie in 2026?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Het landelijk gemiddelde van de gedifferentieerde WGA-premie ligt in 2026 op 0,96%. Kleine werkgevers betalen een sectorpremie, grote werkgevers een individueel percentage op basis van de eigen schadelast."
           }
         },
         {
@@ -1670,15 +1678,15 @@
         },
         {
           "@type": "Question",
-          "name": "Waarom is de WHK-beschikking zo moeilijk te begrijpen?",
+          "name": "Hoe lees ik mijn WHK-beschikking?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "De beschikking combineert UWV-uitkeringsdata, loonaangifte en sectorinformatie, plus een bijlage met toegerekende personen. Die bijlage is alleen leesbaar als u de toerekeningsregels kent."
+            "text": "Begin bij dagtekening, loonsom, het WGA-percentage en de bijlage met toegerekende personen. De dagtekening start de bezwaartermijn van zes weken. De bijlage laat zien waarom een medewerker nog aan uw premie hangt."
           }
         },
         {
           "@type": "Question",
-          "name": "Wat is de eerste stap om te beginnen?",
+          "name": "Hoe start ik een gratis WHK-beschikking check?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Start de gratis, vrijblijvende beschikkingcheck. Wij beoordelen of controle zinvol is. Geen kosten en geen verplichting; bezwaar start pas na een concrete fout en uw akkoord, op basis van no cure no pay."
@@ -1819,6 +1827,7 @@
         <div class="mobile-nav-section-title">Tools &amp; kennis</div>
         <a href="/tools/poortwachter" class="mobile-nav-link" data-view="poortwachter-view">Poortwachter-tijdlijn</a>
         <a href="/tools/wia-calculator" class="mobile-nav-link" data-view="wia-calc-view">WIA-calculator</a>
+        <a href="/tools/premiehistorie" class="mobile-nav-link" data-view="premiehistorie-view">WGA-premie 2022-2026</a>
         <a href="/tools/subsidie-scan" class="mobile-nav-link" data-view="subsidie-scan-view">Subsidie-scan LKV/LIV</a>
         <a href="/tools/jaarkalender" class="mobile-nav-link" data-view="kalender-view">WHK Jaarkalender</a>
         <a href="/beschikking-uitleg" class="mobile-nav-link" data-view="beschikking-uitleg-view">Hoe lees ik mijn beschikking?</a>
@@ -2339,6 +2348,21 @@
         <button class="btn btn-risk" id="preventie-cta">Bereken uw besparing door preventief in te grijpen</button>
       </div>
     </section>
+
+    <section class="eco" id="home-rekentools">
+      <div class="wrap">
+        <div class="eyebrow">Zelf rekenen</div>
+        <h2 style="font-size:clamp(1.4rem,2.6vw,1.9rem);margin-bottom:12px;max-width:720px;">Eerst de cijfers bekijken, daarna de beschikking.</h2>
+        <p style="color:var(--ink-soft);max-width:680px;margin-bottom:16px;">Bereken een indicatieve WIA-uitkering, leg uw WGA-premie naast de landelijke reeks van 2022-2026, of lees de WHK-beschikking onderdeel voor onderdeel.</p>
+        <p style="font-size:0.95rem;display:flex;flex-wrap:wrap;gap:14px 18px;">
+          <a href="/tools/wia-calculator" data-view="wia-calc-view" style="font-weight:700;color:var(--risk);">WIA-uitkering berekenen</a>
+          <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view" style="font-weight:700;color:var(--risk);">WHK-beschikking lezen</a>
+          <a href="/tools/premiehistorie" data-view="premiehistorie-view" style="font-weight:700;color:var(--risk);">WGA-premie 2022-2026</a>
+          <a href="/diensten/besparingsonderzoek" data-view="dienst-besparingsonderzoek-view" style="font-weight:600;">Besparingsonderzoek</a>
+          <a href="/diensten/whk-controle" data-view="dienst-whkreductie-view" style="font-weight:600;">WHK-beschikking controleren</a>
+        </p>
+      </div>
+    </section>
   </main>
 
   <!-- RESULTS VIEW -->
@@ -2733,8 +2757,9 @@
   <section class="page-section" id="diensten-view">
     <div class="wrap" style="padding-top:44px;">
       <div class="eyebrow">Diensten</div>
-      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;max-width:760px;">WHK-controle, re-integratie en advies voor werkgevers.</h1>
-      <p class="lede" style="max-width:680px;margin-bottom:36px;">Van een gratis check op uw WHK-beschikking tot arbeidsdeskundig onderzoek, tweede spoor en eigenrisicodragerschap. Hieronder staan de diensten die we voor werkgevers uitvoeren.</p>
+      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;max-width:760px;">WHK-diensten: beschikking controleren, besparen en re-integratie.</h1>
+      <p class="lede" style="max-width:680px;margin-bottom:14px;">Van een gratis check op uw WHK-beschikking tot een volledig besparingsonderzoek, tweede spoor en eigenrisicodragerschap. Hieronder staan de diensten die we voor werkgevers uitvoeren.</p>
+      <p style="font-size:0.92rem;color:var(--ink-soft);margin-bottom:36px;">Eerst zelf rekenen: <a href="/tools/wia-calculator" data-view="wia-calc-view">WIA-uitkering berekenen</a> · <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">WHK-beschikking lezen</a> · <a href="/tools/premiehistorie" data-view="premiehistorie-view">WGA-premie 2022-2026</a>.</p>
 
       <div style="margin-bottom:14px;">
         <span style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--risk);">Hoofddiensten</span>
@@ -2968,8 +2993,8 @@
   <section class="page-section" id="faq-view">
     <div class="wrap" style="padding-top:44px;">
       <div class="eyebrow">Veelgestelde vragen</div>
-      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:12px;max-width:720px;">Veelgestelde vragen over de Werkhervattingskas (WHK).</h1>
-      <p class="lede" style="margin-bottom:20px;max-width:680px;">Antwoorden over de WHK-premie, uw beschikking, no-riskpolis, WIA/WGA en arbeidsdeskundig onderzoek. Geen verzonnen cijfers: waar we een bedrag noemen, komt dat uit onze praktijk of uit publieke UWV-/Belastingdienstkaders.</p>
+      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:12px;max-width:720px;">Wat is de Werkhervattingskas? Vragen over premie, WIA en bezwaar.</h1>
+      <p class="lede" style="margin-bottom:20px;max-width:680px;">Antwoorden voor werkgevers: wat de Werkhervattingskas is, hoe de WHK-premie in 2026 werkt, no-riskpolis, WIA/WGA en bezwaar. Waar we een bedrag noemen, komt dat uit onze praktijk of uit publieke UWV- en Belastingdienstkaders.</p>
 
       <div class="faq-sticky-cta">
         <p><strong>Twijfelt u over uw beschikking?</strong> Gratis check, no cure no pay.</p>
@@ -3005,9 +3030,15 @@
         <div class="faq-group-title" id="faq-whk">WHK-basics</div>
 
         <div class="faq-item">
-          <button class="faq-q">Wat is de Werkhervattingskas (WHK) precies?<span class="faq-chevron">&#8964;</span></button>
+          <button class="faq-q">Wat is de Werkhervattingskas (WHK)?<span class="faq-chevron">&#8964;</span></button>
           <div class="faq-a"><p>De Werkhervattingskas (WHK) is de gedifferentieerde premie die werkgevers betalen via de loonaangifte: een ZW-deel (ex-werknemers die ziek uit dienst gaan) en een WGA-deel (gedeeltelijke arbeidsongeschiktheid). De hoogte hangt af van loonsom, bedrijfsgrootte en toegerekende uitkeringslasten. Klein: sectorpremie. Groot: individueel gedifferentieerd. Middelgroot: een gewogen mix.</p>
-          <p style="margin-top:8px;font-size:0.87rem;"><a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">Hoe leest u de WHK-beschikking? →</a></p></div>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">WHK-beschikking lezen →</a></p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">Wat is de gemiddelde WGA-premie in 2026?<span class="faq-chevron">&#8964;</span></button>
+          <div class="faq-a"><p>Het landelijk gemiddelde van de gedifferentieerde WGA-premie ligt in 2026 op 0,96%. Kleine werkgevers betalen een sectorpremie, grote werkgevers een individueel percentage op basis van de eigen schadelast. Uw percentage staat op de WHK-beschikking.</p>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/tools/premiehistorie" data-view="premiehistorie-view">WGA-premie 2022-2026 bekijken →</a></p></div>
         </div>
 
         <div class="faq-item">
@@ -3208,16 +3239,16 @@
         <div class="faq-item">
           <button class="faq-q">Wat zijn de grenzen voor de gedifferentieerde premie in 2026?<span class="faq-chevron">&#8964;</span></button>
           <div class="faq-a"><p>In 2026 gelden globaal de volgende grenzen (exacte bedragen worden jaarlijks vastgesteld door de Belastingdienst): kleine werkgevers betalen de sectorale premie bij een loonsom tot circa €450.000; middelgrote werkgevers betalen een mengpercentage tussen €450.000 en €900.000 loonsom; grote werkgevers betalen volledig de individueel gedifferentieerde premie boven circa €900.000 loonsom. Naarmate uw loonsom hoger is, heeft een verlaging van de schadelast meer directe invloed op het premiepercentage.</p>
-          <p style="margin-top:8px;font-size:0.87rem;"><a href="/tools/poortwachter" data-view="poortwachter-view">Gebruik de WHK-jaarkalender →</a></p></div>
+          <p style="margin-top:8px;font-size:0.87rem;"><a href="/tools/premiehistorie" data-view="premiehistorie-view">WGA-premie 2022-2026 en loonsomgrenzen →</a></p></div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-q">Waarom is de WHK-beschikking zo moeilijk te begrijpen?<span class="faq-chevron">&#8964;</span></button>
-          <div class="faq-a"><p>De beschikking combineert UWV-uitkeringsdata, loonaangifte en sectorinformatie. De bijlage met toegerekende personen is alleen leesbaar als u de toerekeningsregels kent: waarom een medewerker die al jaren weg is nog op uw factuur kan staan. <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">Lees onze uitleg van de beschikking &rarr;</a></p></div>
+          <button class="faq-q">Hoe lees ik mijn WHK-beschikking?<span class="faq-chevron">&#8964;</span></button>
+          <div class="faq-a"><p>Begin bij vier regels op de WHK-beschikking: dagtekening (start van de bezwaartermijn van zes weken), loonsom, het WGA-percentage en de bijlage met toegerekende personen. Die bijlage legt uit waarom een medewerker die al weg is nog op uw factuur kan staan. <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">WHK-beschikking lezen, onderdeel voor onderdeel &rarr;</a></p></div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-q">Wat is de eerste stap om te beginnen?<span class="faq-chevron">&#8964;</span></button>
+          <button class="faq-q">Hoe start ik een gratis WHK-beschikking check?<span class="faq-chevron">&#8964;</span></button>
           <div class="faq-a"><p>Start de gratis, vrijblijvende beschikkingcheck. Wij beoordelen of controle zinvol is. Geen kosten en geen verplichting; bezwaar start pas na een concrete fout en uw akkoord, op basis van no cure no pay.</p></div>
         </div>
 
@@ -3237,7 +3268,8 @@
   <section class="page-section" id="blog-view">
     <div class="wrap" style="padding-top:44px;">
       <div class="eyebrow">Blog &amp; kennisbank</div>
-      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;">Inzichten over WHK, verzuim en subsidies.</h1>
+      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:12px;">Inzichten over WHK, verzuim en subsidies.</h1>
+      <p class="lede" style="max-width:680px;margin-bottom:18px;">Reken direct mee: <a href="/tools/wia-calculator" data-view="wia-calc-view">WIA-uitkering berekenen</a>, <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">WHK-beschikking lezen</a> of de <a href="/tools/premiehistorie" data-view="premiehistorie-view">WGA-premie 2022-2026</a>.</p>
 
       <!-- Zoek + filter -->
       <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px;">
@@ -3997,7 +4029,7 @@
       <div style="background:var(--ink);border-radius:var(--radius-m);padding:32px 28px;margin-bottom:32px;position:relative;overflow:hidden;">
         <div style="position:absolute;top:0;right:0;width:220px;height:100%;opacity:0.07;background:radial-gradient(circle at 70% 50%,var(--savings) 0%,transparent 70%);pointer-events:none;"></div>
         <div class="eyebrow" style="color:var(--savings);margin-bottom:12px;">Dienst &mdash; via Matchvermogen</div>
-        <h1 style="font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:14px;color:white;line-height:1.25;">Besparingsonderzoek: een volledige doorlichting van uw WHK- en verzuimkosten.</h1>
+        <h1 style="font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:14px;color:white;line-height:1.25;">WHK-besparingsonderzoek: ontdek wat u onnodig betaalt.</h1>
         <p style="color:#c8b89a;font-size:0.95rem;margin-bottom:22px;max-width:540px;">Wij analyseren uw eigen cijfers en dossiers en leveren een geprioriteerde lijst met concrete besparingsmogelijkheden — van de WHK-beschikking tot interventiebeleid en subsidies.</p>
         <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
           <div style="text-align:center;background:rgba(255,255,255,0.08);border-radius:var(--radius-s);padding:12px 18px;">
@@ -4029,6 +4061,7 @@
           <p style="font-size:0.86rem;color:var(--ink-soft);margin:0;line-height:1.6;">"Een besparingsonderzoek voeren wij uit omdat de meeste werkgevers niet weten hoeveel er op tafel blijft liggen. Niet alleen in de beschikking — ook in het interventiebeleid, de subsidies en de eigenrisicodragersvraag. Wij brengen het allemaal in één rapport samen zodat u prioriteiten kunt stellen."</p>
         </div>
       </div>
+      <p style="font-size:0.92rem;color:var(--ink-soft);margin:-8px 0 22px;">Onderbouwing: <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">WHK-beschikking lezen</a> · <a href="/tools/premiehistorie" data-view="premiehistorie-view">WGA-premie 2022-2026</a> · <a href="/tools/wia-calculator" data-view="wia-calc-view">WIA-uitkering berekenen</a>.</p>
 
       <h2>Wat wij voor u onderzoeken</h2>
       <div class="needed-box">
@@ -4296,7 +4329,8 @@
       </div>
       <div class="eyebrow">Dienst &mdash; via Best Match</div>
       <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:18px;">Tweede spoor re-integratie: actieve begeleiding naar een passende baan elders.</h1>
-      <p class="lede" style="margin-bottom:36px;">Zodra duidelijk is dat terugkeer bij uw eigen organisatie niet meer realistisch is, begeleidt Best Match de medewerker actief naar een passende functie bij een andere werkgever &mdash; met behoud van een zorgvuldig opgebouwd dossier richting het UWV.</p>
+      <p class="lede" style="margin-bottom:14px;">Zodra duidelijk is dat terugkeer bij uw eigen organisatie niet meer realistisch is, begeleidt Best Match de medewerker actief naar een passende functie bij een andere werkgever &mdash; met behoud van een zorgvuldig opgebouwd dossier richting het UWV.</p>
+      <p style="font-size:0.92rem;color:var(--ink-soft);margin-bottom:36px;">Orde van grootte van de uitkering: <a href="/tools/wia-calculator" data-view="wia-calc-view">WIA-uitkering berekenen</a>. Staat de last op de premie: <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">WHK-beschikking lezen</a>.</p>
 
       <h2>Hoe verloopt het traject?</h2>
       <div class="needed-box">
@@ -4754,9 +4788,30 @@
   <section class="page-section" id="tools-view">
     <div class="wrap" style="padding-top:44px;">
       <div class="eyebrow">Gratis tools</div>
-      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;max-width:760px;">Bereken uw WHK-positie zelf — gratis, direct en zonder verplichtingen.</h1>
-      <p class="lede" style="max-width:640px;margin-bottom:48px;">Alle tools zijn anoniem te gebruiken en geven u direct een indicatief beeld van uw besparing, uw risico of uw tariefpositie. Geen aanmelding vereist.</p>
+      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;max-width:760px;">Gratis WHK-tools: WIA berekenen, premies en uw beschikking.</h1>
+      <p class="lede" style="max-width:640px;margin-bottom:48px;">Alle tools zijn anoniem te gebruiken en geven u direct een indicatief beeld van een uitkering, de premie of uw beschikking. Geen aanmelding vereist.</p>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
+
+        <a class="eco-card" href="/tools/wia-calculator" data-view="wia-calc-view">
+          <div style="font-size:2rem;margin-bottom:10px;">💶</div>
+          <h3 style="font-size:1rem;">WIA-uitkering berekenen</h3>
+          <p style="font-size:0.87rem;color:var(--ink-soft);margin-bottom:16px;">Indicatieve WGA- of IVA-uitkering op dagloon en AO-percentage, inclusief de WHK-impact voor de werkgever. Maximum dagloon 2026: €282,15.</p>
+          <span class="btn btn-risk btn-sm" style="display:inline-flex;">Open de calculator</span>
+        </a>
+
+        <a class="eco-card" href="/tools/premiehistorie" data-view="premiehistorie-view">
+          <div style="font-size:2rem;margin-bottom:10px;">📈</div>
+          <h3 style="font-size:1rem;">WGA-premie 2022-2026</h3>
+          <p style="font-size:0.87rem;color:var(--ink-soft);margin-bottom:16px;">Landelijk gemiddelde, minimum, maximum en loonsomgrenzen. In 2026 is het gemiddelde 0,96%. Leg het naast het WGA-deel op uw beschikking.</p>
+          <span class="btn btn-risk btn-sm" style="display:inline-flex;">Bekijk de reeks</span>
+        </a>
+
+        <a class="eco-card" href="/beschikking-uitleg" data-view="beschikking-uitleg-view">
+          <div style="font-size:2rem;margin-bottom:10px;">📄</div>
+          <h3 style="font-size:1rem;">WHK-beschikking lezen</h3>
+          <p style="font-size:0.87rem;color:var(--ink-soft);margin-bottom:16px;">Dagtekening, loonsom, WGA-premie en de bijlage met personen. De bezwaartermijn is 6 weken na dagtekening.</p>
+          <span class="btn btn-risk btn-sm" style="display:inline-flex;">Lees de uitleg</span>
+        </a>
 
         <div class="eco-card" style="cursor:pointer;" data-view="home-view">
           <div style="font-size:2rem;margin-bottom:10px;">🔍</div>
@@ -5104,6 +5159,7 @@
           <div class="eyebrow" style="margin-bottom:8px;">Praktijkvoorbeeld</div>
           <p id="sector-case-text" style="font-size:0.92rem;margin:0;"></p>
         </div>
+        <p id="sector-related" style="font-size:0.92rem;color:var(--ink-soft);margin-bottom:18px;">Vergelijk de <a href="/tools/premiehistorie" data-view="premiehistorie-view">WGA-premie 2022-2026</a>, lees de <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">WHK-beschikking</a> of bereken een <a href="/tools/wia-calculator" data-view="wia-calc-view">WIA-uitkering</a>. Vervolg: <a href="/diensten/whk-controle" data-view="dienst-whkreductie-view">WHK-beschikking controleren</a> of een <a href="/diensten/besparingsonderzoek" data-view="dienst-besparingsonderzoek-view">besparingsonderzoek</a>.</p>
         <div class="cta-row">
           <button class="btn btn-risk" data-view="home-view">Start de gratis WHK-check</button>
           <button class="btn btn-savings" type="button" data-cta="terugbel">Bel mij terug</button>
@@ -5190,9 +5246,9 @@
         </div>
         <button class="btn" style="background:white;color:var(--risk);font-weight:700;flex-shrink:0;" type="button" data-cta="calculator">Gratis WHK-beschikking check</button>
       </div>
-      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;">Wat is de Werkhervattingskas (WHK)? Zo leest u uw beschikking — en bezwaar UWV</h1>
-      <p class="lede" style="margin-bottom:16px;">De Werkhervattingskas is de gedifferentieerde premie die werkgevers betalen voor Ziektewet- en WGA-lasten van (ex-)werknemers. Die premie staat op de WHK-beschikking van de Belastingdienst. Hieronder per onderdeel: wat het betekent, waar fouten zitten, en hoe dit verschilt van bezwaar tegen een UWV-beslissing.</p>
-      <p style="font-size:0.9rem;color:var(--ink-soft);margin-bottom:28px;">Verder lezen: <a href="/blog/bezwaar-maken-bij-het-uwv">Bezwaar maken bij het UWV (termijn 6 weken)</a> · <a href="/faq" data-view="faq-view">FAQ Werkhervattingskas</a> · <a href="/tools/premiehistorie" data-view="premiehistorie-view">WGA-premies 2022–2026</a> · <a href="/tools/wia-calculator" data-view="wia-calc-view">WIA/WGA berekenen</a></p>
+      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;">WHK-beschikking lezen: dagtekening, loonsom, premie en toerekening</h1>
+      <p class="lede" style="margin-bottom:16px;">De WHK-beschikking van de Belastingdienst legt uw premie voor 2026 vast. Hier leest u per onderdeel wat dagtekening, loonsom, WGA-premie en toerekening betekenen, waar fouten zitten, en hoe dit verschilt van bezwaar tegen een UWV-beslissing.</p>
+      <p style="font-size:0.9rem;color:var(--ink-soft);margin-bottom:28px;">Verder lezen: <a href="/blog/bezwaar-maken-bij-het-uwv">Bezwaar maken bij het UWV (termijn 6 weken)</a> · <a href="/faq" data-view="faq-view">Wat is de Werkhervattingskas?</a> · <a href="/tools/premiehistorie" data-view="premiehistorie-view">WGA-premie 2022-2026</a> · <a href="/tools/wia-calculator" data-view="wia-calc-view">WIA-uitkering berekenen</a></p>
 
       <!-- SVG INFOGRAPHIC: WHK premie opbouw -->
       <div style="margin-bottom:40px;" aria-label="Infographic: zo is uw WHK-premie opgebouwd">
@@ -5276,7 +5332,7 @@
         <h3 style="font-size:1rem;margin-bottom:10px;">Wat is de conclusie?</h3>
         <p style="font-size:0.9rem;color:var(--ink-soft);">De meeste fouten zitten in de bijlage bij de beschikking — de lijst met toegerekende personen. Controleer per persoon of ze er terecht in staan. Heeft u twijfel? Stuur ons de beschikking en wij controleren gratis of er een bezwaarkans is.</p>
         <p style="font-size:0.9rem;color:var(--ink-soft);margin-top:10px;">Let op: bezwaar tegen de <strong>Whk-beschikking</strong> loopt bij de Belastingdienst. Bezwaar tegen een <strong>WIA/WGA-beslissing</strong> is bezwaar UWV. Lees <a href="/blog/bezwaar-maken-bij-het-uwv">bezwaar maken bij het UWV: termijn, stappen en wanneer het loont</a>. Voor een latere herziening in 2026: <a href="/blog/uwv-herbeoordeling-2026">UWV herbeoordeling 2026 (schrijnende situaties)</a>.</p>
-        <p style="font-size:0.9rem;color:var(--ink-soft);margin-top:10px;">Wilt u het WGA-percentage naast de landelijke reeks leggen? Zie <a href="/tools/premiehistorie" data-view="premiehistorie-view">WHK- en WGA-premies 2022–2026</a>. Voor de uitkering achter een toerekening: <a href="/tools/wia-calculator" data-view="wia-calc-view">WIA berekenen</a>.</p>
+        <p style="font-size:0.9rem;color:var(--ink-soft);margin-top:10px;">Wilt u het WGA-percentage naast de landelijke reeks leggen? Zie <a href="/tools/premiehistorie" data-view="premiehistorie-view">WGA-premie 2022-2026</a>. Voor de uitkering achter een toerekening: <a href="/tools/wia-calculator" data-view="wia-calc-view">WIA-uitkering berekenen</a>. Voor de vervolgstap: <a href="/diensten/whk-controle" data-view="dienst-whkreductie-view">WHK-beschikking controleren</a> of een <a href="/diensten/besparingsonderzoek" data-view="dienst-besparingsonderzoek-view">besparingsonderzoek</a>.</p>
       </div>
 
       <div class="conv-cta" style="margin-top:30px;">
@@ -5294,7 +5350,8 @@
     <div class="wrap" style="padding-top:44px;max-width:920px;">
       <div class="eyebrow">Eerlijke vergelijking</div>
       <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;">Waarom niet gewoon uw casemanager, controller of salarisadministrateur vragen?</h1>
-      <p class="lede" style="max-width:700px;margin-bottom:16px;">Een eerlijke vraag verdient een eerlijk antwoord. In de praktijk is de WHK-beschikking niet bij arbeidsdeskundigen belegd, maar bij casemanagers, controllers of salarisadministrateurs — elk met hun eigen blinde vlek. Hier leggen we het verschil uit.</p>
+      <p class="lede" style="max-width:700px;margin-bottom:12px;">Een eerlijke vraag verdient een eerlijk antwoord. In de praktijk is de WHK-beschikking niet bij arbeidsdeskundigen belegd, maar bij casemanagers, controllers of salarisadministrateurs — elk met hun eigen blinde vlek. Hier leggen we het verschil uit.</p>
+      <p style="font-size:0.92rem;color:var(--ink-soft);margin-bottom:16px;">Achtergrond: <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">WHK-beschikking lezen</a> · <a href="/tools/wia-calculator" data-view="wia-calc-view">WIA-uitkering berekenen</a> · <a href="/diensten/whk-controle" data-view="dienst-whkreductie-view">WHK-beschikking controleren</a>.</p>
 
       <div style="background:var(--gold-soft);border:1px solid var(--gold);border-radius:var(--radius-s);padding:14px 18px;margin-bottom:28px;font-size:0.87rem;">
         <strong>Wat de meeste partijen missen:</strong> WHK-controle vraagt om twee soorten expertise tegelijk — <strong>verzuimspecialisme</strong> (WGA-systematiek, no-riskpolissen, IVA/WGA-kwalificatie, poortwachter) én <strong>financieel-juridische kennis</strong> (bezwaarprocedures, dagloonberekening, schadelasttoerekening). Casemanagers hebben het eerste, controllers het tweede. Wij combineren beide.
@@ -5479,13 +5536,13 @@
   <!-- WIA-UITKERINGSCALCULATOR -->
   <section class="page-section" id="wia-calc-view">
     <div class="wrap" style="padding-top:44px;max-width:680px;">
-      <div class="eyebrow">Gratis tool &mdash; WIA berekenen</div>
-      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;">WIA berekenen: WGA, IVA of loonaanvulling — en bezwaar UWV</h1>
-      <p class="lede" style="margin-bottom:16px;">Bereken indicatief een WIA-uitkering: WGA loongerelateerd, loonaanvullingsuitkering, WGA-vervolg of IVA. Op basis van dagloon en arbeidsongeschiktheidspercentage, inclusief WHK-impact en wanneer bezwaar maken bij het UWV (termijn 6 weken) zinvol kan zijn.</p>
+      <div class="eyebrow">Gratis tool, WIA berekenen</div>
+      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;">WIA-uitkering berekenen (2026): WGA, IVA of loonaanvulling</h1>
+      <p class="lede" style="margin-bottom:16px;">Vul dagloon en arbeidsongeschiktheidspercentage in en zie een indicatieve WGA- of IVA-uitkering, plus de WHK-impact voor de werkgever. Maximum dagloon 2026: €282,15. Geen account nodig.</p>
       <div class="conv-cta" style="margin-top:0;margin-bottom:20px;">
         <p class="conv-cta-kicker">Voor werkgevers</p>
         <strong class="conv-cta-title">Gratis WHK-beschikking check</strong>
-        <p class="conv-cta-trust">Staat een WGA-uitkering op uw beschikking? Wij toetsen toerekening en WGA/IVA. No cure, no pay.</p>
+        <p class="conv-cta-trust">Staat een WGA-uitkering op uw beschikking? Wij toetsen toerekening en WGA/IVA. In 8 van de 10 gevallen vinden wij iets. No cure, no pay.</p>
         <button class="btn btn-risk" type="button" data-cta="calculator">Start de gratis check</button>
       </div>
       <div class="whk-context-bar" style="margin-bottom:28px;">
@@ -5553,7 +5610,8 @@
         </ul>
         <p class="hint">Voor een arbeidskundige herbeoordeling of bezwaar WGA versus IVA is vaak een <a href="/diensten/arbeidsdeskundig-onderzoek" data-view="dienst-arbeidsdeskundig-view">arbeidsdeskundig onderzoek</a> nodig. Termijn, stappen en wanneer het loont: <a href="/blog/bezwaar-maken-bij-het-uwv">bezwaar maken bij het UWV</a>. In 2026: <a href="/blog/uwv-herbeoordeling-2026">UWV herbeoordeling alleen bij schrijnende situaties</a>. Staat de uitkering op uw beschikking? Zie <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">wat de Werkhervattingskas op de beschikking toont</a>.</p>
       </div>
-      <p style="font-size:0.9rem;color:var(--ink-soft);margin:18px 0 0;">Ook nuttig: <a href="/faq" data-view="faq-view">FAQ over WGA en IVA</a> · <a href="/tools/premiehistorie" data-view="premiehistorie-view">historische WGA-premies</a> · <a href="/blog/bezwaar-maken-bij-het-uwv">bezwaar maken bij het UWV</a></p>
+      <p style="font-size:0.9rem;color:var(--ink-soft);margin:18px 0 0;">Ook nuttig: <a href="/faq" data-view="faq-view">Wat is de Werkhervattingskas?</a> · <a href="/tools/premiehistorie" data-view="premiehistorie-view">WGA-premie 2022-2026</a> · <a href="/blog/bezwaar-maken-bij-het-uwv">bezwaar maken bij het UWV</a></p>
+      <p style="font-size:0.9rem;color:var(--ink-soft);margin:10px 0 0;">Voor werkgevers: <a href="/diensten/whk-controle" data-view="dienst-whkreductie-view">WHK-beschikking controleren</a> · <a href="/diensten/besparingsonderzoek" data-view="dienst-besparingsonderzoek-view">besparingsonderzoek</a> · <a href="/diensten/erd-partneradvies" data-view="dienst-partneradvies-view">ERD en partneradvies</a>.</p>
     </div>
   </section>
 
@@ -5627,15 +5685,15 @@
   <section class="page-section" id="premiehistorie-view">
     <div class="wrap" style="padding-top:44px;">
       <div class="eyebrow">Referentiedata</div>
-      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;">WHK- en WGA-premies 2022–2026</h1>
-      <p class="lede" style="max-width:640px;margin-bottom:16px;">Historisch overzicht van de gemiddelde gedifferentieerde WGA-premie per jaar. Gebruik de reeks om het WGA-deel op uw WHK-beschikking te vergelijken met het landelijk beeld, en om trendmatige verhogingen vroeg te zien.</p>
+      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;">WGA-premie 2022-2026: historisch overzicht</h1>
+      <p class="lede" style="max-width:640px;margin-bottom:16px;">Historisch overzicht van de gemiddelde gedifferentieerde WGA-premie per jaar. In 2026 is dat gemiddelde 0,96%. Gebruik de reeks om het WGA-deel op uw WHK-beschikking te vergelijken met het landelijk beeld.</p>
       <div class="conv-cta" style="margin-top:0;margin-bottom:20px;">
         <p class="conv-cta-kicker">Voor werkgevers</p>
         <strong class="conv-cta-title">Gratis WHK-beschikking check</strong>
         <p class="conv-cta-trust">Vergelijk uw WGA-deel met de tabel. Twijfel? Wij controleren de bijlage. No cure, no pay.</p>
         <button class="btn btn-risk" type="button" data-cta="calculator">Start de gratis check</button>
       </div>
-      <p style="font-size:0.9rem;color:var(--ink-soft);margin-bottom:28px;">Uitleg bij de beschikking: <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">wat is de Werkhervattingskas?</a> · <a href="/sectoren" data-view="sectors-view">premie per sector</a> (o.a. <a href="/sectoren/onderwijs">onderwijs</a>) · <a href="/tools/wia-calculator" data-view="wia-calc-view">WIA/WGA berekenen</a></p>
+      <p style="font-size:0.9rem;color:var(--ink-soft);margin-bottom:28px;">Uitleg bij de beschikking: <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">WHK-beschikking lezen</a> · <a href="/sectoren" data-view="sectors-view">premie per sector</a> (o.a. <a href="/sectoren/onderwijs">onderwijs</a>) · <a href="/tools/wia-calculator" data-view="wia-calc-view">WIA-uitkering berekenen</a></p>
       <div style="overflow-x:auto;">
         <table style="width:100%;border-collapse:collapse;font-size:0.86rem;min-width:540px;">
           <thead>
@@ -5662,7 +5720,8 @@
       <h2 style="margin-top:32px;">Hoe leest u deze reeks naast uw WHK-beschikking?</h2>
       <p style="font-size:0.92rem;color:var(--ink-soft);max-width:720px;margin-bottom:14px;">De Werkhervattingskas-premie bestaat uit een ZW-deel (vaak sectoraal) en een WGA-deel (bij middelgrote en grote werkgevers deels of volledig individueel). Alleen het WGA-deel beweegt mee met uw eigen schadelast. Zit uw gedifferentieerde WGA-percentage duidelijk boven het jaargemiddelde in de tabel, dan is dat een reden om de bijlage met toegerekende personen te controleren — niet om het percentage “blind” te verlagen.</p>
       <p style="font-size:0.92rem;color:var(--ink-soft);max-width:720px;margin-bottom:14px;">Kleine werkgevers betalen een sectorale premie; de loonsomgrenzen in de tabel markeren de overgang naar middelgroot en groot. Die grenzen schuiven jaarlijks. Sectorpagina’s (zorg, onderwijs, bouw, overheid) lichten typische fouten per branche toe; de landelijke reeks hierboven is het ijkpunt.</p>
-      <p style="font-size:0.9rem;color:var(--ink-soft);margin-bottom:8px;">Vervolg: <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">beschikking lezen</a> · <a href="/faq" data-view="faq-view">FAQ Werkhervattingskas</a> · <a href="/sectoren" data-view="sectors-view">premie per sector</a></p>
+      <p style="font-size:0.9rem;color:var(--ink-soft);margin-bottom:8px;">Vervolg: <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">WHK-beschikking lezen</a> · <a href="/faq" data-view="faq-view">Wat is de Werkhervattingskas?</a> · <a href="/sectoren" data-view="sectors-view">premie per sector</a></p>
+      <p style="font-size:0.9rem;color:var(--ink-soft);margin-bottom:8px;">Voor werkgevers: <a href="/diensten/whk-controle" data-view="dienst-whkreductie-view">WHK-beschikking controleren</a> · <a href="/diensten/besparingsonderzoek" data-view="dienst-besparingsonderzoek-view">besparingsonderzoek</a> · <a href="/diensten/erd-partneradvies" data-view="dienst-partneradvies-view">ERD en partneradvies</a>.</p>
     </div>
   </section>
 
@@ -5884,6 +5943,7 @@
         <span style="font-size:0.8rem;color:var(--ink-soft);">Directeur, gemeente met 280 medewerkers</span>
       </div>
 
+      <p style="font-size:0.92rem;color:var(--ink-soft);margin-bottom:18px;">Eerst zelf kijken: <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view">WHK-beschikking lezen</a> · <a href="/tools/wia-calculator" data-view="wia-calc-view">WIA-uitkering berekenen</a> · <a href="/diensten/besparingsonderzoek" data-view="dienst-besparingsonderzoek-view">besparingsonderzoek</a>.</p>
       <div class="cta-row">
         <button class="btn btn-risk" data-view="home-view">Start de gratis check — 2 minuten</button>
         <button class="btn btn-savings" data-view="casestudies-view">Bekijk wat wij vonden bij anderen</button>
@@ -6999,7 +7059,7 @@
         <h3 style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9B9588;margin-top:20px;margin-bottom:14px;">Sectoren</h3>
         <nav style="display:flex;flex-direction:column;gap:7px;">
           <a href="/sectoren/zorg" data-view="sectors-view" style="color:#C9C3B4;font-size:0.86rem;text-decoration:none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#C9C3B4'">Zorg</a>
-          <a href="/sectoren/onderwijs" data-view="sectors-view" style="color:#C9C3B4;font-size:0.86rem;text-decoration:none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#C9C3B4'">Onderwijs</a>
+          <a href="/sectoren/onderwijs" style="color:#C9C3B4;font-size:0.86rem;text-decoration:none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#C9C3B4'">Onderwijs</a>
           <a href="/sectoren/overheid" data-view="sectors-view" style="color:#C9C3B4;font-size:0.86rem;text-decoration:none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#C9C3B4'">Overheid</a>
           <a href="/sectoren" data-view="sectors-view" style="color:#9B9588;font-size:0.82rem;text-decoration:none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#9B9588'">Alle sectoren →</a>
         </nav>
@@ -8098,38 +8158,38 @@
   var VIEW_META = {
     'home-view': {title: 'WHK-beschikking controleren — in 8 van de 10 gevallen vinden wij iets', desc: 'Fout in uw WHK-beschikking? Gratis controle, no cure no pay bezwaar. Gemiddeld €47.000 besparing. Erkend arbeidsdeskundige. Resultaat binnen 5 werkdagen.'},
     'overons-view': {title: 'Over Matchvermogen — werkhervattingskas.nl', desc: 'Matchvermogen is gespecialiseerd in WHK-optimalisatie, arbeidsdeskundig onderzoek en re-integratiediensten.'},
-    'faq-view': {title: 'FAQ Werkhervattingskas (WHK): vragen over premie, WIA en bezwaar', desc: 'Wat is de Werkhervattingskas? Hoe werkt de WHK-premie, no-riskpolis, WIA/WGA en bezwaar? Antwoorden van een erkend arbeidsdeskundige, plus links naar rekentools.'},
+    'faq-view': {title: 'Wat is de Werkhervattingskas (WHK)? Premie, WIA en bezwaar [2026]', desc: 'Wat is de Werkhervattingskas, hoe werkt de WHK-premie in 2026 en wanneer loont bezwaar? Antwoorden voor werkgevers, plus de WIA-calculator en beschikking-uitleg.'},
     'blog-view': {title: 'WHK-kennisbank voor HR en Finance — werkhervattingskas.nl', desc: 'Actuele artikelen over WHK-premies, re-integratie, no-riskpolissen en loonkostenvoordeel.'},
     'aanpak-view': {title: 'Onze aanpak — werkhervattingskas.nl', desc: 'Zo werkt onze WHK-controle: van eerste check tot onderbouwd bezwaar, no cure no pay en met AI-ondersteunde analyse voor sneller resultaat.'},
-    'diensten-view': {title: 'Diensten: WHK-controle, re-integratie en advies', desc: 'Overzicht van WHK-beschikking controleren, besparingsonderzoek, arbeidsdeskundig onderzoek, tweede spoor, letselschade, consultancy en ERD-advies.'},
+    'diensten-view': {title: 'WHK-diensten 2026: beschikking controleren en besparen', desc: 'Overzicht van WHK-beschikking controleren, besparingsonderzoek, tweede spoor, letselschade en ERD-advies. Start met een gratis WHK-beschikking check.'},
     'lexicon-view': {title: 'WHK-lexicon: begrippen uitgelegd — werkhervattingskas.nl', desc: 'Heldere uitleg van WHK- en verzuimbegrippen: WGA, IVA, no-riskpolis, eigenrisicodragerschap, loonkostenvoordeel en meer.'},
     'quiz-view': {title: 'Besparingsonderzoek: WHK, interventies en eigenrisicodragerschap — werkhervattingskas.nl', desc: 'Ontdek in acht korte vragen of er bij uw organisatie besparing blijft liggen op het gebied van WHK, interventies of eigenrisicodragerschap.'},
     'preventie-calculator-view': {title: 'Wat levert vroeg ingrijpen op? — werkhervattingskas.nl', desc: 'Bereken wat vervroegde inzet van arbeidsdeskundig onderzoek, tweede spoor, coaching of outplacement kan schelen aan voorkomen WGA-instroom en WHK-premie.'},
     'dienst-whkreductie-view': {title: 'WHK-schade reduceren — werkhervattingskas.nl', desc: 'Structurele beschikkingscontrole, sectorindeling-toetsing, bezwaarbegeleiding en jaarlijkse monitoring: onze kerndienst om WHK-schade blijvend laag te houden.'},
-    'dienst-besparingsonderzoek-view': {title: 'Besparingsonderzoek als dienst — werkhervattingskas.nl', desc: 'Een volledige doorlichting van uw WHK-beschikking, interventiebeleid, eigenrisicodragerschap en subsidies, met een geprioriteerde rapportage.'},
+    'dienst-besparingsonderzoek-view': {title: 'WHK-besparingsonderzoek 2026: wat u onnodig betaalt', desc: 'Doorlichting van beschikking, no-riskpolissen, interventietarieven en eigenrisicodragerschap. Gemiddeld €47.000 besparing per jaar. Gratis intake, no cure no pay.'},
     'dienst-letselschade-view': {title: 'Letselschade verhalen (regres) — werkhervattingskas.nl', desc: 'Loondoorbetaling tijdens ziekte verhalen op de aansprakelijke derde partij bij letselschade, en de relatie met uw WHK-premie.'},
     'besparingen-overzicht-view': {title: 'Alle besparingsmogelijkheden op een rij — werkhervattingskas.nl', desc: 'WHK-controle, vroege interventies, eigenrisicodragerschap en loonkostenvoordeel in één overzicht, met een persoonlijke besparingsscan.'},
     'dienst-arbeidsdeskundig-view': {title: 'Arbeidsdeskundig onderzoek: wat het is, wanneer nodig en kosten [2026]', desc: 'Arbeidsdeskundig onderzoek door een erkende arbeidsdeskundige: belastbaarheid, spoorkeuze en dossierwaarde. Wanneer het nodig is bij poortwachter, WIA of bezwaar — en wat het inhoudt.'},
-    'dienst-tweedespoor-view': {title: 'Tweede spoor re-integratie — werkhervattingskas.nl', desc: 'Tweede spoor re-integratie via Best Match: actieve begeleiding naar een passende baan elders, om WGA-instroom en een loonsanctie te voorkomen.'},
+    'dienst-tweedespoor-view': {title: 'Tweede spoor re-integratie: voorkom loonsanctie en WGA-instroom', desc: 'Tweede spoor op tijd starten voorkomt een loonsanctie van maximaal 52 weken en verlaagt de kans op WGA-instroom in uw volgende WHK-beschikking.'},
     'dienst-consultancy-view': {title: 'Verzuimconsultancy — werkhervattingskas.nl', desc: 'Verzuimconsultancy via Best Match: structureel advies over uw verzuimbeleid, gericht op het voorkomen van toekomstige WHK-instroom.'},
     'dienst-partneradvies-view': {title: 'Verzekerde regelingen & extra advies — werkhervattingskas.nl', desc: 'Onafhankelijk advies over verzuimverzekeringen, WGA-gatverzekeringen en de keuze tussen de publieke WHK-route en eigenrisicodragerschap.'},
     'interventie-check-view': {title: 'Betaalt u te veel voor een interventie? — werkhervattingskas.nl', desc: 'Vrijblijvende vergelijking van uw tarief voor arbeidsdeskundig onderzoek, tweede spoor of verzuimconsultancy met het marktgemiddelde.'},
-    'tools-view': {title: 'Gratis WHK-tools voor werkgevers — werkhervattingskas.nl', desc: 'Bereken uw WHK-positie zelf: bezwaartermijn, sectorvergelijking, schadelasttool, tariefchecker en besparingsonderzoek. Gratis, direct, geen aanmelding.'},
+    'tools-view': {title: 'Gratis WHK-tools: WIA-calculator, premies en beschikking', desc: 'Bereken een WIA-uitkering, bekijk de WGA-premie 2022-2026 en lees uw WHK-beschikking. Gratis tools voor werkgevers, zonder account.'},
     'pricing-view': {title: 'Wat kost het? No cure, no pay — werkhervattingskas.nl', desc: 'Wij werken uitsluitend op basis van resultaat. Geen besparing gevonden? Dan betaalt u niets. Transparant percentage alleen bij gerealiseerde besparing.'},
     'sectors-view': {title: 'WHK-besparing per sector — werkhervattingskas.nl', desc: 'Ontdek wat WHK-besparing voor uw sector specifiek betekent: zorg, onderwijs, bouw, overheid, retail, industrie, transport, horeca, ICT, financieel, uitzend en schoonmaak.'},
     'privacy-view': {title: 'Privacyverklaring — werkhervattingskas.nl', desc: 'Hoe werkhervattingskas.nl omgaat met uw persoonsgegevens en AVG-rechten.'},
     'casestudies-view': {title: 'Praktijkcasussen WHK-besparing — werkhervattingskas.nl', desc: 'Vijf geanonimiseerde casussen: van €9.800 tot €137.000 besparing per jaar.'},
-    'beschikking-uitleg-view': {title: 'Wat is de Werkhervattingskas (WHK)? Beschikking lezen en bezwaar UWV', desc: 'WHK-beschikking lezen: dagtekening, loonsom, toerekening en premie. Plus wanneer bezwaar UWV (6 weken) of bezwaar bij de Belastingdienst relevant is.'},
-    'vergelijking-view': {title: 'Matchvermogen vs. controller vs. arbodienst — werkhervattingskas.nl', desc: 'Eerlijke vergelijking: wie controleert uw WHK-beschikking het beste?'},
+    'beschikking-uitleg-view': {title: 'WHK-beschikking lezen (2026): loonsom, premie en toerekening', desc: 'Lees de WHK-beschikking stap voor stap: dagtekening, loonsom, WGA-premie en de bijlage met personen. Bezwaartermijn is 6 weken. Laat hem gratis controleren.'},
+    'vergelijking-view': {title: 'WHK-beschikking controleren: specialist, controller of arbodienst', desc: 'Eerlijke vergelijking: wie controleert uw WHK-beschikking het best, een specialist, uw controller, de casemanager of de arbodienst?'},
     'poortwachter-view': {title: 'Poortwachter-tijdlijnchecker 2026 — werkhervattingskas.nl', desc: 'Vul de eerste ziektedag in en zie direct alle Wet poortwachter-deadlines.'},
-    'wia-calc-view': {title: 'WIA berekenen: WGA, IVA en bezwaar maken bij het UWV [2026]', desc: 'WIA, WGA of IVA berekenen op dagloon en AO-percentage. Inclusief WHK-impact en wanneer bezwaar UWV (6 weken) zinvol is. Indicatief, gratis.'},
+    'wia-calc-view': {title: 'WIA-uitkering berekenen 2026: gratis WGA- en IVA-calculator', desc: 'Bereken indicatief uw WIA-, WGA- of IVA-uitkering op dagloon en AO-percentage. Maximum dagloon 2026: €282,15. Inclusief WHK-impact voor werkgevers. Gratis.'},
     'subsidie-scan-view': {title: 'Subsidie-scan LKV, LIV en WKB — werkhervattingskas.nl', desc: 'Bereken in 3 stappen of u loonkostenvoordeel, lage-inkomensvoordeel of werkbonus kunt claimen.'},
     'kalender-view': {title: 'WHK Jaarkalender 2026 — alle deadlines op een rij — werkhervattingskas.nl', desc: 'Alle WHK-deadlines per maand: bezwaartermijn beschikking, LKV-aanvraag en poortwachter-verplichtingen.'},
-    'premiehistorie-view': {title: 'WHK- en WGA-premies 2022–2026: historisch overzicht', desc: 'Gemiddelde gedifferentieerde WGA-premie per jaar, met minimum, maximum en loonsomgrenzen. Vergelijk de reeks met het WGA-deel op uw WHK-beschikking.'},
+    'premiehistorie-view': {title: 'WGA-premie 2022-2026: historisch overzicht en loonsomgrenzen', desc: 'Gemiddelde gedifferentieerde WGA-premie van 2022 tot 2026, met minimum, maximum en loonsomgrenzen. In 2026 is het gemiddelde 0,96%. Vergelijk uw WHK-beschikking.'},
     'controller-view': {title: 'WHK-optimalisatie voor controllers & Finance — werkhervattingskas.nl', desc: 'Verlaag de WHK-loonkostenpost structureel. No cure, no pay.'},
     'doelgroep-hr-view': {title: 'WHK voor HR-managers & HR-adviseurs — werkhervattingskas.nl', desc: 'U regelt het verzuim. Wij regelen de financiële kant: WHK-check en no-riskpolissen.'},
     'doelgroep-casemanager-view': {title: 'WHK en re-integratie voor casemanagers — werkhervattingskas.nl', desc: 'Wij zijn uw verlengstuk: AD-onderzoek, tweede spoor en WGA-herbeoordeling.'},
-    'doelgroep-directeur-view': {title: 'WHK-besparing voor directeuren & eigenaren — werkhervattingskas.nl', desc: 'In 8 van de 10 gevallen vinden wij besparing. No cure, no pay.'},
+    'doelgroep-directeur-view': {title: 'WHK-besparing voor directeuren: in 8 van de 10 gevallen', desc: 'U betaalt de WHK-premie en hoeft hem niet zelf te controleren. In 8 van de 10 gevallen vinden wij besparing. Gratis check, no cure no pay.'},
     'doelgroep-tussenpersoon-view': {title: 'WHK-expertise voor tussenpersonen & assurantieadviseurs — werkhervattingskas.nl', desc: 'Als assurantietussenpersoon of adviseur biedt u uw klanten meer waarde met WHK-expertise.'},
     'sector-view':  {title: 'Sector — werkhervattingskas.nl', desc: 'Sector-specifieke WHK-besparing.'}
   };
@@ -14204,7 +14264,7 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
   var faqItems = []; // wordt gevuld vanuit storage of seed
 
   var FAQ_SEED = [
-    { q: 'Wat is de Werkhervattingskas (WHK) precies?', a: '<p>De WHK is een gedifferentieerde premie die werkgevers jaarlijks betalen via de loonaangifte. De premie bestaat uit een ZW-deel en een WGA-deel.</p>', group: 'faq-whk' },
+    { q: 'Wat is de Werkhervattingskas (WHK)?', a: '<p>De WHK is een gedifferentieerde premie die werkgevers jaarlijks betalen via de loonaangifte. De premie bestaat uit een ZW-deel en een WGA-deel.</p>', group: 'faq-whk' },
     { q: 'Waarom bevatten WHK-beschikkingen vaak fouten?', a: '<p>De toerekening van uitkeringslasten aan werkgevers gebeurt grotendeels geautomatiseerd. Daarbij gaan regelmatig dingen mis.</p>', group: 'faq-whk' },
     { q: 'Wat is een no-riskpolis en wanneer heb ik er recht op?', a: '<p>Een no-riskpolis compenseert de loondoorbetaling bij ziekte van medewerkers uit specifieke doelgroepen.</p>', group: 'faq-norisk' },
     { q: 'Wat kost de check, en wat als jullie niets vinden?', a: '<p>De vrijblijvende check is altijd kosteloos. Vinden we geen fout, dan betaalt u niets.</p>', group: 'faq-privacy' },
@@ -15203,17 +15263,17 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
   // VIEW_META UITBREIDINGEN
   // ================================================================
   VIEW_META['casestudies-view']       = {title: 'Praktijkcasussen WHK-besparing — werkhervattingskas.nl', desc: 'Vijf uitgewerkte geanonimiseerde casussen van organisaties die WHK-besparing realiseerden. Van €9.800 tot €137.000 per jaar.'};
-  VIEW_META['beschikking-uitleg-view']= {title: 'Wat is de Werkhervattingskas (WHK)? Beschikking lezen en bezwaar UWV', desc: 'WHK-beschikking lezen: dagtekening, loonsom, toerekening en premie. Plus wanneer bezwaar UWV (6 weken) of bezwaar bij de Belastingdienst relevant is.'};
-  VIEW_META['vergelijking-view']      = {title: 'Matchvermogen vs. uw controller vs. arbodienst — werkhervattingskas.nl', desc: 'Eerlijke vergelijking van wie het meest geschikt is om uw WHK-beschikking te controleren en besparing te realiseren.'};
+  VIEW_META['beschikking-uitleg-view']= {title: 'WHK-beschikking lezen (2026): loonsom, premie en toerekening', desc: 'Lees de WHK-beschikking stap voor stap: dagtekening, loonsom, WGA-premie en de bijlage met personen. Bezwaartermijn is 6 weken. Laat hem gratis controleren.'};
+  VIEW_META['vergelijking-view']      = {title: 'WHK-beschikking controleren: specialist, controller of arbodienst', desc: 'Eerlijke vergelijking: wie controleert uw WHK-beschikking het best, een specialist, uw controller, de casemanager of de arbodienst?'};
   VIEW_META['poortwachter-view']      = {title: 'Poortwachter-tijdlijnchecker — werkhervattingskas.nl', desc: 'Vul de eerste ziektedag in en zie direct welke Wet poortwachter-deadlines golden, of zijn gehaald en welke actie nu nodig is.'};
-  VIEW_META['wia-calc-view']          = {title: 'WIA berekenen: WGA, IVA en bezwaar maken bij het UWV [2026]', desc: 'WIA, WGA of IVA berekenen op dagloon en AO-percentage. Inclusief WHK-impact en wanneer bezwaar UWV (6 weken) zinvol is. Indicatief, gratis.'};
+  VIEW_META['wia-calc-view']          = {title: 'WIA-uitkering berekenen 2026: gratis WGA- en IVA-calculator', desc: 'Bereken indicatief uw WIA-, WGA- of IVA-uitkering op dagloon en AO-percentage. Maximum dagloon 2026: €282,15. Inclusief WHK-impact voor werkgevers. Gratis.'};
   VIEW_META['subsidie-scan-view']     = {title: 'LKV berekenen: krijgt u recht op loonkostenvoordeel? — gratis scan', desc: 'Veel werkgevers missen jaarlijks duizenden euros aan LKV, LIV en WKB. Doe de gratis scan in 2 minuten en ontdek wat u kunt terugvragen bij de Belastingdienst.'};
   VIEW_META['kalender-view']          = {title: 'WHK-kalender 2026: mis geen enkele deadline als werkgever', desc: 'Overzicht van alle kritieke data: 6 weken bezwaartermijn, LKV-aanvraag vóór 1 mei, re-integratieverplichtingen en WIA-aanvraag. Voorkom boetes en gemiste subsidies.'};
-  VIEW_META['premiehistorie-view']    = {title: 'WHK-premies 2020–2026: historisch overzicht & grensbedragen', desc: 'Bekijk hoe de gedifferentieerde WGA-premie de afgelopen jaren steeg van 0,46% naar 0,96%. Inclusief grensbedragen kleine, middelgrote en grote werkgevers per jaar.'};
+  VIEW_META['premiehistorie-view']    = {title: 'WGA-premie 2022-2026: historisch overzicht en loonsomgrenzen', desc: 'Gemiddelde gedifferentieerde WGA-premie van 2022 tot 2026, met minimum, maximum en loonsomgrenzen. In 2026 is het gemiddelde 0,96%. Vergelijk uw WHK-beschikking.'};
   VIEW_META['controller-view']        = {title: 'Samenwerking voor controllers & HR-professionals — werkhervattingskas.nl', desc: 'Bent u controller of HR-professional? Meld u aan als doorverwijzingspartner en help uw organisatie WHK-besparing realiseren.'};
   VIEW_META['doelgroep-hr-view']        = {title: 'WHK-besparing voor HR-managers & HR-adviseurs — werkhervattingskas.nl', desc: 'U regelt het verzuim. Wij regelen de financiële kant: WHK-check, no-riskpolissen, poortwachter-bewaking en tariefcontrole op interventies.'};
   VIEW_META['doelgroep-casemanager-view'] = {title: 'WHK en re-integratie voor casemanagers — werkhervattingskas.nl', desc: 'Als casemanager zit u het dichtst bij de dossiers. Wij zijn uw verlengstuk: AD-onderzoek, tweede spoor, WGA-herbeoordeling en bezwaarprocedures.'};
-  VIEW_META['doelgroep-directeur-view'] = {title: 'WHK-besparing voor directeuren & eigenaren — werkhervattingskas.nl', desc: 'U betaalt de WHK-premie. U hoeft hem niet zelf te controleren. In 8 van de 10 gevallen vinden wij besparing. No cure, no pay.'};
+  VIEW_META['doelgroep-directeur-view'] = {title: 'WHK-besparing voor directeuren: in 8 van de 10 gevallen', desc: 'U betaalt de WHK-premie en hoeft hem niet zelf te controleren. In 8 van de 10 gevallen vinden wij besparing. Gratis check, no cure no pay.'};
   VIEW_META['doelgroep-tussenpersoon-view'] = {title: 'Samenwerking voor assurantietussenpersonen, arbodiensten & verzekeraars — werkhervattingskas.nl', desc: 'Wij werken vóór uw klanten: WHK-controle, no-riskpolissen en schadelastbeheersing als verlengstuk van uw advisering. No cure, no pay.'};
   VIEW_META['privacy-view'] = {title: 'Privacyverklaring — werkhervattingskas.nl', desc: 'Hoe werkhervattingskas.nl omgaat met uw persoonsgegevens, AVG-rechten en beveiliging van WHK-beschikkingsdata.'};
 
@@ -15242,7 +15302,9 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
     },
     onderwijs: {
       icon: '🎓', label: 'Onderwijs',
-      title: 'WHK-besparing in het onderwijs',
+      title: 'WHK-premie in het onderwijs (2026)',
+      metaTitle: 'WHK-premie onderwijs 2026: fouten in de beschikking',
+      metaDesc: 'Scholen en onderwijsinstellingen betalen vaak te veel WHK-premie door psychisch verzuim, nawerking na tijdelijke contracten en gemist LKV. Zo herkent u de fouten.',
       intro: 'Onderwijsinstellingen kennen een stabiel personeelsbestand maar hebben door de aard van het werk een relatief hoog psychisch verzuim. De WGA-instroom is daardoor gemiddeld hoger dan in sectoren met minder emotionele arbeidsbelasting. Dat vertaalt zich direct in hogere WHK-premies — en in concrete kansen voor verlaging.',
       savings: '€ 25.000 – € 78.000 / jaar',
       savingsContext: 'Richtlijn bij een loonsom van €3M–€15M. Grotere instellingen met een hogere loonsom zien hogere absolute besparingen: de premie schaalt mee met uw loonsom, en elk gecorrigeerd dossier heeft meer effect naarmate uw loonsom groter is.',
@@ -15518,7 +15580,7 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
     }
 
     showView('sector-view');
-    updateMeta(s.title + ' — werkhervattingskas.nl', s.intro.slice(0,155));
+    updateMeta(s.metaTitle || (s.title + ' — werkhervattingskas.nl'), s.metaDesc || s.intro.slice(0, 155), '/sectoren/' + key);
     trackEvent('sector_opened', key);
   }
 
@@ -15537,6 +15599,15 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
   });
   if(window.location.hash === '#sectors-view'){ sectorsRendered = true; renderSectorGrid(); }
   if(window.location.hash === '#dienst-whkreductie-view'){ injectWhkrSchema(); }
+
+  (function initSectorFromUrl(){
+    if(typeof window === 'undefined' || !window.location) return;
+    var path = (window.location.pathname || '/').replace(/\/$/, '') || '/';
+    var match = path.match(/^\/sectoren\/([a-z0-9-]+)$/);
+    if(!match || !SECTOR_DATA[match[1]]) return;
+    if(!sectorsRendered){ sectorsRendered = true; renderSectorGrid(); }
+    openSector(match[1]);
+  })();
 
   document.getElementById('year').textContent = new Date().getFullYear();
 })();

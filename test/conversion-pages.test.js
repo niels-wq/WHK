@@ -61,8 +61,10 @@ if (!faqPage && parsed['@graph']) {
 assert.ok(faqPage && faqPage.mainEntity, 'FAQPage.mainEntity missing');
 var names = faqPage.mainEntity.map(function (q) { return q.name; });
 [
-  'Wat is de Werkhervattingskas (WHK) precies?',
-  'Wat is de eerste stap om te beginnen?',
+  'Wat is de Werkhervattingskas (WHK)?',
+  'Wat is de gemiddelde WGA-premie in 2026?',
+  'Hoe start ik een gratis WHK-beschikking check?',
+  'Hoe lees ik mijn WHK-beschikking?',
   'Wanneer is het tweede spoor re-integratie verplicht?',
   'Kan ik de beschikking van vorig jaar nog laten controleren?'
 ].forEach(function (q) {
@@ -108,3 +110,31 @@ assert.ok(html.indexOf('ensureInlineCta(p.bodyHtml') !== -1, 'openBlogPost shoul
 assert.ok(html.indexOf('article-whk-cta') !== -1, 'inline article CTA class missing');
 
 console.log('conversion UX tests ok (hero + blog cards + article CTA)');
+
+assert.ok(html.indexOf('id="home-rekentools"') !== -1, 'homepage missing tool links');
+assert.ok(html.indexOf('href="/tools/wia-calculator"') !== -1, 'missing wia calculator link');
+var tools = section('tools-view');
+assert.ok(tools.indexOf('href="/tools/wia-calculator"') !== -1, 'tools hub missing calculator');
+assert.ok(tools.indexOf('href="/tools/premiehistorie"') !== -1, 'tools hub missing premiehistorie');
+assert.ok(tools.indexOf('href="/beschikking-uitleg"') !== -1, 'tools hub missing beschikking');
+assert.ok(tools.indexOf('—') === -1 && tools.indexOf('&mdash;') === -1, 'tools hub H1 should not use an em dash');
+
+var wiaLinks = section('wia-calc-view');
+assert.ok(wiaLinks.indexOf('WIA-uitkering berekenen (2026)') !== -1, 'WIA H1');
+assert.ok(wiaLinks.indexOf('href="/diensten/whk-controle"') !== -1, 'WIA missing whk-controle');
+assert.ok(wiaLinks.indexOf('href="/diensten/besparingsonderzoek"') !== -1, 'WIA missing besparingsonderzoek');
+assert.ok(wiaLinks.indexOf('href="/diensten/erd-partneradvies"') !== -1, 'WIA missing erd');
+assert.ok(wiaLinks.indexOf('WIA-uitkering berekenen (2026): WGA, IVA of loonaanvulling') !== -1, 'WIA H1 should not use an em dash');
+
+var premiePage = section('premiehistorie-view');
+assert.ok(premiePage.indexOf('WGA-premie 2022-2026: historisch overzicht') !== -1, 'premie H1');
+assert.ok(premiePage.indexOf('href="/diensten/whk-controle"') !== -1, 'premie missing whk-controle');
+assert.ok(premiePage.indexOf('href="/diensten/besparingsonderzoek"') !== -1, 'premie missing besparingsonderzoek');
+assert.ok(premiePage.indexOf('0,96%') !== -1, 'premie page should state the 2026 average');
+
+assert.ok(section('beschikking-uitleg-view').indexOf('WHK-beschikking lezen: dagtekening, loonsom, premie en toerekening') !== -1, 'beschikking H1');
+assert.ok(section('faq-view').indexOf('Wat is de gemiddelde WGA-premie in 2026?') !== -1, 'visible FAQ missing WGA premie question');
+assert.ok(section('blog-view').indexOf('href="/beschikking-uitleg"') !== -1, 'blog list missing beschikking link');
+assert.ok(section('blog-view').indexOf('href="/tools/wia-calculator"') !== -1, 'blog list missing calculator link');
+
+console.log('seo ctr copy tests ok');

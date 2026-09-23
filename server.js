@@ -384,23 +384,23 @@ const URL_META = {
   '/':                              { title: 'WHK-beschikking controleren — in 8 van de 10 gevallen vinden wij iets', desc: 'Fout in uw WHK-beschikking? Gratis controle, no cure no pay bezwaar. Gemiddeld €47.000 besparing. Erkend arbeidsdeskundige. Resultaat binnen 5 werkdagen.' },
   '/over-ons':                      { title: 'Over Matchvermogen — werkhervattingskas.nl', desc: 'Matchvermogen is gespecialiseerd in WHK-optimalisatie, arbeidsdeskundig onderzoek en re-integratiediensten.' },
   '/aanpak':                        { title: 'Onze aanpak — werkhervattingskas.nl', desc: 'Zo werken wij: van vrijblijvende check tot bezwaarprocedure. Geen kosten tenzij wij besparing realiseren.' },
-  '/faq':                           { title: 'FAQ Werkhervattingskas (WHK): vragen over premie, WIA en bezwaar', desc: 'Wat is de Werkhervattingskas? Hoe werkt de WHK-premie, no-riskpolis, WIA/WGA en bezwaar? Antwoorden van een erkend arbeidsdeskundige, plus links naar rekentools.' },
+  '/faq':                           { title: 'Wat is de Werkhervattingskas (WHK)? Premie, WIA en bezwaar [2026]', desc: 'Wat is de Werkhervattingskas, hoe werkt de WHK-premie in 2026 en wanneer loont bezwaar? Antwoorden voor werkgevers, plus de WIA-calculator en beschikking-uitleg.' },
   '/blog':                          { title: 'WHK-kennisbank voor HR en Finance — werkhervattingskas.nl', desc: 'Actuele artikelen over WHK-premies, re-integratie, no-riskpolissen en loonkostenvoordeel.' },
-  '/tools':                         { title: 'Gratis WHK-tools voor werkgevers — werkhervattingskas.nl', desc: 'Poortwachter-tijdlijnchecker, WIA-uitkeringscalculator, subsidie-scan, interventietarief checker en WHK-jaarkalender. Direct inzicht, geen registratie vereist.' },
+  '/tools':                         { title: 'Gratis WHK-tools: WIA-calculator, premies en beschikking', desc: 'Bereken een WIA-uitkering, bekijk de WGA-premie 2022-2026 en lees uw WHK-beschikking. Gratis tools voor werkgevers, zonder account.' },
   '/tarieven':                      { title: 'Tarieven — werkhervattingskas.nl', desc: 'Transparante tarieven voor WHK-controle en arbeidsdeskundig onderzoek. Altijd no cure, no pay.' },
   '/sectoren':                      { title: 'WHK-premie per sector: wat betaalt uw branche gemiddeld? [2026]', desc: 'Zie hoe uw WHK-premie zich verhoudt tot het sectorgemiddelde. Zorg, bouw, transport, onderwijs — per sector uitgelegd inclusief typische fouten in de beschikking.' },
   '/casestudies':                   { title: 'Praktijkcasussen WHK-besparing — werkhervattingskas.nl', desc: 'Vijf geanonimiseerde casussen: van €9.800 tot €137.000 besparing per jaar.' },
-  '/beschikking-uitleg':           { title: 'Wat is de Werkhervattingskas (WHK)? Beschikking lezen en bezwaar UWV', desc: 'WHK-beschikking lezen: dagtekening, loonsom, toerekening en premie. Plus wanneer bezwaar UWV (6 weken) of bezwaar bij de Belastingdienst relevant is.' },
-  '/vergelijking':                  { title: 'Matchvermogen vs. controller vs. arbodienst — werkhervattingskas.nl', desc: 'Eerlijke vergelijking: wie controleert uw WHK-beschikking het beste?' },
+  '/beschikking-uitleg':           { title: 'WHK-beschikking lezen (2026): loonsom, premie en toerekening', desc: 'Lees de WHK-beschikking stap voor stap: dagtekening, loonsom, WGA-premie en de bijlage met personen. Bezwaartermijn is 6 weken. Laat hem gratis controleren.' },
+  '/vergelijking':                  { title: 'WHK-beschikking controleren: specialist, controller of arbodienst', desc: 'Eerlijke vergelijking: wie controleert uw WHK-beschikking het best, een specialist, uw controller, de casemanager of de arbodienst?' },
   '/privacy':                       { title: 'Privacyverklaring — werkhervattingskas.nl', desc: 'Hoe werkhervattingskas.nl omgaat met uw persoonsgegevens en AVG-rechten.' },
   '/quiz':                          { title: 'WHK-risicoscan — werkhervattingskas.nl', desc: 'Doe de korte scan en ontdek in 2 minuten uw WHK-besparingspotentieel.' },
   '/besparingen':                   { title: 'Alle besparingsmogelijkheden — werkhervattingskas.nl', desc: 'Compleet overzicht van alle WHK-besparingsroutes.' },
   '/lexicon':                       { title: 'WHK-lexicon — werkhervattingskas.nl', desc: 'Begrippenlijst: WGA, IVA, no-riskpolis, LKV, loonsanctie uitgelegd in gewone taal.' },
   '/tools/poortwachter':           { title: 'Poortwachter-tijdlijnchecker 2026 — werkhervattingskas.nl', desc: 'Vul de eerste ziektedag in en zie direct alle Wet poortwachter-deadlines, aanbevolen interventiemomenten en de relatie met uw WHK-premie.' },
-  '/tools/wia-calculator':         { title: 'WIA berekenen: WGA, IVA en bezwaar maken bij het UWV [2026]', desc: 'WIA, WGA of IVA berekenen op dagloon en AO-percentage. Inclusief WHK-impact en wanneer bezwaar UWV (6 weken) zinvol is. Indicatief, gratis.' },
+  '/tools/wia-calculator':         { title: 'WIA-uitkering berekenen 2026: gratis WGA- en IVA-calculator', desc: 'Bereken indicatief uw WIA-, WGA- of IVA-uitkering op dagloon en AO-percentage. Maximum dagloon 2026: €282,15. Inclusief WHK-impact voor werkgevers. Gratis.' },
   '/tools/subsidie-scan':          { title: 'Subsidie-scan LKV, LIV en WKB — werkhervattingskas.nl', desc: 'Bereken in 3 stappen of u loonkostenvoordeel (max €6.000/jaar), lage-inkomensvoordeel of werkbonus kunt claimen. Direct resultaat, gratis tool.' },
   '/tools/jaarkalender':           { title: 'WHK Jaarkalender 2026 — alle deadlines op een rij — werkhervattingskas.nl', desc: 'Alle WHK-deadlines per maand: bezwaartermijn beschikking (6 weken!), LKV-aanvraag, WIA-aanvraag en poortwachter-verplichtingen. Nooit meer een termijn missen.' },
-  '/tools/premiehistorie':         { title: 'WHK- en WGA-premies 2022–2026: historisch overzicht', desc: 'Gemiddelde gedifferentieerde WGA-premie per jaar, met minimum, maximum en loonsomgrenzen. Vergelijk de reeks met het WGA-deel op uw WHK-beschikking.' },
+  '/tools/premiehistorie':         { title: 'WGA-premie 2022-2026: historisch overzicht en loonsomgrenzen', desc: 'Gemiddelde gedifferentieerde WGA-premie van 2022 tot 2026, met minimum, maximum en loonsomgrenzen. In 2026 is het gemiddelde 0,96%. Vergelijk uw WHK-beschikking.' },
   '/voor/tussenpersoon':           { title: 'WHK-expertise voor tussenpersonen & assurantieadviseurs — werkhervattingskas.nl', desc: 'Als assurantietussenpersoon of adviseur biedt u uw klanten meer waarde met WHK-expertise. Doorverwijzingsmodel beschikbaar, no cure no pay.' },
   '/sectoren/bouw':                { title: 'WHK-beschikking bouwsector: structureel te hoog door hoog verzuim — werkhervattingskas.nl', desc: 'Bouwbedrijven betalen structureel te veel WHK-premie door hoog verzuim, gemist letselschaderegres en foutieve sectorindeling. Wij controleren gratis. No cure, no pay.' },
   '/sectoren/zorg':                { title: 'WHK-optimalisatie voor zorginstellingen — werkhervattingskas.nl', desc: 'Zorginstellingen betalen vaak te veel WHK-premie door hoog verzuim en gemiste no-riskregistraties. Bezwaar- en herbeoordelingsprocedures zijn onze specialiteit.' },
@@ -409,20 +409,20 @@ const URL_META = {
   '/voor/hr-manager':              { title: 'WHK voor HR-managers & HR-adviseurs — werkhervattingskas.nl', desc: 'U regelt het verzuim. Wij regelen de financiële kant: WHK-check en no-riskpolissen.' },
   '/voor/controller':              { title: 'WHK-optimalisatie voor controllers & Finance — werkhervattingskas.nl', desc: 'Verlaag de WHK-loonkostenpost structureel. No cure, no pay.' },
   '/voor/casemanager':             { title: 'WHK en re-integratie voor casemanagers — werkhervattingskas.nl', desc: 'Wij zijn uw verlengstuk: AD-onderzoek, tweede spoor en WGA-herbeoordeling.' },
-  '/voor/directeur':               { title: 'WHK-besparing voor directeuren & eigenaren — werkhervattingskas.nl', desc: 'In 8 van de 10 gevallen vinden wij besparing. No cure, no pay.' },
-  '/diensten':                     { title: 'Diensten: WHK-controle, re-integratie en advies', desc: 'Overzicht van WHK-beschikking controleren, besparingsonderzoek, arbeidsdeskundig onderzoek, tweede spoor, letselschade, consultancy en ERD-advies.' },
+  '/voor/directeur':               { title: 'WHK-besparing voor directeuren: in 8 van de 10 gevallen', desc: 'U betaalt de WHK-premie en hoeft hem niet zelf te controleren. In 8 van de 10 gevallen vinden wij besparing. Gratis check, no cure no pay.' },
+  '/diensten':                     { title: 'WHK-diensten 2026: beschikking controleren en besparen', desc: 'Overzicht van WHK-beschikking controleren, besparingsonderzoek, tweede spoor, letselschade en ERD-advies. Start met een gratis WHK-beschikking check.' },
   '/diensten/whk-controle':        { title: 'WHK-beschikking controleren: gratis check, no cure no pay [2026]', desc: 'Erkend arbeidsdeskundige controleert uw WHK-beschikking op fouten, gemiste no-riskpolissen en onjuiste toerekening. Gemiddeld €47.000 besparing. Start gratis.' },
-  '/diensten/besparingsonderzoek': { title: 'WHK-besparingsonderzoek: ontdek wat u onnodig betaalt — gratis intake', desc: 'Wij onderzoeken uw volledige WHK-positie: beschikking, no-riskpolissen, interventietarieven en ERD. Gemiddeld €47.000 besparing per jaar. Volledig no cure, no pay.' },
+  '/diensten/besparingsonderzoek': { title: 'WHK-besparingsonderzoek 2026: wat u onnodig betaalt', desc: 'Doorlichting van beschikking, no-riskpolissen, interventietarieven en eigenrisicodragerschap. Gemiddeld €47.000 besparing per jaar. Gratis intake, no cure no pay.' },
   '/diensten/letselschade':        { title: 'Letselschaderegres: WGA-kosten verhalen op aansprakelijke partij', desc: 'Heeft een derde uw medewerker letsel toegebracht? Dan kunt u de WGA-kosten en WHK-premieverhoging op hen verhalen. Wij regelen het traject. No cure, no pay.' },
   '/diensten/arbeidsdeskundig-onderzoek': { title: 'Arbeidsdeskundig onderzoek: wat het is, wanneer nodig en kosten [2026]', desc: 'Arbeidsdeskundig onderzoek door een erkende arbeidsdeskundige: belastbaarheid, spoorkeuze en dossierwaarde. Wanneer het nodig is bij poortwachter, WIA of bezwaar — en wat het inhoudt.' },
-  '/diensten/tweede-spoor':        { title: 'Tweede spoor re-integratie — werkhervattingskas.nl', desc: 'Tijdig tweede spoor voorkomt loonsanctie. Volledig begeleid traject.' },
+  '/diensten/tweede-spoor':        { title: 'Tweede spoor re-integratie: voorkom loonsanctie en WGA-instroom', desc: 'Tweede spoor op tijd starten voorkomt een loonsanctie van maximaal 52 weken en verlaagt de kans op WGA-instroom in uw volgende WHK-beschikking.' },
   '/diensten/consultancy':         { title: 'Verzuimconsultancy — werkhervattingskas.nl', desc: 'Structurele verbetering van uw verzuimbeleid en re-integratiemanagement.' },
   '/diensten/erd-partneradvies':   { title: 'Eigenrisicodragerschap & partneradvies — werkhervattingskas.nl', desc: 'Is eigenrisicodragerschap voordeliger? Wij vergelijken en begeleiden de overgang.' },
 };
 
 const SECTOR_META = {
   'zorg':       { title: 'WHK-besparing in de zorgsector — werkhervattingskas.nl', desc: 'De zorgsector heeft structureel hoog verzuim. Ontdek de besparingskansen voor ziekenhuizen, GGZ en VVT.' },
-  'onderwijs':  { title: 'WHK-besparing in het onderwijs — werkhervattingskas.nl', desc: 'Onderwijsinstellingen betalen gemiddeld te veel WHK-premie. De meest voorkomende fouten.' },
+  'onderwijs':  { title: 'WHK-premie onderwijs 2026: fouten in de beschikking', desc: 'Scholen en onderwijsinstellingen betalen vaak te veel WHK-premie door psychisch verzuim, nawerking na tijdelijke contracten en gemist LKV. Zo herkent u de fouten.' },
   'bouw':       { title: 'WHK-besparing in de bouw — werkhervattingskas.nl', desc: 'Bouwbedrijven kampen met hoog verzuim door fysieke belasting. Zo beheerst u de WHK-premie.' },
   'overheid':   { title: 'WHK-besparing bij overheid & gemeenten — werkhervattingskas.nl', desc: 'Gemeenten en overheidsinstellingen als grote werkgever: effectieve beschikkingcontrole.' },
   'retail':     { title: 'WHK-besparing in de retail — werkhervattingskas.nl', desc: 'Retailbedrijven met veel parttimers: no-riskpolissen en WHK-premie optimaal beheren.' },
@@ -597,9 +597,9 @@ Matchvermogen helpt werkgevers met meer dan 25 medewerkers de WHK-premie (Werkhe
 
 - Overzicht: ${SITE_URL}/diensten
 - WHK-beschikking controleren: ${SITE_URL}/diensten/whk-controle
-- Besparingsonderzoek: ${SITE_URL}/diensten/besparingsonderzoek
+- WHK-besparingsonderzoek: ${SITE_URL}/diensten/besparingsonderzoek
 - Arbeidsdeskundig onderzoek: ${SITE_URL}/diensten/arbeidsdeskundig-onderzoek
-- Tweede spoor re-integratie: ${SITE_URL}/diensten/tweede-spoor
+- Tweede spoor re-integratie (loonsanctie en WGA-instroom): ${SITE_URL}/diensten/tweede-spoor
 - Letselschade en regres: ${SITE_URL}/diensten/letselschade
 - Verzuimconsultancy: ${SITE_URL}/diensten/consultancy
 - Eigenrisicodragerschap advies: ${SITE_URL}/diensten/erd-partneradvies
@@ -607,7 +607,7 @@ Matchvermogen helpt werkgevers met meer dan 25 medewerkers de WHK-premie (Werkhe
 ## Gratis tools
 
 - Poortwachter-tijdlijnchecker: ${SITE_URL}/tools/poortwachter
-- WIA-uitkeringscalculator: ${SITE_URL}/tools/wia-calculator
+- WIA-uitkering berekenen (WGA en IVA, 2026): ${SITE_URL}/tools/wia-calculator
 - Subsidie-scan LKV/LIV: ${SITE_URL}/tools/subsidie-scan
 - WHK Jaarkalender 2026: ${SITE_URL}/tools/jaarkalender
 - Interventietarief checker: ${SITE_URL}/tools/interventie-check
@@ -617,13 +617,13 @@ Matchvermogen helpt werkgevers met meer dan 25 medewerkers de WHK-premie (Werkhe
 - HR-managers en HR-adviseurs: ${SITE_URL}/voor/hr-manager
 - Controllers en Finance: ${SITE_URL}/voor/controller
 - Casemanagers verzuim/WGA: ${SITE_URL}/voor/casemanager
-- Directeuren en eigenaren: ${SITE_URL}/voor/directeur
+- Directeuren en eigenaren (WHK-besparing): ${SITE_URL}/voor/directeur
 
 ## Kennisbank
 
 - Blog: ${SITE_URL}/blog
-- FAQ: ${SITE_URL}/faq
-- Hoe lees ik mijn WHK-beschikking: ${SITE_URL}/beschikking-uitleg
+- Wat is de Werkhervattingskas? FAQ premie, WIA en bezwaar: ${SITE_URL}/faq
+- WHK-beschikking lezen (loonsom, premie, toerekening): ${SITE_URL}/beschikking-uitleg
 - Bezwaar maken bij het UWV: ${SITE_URL}/blog/bezwaar-maken-bij-het-uwv
 - UWV herbeoordeling 2026: ${SITE_URL}/blog/uwv-herbeoordeling-2026
 - WHK-premieverhoging na één WGA-instroom (rekenvoorbeeld mkb): ${SITE_URL}/blog/whk-premieverhoging-na-een-wga-instroom-rekenvoorbeeld-mkb
