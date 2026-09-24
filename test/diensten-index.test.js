@@ -75,7 +75,7 @@ var server = app.listen(0, '127.0.0.1', function () {
 
     assert.strictEqual(index.status, 200, '/diensten should be 200');
     assert.ok(index.body.indexOf('id="diensten-view"') !== -1, 'index HTML missing diensten view');
-    assert.ok(index.body.indexOf('<title>Diensten: WHK-controle, re-integratie en advies</title>') !== -1, 'index title');
+    assert.ok(index.body.indexOf('<title>WHK-diensten 2026: beschikking controleren en besparen</title>') !== -1, 'index title');
     assert.ok(index.body.indexOf('rel="canonical" href="https://werkhervattingskas.nl/diensten"') !== -1, 'canonical should be /diensten');
 
     assert.strictEqual(slashed.status, 200, '/diensten/ should be 200, not a redirect to a 404');
