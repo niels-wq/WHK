@@ -584,64 +584,65 @@ Object.keys(URL_META).forEach(p => {
 });
 
 // ================================================================
-// LLMS.TXT — voor AI-zoekmachines (ChatGPT, Perplexity, Claude)
+// LLMS.TXT (llmstxt.org): apex-URL's, alleen bestaande blogslugs
 // ================================================================
 app.get('/llms.txt', (req, res) => {
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-  res.send(`# Matchvermogen — werkhervattingskas.nl
-> WHK-beschikking optimalisatie en verzuimkostenreductie voor werkgevers in Nederland
+  const u = SITE_URL;
+  res.send(`# Werkhervattingskas.nl
+> Informatie en tools over de Werkhervattingskas (WHK-premie), WIA/WGA/ZW, eigenrisicodragerschap, beschikking-uitleg en besparingsonderzoek.
 
-Matchvermogen helpt werkgevers met meer dan 25 medewerkers de WHK-premie (Werkhervattingskas) te verlagen. Wij controleren WHK-beschikkingen op fouten, voeren bezwaarprocedures en bieden arbeidsdeskundig onderzoek en re-integratiediensten. Gemiddelde besparing: €47.000 per jaar. No cure, no pay.
+## Start
+
+- [Home](${u}/): informatie voor werkgevers over de Werkhervattingskas en de WHK-premie.
+- [FAQ](${u}/faq): wat de Werkhervattingskas is, hoe de premie werkt en wanneer bezwaar speelt.
+- [Beschikking uitleg](${u}/beschikking-uitleg): loonsom, premie en toerekening op de WHK-beschikking.
+- [Kennisbank](${u}/blog): artikelen over premie, WIA, WGA, ZW en eigenrisicodragerschap.
+
+## Tools
+
+- [WHK-tools](${u}/tools): gratis rekentools voor uitkering, premie en deadlines.
+- [WIA-uitkering berekenen](${u}/tools/wia-calculator): indicatie van een WGA- of IVA-uitkering op dagloon en percentage.
+- [WGA-premie 2022-2026](${u}/tools/premiehistorie): gemiddelde premie, minimum, maximum en loonsomgrenzen.
+- [Poortwachter-tijdlijn](${u}/tools/poortwachter): deadlines vanaf de eerste ziektedag.
+- [Subsidie-scan](${u}/tools/subsidie-scan): loonkostenvoordeel, lage-inkomensvoordeel en werkbonus.
+- [WHK-jaarkalender 2026](${u}/tools/jaarkalender): termijnen voor beschikking, LKV en WIA.
+- [Interventietarief checker](${u}/tools/interventie-check): tarieven voor onderzoek, tweede spoor en coaching naast de marktnorm.
+- [Preventiecalculator](${u}/tools/preventie-calculator): indicatie van het effect van eerder ingrijpen bij lang verzuim.
 
 ## Diensten
 
-- Overzicht: ${SITE_URL}/diensten
-- WHK-beschikking controleren: ${SITE_URL}/diensten/whk-controle
-- WHK-besparingsonderzoek: ${SITE_URL}/diensten/besparingsonderzoek
-- Arbeidsdeskundig onderzoek: ${SITE_URL}/diensten/arbeidsdeskundig-onderzoek
-- Tweede spoor re-integratie (loonsanctie en WGA-instroom): ${SITE_URL}/diensten/tweede-spoor
-- Letselschade en regres: ${SITE_URL}/diensten/letselschade
-- Verzuimconsultancy: ${SITE_URL}/diensten/consultancy
-- Eigenrisicodragerschap advies: ${SITE_URL}/diensten/erd-partneradvies
+- [Diensten](${u}/diensten): beschikking controleren, besparingsonderzoek, tweede spoor en ERD-advies.
+- [WHK-beschikking controleren](${u}/diensten/whk-controle): controle op fouten, gemiste no-riskstatus en toerekening.
+- [Besparingsonderzoek](${u}/diensten/besparingsonderzoek): doorlichting van beschikking, interventietarieven en eigenrisicodragerschap.
+- [Arbeidsdeskundig onderzoek](${u}/diensten/arbeidsdeskundig-onderzoek): belastbaarheid, spoorkeuze en de waarde van het dossier.
+- [Tweede spoor](${u}/diensten/tweede-spoor): re-integratie om een loonsanctie en WGA-instroom te beperken.
+- [Letselschade en regres](${u}/diensten/letselschade): WGA-kosten verhalen als een derde aansprakelijk is.
+- [Verzuimconsultancy](${u}/diensten/consultancy): verzuimbeleid en re-integratie structureel aanscherpen.
+- [Eigenrisicodragerschap](${u}/diensten/erd-partneradvies): WGA- en ZW-eigenrisicodragerschap afzetten tegen de publieke premie.
 
-## Gratis tools
+## Blog
 
-- Poortwachter-tijdlijnchecker: ${SITE_URL}/tools/poortwachter
-- WIA-uitkering berekenen (WGA en IVA, 2026): ${SITE_URL}/tools/wia-calculator
-- Subsidie-scan LKV/LIV: ${SITE_URL}/tools/subsidie-scan
-- WHK Jaarkalender 2026: ${SITE_URL}/tools/jaarkalender
-- Interventietarief checker: ${SITE_URL}/tools/interventie-check
+- [Wat is de Werkhervattingskas](${u}/blog/wat-is-de-werkhervattingskas-en-waarom-stijgt-jouw-premie): WGA, ZW en waarom de premie voor een werkgever stijgt.
+- [WHK-beschikking lezen in 10 minuten](${u}/blog/whk-beschikking-lezen-in-10-minuten): bijlage, toerekening en wat het voorblad niet toont.
+- [Premieverhoging na een WGA-instroom](${u}/blog/whk-premieverhoging-na-een-wga-instroom-rekenvoorbeeld-mkb): rekenvoorbeeld voor een middelgroot mkb.
+- [Bezwaar maken bij het UWV](${u}/blog/bezwaar-maken-bij-het-uwv): termijn, stappen en wanneer een bezwaarschrift loont.
+- [UWV herbeoordeling 2026](${u}/blog/uwv-herbeoordeling-2026): wanneer een herbeoordeling nog aan de orde is.
+- [No-riskpolis: 7 checkpunten](${u}/blog/no-riskpolis-7-checkpunten-voor-whk-beschikking): no-riskstatus controleren voordat de beschikking vaststaat.
+- [ERD terug naar de publieke premie](${u}/blog/erd-terug-naar-publiek-beslisboom-2026): beslisboom voor blijven of terug in 2026.
+- [ERD 2027 aanvragen](${u}/blog/erd-2027-aanvragen-voor-2-oktober): aanvraag bij de Belastingdienst voor 2 oktober.
+- [Correctiebericht of beschikking](${u}/blog/uwv-correctiebericht-vs-whk-beschikking-voorrang): welke brief waarover gaat en wat je daarna doet.
 
-## Voor wie
+## Optional
 
-- HR-managers en HR-adviseurs: ${SITE_URL}/voor/hr-manager
-- Controllers en Finance: ${SITE_URL}/voor/controller
-- Casemanagers verzuim/WGA: ${SITE_URL}/voor/casemanager
-- Directeuren en eigenaren (WHK-besparing): ${SITE_URL}/voor/directeur
-
-## Kennisbank
-
-- Blog: ${SITE_URL}/blog
-- Wat is de Werkhervattingskas? FAQ premie, WIA en bezwaar: ${SITE_URL}/faq
-- WHK-beschikking lezen (loonsom, premie, toerekening): ${SITE_URL}/beschikking-uitleg
-- Bezwaar maken bij het UWV: ${SITE_URL}/blog/bezwaar-maken-bij-het-uwv
-- UWV herbeoordeling 2026: ${SITE_URL}/blog/uwv-herbeoordeling-2026
-- WHK-premieverhoging na één WGA-instroom (rekenvoorbeeld mkb): ${SITE_URL}/blog/whk-premieverhoging-na-een-wga-instroom-rekenvoorbeeld-mkb
-- ERD terug naar publiek, beslisboom 2026: ${SITE_URL}/blog/erd-terug-naar-publiek-beslisboom-2026
-- ERD 2027 aanvragen vóór 2 oktober: ${SITE_URL}/blog/erd-2027-aanvragen-voor-2-oktober
-- UWV-correctiebericht vs WHK-beschikking: ${SITE_URL}/blog/uwv-correctiebericht-vs-whk-beschikking-voorrang
-- WHK-lexicon: ${SITE_URL}/lexicon
-- Praktijkcasussen: ${SITE_URL}/casestudies
-
-## Contact
-
-- Website: ${SITE_URL}
-- E-mail: info@matchvermogen.nl
-- Telefoon: 06-50213593
-
-## Sitemap
-
-${SITE_URL}/sitemap.xml
+- [Lexicon](${u}/lexicon): WGA, IVA, no-riskpolis, LKV en loonsanctie in gewone taal.
+- [Casussen](${u}/casestudies): geanonimiseerde voorbeelden van een beschikkingcheck.
+- [Voor HR](${u}/voor/hr-manager): WHK naast verzuim en re-integratie.
+- [Voor controllers](${u}/voor/controller): de premie als loonkostenpost.
+- [Voor casemanagers](${u}/voor/casemanager): dossier, tweede spoor en WGA.
+- [Voor directeuren](${u}/voor/directeur): wat de WHK-premie voor de onderneming betekent.
+- [Sectoren](${u}/sectoren): premieverschillen per branche.
+- [Sitemap](${u}/sitemap.xml): alle publieke URL's van deze site.
 `);
 });
 
@@ -697,14 +698,26 @@ app.get('/sitemap.xml', async (req, res) => {
 // ================================================================
 app.get('/robots.txt', (req, res) => {
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-  res.send(
-    'User-agent: *\n' +
-    'Allow: /\n' +
-    'Disallow: /api/\n' +
-    'Disallow: /admin\n' +
-    'Sitemap: ' + SITE_URL + '/sitemap.xml\n' +
-    'Host: werkhervattingskas.nl\n'
-  );
+  const directives = 'Allow: /\nDisallow: /api/\nDisallow: /admin';
+  // Bots with their own group ignore the * group, so each one repeats the same rules.
+  const agents = [
+    '*',
+    'GPTBot',
+    'OAI-SearchBot',
+    'ChatGPT-User',
+    'PerplexityBot',
+    'Google-Extended',
+    'ClaudeBot',
+    'anthropic-ai',
+    'CCBot',
+    'Applebot-Extended',
+    'Bingbot',
+    'Googlebot'
+  ];
+  const groups = agents.map(function (agent) {
+    return 'User-agent: ' + agent + '\n' + directives;
+  }).join('\n\n');
+  res.send(groups + '\n\nSitemap: ' + SITE_URL + '/sitemap.xml\n');
 });
 
 // ================================================================
