@@ -26,6 +26,7 @@ const RESEND_API_KEY    = process.env.RESEND_API_KEY    || '';
 const FROM_EMAIL        = process.env.FROM_EMAIL        || 'noreply@werkhervattingskas.nl';
 const ARTICLES_DIR      = path.join(__dirname, 'content', 'articles');
 const leadGuard         = require('./lib/lead-guard');
+const routeHtml         = require('./lib/route-html');
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
@@ -272,7 +273,7 @@ function findSeedPostMeta(html, slug) {
   const desc = chunk.match(/metaDescription:\s*'((?:\\'|[^'])*)'/);
   if (!title) return null;
   return {
-    title: title[1].replace(/\\'/g, "'") + ' — werkhervattingskas.nl',
+    title: title[1].replace(/\\'/g, "'") + ' | Werkhervattingskas.nl',
     desc: desc ? desc[1].replace(/\\'/g, "'") : title[1]
   };
 }
@@ -381,58 +382,58 @@ ENDPOINTS.forEach(([p, key, open]) => {
 // META-TAGS PER URL
 // ================================================================
 const URL_META = {
-  '/':                              { title: 'WHK-beschikking controleren — in 8 van de 10 gevallen vinden wij iets', desc: 'Fout in uw WHK-beschikking? Gratis controle, no cure no pay bezwaar. Gemiddeld €47.000 besparing. Erkend arbeidsdeskundige. Resultaat binnen 5 werkdagen.' },
-  '/over-ons':                      { title: 'Over Matchvermogen — werkhervattingskas.nl', desc: 'Matchvermogen is gespecialiseerd in WHK-optimalisatie, arbeidsdeskundig onderzoek en re-integratiediensten.' },
-  '/aanpak':                        { title: 'Onze aanpak — werkhervattingskas.nl', desc: 'Zo werken wij: van vrijblijvende check tot bezwaarprocedure. Geen kosten tenzij wij besparing realiseren.' },
+  '/':                              { title: 'WHK-beschikking laten controleren (2026) | Werkhervattingskas.nl', desc: 'Klopt uw WHK-beschikking? Laat hem gratis controleren door een erkend arbeidsdeskundige en bekijk of bezwaar loont. Resultaat binnen 5 werkdagen.' },
+  '/over-ons':                      { title: 'Over Matchvermogen | Werkhervattingskas.nl', desc: 'Matchvermogen is gespecialiseerd in WHK-optimalisatie, arbeidsdeskundig onderzoek en re-integratiediensten.' },
+  '/aanpak':                        { title: 'Onze aanpak | Werkhervattingskas.nl', desc: 'Zo werken wij: van vrijblijvende check tot bezwaarprocedure. Geen kosten tenzij wij besparing realiseren.' },
   '/faq':                           { title: 'Wat is de Werkhervattingskas (WHK)? Premie, WIA en bezwaar [2026]', desc: 'Wat is de Werkhervattingskas, hoe werkt de WHK-premie in 2026 en wanneer loont bezwaar? Antwoorden voor werkgevers, plus de WIA-calculator en beschikking-uitleg.' },
-  '/blog':                          { title: 'WHK-kennisbank voor HR en Finance — werkhervattingskas.nl', desc: 'Actuele artikelen over WHK-premies, re-integratie, no-riskpolissen en loonkostenvoordeel.' },
+  '/blog':                          { title: 'WHK-kennisbank voor HR en Finance | Werkhervattingskas.nl', desc: 'Actuele artikelen over WHK-premies, re-integratie, no-riskpolissen en loonkostenvoordeel.' },
   '/tools':                         { title: 'Gratis WHK-tools: WIA-calculator, premies en beschikking', desc: 'Bereken een WIA-uitkering, bekijk de WGA-premie 2022-2026 en lees uw WHK-beschikking. Gratis tools voor werkgevers, zonder account.' },
-  '/tarieven':                      { title: 'Tarieven — werkhervattingskas.nl', desc: 'Transparante tarieven voor WHK-controle en arbeidsdeskundig onderzoek. Altijd no cure, no pay.' },
+  '/tarieven':                      { title: 'Tarieven | Werkhervattingskas.nl', desc: 'Transparante tarieven voor WHK-controle en arbeidsdeskundig onderzoek. De eerste check is gratis.' },
   '/sectoren':                      { title: 'WHK-premie per sector: wat betaalt uw branche gemiddeld? [2026]', desc: 'Zie hoe uw WHK-premie zich verhoudt tot het sectorgemiddelde. Zorg, bouw, transport, onderwijs — per sector uitgelegd inclusief typische fouten in de beschikking.' },
-  '/casestudies':                   { title: 'Praktijkcasussen WHK-besparing — werkhervattingskas.nl', desc: 'Vijf geanonimiseerde casussen: van €9.800 tot €137.000 besparing per jaar.' },
+  '/casestudies':                   { title: 'Praktijkcasussen WHK-besparing | Werkhervattingskas.nl', desc: 'Vijf geanonimiseerde casussen: van €9.800 tot €137.000 besparing per jaar.' },
   '/beschikking-uitleg':           { title: 'WHK-beschikking lezen (2026): loonsom, premie en toerekening', desc: 'Lees de WHK-beschikking stap voor stap: dagtekening, loonsom, WGA-premie en de bijlage met personen. Bezwaartermijn is 6 weken. Laat hem gratis controleren.' },
   '/vergelijking':                  { title: 'Matchvermogen vs. controller vs. arbodienst', desc: 'Eerlijke vergelijking: wie controleert uw WHK-beschikking het beste?' },
-  '/privacy':                       { title: 'Privacyverklaring — werkhervattingskas.nl', desc: 'Hoe werkhervattingskas.nl omgaat met uw persoonsgegevens en AVG-rechten.' },
-  '/quiz':                          { title: 'WHK-risicoscan — werkhervattingskas.nl', desc: 'Doe de korte scan en ontdek in 2 minuten uw WHK-besparingspotentieel.' },
-  '/besparingen':                   { title: 'Alle besparingsmogelijkheden — werkhervattingskas.nl', desc: 'Compleet overzicht van alle WHK-besparingsroutes.' },
-  '/lexicon':                       { title: 'WHK-lexicon — werkhervattingskas.nl', desc: 'Begrippenlijst: WGA, IVA, no-riskpolis, LKV, loonsanctie uitgelegd in gewone taal.' },
-  '/tools/poortwachter':           { title: 'Poortwachter-tijdlijnchecker 2026 — werkhervattingskas.nl', desc: 'Vul de eerste ziektedag in en zie direct alle Wet poortwachter-deadlines, aanbevolen interventiemomenten en de relatie met uw WHK-premie.' },
-  '/tools/wia-calculator':         { title: 'WIA-uitkering berekenen 2026: gratis WGA- en IVA-calculator', desc: 'Bereken indicatief uw WIA-, WGA- of IVA-uitkering op dagloon en AO-percentage. Maximum dagloon 2026: €282,15. Inclusief WHK-impact voor werkgevers. Gratis.' },
-  '/tools/subsidie-scan':          { title: 'Subsidie-scan LKV, LIV en WKB — werkhervattingskas.nl', desc: 'Bereken in 3 stappen of u loonkostenvoordeel (max €6.000/jaar), lage-inkomensvoordeel of werkbonus kunt claimen. Direct resultaat, gratis tool.' },
-  '/tools/jaarkalender':           { title: 'WHK Jaarkalender 2026 — alle deadlines op een rij — werkhervattingskas.nl', desc: 'Alle WHK-deadlines per maand: bezwaartermijn beschikking (6 weken!), LKV-aanvraag, WIA-aanvraag en poortwachter-verplichtingen. Nooit meer een termijn missen.' },
+  '/privacy':                       { title: 'Privacyverklaring | Werkhervattingskas.nl', desc: 'Hoe werkhervattingskas.nl omgaat met uw persoonsgegevens en AVG-rechten.' },
+  '/quiz':                          { title: 'WHK-risicoscan | Werkhervattingskas.nl', desc: 'Doe de korte scan en ontdek in 2 minuten uw WHK-besparingspotentieel.' },
+  '/besparingen':                   { title: 'Alle besparingsmogelijkheden | Werkhervattingskas.nl', desc: 'Compleet overzicht van alle WHK-besparingsroutes.' },
+  '/lexicon':                       { title: 'WHK-lexicon | Werkhervattingskas.nl', desc: 'Begrippenlijst: WGA, IVA, no-riskpolis, LKV, loonsanctie uitgelegd in gewone taal.' },
+  '/tools/poortwachter':           { title: 'Poortwachter-tijdlijnchecker 2026 | Werkhervattingskas.nl', desc: 'Vul de eerste ziektedag in en zie direct alle Wet poortwachter-deadlines, aanbevolen interventiemomenten en de relatie met uw WHK-premie.' },
+  '/tools/wia-calculator':         { title: 'WIA-uitkering berekenen 2026: gratis WGA- en IVA-calculator', desc: 'Zie hoe hoog een WIA-, WGA- of IVA-uitkering uitvalt en wat dat doet met de WHK-premie. Gebruik de gratis calculator 2026.' },
+  '/tools/subsidie-scan':          { title: 'Subsidie-scan LKV, LIV en WKB | Werkhervattingskas.nl', desc: 'Bereken in 3 stappen of u loonkostenvoordeel (max €6.000/jaar), lage-inkomensvoordeel of werkbonus kunt claimen. Direct resultaat, gratis tool.' },
+  '/tools/jaarkalender':           { title: 'WHK Jaarkalender 2026: alle deadlines op een rij | Werkhervattingskas.nl', desc: 'Alle WHK-deadlines per maand: bezwaartermijn beschikking (6 weken!), LKV-aanvraag, WIA-aanvraag en poortwachter-verplichtingen. Nooit meer een termijn missen.' },
   '/tools/premiehistorie':         { title: 'WGA-premie 2022-2026: historisch overzicht en loonsomgrenzen', desc: 'Gemiddelde gedifferentieerde WGA-premie van 2022 tot 2026, met minimum, maximum en loonsomgrenzen. In 2026 is het gemiddelde 0,96%. Vergelijk uw WHK-beschikking.' },
-  '/voor/tussenpersoon':           { title: 'WHK-expertise voor tussenpersonen & assurantieadviseurs — werkhervattingskas.nl', desc: 'Als assurantietussenpersoon of adviseur biedt u uw klanten meer waarde met WHK-expertise. Doorverwijzingsmodel beschikbaar, no cure no pay.' },
-  '/sectoren/bouw':                { title: 'WHK-beschikking bouwsector: structureel te hoog door hoog verzuim — werkhervattingskas.nl', desc: 'Bouwbedrijven betalen structureel te veel WHK-premie door hoog verzuim, gemist letselschaderegres en foutieve sectorindeling. Wij controleren gratis. No cure, no pay.' },
-  '/sectoren/zorg':                { title: 'WHK-optimalisatie voor zorginstellingen — werkhervattingskas.nl', desc: 'Zorginstellingen betalen vaak te veel WHK-premie door hoog verzuim en gemiste no-riskregistraties. Bezwaar- en herbeoordelingsprocedures zijn onze specialiteit.' },
-  '/tools/interventie-check':      { title: 'Interventietarief checker: betaalt u te veel? — werkhervattingskas.nl', desc: 'Vergelijk uw tarieven voor arbeidsdeskundig onderzoek, tweede spoor en coaching met de marktnorm. Direct resultaat. Fors boven de norm? Overweeg een besparingsonderzoek.' },
-  '/tools/preventie-calculator':   { title: 'Preventieve besparingscalculator WHK — werkhervattingskas.nl', desc: 'Bereken indicatief hoeveel WGA-instroom en WHK-premie u bespaart door eerder in te grijpen bij langdurig verzuim. Gebaseerd op actuele uitkeringsduur en dagloongemiddelden.' },
-  '/voor/hr-manager':              { title: 'WHK voor HR-managers & HR-adviseurs — werkhervattingskas.nl', desc: 'U regelt het verzuim. Wij regelen de financiële kant: WHK-check en no-riskpolissen.' },
-  '/voor/controller':              { title: 'WHK-optimalisatie voor controllers & Finance — werkhervattingskas.nl', desc: 'Verlaag de WHK-loonkostenpost structureel. No cure, no pay.' },
-  '/voor/casemanager':             { title: 'WHK en re-integratie voor casemanagers — werkhervattingskas.nl', desc: 'Wij zijn uw verlengstuk: AD-onderzoek, tweede spoor en WGA-herbeoordeling.' },
-  '/voor/directeur':               { title: 'WHK-besparing voor directeuren en eigenaren: in 8 van de 10 gevallen', desc: 'U betaalt de WHK-premie en hoeft hem niet zelf te controleren. In 8 van de 10 gevallen vinden wij besparing. Gratis check, no cure no pay.' },
+  '/voor/tussenpersoon':           { title: 'WHK-expertise voor tussenpersonen & assurantieadviseurs | Werkhervattingskas.nl', desc: 'Als assurantietussenpersoon of adviseur biedt u uw klanten meer waarde met WHK-expertise. Doorverwijzingsmodel beschikbaar.' },
+  '/sectoren/bouw':                { title: 'WHK-beschikking bouwsector: structureel te hoog door hoog verzuim | Werkhervattingskas.nl', desc: 'Bouwbedrijven betalen structureel te veel WHK-premie door hoog verzuim, gemist letselschaderegres en foutieve sectorindeling. Wij controleren gratis.' },
+  '/sectoren/zorg':                { title: 'WHK-optimalisatie voor zorginstellingen | Werkhervattingskas.nl', desc: 'Zorginstellingen betalen vaak te veel WHK-premie door hoog verzuim en gemiste no-riskregistraties. Bezwaar- en herbeoordelingsprocedures zijn onze specialiteit.' },
+  '/tools/interventie-check':      { title: 'Interventietarief checker: betaalt u te veel? | Werkhervattingskas.nl', desc: 'Vergelijk uw tarieven voor arbeidsdeskundig onderzoek, tweede spoor en coaching met de marktnorm. Direct resultaat. Fors boven de norm? Overweeg een besparingsonderzoek.' },
+  '/tools/preventie-calculator':   { title: 'Preventieve besparingscalculator WHK | Werkhervattingskas.nl', desc: 'Bereken indicatief hoeveel WGA-instroom en WHK-premie u bespaart door eerder in te grijpen bij langdurig verzuim. Gebaseerd op actuele uitkeringsduur en dagloongemiddelden.' },
+  '/voor/hr-manager':              { title: 'WHK voor HR-managers & HR-adviseurs | Werkhervattingskas.nl', desc: 'U regelt het verzuim. Wij regelen de financiële kant: WHK-check en no-riskpolissen.' },
+  '/voor/controller':              { title: 'WHK-optimalisatie voor controllers & Finance | Werkhervattingskas.nl', desc: 'Verlaag de WHK-loonkostenpost structureel. Gratis check van de beschikking.' },
+  '/voor/casemanager':             { title: 'WHK en re-integratie voor casemanagers | Werkhervattingskas.nl', desc: 'Wij zijn uw verlengstuk: AD-onderzoek, tweede spoor en WGA-herbeoordeling.' },
+  '/voor/directeur':               { title: 'WHK-besparing voor directeuren en eigenaren | Werkhervattingskas.nl', desc: 'U betaalt de WHK-premie en hoeft hem niet zelf te controleren. Laat de beschikking gratis controleren door een erkend arbeidsdeskundige.' },
   '/diensten':                     { title: 'WHK-diensten 2026: beschikking controleren en besparen', desc: 'Overzicht van WHK-beschikking controleren, besparingsonderzoek, tweede spoor, letselschade en ERD-advies. Start met een gratis WHK-beschikking check.' },
-  '/diensten/whk-controle':        { title: 'WHK-beschikking controleren: gratis check, no cure no pay [2026]', desc: 'Erkend arbeidsdeskundige controleert uw WHK-beschikking op fouten, gemiste no-riskpolissen en onjuiste toerekening. Gemiddeld €47.000 besparing. Start gratis.' },
-  '/diensten/besparingsonderzoek': { title: 'WHK-besparingsonderzoek 2026: wat u onnodig betaalt', desc: 'Doorlichting van beschikking, no-riskpolissen, interventietarieven en eigenrisicodragerschap. Gemiddeld €47.000 besparing per jaar. Gratis intake, no cure no pay.' },
-  '/diensten/letselschade':        { title: 'Letselschaderegres: WGA-kosten verhalen op aansprakelijke partij', desc: 'Heeft een derde uw medewerker letsel toegebracht? Dan kunt u de WGA-kosten en WHK-premieverhoging op hen verhalen. Wij regelen het traject. No cure, no pay.' },
+  '/diensten/whk-controle':        { title: 'WHK-beschikking controleren: gratis check [2026]', desc: 'Erkend arbeidsdeskundige controleert uw WHK-beschikking op fouten, gemiste no-riskpolissen en onjuiste toerekening. Start gratis.' },
+  '/diensten/besparingsonderzoek': { title: 'WHK-besparingsonderzoek 2026: wat u onnodig betaalt', desc: 'Doorlichting van beschikking, no-riskpolissen, interventietarieven en eigenrisicodragerschap. Gratis intake.' },
+  '/diensten/letselschade':        { title: 'Letselschaderegres: WGA-kosten verhalen op aansprakelijke partij', desc: 'Heeft een derde uw medewerker letsel toegebracht? Dan kunt u de WGA-kosten en WHK-premieverhoging op hen verhalen. Wij regelen het traject.' },
   '/diensten/arbeidsdeskundig-onderzoek': { title: 'Arbeidsdeskundig onderzoek: wat het is, wanneer nodig en kosten [2026]', desc: 'Arbeidsdeskundig onderzoek door een erkende arbeidsdeskundige: belastbaarheid, spoorkeuze en dossierwaarde. Wanneer het nodig is bij poortwachter, WIA of bezwaar — en wat het inhoudt.' },
   '/diensten/tweede-spoor':        { title: 'Tweede spoor re-integratie: voorkom loonsanctie en WGA-instroom', desc: 'Tweede spoor op tijd starten voorkomt een loonsanctie van maximaal 52 weken en verlaagt de kans op WGA-instroom in uw volgende WHK-beschikking.' },
-  '/diensten/consultancy':         { title: 'Verzuimconsultancy — werkhervattingskas.nl', desc: 'Structurele verbetering van uw verzuimbeleid en re-integratiemanagement.' },
-  '/diensten/erd-partneradvies':   { title: 'Eigenrisicodragerschap & partneradvies — werkhervattingskas.nl', desc: 'Is eigenrisicodragerschap voordeliger? Wij vergelijken en begeleiden de overgang.' },
+  '/diensten/consultancy':         { title: 'Verzuimconsultancy | Werkhervattingskas.nl', desc: 'Structurele verbetering van uw verzuimbeleid en re-integratiemanagement.' },
+  '/diensten/erd-partneradvies':   { title: 'Eigenrisicodragerschap & partneradvies | Werkhervattingskas.nl', desc: 'Is eigenrisicodragerschap voordeliger? Wij vergelijken en begeleiden de overgang.' },
 };
 
 const SECTOR_META = {
-  'zorg':       { title: 'WHK-besparing in de zorgsector — werkhervattingskas.nl', desc: 'De zorgsector heeft structureel hoog verzuim. Ontdek de besparingskansen voor ziekenhuizen, GGZ en VVT.' },
+  'zorg':       { title: 'WHK-besparing in de zorgsector | Werkhervattingskas.nl', desc: 'De zorgsector heeft structureel hoog verzuim. Ontdek de besparingskansen voor ziekenhuizen, GGZ en VVT.' },
   'onderwijs':  { title: 'WHK-besparing in het onderwijs: de meest voorkomende fouten', desc: 'Scholen en onderwijsinstellingen betalen vaak te veel WHK-premie door psychisch verzuim, nawerking na tijdelijke contracten en gemist LKV. Zo herkent u de fouten.' },
-  'bouw':       { title: 'WHK-besparing in de bouw — werkhervattingskas.nl', desc: 'Bouwbedrijven kampen met hoog verzuim door fysieke belasting. Zo beheerst u de WHK-premie.' },
-  'overheid':   { title: 'WHK-besparing bij overheid & gemeenten — werkhervattingskas.nl', desc: 'Gemeenten en overheidsinstellingen als grote werkgever: effectieve beschikkingcontrole.' },
-  'retail':     { title: 'WHK-besparing in de retail — werkhervattingskas.nl', desc: 'Retailbedrijven met veel parttimers: no-riskpolissen en WHK-premie optimaal beheren.' },
-  'industrie':  { title: 'WHK-besparing in de industrie — werkhervattingskas.nl', desc: 'Productiebedrijven: hoe u de WHK-beschikking controleert en fouten corrigeert.' },
-  'transport':  { title: 'WHK-besparing in transport & logistiek — werkhervattingskas.nl', desc: 'Transportbedrijven: zo beperkt u de WHK-lasten via betere re-integratiekeuzes.' },
-  'ict':        { title: 'WHK-besparing in de ICT-sector — werkhervattingskas.nl', desc: 'ICT-bedrijven met burnout-gerelateerd verzuim: no-riskregistraties en WHK-premie.' },
-  'financieel': { title: 'WHK-besparing in de financiële sector — werkhervattingskas.nl', desc: 'Banken en verzekeraars: zo optimaliseert u de WHK-beschikking.' },
-  'uitzend':    { title: 'WHK-besparing in de uitzendsector — werkhervattingskas.nl', desc: 'Uitzendbureaus: hoge doorstroming en WHK-lasten beheersen.' },
-  'horeca':     { title: 'WHK-besparing in de horeca — werkhervattingskas.nl', desc: 'Horecabedrijven met seizoenswerk en hoog verloop: WHK-premie en no-riskpolissen.' },
-  'schoonmaak': { title: 'WHK-besparing in de schoonmaakbranche — werkhervattingskas.nl', desc: 'Schoonmaakbedrijven: zo beheerst u de WHK-lasten bij fysiek zwaar werk.' },
+  'bouw':       { title: 'WHK-besparing in de bouw | Werkhervattingskas.nl', desc: 'Bouwbedrijven kampen met hoog verzuim door fysieke belasting. Zo beheerst u de WHK-premie.' },
+  'overheid':   { title: 'WHK-besparing bij overheid & gemeenten | Werkhervattingskas.nl', desc: 'Gemeenten en overheidsinstellingen als grote werkgever: effectieve beschikkingcontrole.' },
+  'retail':     { title: 'WHK-besparing in de retail | Werkhervattingskas.nl', desc: 'Retailbedrijven met veel parttimers: no-riskpolissen en WHK-premie optimaal beheren.' },
+  'industrie':  { title: 'WHK-besparing in de industrie | Werkhervattingskas.nl', desc: 'Productiebedrijven: hoe u de WHK-beschikking controleert en fouten corrigeert.' },
+  'transport':  { title: 'WHK-besparing in transport & logistiek | Werkhervattingskas.nl', desc: 'Transportbedrijven: zo beperkt u de WHK-lasten via betere re-integratiekeuzes.' },
+  'ict':        { title: 'WHK-besparing in de ICT-sector | Werkhervattingskas.nl', desc: 'ICT-bedrijven met burnout-gerelateerd verzuim: no-riskregistraties en WHK-premie.' },
+  'financieel': { title: 'WHK-besparing in de financiële sector | Werkhervattingskas.nl', desc: 'Banken en verzekeraars: zo optimaliseert u de WHK-beschikking.' },
+  'uitzend':    { title: 'WHK-besparing in de uitzendsector | Werkhervattingskas.nl', desc: 'Uitzendbureaus: hoge doorstroming en WHK-lasten beheersen.' },
+  'horeca':     { title: 'WHK-besparing in de horeca | Werkhervattingskas.nl', desc: 'Horecabedrijven met seizoenswerk en hoog verloop: WHK-premie en no-riskpolissen.' },
+  'schoonmaak': { title: 'WHK-besparing in de schoonmaakbranche | Werkhervattingskas.nl', desc: 'Schoonmaakbedrijven: zo beheerst u de WHK-lasten bij fysiek zwaar werk.' },
 };
 
 // ================================================================
@@ -460,7 +461,7 @@ function innerLocalBusinessLd() {
   "@type": ["LocalBusiness", "ProfessionalService"],
   "@id": "${SITE_URL}/#localbusiness",
   "name": "werkhervattingskas.nl – Matchvermogen",
-  "description": "Onafhankelijke controle van WHK-beschikkingen, arbeidsdeskundig onderzoek, tweede spoor re-integratie en verzuimoptimalisatie. No cure, no pay.",
+  "description": "Onafhankelijke controle van WHK-beschikkingen, arbeidsdeskundig onderzoek, tweede spoor re-integratie en verzuimoptimalisatie.",
   "url": "${SITE_URL}/",
   "telephone": "+31650213593",
   "email": "info@werkhervattingskas.nl",
@@ -469,7 +470,7 @@ function innerLocalBusinessLd() {
     "addressCountry": "NL"
   },
   "areaServed": "NL",
-  "priceRange": "No cure, no pay",
+  "priceRange": "Gratis eerste check",
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.9",
@@ -482,7 +483,7 @@ function innerLocalBusinessLd() {
 </script>`;
 }
 
-function serveWithMeta(res, meta, canonPath, statusCode) {
+function serveWithMeta(res, meta, canonPath, statusCode, page) {
   const html = getHtml();
   if (!html) return res.status(404).send('<h2>Site niet gevonden</h2><p>Upload whk_verzuim.html naar GitHub.</p>');
   const t = esc(meta.title), d = esc(meta.desc), c = SITE_URL + canonPath;
@@ -505,6 +506,7 @@ function serveWithMeta(res, meta, canonPath, statusCode) {
       innerLocalBusinessLd()
     );
   }
+  modified = routeHtml.renderRoute(modified, canonPath, page || {});
   res.status(statusCode || 200);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', canonPath === '/admin' ? 'no-store' : 'public, max-age=300');
@@ -517,7 +519,7 @@ function serveNotFound(res) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pagina niet gevonden — werkhervattingskas.nl</title>
+  <title>Pagina niet gevonden | Werkhervattingskas.nl</title>
   <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="${SITE_URL}/">
   <style>
@@ -560,10 +562,14 @@ app.get('/blog/:slug', async (req, res) => {
     const posts = mergePostSources(Array.isArray(dbPosts) ? dbPosts : []);
     const post = posts.find(p => p.slug === req.params.slug && !p.archived);
     let meta = post
-      ? { title: post.title + ' — werkhervattingskas.nl', desc: post.metaDescription || post.title }
+      ? { title: post.title + ' | Werkhervattingskas.nl', desc: post.metaDescription || post.title }
       : findSeedPostMeta(getHtml() || '', req.params.slug);
     if (!meta) meta = URL_META['/blog'];
-    serveWithMeta(res, meta, '/blog/' + req.params.slug);
+    let pagePost = post || null;
+    if (!pagePost && meta && meta !== URL_META['/blog']) {
+      pagePost = { title: String(meta.title || '').replace(/ \| Werkhervattingskas\.nl$/, ''), bodyHtml: '' };
+    }
+    serveWithMeta(res, meta, '/blog/' + req.params.slug, 200, { post: pagePost });
   } catch (e) { serveWithMeta(res, URL_META['/blog'], '/blog/' + req.params.slug); }
 });
 
@@ -573,7 +579,7 @@ app.get('/blog/:slug', async (req, res) => {
 app.get('/sectoren/:sector', (req, res) => {
   const meta = SECTOR_META[req.params.sector];
   if (!meta) return serveNotFound(res);
-  serveWithMeta(res, meta, '/sectoren/' + req.params.sector);
+  serveWithMeta(res, meta, '/sectoren/' + req.params.sector, 200, { sectorKey: req.params.sector });
 });
 
 // ================================================================
@@ -734,7 +740,7 @@ app.get('/kennisbank', (req, res) => {
 });
 
 app.get('/admin', (req, res) => {
-  serveWithMeta(res, { title: 'Beheer — werkhervattingskas.nl', desc: 'Beheerderslogin.' }, '/admin');
+  serveWithMeta(res, { title: 'Beheer | Werkhervattingskas.nl', desc: 'Beheerderslogin.' }, '/admin');
 });
 
 
@@ -745,7 +751,7 @@ app.get('/og-image.png', (req, res) => {
     <rect width="1200" height="8" fill="#A23E2C"/>
     <text x="80" y="220" font-family="Georgia,serif" font-size="52" font-weight="bold" fill="white">WHK-beschikking controleren</text>
     <text x="80" y="300" font-family="Georgia,serif" font-size="40" fill="#C8B89A">en verzuimkosten verlagen</text>
-    <text x="80" y="420" font-family="Arial,sans-serif" font-size="28" fill="#9B9588">No cure, no pay  ·  €25.000–€100.000 besparing</text>
+    <text x="80" y="420" font-family="Arial,sans-serif" font-size="28" fill="#9B9588">Gratis controle door een erkend arbeidsdeskundige</text>
     <text x="80" y="570" font-family="Arial,sans-serif" font-size="24" fill="#A23E2C" font-weight="bold">werkhervattingskas.nl</text>
   </svg>`;
   // Convert SVG to response (browsers accept SVG as og:image if served correctly)

@@ -12,7 +12,7 @@ var expected = {
   '/diensten': 'WHK-diensten 2026: beschikking controleren en besparen',
   '/diensten/besparingsonderzoek': 'WHK-besparingsonderzoek 2026: wat u onnodig betaalt',
   '/diensten/tweede-spoor': 'Tweede spoor re-integratie: voorkom loonsanctie en WGA-instroom',
-  '/voor/directeur': 'WHK-besparing voor directeuren en eigenaren: in 8 van de 10 gevallen',
+  '/voor/directeur': 'WHK-besparing voor directeuren en eigenaren | Werkhervattingskas.nl',
   '/vergelijking': 'Matchvermogen vs. controller vs. arbodienst',
   '/sectoren/onderwijs': 'WHK-besparing in het onderwijs: de meest voorkomende fouten',
   '/tools': 'Gratis WHK-tools: WIA-calculator, premies en beschikking'
