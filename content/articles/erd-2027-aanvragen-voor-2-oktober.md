@@ -17,7 +17,7 @@ ERD kun je **twee keer per jaar** laten ingaan: 1 januari of 1 juli. De aanvraag
 - Voor ERD per **1 januari 2027**: aanvraag binnen **vóór 2 oktober 2026** (uiterlijk 1 oktober)
 - Voor ERD per **1 juli 2027**: aanvraag uiterlijk **31 maart 2027**
 
-WGA-ERD en ZW-ERD zijn **aparte** keuzes. Je kunt de ene aanvragen en de andere publiek laten. Het formulier gaat naar de **Belastingdienst**, niet naar het UWV-loket en niet naar je verzekeraar.
+WGA-ERD en ZW-ERD zijn **aparte** keuzes. Je kunt de ene aanvragen en de andere publiek laten. Het formulier gaat naar de **Belastingdienst**, niet naar het UWV-loket en niet naar je verzekeraar. Wie alleen de Ziektewet (flex en ziek uit dienst) overweegt, gebruikt de [checklist ZW-eigenrisicodrager](/blog/zw-eigenrisicodrager-checklist).
 
 Dit is dezelfde kalender als terug naar publiek. Ben je al ERD en overweeg je te stoppen? Dat is een andere beslissing, met staartlasten. Zie [ERD terug naar publiek: beslisboom 2026](/blog/erd-terug-naar-publiek-beslisboom-2026).
 

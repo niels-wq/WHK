@@ -632,6 +632,9 @@ app.get('/llms.txt', (req, res) => {
 - [ERD terug naar de publieke premie](${u}/blog/erd-terug-naar-publiek-beslisboom-2026): beslisboom voor blijven of terug in 2026.
 - [ERD 2027 aanvragen](${u}/blog/erd-2027-aanvragen-voor-2-oktober): aanvraag bij de Belastingdienst voor 2 oktober.
 - [Correctiebericht of beschikking](${u}/blog/uwv-correctiebericht-vs-whk-beschikking-voorrang): welke brief waarover gaat en wat je daarna doet.
+- [Whk-premies 2027](${u}/blog/whk-premies-2027-wga-en-zw): gemiddelde WGA 1,07% en ZW 0,60%, met minimum, maximum en loonsomgrenzen.
+- [LKV-deadlines](${u}/blog/lkv-deadlines-kalender-werkgever): kalender voor de voorlopige berekening, correcties en de definitieve beschikking.
+- [ZW-eigenrisicodrager checklist](${u}/blog/zw-eigenrisicodrager-checklist): voorwaarden, aanvraag en wat je checkt vóór je overstapt.
 
 ## Optional
 
