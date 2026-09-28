@@ -26,6 +26,7 @@ const RESEND_API_KEY    = process.env.RESEND_API_KEY    || '';
 const FROM_EMAIL        = process.env.FROM_EMAIL        || 'noreply@werkhervattingskas.nl';
 const ARTICLES_DIR      = path.join(__dirname, 'content', 'articles');
 const leadGuard         = require('./lib/lead-guard');
+const routeHtml         = require('./lib/route-html');
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
@@ -397,7 +398,7 @@ const URL_META = {
   '/besparingen':                   { title: 'Alle besparingsmogelijkheden — werkhervattingskas.nl', desc: 'Compleet overzicht van alle WHK-besparingsroutes.' },
   '/lexicon':                       { title: 'WHK-lexicon — werkhervattingskas.nl', desc: 'Begrippenlijst: WGA, IVA, no-riskpolis, LKV, loonsanctie uitgelegd in gewone taal.' },
   '/tools/poortwachter':           { title: 'Poortwachter-tijdlijnchecker 2026 — werkhervattingskas.nl', desc: 'Vul de eerste ziektedag in en zie direct alle Wet poortwachter-deadlines, aanbevolen interventiemomenten en de relatie met uw WHK-premie.' },
-  '/tools/wia-calculator':         { title: 'WIA-uitkering berekenen 2026: gratis WGA- en IVA-calculator', desc: 'Bereken indicatief uw WIA-, WGA- of IVA-uitkering op dagloon en AO-percentage. Maximum dagloon 2026: €282,15. Inclusief WHK-impact voor werkgevers. Gratis.' },
+  '/tools/wia-calculator':         { title: 'WIA-uitkering berekenen 2026: gratis WGA- en IVA-calculator', desc: 'Zie hoe hoog een WIA-, WGA- of IVA-uitkering uitvalt en wat dat doet met de WHK-premie. Gebruik de gratis calculator 2026.' },
   '/tools/subsidie-scan':          { title: 'Subsidie-scan LKV, LIV en WKB — werkhervattingskas.nl', desc: 'Bereken in 3 stappen of u loonkostenvoordeel (max €6.000/jaar), lage-inkomensvoordeel of werkbonus kunt claimen. Direct resultaat, gratis tool.' },
   '/tools/jaarkalender':           { title: 'WHK Jaarkalender 2026 — alle deadlines op een rij — werkhervattingskas.nl', desc: 'Alle WHK-deadlines per maand: bezwaartermijn beschikking (6 weken!), LKV-aanvraag, WIA-aanvraag en poortwachter-verplichtingen. Nooit meer een termijn missen.' },
   '/tools/premiehistorie':         { title: 'WGA-premie 2022-2026: historisch overzicht en loonsomgrenzen', desc: 'Gemiddelde gedifferentieerde WGA-premie van 2022 tot 2026, met minimum, maximum en loonsomgrenzen. In 2026 is het gemiddelde 0,96%. Vergelijk uw WHK-beschikking.' },
@@ -482,7 +483,7 @@ function innerLocalBusinessLd() {
 </script>`;
 }
 
-function serveWithMeta(res, meta, canonPath, statusCode) {
+function serveWithMeta(res, meta, canonPath, statusCode, page) {
   const html = getHtml();
   if (!html) return res.status(404).send('<h2>Site niet gevonden</h2><p>Upload whk_verzuim.html naar GitHub.</p>');
   const t = esc(meta.title), d = esc(meta.desc), c = SITE_URL + canonPath;
@@ -505,6 +506,7 @@ function serveWithMeta(res, meta, canonPath, statusCode) {
       innerLocalBusinessLd()
     );
   }
+  modified = routeHtml.renderRoute(modified, canonPath, page || {});
   res.status(statusCode || 200);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', canonPath === '/admin' ? 'no-store' : 'public, max-age=300');
@@ -563,7 +565,11 @@ app.get('/blog/:slug', async (req, res) => {
       ? { title: post.title + ' — werkhervattingskas.nl', desc: post.metaDescription || post.title }
       : findSeedPostMeta(getHtml() || '', req.params.slug);
     if (!meta) meta = URL_META['/blog'];
-    serveWithMeta(res, meta, '/blog/' + req.params.slug);
+    let pagePost = post || null;
+    if (!pagePost && meta && meta !== URL_META['/blog']) {
+      pagePost = { title: String(meta.title || '').replace(/ — werkhervattingskas\.nl$/, ''), bodyHtml: '' };
+    }
+    serveWithMeta(res, meta, '/blog/' + req.params.slug, 200, { post: pagePost });
   } catch (e) { serveWithMeta(res, URL_META['/blog'], '/blog/' + req.params.slug); }
 });
 
@@ -573,7 +579,7 @@ app.get('/blog/:slug', async (req, res) => {
 app.get('/sectoren/:sector', (req, res) => {
   const meta = SECTOR_META[req.params.sector];
   if (!meta) return serveNotFound(res);
-  serveWithMeta(res, meta, '/sectoren/' + req.params.sector);
+  serveWithMeta(res, meta, '/sectoren/' + req.params.sector, 200, { sectorKey: req.params.sector });
 });
 
 // ================================================================

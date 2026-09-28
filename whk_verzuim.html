@@ -684,7 +684,7 @@
 
   /* ---------- LOGIN ---------- */
   .login-box{max-width:380px;margin:20px auto 80px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius-m);padding:32px 30px;border-top:5px solid var(--ink);}
-  .login-box h2{font-size:1.3rem;margin-bottom:8px;}
+  .login-box h1{font-size:1.3rem;margin-bottom:8px;}
   .login-box p.hint{margin-bottom:20px;}
   .login-error{color:var(--risk);font-size:0.85rem;margin-top:10px;display:none;}
   .security-note{font-size:0.74rem;color:var(--ink-soft);background:var(--paper-deep);border-radius:var(--radius-s);padding:10px 12px;margin-top:18px;}
@@ -6177,7 +6177,7 @@
   <section class="page-section" id="login-view">
     <div class="wrap" style="padding-top:44px;">
       <div class="login-box">
-        <h2>Beheerderslogin</h2>
+        <h1>Beheerderslogin</h1>
         <p class="hint">Alleen voor redacteuren van werkhervattingskas.nl.</p>
         <div class="field"><label for="login-pass">Wachtwoord</label><input type="password" id="login-pass"></div>
         <button class="btn btn-risk" id="login-submit" style="width:100%;justify-content:center;">Inloggen</button>
@@ -7342,15 +7342,18 @@
   var loonsomEl = document.getElementById('loonsom');
   var loonsomVal = document.getElementById('loonsom-val');
   var calcStartedTracked = false;
-  loonsomEl.addEventListener('input', function(){
-    state.loonsom = parseInt(loonsomEl.value, 10);
-    loonsomVal.textContent = fmtEUR(state.loonsom);
-    if(!calcStartedTracked){ calcStartedTracked = true; trackEvent('calculator_started'); }
-  });
+  if(loonsomEl && loonsomVal){
+    loonsomEl.addEventListener('input', function(){
+      state.loonsom = parseInt(loonsomEl.value, 10);
+      loonsomVal.textContent = fmtEUR(state.loonsom);
+      if(!calcStartedTracked){ calcStartedTracked = true; trackEvent('calculator_started'); }
+    });
+  }
 
   // ---- segmented controls ----
   function wireSeg(id, key){
     var group = document.getElementById(id);
+    if(!group) return;
     var buttons = group.querySelectorAll('button');
     buttons.forEach(function(b){
       b.addEventListener('click', function(){
@@ -7401,10 +7404,10 @@
       else if(dn < n) d.classList.add('done');
     });
   }
-  document.getElementById('to-step-2').addEventListener('click', function(){ goToStep(2); });
-  document.getElementById('to-step-1b').addEventListener('click', function(){ goToStep(1); });
-  document.getElementById('to-step-3').addEventListener('click', function(){ goToStep(3); });
-  document.getElementById('to-step-2b').addEventListener('click', function(){ goToStep(2); });
+  (document.getElementById('to-step-2')||{addEventListener:function(){}}).addEventListener('click', function(){ goToStep(2); });
+  (document.getElementById('to-step-1b')||{addEventListener:function(){}}).addEventListener('click', function(){ goToStep(1); });
+  (document.getElementById('to-step-3')||{addEventListener:function(){}}).addEventListener('click', function(){ goToStep(3); });
+  (document.getElementById('to-step-2b')||{addEventListener:function(){}}).addEventListener('click', function(){ goToStep(2); });
 
   // ---- calculation ----
   function calculate(){
@@ -7636,7 +7639,7 @@
       // Download checklist als HTML-bestand
       var html = '<!DOCTYPE html><html lang="nl"><head><meta charset="UTF-8"><title>WHK-checklist voor werkgevers</title>'
         + '<style>body{font-family:Georgia,serif;max-width:680px;margin:40px auto;padding:0 24px;color:#11192B;line-height:1.65;}h1{font-size:1.5rem;border-bottom:3px solid #1C6E4A;padding-bottom:10px;}h2{font-size:1rem;margin-top:28px;color:#A23E2C;}li{margin-bottom:10px;}footer{margin-top:40px;font-size:0.84rem;color:#777;border-top:1px solid #ddd;padding-top:14px;}</style></head><body>'
-        + '<h1>WHK-checklist: 5 veelgemaakte fouten</h1><p><em>Opgesteld door Niels Alderding &mdash; arbeidsdeskundige &amp; WHK-bezwaarspecialist &mdash; werkhervattingskas.nl</em></p>'
+        + '<h' + '1>WHK-checklist: 5 veelgemaakte fouten</h' + '1><p><em>Opgesteld door Niels Alderding &mdash; arbeidsdeskundige &amp; WHK-bezwaarspecialist &mdash; werkhervattingskas.nl</em></p>'
         + '<h2>1. Ex-medewerkers staan nog in uw beschikking</h2><p>Controleer jaarlijks of elk persoon in uw WHK-beschikking nog terecht aan u is verbonden. Ex-medewerkers die daarna elders werkten of hersteld zijn, horen er niet meer in.</p>'
         + '<ul><li>☐ Vergelijk de namen in uw beschikking met uw personeelsbestand</li><li>☐ Controleer de uitstroomdatum per persoon</li><li>☐ Maak bezwaar als iemand er onterecht in staat</li></ul>'
         + '<h2>2. No-riskpolissen niet gecheckt</h2><p>Bij ziekmelding van een medewerker met een no-riskstatus heeft u recht op ZW-compensatie &mdash; maar u moet dit zelf melden bij het UWV.</p>'
@@ -7706,7 +7709,7 @@
     });
   })();
 
-  document.getElementById('submit-calc').addEventListener('click', function(){
+  (document.getElementById('submit-calc')||{addEventListener:function(){}}).addEventListener('click', function(){
     var naam = document.getElementById('naam').value.trim();
     var telefoon = document.getElementById('telefoon').value.trim();
     var email = (document.getElementById('email') || {value:''}).value.trim();
@@ -7722,7 +7725,7 @@
     showResults();
   });
 
-  document.getElementById('back-to-calc').addEventListener('click', function(){
+  (document.getElementById('back-to-calc')||{addEventListener:function(){}}).addEventListener('click', function(){
     showView('home-view');
     document.getElementById('stamp').classList.remove('go');
   });
@@ -7775,6 +7778,7 @@
     if(err) err.style.display = 'none';
     return classified;
   }
+  if(dropZone && fileInput){
   dropZone.addEventListener('click', function(){
     if(!uploadContactOk()) return;
     fileInput.click();
@@ -7797,9 +7801,10 @@
   fileInput.addEventListener('change', function(){
     if(fileInput.files.length){ handleFile(fileInput.files[0].name); }
   });
+  }
 
   // ---- terugbel footer form ----
-  document.getElementById('terugbel-form').addEventListener('submit', function(e){
+  (document.getElementById('terugbel-form')||{addEventListener:function(){}}).addEventListener('submit', function(e){
     e.preventDefault();
     var naam = document.getElementById('fb-naam').value.trim();
     var tel  = document.getElementById('fb-tel').value.trim();
@@ -7836,19 +7841,19 @@
   // ---- modals ----
   function openModal(id){ document.getElementById(id).classList.add('show'); }
   function closeModal(id){ document.getElementById(id).classList.remove('show'); }
-  document.getElementById('open-terugbel').addEventListener('click', function(){ openModal('terugbel-modal'); });
+  (document.getElementById('open-terugbel')||{addEventListener:function(){}}).addEventListener('click', function(){ openModal('terugbel-modal'); });
   var navPrivacy = document.getElementById('nav-privacy');
   if(navPrivacy) navPrivacy.addEventListener('click', function(e){ e.preventDefault(); showView('privacy-view'); });
   var footerPrivacy = document.getElementById('footer-privacy');
   if(footerPrivacy) footerPrivacy.addEventListener('click', function(e){ e.preventDefault(); showView('privacy-view'); });
-  document.getElementById('footer-privacy').addEventListener('click', function(e){ e.preventDefault(); showView('privacy-view'); });
+  (document.getElementById('footer-privacy')||{addEventListener:function(){}}).addEventListener('click', function(e){ e.preventDefault(); showView('privacy-view'); });
   document.querySelectorAll('[data-close]').forEach(function(btn){
     btn.addEventListener('click', function(){ closeModal(btn.getAttribute('data-close')); });
   });
   document.querySelectorAll('.modal-bg').forEach(function(bg){
     bg.addEventListener('click', function(e){ if(e.target === bg) bg.classList.remove('show'); });
   });
-  document.getElementById('m-submit').addEventListener('click', function(){
+  (document.getElementById('m-submit')||{addEventListener:function(){}}).addEventListener('click', function(){
     var naam      = document.getElementById('m-naam').value.trim();
     var tel       = document.getElementById('m-tel').value.trim();
     var email     = (document.getElementById('m-email') || {value:''}).value.trim();
@@ -7913,7 +7918,7 @@
     });
   });
 
-  document.getElementById('whatsapp-btn').addEventListener('click', function(){
+  (document.getElementById('whatsapp-btn')||{addEventListener:function(){}}).addEventListener('click', function(){
     trackEvent('whatsapp_click');
   });
 
@@ -7989,9 +7994,9 @@
     } catch(e){ console.error('Opslaan van cookie-voorkeur is mislukt', e); }
   }
 
-  document.getElementById('cookie-accept').addEventListener('click', function(){ setCookieConsent('accepted'); });
-  document.getElementById('cookie-reject').addEventListener('click', function(){ setCookieConsent('rejected'); });
-  document.getElementById('cookie-privacy-link').addEventListener('click', function(e){ e.preventDefault(); openModal('privacy-modal'); });
+  (document.getElementById('cookie-accept')||{addEventListener:function(){}}).addEventListener('click', function(){ setCookieConsent('accepted'); });
+  (document.getElementById('cookie-reject')||{addEventListener:function(){}}).addEventListener('click', function(){ setCookieConsent('rejected'); });
+  (document.getElementById('cookie-privacy-link')||{addEventListener:function(){}}).addEventListener('click', function(e){ e.preventDefault(); openModal('privacy-modal'); });
   initCookieBanner();
 
   // ================================================================
@@ -8194,7 +8199,7 @@
     'beschikking-uitleg-view': {title: 'WHK-beschikking lezen (2026): loonsom, premie en toerekening', desc: 'Lees de WHK-beschikking stap voor stap: dagtekening, loonsom, WGA-premie en de bijlage met personen. Bezwaartermijn is 6 weken. Laat hem gratis controleren.'},
     'vergelijking-view': {title: 'Matchvermogen vs. controller vs. arbodienst', desc: 'Eerlijke vergelijking: wie controleert uw WHK-beschikking het beste?'},
     'poortwachter-view': {title: 'Poortwachter-tijdlijnchecker 2026 — werkhervattingskas.nl', desc: 'Vul de eerste ziektedag in en zie direct alle Wet poortwachter-deadlines.'},
-    'wia-calc-view': {title: 'WIA-uitkering berekenen 2026: gratis WGA- en IVA-calculator', desc: 'Bereken indicatief uw WIA-, WGA- of IVA-uitkering op dagloon en AO-percentage. Maximum dagloon 2026: €282,15. Inclusief WHK-impact voor werkgevers. Gratis.'},
+    'wia-calc-view': {title: 'WIA-uitkering berekenen 2026: gratis WGA- en IVA-calculator', desc: 'Zie hoe hoog een WIA-, WGA- of IVA-uitkering uitvalt en wat dat doet met de WHK-premie. Gebruik de gratis calculator 2026.'},
     'subsidie-scan-view': {title: 'Subsidie-scan LKV, LIV en WKB — werkhervattingskas.nl', desc: 'Bereken in 3 stappen of u loonkostenvoordeel, lage-inkomensvoordeel of werkbonus kunt claimen.'},
     'kalender-view': {title: 'WHK Jaarkalender 2026 — alle deadlines op een rij — werkhervattingskas.nl', desc: 'Alle WHK-deadlines per maand: bezwaartermijn beschikking, LKV-aanvraag en poortwachter-verplichtingen.'},
     'premiehistorie-view': {title: 'WGA-premie 2022-2026: historisch overzicht en loonsomgrenzen', desc: 'Gemiddelde gedifferentieerde WGA-premie van 2022 tot 2026, met minimum, maximum en loonsomgrenzen. In 2026 is het gemiddelde 0,96%. Vergelijk uw WHK-beschikking.'},
@@ -8361,8 +8366,19 @@
 
   var activeViewId = 'home-view';
 
-  function showView(id){
+  function showView(id, opts){
+    opts = opts || {};
     if(id === 'admin-view' && !isAdmin){ id = 'login-view'; }
+    // Other routes are not in this document. Load that URL so the server
+    // sends only that section, instead of toggling a missing node.
+    var target = document.getElementById(id);
+    if(!target){
+      var path = opts.path || VIEW_TO_PATH[id];
+      if(!path && id === 'blogpost-view' && opts.slug) path = '/blog/' + opts.slug;
+      if(path && opts.hash && path === '/') path = '/' + (opts.hash.charAt(0) === '#' ? opts.hash : ('#' + opts.hash));
+      if(path) window.location.assign(path);
+      return;
+    }
     VIEWS.forEach(function(v){
       var el = document.getElementById(v);
       if(!el) return;
@@ -8471,7 +8487,7 @@
     var calcBtn = e.target.closest && e.target.closest('[data-cta="calculator"]');
     if(calcBtn){
       trackEvent('cta_click', 'data-cta-calculator');
-      showView('home-view');
+      showView('home-view', { hash: '#calculator' });
       setTimeout(function(){
         var calc = document.getElementById('calculator');
         if(calc) calc.scrollIntoView({behavior:'smooth'});
@@ -8532,7 +8548,7 @@
     if(e.key === 'Escape') closeAllNavDropdowns();
   });
 
-  document.getElementById('aanpak-cta').addEventListener('click', function(){
+  (document.getElementById('aanpak-cta')||{addEventListener:function(){}}).addEventListener('click', function(){
     setTimeout(function(){
       var calc = document.getElementById('calculator');
       if(calc) calc.scrollIntoView({behavior:'smooth'});
@@ -10114,7 +10130,7 @@
     document.getElementById('cat-cancel-btn').style.display = 'none';
   }
 
-  document.getElementById('cat-save-btn').addEventListener('click', function(){
+  (document.getElementById('cat-save-btn')||{addEventListener:function(){}}).addEventListener('click', function(){
     var name = document.getElementById('cat-name-input').value.trim();
     if(!name) return;
     var slug = slugify(name);
@@ -10132,7 +10148,7 @@
     renderAdminList();
   });
 
-  document.getElementById('cat-cancel-btn').addEventListener('click', resetCategoryForm);
+  (document.getElementById('cat-cancel-btn')||{addEventListener:function(){}}).addEventListener('click', resetCategoryForm);
 
   // ---- ADMIN: leads ----
   var leads = [];
@@ -10535,8 +10551,8 @@
     downloadTextFile('robots.txt', content, 'text/plain');
   }
 
-  document.getElementById('gen-sitemap-btn').addEventListener('click', generateSitemap);
-  document.getElementById('gen-robots-btn').addEventListener('click', generateRobots);
+  (document.getElementById('gen-sitemap-btn')||{addEventListener:function(){}}).addEventListener('click', generateSitemap);
+  (document.getElementById('gen-robots-btn')||{addEventListener:function(){}}).addEventListener('click', generateRobots);
 
   // ---- ADMIN: tab switching ----
   document.querySelectorAll('.admin-tab').forEach(function(btn){
@@ -10681,6 +10697,10 @@
   }
 
   function openBlogPost(slug){
+    if(!document.getElementById('blogpost-view')){
+      window.location.assign('/blog/' + slug);
+      return;
+    }
     var p = posts.find(function(x){ return x.slug === slug; });
     if(!p) return;
     document.getElementById('blogpost-title').textContent = p.title;
@@ -10791,7 +10811,7 @@
     updateOgTags(p.title + ' — werkhervattingskas.nl', p.metaDescription || '');
   }
 
-  document.getElementById('blogpost-back').addEventListener('click', function(){ showView('blog-view'); });
+  (document.getElementById('blogpost-back')||{addEventListener:function(){}}).addEventListener('click', function(){ showView('blog-view'); });
 
   // ---- LEXICON: internal links to blog articles ----
   document.querySelectorAll('.lexicon-link').forEach(function(btn){
@@ -10882,7 +10902,7 @@
     return svg;
   }
 
-  document.getElementById('quiz-submit').addEventListener('click', function(){
+  (document.getElementById('quiz-submit')||{addEventListener:function(){}}).addEventListener('click', function(){
     var knowledgeQs = document.querySelectorAll('.quiz-q[data-q]');
     var selfQs = document.querySelectorAll('.quiz-q[data-domain]');
     var score = 0;
@@ -10973,7 +10993,7 @@
     trackEvent('interventie_check_completed', icService);
   });
 
-  document.getElementById('ic-cta').addEventListener('click', function(){
+  (document.getElementById('ic-cta')||{addEventListener:function(){}}).addEventListener('click', function(){
     openModal('terugbel-modal');
   });
 
@@ -10984,7 +11004,7 @@
     if(n >= CALC_CONFIG.bulk_drempel1) return CALC_CONFIG.bulk_korting1;
     return 0;
   }
-  document.getElementById('bulk-calc-btn').addEventListener('click', function(){
+  (document.getElementById('bulk-calc-btn')||{addEventListener:function(){}}).addEventListener('click', function(){
     var aantal = parseInt(document.getElementById('bulk-aantal').value, 10) || 0;
     var serviceKey = document.getElementById('bulk-service-select').value;
     var benchmark = IC_BENCHMARKS[serviceKey];
@@ -11011,7 +11031,7 @@
     document.getElementById('bulk-result').scrollIntoView({behavior:'smooth', block:'center'});
     trackEvent('bulk_calc_completed', serviceKey + '_' + aantal);
   });
-  document.getElementById('bulk-cta').addEventListener('click', function(){
+  (document.getElementById('bulk-cta')||{addEventListener:function(){}}).addEventListener('click', function(){
     openModal('terugbel-modal');
   });
   var bulkEmailGateEl = document.getElementById('bulk-email-gate');
@@ -11021,7 +11041,7 @@
   }
 
   // ---- COMPETITOR COMPARISON CALCULATOR ----
-  document.getElementById('comp-calc-btn').addEventListener('click', function(){
+  (document.getElementById('comp-calc-btn')||{addEventListener:function(){}}).addEventListener('click', function(){
     var loonsom = parseFloat(document.getElementById('comp-loonsom').value) || 0;
 
     document.getElementById('comp-score').textContent = '\u20ac ' + WGA_TOTALE_IMPACT.toLocaleString('nl-NL') + ' over gemiddeld ' + WGA_GEMIDDELDE_INSTROOMJAREN + ' jaar';
@@ -11041,12 +11061,12 @@
     trackEvent('comp_check_completed');
   });
 
-  document.getElementById('comp-cta').addEventListener('click', function(){
+  (document.getElementById('comp-cta')||{addEventListener:function(){}}).addEventListener('click', function(){
     openModal('terugbel-modal');
   });
 
   // ---- BESPARINGEN OVERZICHT: checklist ----
-  document.getElementById('besparingen-check-btn').addEventListener('click', function(){
+  (document.getElementById('besparingen-check-btn')||{addEventListener:function(){}}).addEventListener('click', function(){
     var checked = document.querySelectorAll('#besparingen-checklist input[type="checkbox"]:checked');
     var total = document.querySelectorAll('#besparingen-checklist input[type="checkbox"]').length;
     var count = checked.length;
@@ -11065,7 +11085,7 @@
     trackEvent('besparingen_checklist_completed', String(count));
   });
 
-  document.getElementById('besparingen-cta').addEventListener('click', function(){
+  (document.getElementById('besparingen-cta')||{addEventListener:function(){}}).addEventListener('click', function(){
     openModal('terugbel-modal');
   });
 
@@ -11127,7 +11147,7 @@
     });
   });
 
-  document.getElementById('prev-calc-btn').addEventListener('click', function(){
+  (document.getElementById('prev-calc-btn')||{addEventListener:function(){}}).addEventListener('click', function(){
     var aantal = parseFloat(document.getElementById('prev-aantal').value) || 0;
     var loonsom = parseFloat(document.getElementById('prev-loonsom').value) || 0;
     var gekozenInterventies = document.querySelectorAll('#prev-interventies button.sel').length;
@@ -11163,7 +11183,7 @@
     trackEvent('preventie_check_completed', String(gekozenInterventies));
   });
 
-  document.getElementById('prev-cta').addEventListener('click', function(){
+  (document.getElementById('prev-cta')||{addEventListener:function(){}}).addEventListener('click', function(){
     openModal('terugbel-modal');
   });
 
@@ -11900,7 +11920,7 @@
     });
   });
 
-  document.getElementById('erdq-btn').addEventListener('click', function(){
+  (document.getElementById('erdq-btn')||{addEventListener:function(){}}).addEventListener('click', function(){
     var questions = document.querySelectorAll('#erdq-form .quiz-q[data-erdq]');
     var jaCount = 0;
     var answeredAll = true;
@@ -11928,16 +11948,16 @@
     trackEvent('erd_quickcheck_completed', String(jaCount));
   });
 
-  document.getElementById('erdq-cta').addEventListener('click', function(){
+  (document.getElementById('erdq-cta')||{addEventListener:function(){}}).addEventListener('click', function(){
     showView('dienst-partneradvies-view');
   });
 
   // ---- PARTNERADVIES: terugbel + WHK/ERD vergelijking ----
-  document.getElementById('partneradvies-terugbel-btn').addEventListener('click', function(){
+  (document.getElementById('partneradvies-terugbel-btn')||{addEventListener:function(){}}).addEventListener('click', function(){
     openModal('terugbel-modal');
   });
 
-  document.getElementById('erd-calc-btn').addEventListener('click', function(){
+  (document.getElementById('erd-calc-btn')||{addEventListener:function(){}}).addEventListener('click', function(){
     var loonsom = parseFloat(document.getElementById('erd-loonsom').value) || 0;
     var premie = parseFloat(document.getElementById('erd-premie').value) || 0;
     var schadelast = parseFloat(document.getElementById('erd-schadelast').value) || 0;
@@ -11962,7 +11982,7 @@
     trackEvent('erd_check_completed');
   });
 
-  document.getElementById('erd-cta').addEventListener('click', function(){
+  (document.getElementById('erd-cta')||{addEventListener:function(){}}).addEventListener('click', function(){
     openModal('terugbel-modal');
   });
 
@@ -12202,7 +12222,7 @@
 
 
   // ---- ADMIN: login / logout ----
-  document.getElementById('login-submit').addEventListener('click', async function(){
+  (document.getElementById('login-submit')||{addEventListener:function(){}}).addEventListener('click', async function(){
     var val = document.getElementById('login-pass').value;
     var loginBtn = document.getElementById('login-submit');
     var errorEl  = document.getElementById('login-error');
@@ -12240,10 +12260,10 @@
     }
     loginBtn.disabled = false;
   });
-  document.getElementById('login-pass').addEventListener('keydown', function(e){
+  (document.getElementById('login-pass')||{addEventListener:function(){}}).addEventListener('keydown', function(e){
     if(e.key === 'Enter'){ document.getElementById('login-submit').click(); }
   });
-  document.getElementById('logout-btn').addEventListener('click', function(){
+  (document.getElementById('logout-btn')||{addEventListener:function(){}}).addEventListener('click', function(){
     isAdmin = false;
     _railwayToken = '';
     sessionStorage.removeItem('_rwt');
@@ -12372,7 +12392,7 @@
     return embeds[calcKey] || '';
   }
 
-  document.getElementById('ai-generate-btn').addEventListener('click', async function(){
+  (document.getElementById('ai-generate-btn')||{addEventListener:function(){}}).addEventListener('click', async function(){
     var topic    = document.getElementById('ai-topic').value.trim();
     if(!topic){ alert('Vul minimaal een onderwerp in.'); return; }
     var keyword  = document.getElementById('ai-keyword').value.trim() || topic;
@@ -12477,7 +12497,7 @@
   fillSlugDatalist('slug-list-1');
   fillSlugDatalist('slug-list-2');
 
-  document.getElementById('publish-btn').addEventListener('click', function(){
+  (document.getElementById('publish-btn')||{addEventListener:function(){}}).addEventListener('click', function(){
     var title        = document.getElementById('draft-title').value.trim();
     var slug         = slugify(document.getElementById('draft-slug').value.trim() || title);
     var keyword      = document.getElementById('draft-keyword').value.trim();
@@ -14720,7 +14740,7 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
   function injectWhkrSchema(){
     var existing = document.getElementById('dynamic-schema');
     if(!existing) return;
-    // Inject HowTo + FAQPage alleen op de WHK-controle pagina
+    // HowTo alleen: de vier FAQ-vragen staan niet in de zichtbare HTML van deze pagina.
     if(document.getElementById('whkr-structured-data')) return;
     var whkrSchema = document.createElement('script');
     whkrSchema.type = 'application/ld+json';
@@ -14739,16 +14759,6 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
           { "@type": "HowToStep", "position": 3, "name": "Rapportage", "text": "U ontvangt een overzicht per persoon: de bevinding, de fout (als die er is) en het verwachte financiële effect." },
           { "@type": "HowToStep", "position": 4, "name": "Bezwaar indienen", "text": "Na akkoord op no cure, no pay dienen wij het bezwaar in bij de Belastingdienst. U hoeft niets te doen." },
           { "@type": "HowToStep", "position": 5, "name": "Resultaat", "text": "Na een geslaagd bezwaar ontvangt u een gecorrigeerde beschikking met een lager premiepercentage. Besparing geldt de komende 5 jaar." }
-        ]
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          { "@type": "Question", "name": "Wat is het minimale voordeel om de WHK-controle zinvol te maken?", "acceptedAnswer": { "@type": "Answer", "text": "Er is geen drempel — de controle is altijd gratis. In de praktijk vinden wij bij werkgevers met een loonsom boven €1M bijna altijd iets. Een besparing van €3.000 per jaar is de ondergrens waarbij wij een bezwaar opstarten." }},
-          { "@type": "Question", "name": "Hoe lang duurt een WHK-bezwaarprocedure bij de Belastingdienst?", "acceptedAnswer": { "@type": "Answer", "text": "Gemiddeld drie tot vijf maanden. De wettelijke beslistermijn is zes weken met mogelijke verlenging. Bij overschrijding kunt u een dwangsom opleggen via ingebrekestelling — wij bewaken dit standaard." }},
-          { "@type": "Question", "name": "Kunnen wij zelf pro-forma bezwaar maken en daarna hulp inschakelen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja. Stuit de bezwaartermijn zelf met een pro-forma bezwaar en schakel ons daarna in voor de inhoudelijke onderbouwing. De aanvullingstermijn is doorgaans vier tot zes weken na het pro-forma bezwaar." }},
-          { "@type": "Question", "name": "Wat is uw slagingspercentage bij WHK-bezwaarprocedures?", "acceptedAnswer": { "@type": "Answer", "text": "Wij dienen alleen bezwaar in als wij een concrete fout kunnen onderbouwen. Daardoor ligt ons slagingspercentage op dossiers waarbij wij bezwaar indienen boven de 80%." }}
         ]
       }
     ]);
@@ -15558,6 +15568,10 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
   function openSector(key){
     var s = SECTOR_DATA[key];
     if(!s) return;
+    if(!document.getElementById('sector-view')){
+      window.location.assign('/sectoren/' + key);
+      return;
+    }
     document.getElementById('sector-eyebrow').textContent = s.icon + ' ' + s.label;
     document.getElementById('sector-title').textContent = s.title;
     document.getElementById('sector-intro').textContent = s.intro;
