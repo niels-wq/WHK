@@ -8,7 +8,10 @@ var dir = path.join(__dirname, '..', 'content', 'articles');
 var NEW_SLUGS = [
   'no-riskpolis-7-checkpunten-voor-whk-beschikking',
   'whk-beschikking-lezen-in-10-minuten',
-  'erd-2027-aanvragen-voor-2-oktober'
+  'erd-2027-aanvragen-voor-2-oktober',
+  'whk-premies-2027-wga-en-zw',
+  'lkv-deadlines-kalender-werkgever',
+  'zw-eigenrisicodrager-checklist'
 ];
 var REQUIRED_LINKS = [
   'https://werkhervattingskas.nl/tools/wia-calculator',
@@ -50,8 +53,15 @@ files.forEach(function (file) {
   assert.ok(parsed.body.indexOf('calendly.com') === -1, file + ' must not hard-code Calendly');
   if (NEW_SLUGS.indexOf(slug) !== -1) {
     assert.ok(parsed.body.indexOf('\u2014') === -1, file + ' must not use em dashes');
+    assert.ok(!/no cure no pay/i.test(parsed.body), file + ' must not claim no cure no pay');
+    assert.ok(parsed.body.indexOf('47.000') === -1, file + ' must not claim €47.000');
     assert.ok(parsed.body.indexOf('Gratis WHK-beschikking check') !== -1, file + ' missing soft CTA');
     allNewBodies += parsed.body;
+  }
+  if (slug === 'zw-eigenrisicodrager-checklist') {
+    assert.ok(parsed.body.indexOf('partneradvies') === -1, file + ' must not CTA to partneradvies');
+    assert.ok(parsed.body.indexOf('erd-partneradvies') === -1, file + ' must not link ERD advice');
+    assert.ok(parsed.body.indexOf('Gratis WHK-beschikking check') !== -1, file + ' must keep the WHK check CTA');
   }
 });
 

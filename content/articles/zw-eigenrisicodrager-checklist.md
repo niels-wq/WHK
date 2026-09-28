@@ -40,7 +40,7 @@ Heeft de organisatie een ondernemingsraad, dan moet die advies kunnen uitbrengen
 
 Je kunt het financiële risico helemaal of gedeeltelijk zelf dragen, of een particuliere verzekering sluiten. Taken (beoordeling, betaling, administratie) kun je zelf doen of inkopen, ook bij het UWV of een administratiekantoor. Uitbesteden haalt de verantwoordelijkheid niet weg: die blijft bij de werkgever. Het UWV controleert het verzuimprotocol. Neemt het UWV taken over omdat de uitvoering niet op orde is, dan zijn de kosten voor jou.
 
-Stoppen is een andere beslissing, met een eigen termijn en met dossiers die niet vanzelf verdwijnen. Die afweging staat in [ERD terug naar publiek: beslisboom 2026](/blog/erd-terug-naar-publiek-beslisboom-2026). Begeleiding bij de afweging, zonder belofte dat overstappen voordeliger is: [ERD en partneradvies](https://werkhervattingskas.nl/diensten/erd-partneradvies).
+Stoppen is een andere beslissing, met een eigen termijn en met dossiers die niet vanzelf verdwijnen. Die afweging staat in [ERD terug naar publiek: beslisboom 2026](/blog/erd-terug-naar-publiek-beslisboom-2026).
 
 ## Veelgestelde vragen
 
