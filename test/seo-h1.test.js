@@ -6,11 +6,12 @@ var path = require('path');
 
 var APEX = 'https://werkhervattingskas.nl';
 var WIA_DESC = 'Zie hoe hoog een WIA-, WGA- of IVA-uitkering uitvalt en wat dat doet met de WHK-premie. Gebruik de gratis calculator 2026.';
+var HOME_DESC = 'Klopt uw WHK-beschikking? Laat hem gratis controleren door een erkend arbeidsdeskundige en bekijk of bezwaar loont. Resultaat binnen 5 werkdagen.';
 
 var routes = [
   {
     path: '/',
-    title: 'WHK-beschikking controleren — in 8 van de 10 gevallen vinden wij iets',
+    title: 'WHK-beschikking laten controleren (2026) | Werkhervattingskas.nl',
     h1: 'Betaalt u onbewust te veel WHK',
     keep: ['home-view', 'results-view'],
     drop: ['faq-view', 'wia-calc-view', 'privacy-view']
@@ -54,7 +55,7 @@ var routes = [
   },
   {
     path: '/blog/erd-2027-aanvragen-voor-2-oktober',
-    title: 'ERD 2027 aanvragen vóór 2 oktober — werkhervattingskas.nl',
+    title: 'ERD 2027 aanvragen vóór 2 oktober | Werkhervattingskas.nl',
     h1: 'ERD 2027 aanvragen vóór 2 oktober',
     keep: ['blogpost-view', 'Belastingdienst'],
     drop: ['home-view', 'blog-view', 'faq-view']
@@ -87,6 +88,13 @@ function meta(html, name) {
   var re = new RegExp('<meta name="' + name + '" content="([^"]*)"');
   var m = html.match(re);
   return m ? m[1] : '';
+}
+
+function headOf(html) {
+  var start = html.toLowerCase().indexOf('<head');
+  var end = html.toLowerCase().indexOf('</head>');
+  assert.ok(start !== -1 && end > start, 'document has a head');
+  return html.slice(start, end);
 }
 
 function faqLdCount(html) {
@@ -125,6 +133,14 @@ var server = app.listen(0, '127.0.0.1', function () {
       }
       var desc = meta(res.body, 'description');
       assert.ok(desc.indexOf('—') === -1 && desc.indexOf('–') === -1, route.path + ' description dash');
+      var head = headOf(res.body);
+      assert.ok(head.indexOf('—') === -1, route.path + ' head em dash');
+      assert.ok(!/no cure/i.test(head), route.path + ' head no cure');
+      assert.ok(head.indexOf('47.000') === -1, route.path + ' head 47.000');
+      if (route.path === '/') {
+        assert.strictEqual(desc, HOME_DESC, 'home description');
+        assert.ok(desc.length <= 155, 'home description length ' + desc.length);
+      }
       if (route.path === '/tools/wia-calculator') {
         assert.strictEqual(desc, WIA_DESC, 'wia description');
         assert.ok(desc.length <= 155, 'wia description length ' + desc.length);
