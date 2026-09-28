@@ -59,6 +59,27 @@ var routes = [
     h1: 'ERD 2027 aanvragen vóór 2 oktober',
     keep: ['blogpost-view', 'Belastingdienst'],
     drop: ['home-view', 'blog-view', 'faq-view']
+  },
+  {
+    path: '/blog/whk-premies-2027-wga-en-zw',
+    title: 'Whk-premies 2027: WGA 1,07% en ZW 0,60% voor werkgevers | Werkhervattingskas.nl',
+    h1: 'Whk-premies 2027: WGA 1,07% en ZW 0,60% voor werkgevers',
+    keep: ['blogpost-view', '1,07%'],
+    drop: ['home-view', 'blog-view', 'faq-view']
+  },
+  {
+    path: '/blog/lkv-deadlines-kalender-werkgever',
+    title: 'LKV-deadlines: kalender voor werkgevers in het Wtl-jaar | Werkhervattingskas.nl',
+    h1: 'LKV-deadlines: kalender voor werkgevers in het Wtl-jaar',
+    keep: ['blogpost-view', '15 maart'],
+    drop: ['home-view', 'blog-view', 'faq-view']
+  },
+  {
+    path: '/blog/zw-eigenrisicodrager-checklist',
+    title: 'ZW-eigenrisicodrager: checklist vóór je overstapt in 2027 | Werkhervattingskas.nl',
+    h1: 'ZW-eigenrisicodrager: checklist vóór je overstapt in 2027',
+    keep: ['blogpost-view', 'Gratis WHK-beschikking check'],
+    drop: ['home-view', 'blog-view', 'faq-view']
   }
 ];
 

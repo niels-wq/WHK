@@ -35,7 +35,7 @@ Open de bijlage of de specificatie instroomgegevens. Hoe je dat stuk vindt, staa
 De beschikking kijkt twee jaar terug. Een status die in 2022 gold en in 2024 was verlopen, is een ander gesprek dan een status die in het schadelastjaar nog liep. Vraag de duur niet “op gevoel” na. Die verschilt per doelgroep. Een aanname op basis van LKV of een andere medewerker is de snelste manier om het verkeerde jaar te vinken.
 
 **5. Heb je LKV geclaimd en no-risk vergeten, of omgekeerd?**
-Loonkostenvoordeel en no-riskpolis raken overlappende doelgroepen, maar zijn geen substituten. LKV verlaagt de loonkosten via de aangifte. No-risk raakt ziektecompensatie en, als het misgaat, de Whk-toerekening. Eén vinkje in de loonaangifte bewijst niet dat de andere route is gelopen. Zie de [FAQ](https://werkhervattingskas.nl/faq).
+Loonkostenvoordeel en no-riskpolis raken overlappende doelgroepen, maar zijn geen substituten. LKV verlaagt de loonkosten via de aangifte. No-risk raakt ziektecompensatie en, als het misgaat, de Whk-toerekening. Eén vinkje in de loonaangifte bewijst niet dat de andere route is gelopen. Zie de [FAQ](https://werkhervattingskas.nl/faq). De termijnen van de voorlopige berekening en de definitieve beschikking staan in [LKV-deadlines: kalender voor werkgevers](/blog/lkv-deadlines-kalender-werkgever).
 
 **6. Is het wel no-risk, of een ander vangnet?**
 Zwangerschap en bevalling, ziekte binnen vier weken na einde dienstverband, of flex/ZW-vangnet zijn andere gronden. Verwissel je die, dan zoek je de verkeerde brief en de verkeerde correctie. ZW op de beschikking kan terecht zijn, of het kan een gemiste no-riskstatus zijn. Dat zie je alleen in het dossier, niet aan het percentage.

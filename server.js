@@ -555,22 +555,40 @@ function serveNotFound(res) {
 // ================================================================
 // BLOG ARTIKEL — eigen meta per artikel
 // ================================================================
+function blogPageForSlug(slug, dbPosts) {
+  const posts = mergePostSources(Array.isArray(dbPosts) ? dbPosts : []);
+  const post = posts.find(p => p && p.slug === slug && !p.archived);
+  if (post) {
+    return {
+      meta: { title: post.title + ' | Werkhervattingskas.nl', desc: post.metaDescription || post.title },
+      post: post
+    };
+  }
+  const seed = findSeedPostMeta(getHtml() || '', slug);
+  if (!seed) return null;
+  return {
+    meta: seed,
+    post: {
+      title: String(seed.title || '').replace(/ \| Werkhervattingskas\.nl$/, ''),
+      bodyHtml: ''
+    }
+  };
+}
 app.get('/blog/:slug', async (req, res) => {
+  const slug = req.params.slug;
+  let dbPosts = [];
   try {
     const raw = await kvGet('posts');
-    const dbPosts = raw ? JSON.parse(raw) : [];
-    const posts = mergePostSources(Array.isArray(dbPosts) ? dbPosts : []);
-    const post = posts.find(p => p.slug === req.params.slug && !p.archived);
-    let meta = post
-      ? { title: post.title + ' | Werkhervattingskas.nl', desc: post.metaDescription || post.title }
-      : findSeedPostMeta(getHtml() || '', req.params.slug);
-    if (!meta) meta = URL_META['/blog'];
-    let pagePost = post || null;
-    if (!pagePost && meta && meta !== URL_META['/blog']) {
-      pagePost = { title: String(meta.title || '').replace(/ \| Werkhervattingskas\.nl$/, ''), bodyHtml: '' };
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) dbPosts = parsed;
     }
-    serveWithMeta(res, meta, '/blog/' + req.params.slug, 200, { post: pagePost });
-  } catch (e) { serveWithMeta(res, URL_META['/blog'], '/blog/' + req.params.slug); }
+  } catch (e) {
+    dbPosts = [];
+  }
+  const page = blogPageForSlug(slug, dbPosts);
+  if (!page) return serveNotFound(res);
+  serveWithMeta(res, page.meta, '/blog/' + slug, 200, { post: page.post });
 });
 
 // ================================================================
@@ -638,6 +656,9 @@ app.get('/llms.txt', (req, res) => {
 - [ERD terug naar de publieke premie](${u}/blog/erd-terug-naar-publiek-beslisboom-2026): beslisboom voor blijven of terug in 2026.
 - [ERD 2027 aanvragen](${u}/blog/erd-2027-aanvragen-voor-2-oktober): aanvraag bij de Belastingdienst voor 2 oktober.
 - [Correctiebericht of beschikking](${u}/blog/uwv-correctiebericht-vs-whk-beschikking-voorrang): welke brief waarover gaat en wat je daarna doet.
+- [Whk-premies 2027](${u}/blog/whk-premies-2027-wga-en-zw): gemiddelde WGA 1,07% en ZW 0,60%, met minimum, maximum en loonsomgrenzen.
+- [LKV-deadlines](${u}/blog/lkv-deadlines-kalender-werkgever): kalender voor de voorlopige berekening, correcties en de definitieve beschikking.
+- [ZW-eigenrisicodrager checklist](${u}/blog/zw-eigenrisicodrager-checklist): voorwaarden, aanvraag en wat je checkt vóór je overstapt.
 
 ## Optional
 
@@ -737,6 +758,10 @@ app.get('/health', async (req, res) => {
 
 app.get('/kennisbank', (req, res) => {
   res.redirect(301, '/blog');
+});
+
+app.get('/premiehistorie', (req, res) => {
+  res.redirect(301, '/tools/premiehistorie');
 });
 
 app.get('/admin', (req, res) => {

@@ -36,7 +36,7 @@ Naast jouw eigen schadelast bewegen de **landelijke gemiddelden**. Die herijkt h
 - **WGA:** 0,96% → **1,07%**
 - **ZW:** 0,56% → **0,60%**
 
-Bron: UWV / Besluit Whk 2027.
+Bron: UWV / Besluit Whk 2027. Minimum, maximum en de loonsomgrenzen voor 2027 staan in [Whk-premies 2027](/blog/whk-premies-2027-wga-en-zw).
 
 Dat zegt twee dingen, en niet meer dan dat.
 
