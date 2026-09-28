@@ -736,6 +736,10 @@ app.get('/kennisbank', (req, res) => {
   res.redirect(301, '/blog');
 });
 
+app.get('/premiehistorie', (req, res) => {
+  res.redirect(301, '/tools/premiehistorie');
+});
+
 app.get('/admin', (req, res) => {
   serveWithMeta(res, { title: 'Beheer — werkhervattingskas.nl', desc: 'Beheerderslogin.' }, '/admin');
 });
