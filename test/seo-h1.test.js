@@ -29,8 +29,7 @@ var routes = [
     title: 'Wat is de Werkhervattingskas (WHK)? Premie, WIA en bezwaar [2026]',
     h1: 'Wat is de Werkhervattingskas?',
     keep: ['faq-view'],
-    drop: ['home-view', 'wia-calc-view'],
-    faq: true
+    drop: ['home-view', 'wia-calc-view']
   },
   {
     path: '/diensten',
@@ -118,9 +117,52 @@ function headOf(html) {
   return html.slice(start, end);
 }
 
-function faqLdCount(html) {
-  var blocks = html.match(/<script type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/g) || [];
-  return blocks.filter(function (b) { return b.indexOf('FAQPage') !== -1; }).length;
+var FAQ_ROUTES = { '/faq': true, '/tools/wia-calculator': true };
+
+function faqLdBlocks(html) {
+  return (html.match(/<script type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/g) || [])
+    .filter(function (b) { return b.indexOf('FAQPage') !== -1; });
+}
+
+function faqPages(html) {
+  var pages = [];
+  faqLdBlocks(html).forEach(function (block) {
+    var json = block.replace(/^<script[^>]*>/, '').replace(/<\/script>\s*$/, '');
+    var data = JSON.parse(json);
+    var nodes = Array.isArray(data['@graph']) ? data['@graph'] : [data];
+    nodes.forEach(function (node) {
+      var t = node && node['@type'];
+      var isFaq = t === 'FAQPage' || (Array.isArray(t) && t.indexOf('FAQPage') !== -1);
+      if (isFaq && node.mainEntity) pages.push(node);
+    });
+  });
+  return pages;
+}
+
+function stripInline(s) {
+  return String(s || '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&#(\d+);/g, function (_, n) { return String.fromCharCode(parseInt(n, 10)); })
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function visibleWiaPairs(html) {
+  var start = html.indexOf('id="wia-faq"');
+  var end = html.indexOf('id="wia-faq-cta"');
+  assert.ok(start !== -1 && end > start, 'wia faq block');
+  var block = html.slice(start, end);
+  var pairs = [];
+  var re = /<h3\b[^>]*>([\s\S]*?)<\/h3>\s*<p\b[^>]*>([\s\S]*?)<\/p>/gi;
+  var m;
+  while ((m = re.exec(block))) {
+    pairs.push({ question: stripInline(m[1]), answer: stripInline(m[2]) });
+  }
+  return pairs;
 }
 
 delete process.env.DATABASE_URL;
@@ -167,11 +209,47 @@ var server = app.listen(0, '127.0.0.1', function () {
         assert.ok(desc.length <= 155, 'wia description length ' + desc.length);
         assert.ok(desc.indexOf('gratis calculator 2026') !== -1, 'wia phrase');
       }
-      if (route.faq) {
-        assert.ok(faqLdCount(res.body) >= 1, route.path + ' should emit FAQPage');
+      if (FAQ_ROUTES[route.path]) {
+        assert.ok(faqLdBlocks(res.body).length >= 1, route.path + ' should emit FAQPage');
       } else {
-        assert.strictEqual(faqLdCount(res.body), 0, route.path + ' should not emit FAQPage');
+        assert.strictEqual(faqLdBlocks(res.body).length, 0, route.path + ' should not emit FAQPage');
       }
+    });
+
+    var wiaBody = results[routes.findIndex(function (r) { return r.path === '/tools/wia-calculator'; })].body;
+    var faqBody = results[routes.findIndex(function (r) { return r.path === '/faq'; })].body;
+    assert.strictEqual(countH1(wiaBody), 1, 'wia calculator h1');
+    assert.ok(wiaBody.indexOf('Veelgestelde vragen') !== -1, 'wia faq heading');
+    assert.strictEqual((wiaBody.match(/<h1\b/gi) || []).length, 1, 'wia still one h1');
+    var wiaStart = wiaBody.indexOf('id="wia-faq"');
+    var wiaEnd = wiaBody.indexOf('</section>', wiaStart);
+    var wiaFaq = wiaBody.slice(wiaStart, wiaEnd);
+    assert.ok(wiaFaq.indexOf('erd-partneradvies') === -1, 'wia faq must not link ERD');
+    assert.ok(wiaFaq.indexOf('/diensten/erd') === -1, 'wia faq must not link ERD path');
+    assert.ok(!/\bERD\b/.test(wiaFaq), 'wia faq must not mention ERD');
+    assert.ok(wiaFaq.indexOf('—') === -1 && wiaFaq.indexOf('–') === -1, 'wia faq dash');
+    assert.ok(!/no cure/i.test(wiaFaq), 'wia faq no cure');
+    assert.ok(wiaFaq.indexOf('47.000') === -1 && wiaFaq.indexOf('47000') === -1, 'wia faq amount');
+    ['/beschikking-uitleg', '/diensten/arbeidsdeskundig-onderzoek', '/faq', '/blog/whk-premies-2027-wga-en-zw'].forEach(function (href) {
+      assert.ok(wiaFaq.indexOf('href="' + href + '"') !== -1, 'wia faq missing ' + href);
+    });
+    assert.ok(wiaFaq.indexOf('€282,15') !== -1, 'wia faq maximumdagloon');
+    var visible = visibleWiaPairs(wiaBody);
+    assert.ok(visible.length >= 5 && visible.length <= 6, 'wia faq question count ' + visible.length);
+    var wiaSchema = faqPages(wiaBody);
+    assert.strictEqual(wiaSchema.length, 1, 'one FAQPage schema on calculator');
+    assert.strictEqual(wiaSchema[0].mainEntity.length, visible.length, 'schema questions match visible');
+    visible.forEach(function (pair, i) {
+      var entity = wiaSchema[0].mainEntity[i];
+      assert.strictEqual(entity.name, pair.question, 'schema question ' + i);
+      assert.strictEqual(entity.acceptedAnswer.text, pair.answer, 'schema answer ' + i);
+    });
+    var faqNames = {};
+    faqPages(faqBody).forEach(function (page) {
+      page.mainEntity.forEach(function (q) { faqNames[q.name] = true; });
+    });
+    visible.forEach(function (pair) {
+      assert.ok(!faqNames[pair.question], 'question overlaps /faq: ' + pair.question);
     });
 
     var ado = results[results.length - 1];
