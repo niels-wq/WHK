@@ -10,7 +10,15 @@ var TITLE_SUFFIX = ' | Werkhervattingskas.nl';
 var NEW_BLOGS = [
   'whk-premies-2027-wga-en-zw',
   'lkv-deadlines-kalender-werkgever',
-  'zw-eigenrisicodrager-checklist'
+  'zw-eigenrisicodrager-checklist',
+  'kleine-middelgrote-grote-werkgever-whk-2027',
+  'wia-herstelactie-en-60-plusmaatregel-werkgevers',
+  'ziektewet-flexpremie-2027-negatief-vermogen'
+];
+var ROUND_BLOGS = [
+  'kleine-middelgrote-grote-werkgever-whk-2027',
+  'wia-herstelactie-en-60-plusmaatregel-werkgevers',
+  'ziektewet-flexpremie-2027-negatief-vermogen'
 ];
 
 function request(port, urlPath) {
@@ -120,6 +128,16 @@ function assertArticle(post, res) {
     assert.ok(!/no cure no pay/i.test(chunk), url + ' no cure no pay');
     assert.ok(chunk.indexOf('47.000') === -1, url + ' unverifiable savings claim');
     assert.ok(meta(res.body, 'description').indexOf('\u2014') === -1, url + ' description em dash');
+  }
+  if (ROUND_BLOGS.indexOf(post.slug) !== -1) {
+    assert.ok(res.body.indexOf('id="route-article-schema"') !== -1, url + ' BlogPosting schema');
+    assert.ok(res.body.indexOf('"@type": "BlogPosting"') !== -1, url + ' BlogPosting type');
+    assert.ok(res.body.indexOf('"name": "Niels Alderding"') !== -1, url + ' author');
+    assert.ok(res.body.indexOf('"datePublished": "2026-10-05"') !== -1, url + ' datePublished');
+    assert.ok(res.body.indexOf('"dateModified": "2026-10-05"') !== -1, url + ' dateModified');
+    assert.ok(res.body.indexOf('"@type": "FAQPage"') !== -1, url + ' FAQPage');
+    assert.ok(res.body.indexOf('Bijgewerkt op 5 oktober 2026') !== -1, url + ' updated date');
+    assert.ok(res.body.indexOf('https://www.werkhervattingskas.nl') === -1, url + ' www canonical');
   }
   if (post.slug === 'zw-eigenrisicodrager-checklist') {
     var bodyAt = res.body.indexOf('id="blogpost-body"');

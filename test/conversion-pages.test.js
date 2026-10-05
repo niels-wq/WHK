@@ -86,7 +86,8 @@ assert.ok(home.indexOf('hero-cta-row') !== -1, 'home missing hero CTA row');
 assert.ok(home.indexOf('Gratis WHK-beschikking check') !== -1, 'home missing primary CTA label');
 assert.ok(home.indexOf('data-cta="calculator"') !== -1, 'home missing calculator CTA');
 assert.ok(/hero-cta-row[\s\S]*data-cta="terugbel"/.test(home), 'home missing secondary callback in hero');
-assert.ok(home.indexOf('ERD 2027 aanvragen vóór 2 okt') !== -1, 'home missing ERD deadline CTA');
+assert.ok(home.indexOf('ERD-deadline voor 2027 is verstreken') !== -1, 'home missing updated ERD deadline note');
+assert.ok(home.indexOf('1 oktober 2026') === -1, 'home should not still invite an October 2026 ERD filing');
 assert.ok(home.indexOf('/blog/erd-2027-aanvragen-voor-2-oktober') !== -1, 'home ERD CTA should link the deadline post');
 assert.ok(home.indexOf('id="erd-deadline-bar"') !== -1, 'home missing above-the-fold ERD deadline bar');
 

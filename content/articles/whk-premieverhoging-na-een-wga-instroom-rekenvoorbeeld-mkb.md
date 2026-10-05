@@ -1,8 +1,9 @@
 ---
-title: WHK-premieverhoging na één WGA-instroom: rekenvoorbeeld voor het mkb
+title: WGA-instroom en de WHK-premie: rekenvoorbeeld voor mkb
 slug: whk-premieverhoging-na-een-wga-instroom-rekenvoorbeeld-mkb
-description: Wat één WGA-instroom doet met de WHK-premie van een middelgroot mkb. Concreet eurovoorbeeld 2026 en wanneer een beschikkingcheck loont.
+description: Wat één WGA-instroom doet met de WHK-premie van een middelgroot mkb. Eurovoorbeeld met de grenzen van 2026 en wanneer een beschikkingcheck loont.
 publishedAt: 2026-09-18
+updatedAt: 2026-10-05
 tags: Premie, WGA, WHK-basics
 ---
 
@@ -18,7 +19,7 @@ Voor **premiejaar 2026** (loonsom 2024) geldt:
 - **middelgroot:** tussen € 1.082.500 en € 4.330.000 — mix van sectoraal en individueel. Hier begint één instroom euro’s te kosten.
 - **groot:** boven € 4.330.000 — volledig individueel. Dezelfde last weegt procentueel minder naarmate de loonsom groter is.
 
-Landelijk gemiddelde WGA-premie 2026: **0,96%** (2025: 0,83%; 2027: **1,07%**). Bron: UWV / Besluit gedifferentieerde premie Whk. De historische reeks staat op de [WHK-premiehistorie](https://werkhervattingskas.nl/tools/premiehistorie).
+Landelijk gemiddelde WGA-premie 2026: **0,96%** (2025: 0,83%; 2027: **1,07%**). Bron: UWV / Besluit gedifferentieerde premie Whk. De historische reeks staat op de [WHK-premiehistorie](https://werkhervattingskas.nl/tools/premiehistorie). De grenzen voor premiejaar 2027 (loonsom 2025) zijn €1.135.000 en €4.540.000. Die klassen staan in [kleine, middelgrote of grote werkgever](/blog/kleine-middelgrote-grote-werkgever-whk-2027).
 
 IVA telt niet mee in de Whk. Of een dossier WGA of IVA is, bepaalt het UWV — niet de controller. Voor de orde van grootte van de uitkering zelf: de [WIA-calculator](https://werkhervattingskas.nl/tools/wia-calculator).
 

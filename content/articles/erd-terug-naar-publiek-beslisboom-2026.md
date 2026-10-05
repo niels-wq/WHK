@@ -1,8 +1,9 @@
 ---
-title: ERD terug naar publiek: beslisboom 2026
+title: ERD terug naar publiek: beslisboom voor 2026 en 2027
 slug: erd-terug-naar-publiek-beslisboom-2026
-description: Blijven als eigenrisicodrager of terug naar de publieke WHK? Beslisboom 2026: deadlines, staartlasten en wanneer meer info zinvol is.
+description: Blijven als eigenrisicodrager of terug naar de publieke Whk? Deadlines, staartlasten en wat je checkt nu de termijn voor januari 2027 voorbij is.
 publishedAt: 2026-09-18
+updatedAt: 2026-10-05
 tags: WHK-basics, Sector & organisatie, WGA
 ---
 
@@ -19,7 +20,7 @@ Volgens het UWV kun je je op **twee momenten per jaar** afmelden:
 - uiterlijk **1 oktober** — ERD stopt per **1 januari** daarna
 - uiterlijk **31 maart** — ERD stopt per **1 juli** daarna
 
-Voor publiek vanaf **1 januari 2027** moet het formulier dus **uiterlijk 1 oktober 2026** binnen zijn. Bron: [Einde eigenrisicodragerschap WGA, terug naar UWV](https://www.uwv.nl/nl/eigenrisicodrager/eigenrisicodrager-wga/erd-wga-risico-terug-uwv) en het [formulier aanvraag of beëindiging ERD WGA](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/themaoverstijgend/programmas_en_formulieren/aanvraag_of_beeindiging_eigenrisicodragerschap_voor_de_wga).
+Voor publiek vanaf **1 januari 2027** moest het formulier **uiterlijk 1 oktober 2026** binnen zijn. Die datum is verstreken. De volgende januari-stop is per **1 januari 2028**, met aanvraag uiterlijk **1 oktober 2027**. Stoppen per **1 juli 2027** kan nog, uiterlijk **31 maart 2027**. Bron: [Einde eigenrisicodragerschap WGA, terug naar UWV](https://www.uwv.nl/nl/eigenrisicodrager/eigenrisicodrager-wga/erd-wga-risico-terug-uwv) en het [formulier aanvraag of beëindiging ERD WGA](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/themaoverstijgend/programmas_en_formulieren/aanvraag_of_beeindiging_eigenrisicodragerschap_voor_de_wga). Dezelfde kalender voor wie juist wil starten: [ERD per 1 januari 2027](/blog/erd-2027-aanvragen-voor-2-oktober).
 
 Na beëindiging kun je volgens het UWV **pas na drie jaar** opnieuw ERD worden, met extra voorwaarden. Reken dus niet op een snelle heen-en-weer-beweging.
 
@@ -69,7 +70,7 @@ Landelijke gemiddelden (WGA 0,96% in 2026, 1,07% in 2027) zijn een ijkpunt, geen
 
 ## Wanneer is meer info zinvol — en wanneer niet?
 
-Meer info is zinvol als de deadline van 1 oktober of 31 maart in zicht is, de verzekeraar een sprong aankondigt, of je niet scherp hebt welke dossiers bij een stop van jou blijven. Niet zinvol als je alleen “de Whk is gestegen, dus ERD moet voordeliger zijn” — dat is de redenering de andere kant op, en die gaat hier niet over terugkeer.
+Meer info is zinvol als 31 maart 2027 of 1 oktober 2027 in zicht is, de verzekeraar een sprong aankondigt, of je niet scherp hebt welke dossiers bij een stop van jou blijven. De termijn voor 1 januari 2027 is verstreken. Niet zinvol als je alleen “de Whk is gestegen, dus ERD moet voordeliger zijn” — dat is de redenering de andere kant op, en die gaat hier niet over terugkeer.
 
 Matchvermogen denkt mee over de **Whk-kant** van de vergelijking (beschikking, toerekening, grootteklasse). Dat is geen verzekeringsadvies en geen belofte dat terug of blijven goedkoper is.
 

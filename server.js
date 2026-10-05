@@ -240,6 +240,7 @@ function loadMarkdownArticles() {
       metaDescription: parsed.meta.description || parsed.meta.title,
       tags: parsed.meta.tags ? parsed.meta.tags.split(',').map(function(t){ return t.trim(); }).filter(Boolean) : [],
       publishedAt: parsed.meta.publishedAt || parsed.meta.date || new Date().toISOString(),
+      updatedAt: parsed.meta.updatedAt || undefined,
       archived: parsed.meta.archived === 'true',
       source: 'markdown',
       bodyHtml: mdToHtml(parsed.body)
@@ -654,7 +655,10 @@ app.get('/llms.txt', (req, res) => {
 - [UWV herbeoordeling 2026](${u}/blog/uwv-herbeoordeling-2026): wanneer een herbeoordeling nog aan de orde is.
 - [No-riskpolis: 7 checkpunten](${u}/blog/no-riskpolis-7-checkpunten-voor-whk-beschikking): no-riskstatus controleren voordat de beschikking vaststaat.
 - [ERD terug naar de publieke premie](${u}/blog/erd-terug-naar-publiek-beslisboom-2026): beslisboom voor blijven of terug in 2026.
-- [ERD 2027 aanvragen](${u}/blog/erd-2027-aanvragen-voor-2-oktober): aanvraag bij de Belastingdienst voor 2 oktober.
+- [ERD per 1 januari 2027](${u}/blog/erd-2027-aanvragen-voor-2-oktober): de aanvraagdeadline is verstreken. Check de beschikking en plan 1 oktober 2027.
+- [Kleine, middelgrote of grote werkgever](${u}/blog/kleine-middelgrote-grote-werkgever-whk-2027): loonsomgrenzen 2027 en sectorpremie, mix of individueel tarief.
+- [WIA-herstelactie en 60-plusmaatregel](${u}/blog/wia-herstelactie-en-60-plusmaatregel-werkgevers): eenmalige vergoeding en 60-plus, en wat dat doet met de WGA-premie.
+- [Ziektewet-flexpremie 2027](${u}/blog/ziektewet-flexpremie-2027-negatief-vermogen): waarom 0,60% hoger ligt dan de lopende uitgaven.
 - [Correctiebericht of beschikking](${u}/blog/uwv-correctiebericht-vs-whk-beschikking-voorrang): welke brief waarover gaat en wat je daarna doet.
 - [Whk-premies 2027](${u}/blog/whk-premies-2027-wga-en-zw): gemiddelde WGA 1,07% en ZW 0,60%, met minimum, maximum en loonsomgrenzen.
 - [LKV-deadlines](${u}/blog/lkv-deadlines-kalender-werkgever): kalender voor de voorlopige berekening, correcties en de definitieve beschikking.
@@ -701,7 +705,8 @@ app.get('/sitemap.xml', async (req, res) => {
     });
     const now = new Date();
     posts.filter(p => p && p.slug && !p.archived && (!p.publishedAt || new Date(p.publishedAt) <= now)).forEach(p => {
-      const lastmod = p.publishedAt ? String(p.publishedAt).slice(0, 10) : undefined;
+      const stamp = p.updatedAt || p.publishedAt;
+      const lastmod = stamp ? String(stamp).slice(0, 10) : undefined;
       addUrl(SITE_URL + '/blog/' + p.slug, 'yearly', '0.6', lastmod);
     });
     const html = getHtml();

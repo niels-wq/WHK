@@ -66,11 +66,13 @@ var server = app.listen(0, '127.0.0.1', function () {
   Promise.all([
     request(port, '/robots.txt'),
     request(port, '/llms.txt'),
-    request(port, '/api/posts')
+    request(port, '/api/posts'),
+    request(port, '/sitemap.xml')
   ]).then(function (results) {
     var robots = results[0];
     var llms = results[1];
     var postsRes = results[2];
+    var sitemap = results[3];
 
     assert.strictEqual(robots.status, 200, 'robots status');
     assert.strictEqual(robots.headers['content-type'], 'text/plain; charset=utf-8', 'robots content-type');
@@ -130,6 +132,15 @@ var server = app.listen(0, '127.0.0.1', function () {
     liveSlugs.forEach(function (slug) {
       assert.ok(blogSlugs.indexOf(slug) !== -1, 'live post missing from llms.txt: ' + slug);
     });
+    assert.strictEqual(sitemap.status, 200, 'sitemap status');
+    assert.ok(sitemap.body.indexOf('<urlset') !== -1, 'sitemap urlset');
+    liveSlugs.forEach(function (slug) {
+      assert.ok(
+        sitemap.body.indexOf('<loc>' + APEX + '/blog/' + slug + '</loc>') !== -1,
+        'sitemap missing ' + slug
+      );
+    });
+    assert.ok(sitemap.body.indexOf('https://www.') === -1, 'sitemap stays on the apex');
     assert.ok(llms.body.indexOf('/blog/dit-artikel-bestaat-niet') === -1, 'unknown slug must not be linked');
 
     console.log('seo txt tests ok (' + BOTS.length + ' robots groups, ' + blogSlugs.length + ' blog links)');

@@ -54,8 +54,8 @@ var routes = [
   },
   {
     path: '/blog/erd-2027-aanvragen-voor-2-oktober',
-    title: 'ERD 2027 aanvragen vóór 2 oktober | Werkhervattingskas.nl',
-    h1: 'ERD 2027 aanvragen vóór 2 oktober',
+    title: 'ERD per 1 januari 2027: de aanvraagdeadline is voorbij | Werkhervattingskas.nl',
+    h1: 'ERD per 1 januari 2027: de aanvraagdeadline is voorbij',
     keep: ['blogpost-view', 'Belastingdienst'],
     drop: ['home-view', 'blog-view', 'faq-view']
   },
