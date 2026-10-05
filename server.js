@@ -806,6 +806,12 @@ app.get('/whk_checklist.html', (req, res) => {
   res.sendFile(p);
 });
 
+// Public files such as /assets/niels-foto.png. Registered before the HTML catch-all.
+app.use('/assets', express.static(path.join(__dirname, 'assets'), {
+  maxAge: '1d',
+  fallthrough: false
+}));
+
 // Catch-all
 app.get('*', (req, res) => serveNotFound(res));
 
