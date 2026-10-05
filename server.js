@@ -663,6 +663,7 @@ app.get('/llms.txt', (req, res) => {
 - [Whk-premies 2027](${u}/blog/whk-premies-2027-wga-en-zw): gemiddelde WGA 1,07% en ZW 0,60%, met minimum, maximum en loonsomgrenzen.
 - [LKV-deadlines](${u}/blog/lkv-deadlines-kalender-werkgever): kalender voor de voorlopige berekening, correcties en de definitieve beschikking.
 - [ZW-eigenrisicodrager checklist](${u}/blog/zw-eigenrisicodrager-checklist): voorwaarden, aanvraag en wat je checkt vóór je overstapt.
+- [Compensatie transitievergoeding na 2 jaar ziekte](${u}/blog/compensatie-transitievergoeding-na-2-jaar-ziekte): aanvraag bij het UWV binnen 6 maanden na betaling, met stukken en veelgemaakte fouten.
 
 ## Optional
 
