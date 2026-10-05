@@ -1,8 +1,9 @@
 ---
-title: WHK-beschikking lezen in 10 minuten: bijlage, toerekening, wat je mist
+title: WHK-beschikking lezen: bijlage, toerekening, wat je mist
 slug: whk-beschikking-lezen-in-10-minuten
-description: WHK-beschikking lezen in 10 minuten. Controllers en HR: zo open je de bijlage, check je toerekening en zie je wat het voorblad niet zegt.
+description: Zo lees je de WHK-beschikking in 10 minuten: bijlage, toerekening en wat het voorblad niet zegt. Voor controllers en HR die de premie willen plaatsen.
 publishedAt: 2026-09-21
+updatedAt: 2026-10-05
 tags: WHK-basics, Premie, Bezwaar & procedure
 ---
 
@@ -16,7 +17,7 @@ Pak de beschikking (“Loonheffingen gedifferentieerd premiepercentage Werkherva
 
 - **Dagtekening.** Daar start de bezwaartermijn van zes weken, niet de dag dat de post binnenkwam. Zet de uiterste datum in de agenda. Wachten op een toelichting stuit die termijn niet.
 - **Loonheffingennummer.** Toerekening hangt aan dit nummer. Na fusie, splitsing of een tweede nummer is dit het eerste verwisselpunt.
-- **Grootteklasse.** Klein (sectortarief), middelgroot (mix) of groot (individueel). De grenzen staan op de [premiehistorie](https://werkhervattingskas.nl/tools/premiehistorie). Bij klein verandert één dossier jóuw percentage niet. Bij middelgroot wel, zie het [rekenvoorbeeld WGA-instroom](/blog/whk-premieverhoging-na-een-wga-instroom-rekenvoorbeeld-mkb).
+- **Grootteklasse.** Klein (sectortarief), middelgroot (mix) of groot (individueel). De grenzen voor 2027 staan in [kleine, middelgrote of grote werkgever](/blog/kleine-middelgrote-grote-werkgever-whk-2027). Eerdere jaren: [premiehistorie](https://werkhervattingskas.nl/tools/premiehistorie). Bij klein verandert één dossier jóuw percentage niet. Bij middelgroot wel, zie het [rekenvoorbeeld WGA-instroom](/blog/whk-premieverhoging-na-een-wga-instroom-rekenvoorbeeld-mkb).
 - **WGA-deel en ZW-deel apart.** Het totaalpercentage is een som. Een sprong in WGA is een ander gesprek dan een sprong in flex/ZW.
 
 Het landelijk gemiddelde WGA 2026 is **0,96%** (2027: **1,07%**). Bron: UWV / Besluit Whk. Boven het gemiddelde is een signaal om de bijlage te openen, geen bewijs van een fout. Wat de premie überhaupt is: [Wat is de Werkhervattingskas?](/blog/wat-is-de-werkhervattingskas-en-waarom-stijgt-jouw-premie).

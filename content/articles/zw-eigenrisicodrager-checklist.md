@@ -3,10 +3,11 @@ title: ZW-eigenrisicodrager: checklist vóór je overstapt in 2027
 slug: zw-eigenrisicodrager-checklist
 description: Checklist vóór ZW-eigenrisicodragerschap: je betaalt het ZW-flexdeel niet, maar draagt het risico bij flex en ziek uit dienst. Voorwaarden en aanvraag.
 publishedAt: 2026-09-28
+updatedAt: 2026-10-05
 tags: Ziektewet, Sector & organisatie, WHK-basics
 ---
 
-ZW-eigenrisicodrager worden betekent dat je het ZW-flexdeel van de gedifferentieerde Whk-premie niet betaalt, en zelf de Ziektewet-uitkering en de re-integratie draagt voor de groepen die onder dat risico vallen (flex en ziek uit dienst). Dit is een checklist vóór de overstap, geen advies om het te doen. WGA-eigenrisico is een aparte keuze. De aanvraagdatum voor 1 januari 2027 staat in [ERD 2027 aanvragen vóór 2 oktober](/blog/erd-2027-aanvragen-voor-2-oktober), niet hier opnieuw uitgeschreven.
+ZW-eigenrisicodrager worden betekent dat je het ZW-flexdeel van de gedifferentieerde Whk-premie niet betaalt, en zelf de Ziektewet-uitkering en de re-integratie draagt voor de groepen die onder dat risico vallen (flex en ziek uit dienst). Dit is een checklist vóór de overstap, geen advies om het te doen. WGA-eigenrisico is een aparte keuze. De aanvraag voor een start per 1 januari 2027 is gesloten. Wat er nog openstaat, staat in [ERD per 1 januari 2027](/blog/erd-2027-aanvragen-voor-2-oktober). Waarom de publieke ZW-premie in 2027 hoger ligt dan de lopende uitgaven: [Ziektewet-flexpremie 2027](/blog/ziektewet-flexpremie-2027-negatief-vermogen).
 
 ## Wat ZW-eigenrisicodragerschap betekent
 
@@ -32,11 +33,11 @@ Het UWV stelt drie voorwaarden om ZW-eigenrisicodrager te worden:
 
 Bij de aanvraag stuur je die schriftelijke afspraken mee. De Belastingdienst heeft daar een [model arboverklaring Ziektewet](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/themaoverstijgend/programmas_en_formulieren/model-arboverklaring-eigenrisicodragerschap-ziektewet-zw) voor. De aanvraag zelf is het formulier [Aanvraag of beëindiging eigenrisicodragerschap voor de ZW](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/themaoverstijgend/programmas_en_formulieren/aanvraag_of_beeindiging_eigenrisicodragerschap_voor_de_zw).
 
-Je kunt twee keer per jaar starten: 1 januari of 1 juli. Het UWV geeft aan dat de verwerking 13 weken duurt, dus de aanvraag moet op tijd binnen zijn. Voor een start op 1 januari 2027 hoort die aanvraag rond 1 oktober 2026 bij de Belastingdienst. De praktijkdatum staat in [ERD 2027 aanvragen vóór 2 oktober](/blog/erd-2027-aanvragen-voor-2-oktober).
+Je kunt twee keer per jaar starten: 1 januari of 1 juli. Het UWV geeft aan dat de verwerking 13 weken duurt, dus de aanvraag moet op tijd binnen zijn. Voor een start op 1 januari 2027 was die aanvraag uiterlijk 1 oktober 2026. Die datum is verstreken. De volgende januari-ronde is uiterlijk 1 oktober 2027, voor een start per 1 januari 2028. Voor 1 juli 2027 geldt uiterlijk 31 maart 2027. De kalender staat in [ERD per 1 januari 2027](/blog/erd-2027-aanvragen-voor-2-oktober).
 
 ## OR, private dekking en wat je niet uitbesteedt
 
-Heeft de organisatie een ondernemingsraad, dan moet die advies kunnen uitbrengen over een voorgenomen besluit tot vaststelling van een regeling voor het zelf dragen van het risico. Dat staat in [artikel 25, eerste lid, onderdeel m, van de Wet op de ondernemingsraden](https://wetten.overheid.nl/BWBR0002747/2023-02-18/0). Leg dat voor op een moment dat het advies nog iets kan veranderen, dus vóór de aanvraag bij de Belastingdienst en vóór een contract met een verzekeraar. Zonder die stap is een start per 1 januari vaak niet meer haalbaar. Dit artikel is geen OR-advies.
+Heeft de organisatie een ondernemingsraad, dan moet die advies kunnen uitbrengen over een voorgenomen besluit tot vaststelling van een regeling voor het zelf dragen van het risico. Dat staat in [artikel 25, eerste lid, onderdeel m, van de Wet op de ondernemingsraden](https://wetten.overheid.nl/BWBR0002747/2023-02-18/0). Leg dat voor op een moment dat het advies nog iets kan veranderen, dus vóór de aanvraag bij de Belastingdienst en vóór een contract met een verzekeraar. Zonder die stap is een start op de eerstvolgende datum vaak niet meer haalbaar. Dit artikel is geen OR-advies.
 
 Je kunt het financiële risico helemaal of gedeeltelijk zelf dragen, of een particuliere verzekering sluiten. Taken (beoordeling, betaling, administratie) kun je zelf doen of inkopen, ook bij het UWV of een administratiekantoor. Uitbesteden haalt de verantwoordelijkheid niet weg: die blijft bij de werkgever. Het UWV controleert het verzuimprotocol. Neemt het UWV taken over omdat de uitvoering niet op orde is, dan zijn de kosten voor jou.
 

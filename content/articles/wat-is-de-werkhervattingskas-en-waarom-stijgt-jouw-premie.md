@@ -1,8 +1,9 @@
 ---
-title: Wat is de Werkhervattingskas (Whk) en waarom stijgt jouw premie?
+title: Wat is de Werkhervattingskas en waarom stijgt de premie?
 slug: wat-is-de-werkhervattingskas-en-waarom-stijgt-jouw-premie
-description: De Werkhervattingskas in gewone taal: WGA en ZW, waarom de premie stijgt (2026–2027) en wanneer actie voor MKB-werkgevers de moeite waard is.
+description: De Werkhervattingskas in gewone taal: WGA en ZW, waarom de premie in 2026 en 2027 stijgt, en wanneer een mkb-werkgever de beschikking naloopt.
 publishedAt: 2026-09-16
+updatedAt: 2026-10-05
 tags: WHK-basics, Premie, WGA, Ziektewet
 ---
 
@@ -15,7 +16,7 @@ De Werkhervattingskas is het publieke fonds waaruit het UWV de **Ziektewet** en 
 - een **WGA-deel**
 - een **ZW-deel** (Ziektewet, vaak zichtbaar als flex/ZW-component)
 
-Hoe hoog jóuw percentage is, hangt af van je werkgeversgrootte en van de uitkeringslast die het UWV over een referentieperiode aan jouw loonheffingennummer toerekent. Kleine werkgevers betalen een sectortarief. Middelgrote werkgevers een mix. **Grote werkgevers** betalen een individueel gedifferentieerd tarief: jouw eigen schadeverleden weegt dan zwaar mee.
+Hoe hoog jóuw percentage is, hangt af van je werkgeversgrootte en van de uitkeringslast die het UWV over een referentieperiode aan jouw loonheffingennummer toerekent. Kleine werkgevers betalen een sectortarief. Middelgrote werkgevers een mix. **Grote werkgevers** betalen een individueel gedifferentieerd tarief: jouw eigen schadeverleden weegt dan zwaar mee. De loonsomgrenzen voor 2027 staan in [kleine, middelgrote of grote werkgever](/blog/kleine-middelgrote-grote-werkgever-whk-2027).
 
 De Belastingdienst legt de premie vast in de jaarlijkse **Whk-beschikking**. Het UWV levert de onderliggende gegevens. Als je wilt weten hoe je die beschikking leest, zie [Wat is de Werkhervattingskas? Zo leest u uw beschikking](https://werkhervattingskas.nl/beschikking-uitleg).
 
