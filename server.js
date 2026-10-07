@@ -627,7 +627,7 @@ app.get('/llms.txt', (req, res) => {
 ## Tools
 
 - [WHK-tools](${u}/tools): gratis rekentools voor uitkering, premie en deadlines.
-- [WIA-uitkering berekenen](${u}/tools/wia-calculator): indicatie van een WGA- of IVA-uitkering op dagloon en percentage.
+- [WIA-uitkering berekenen 2026](${u}/tools/wia-calculator): indicatie van een WGA- of IVA-uitkering op dagloon en percentage, met maximumdagloon € 309,91 (UWV, per 1 juli 2026) en de WHK-impact voor werkgevers.
 - [WGA-premie 2022-2026](${u}/tools/premiehistorie): gemiddelde premie, minimum, maximum en loonsomgrenzen.
 - [Poortwachter-tijdlijn](${u}/tools/poortwachter): deadlines vanaf de eerste ziektedag.
 - [Subsidie-scan](${u}/tools/subsidie-scan): loonkostenvoordeel, lage-inkomensvoordeel en werkbonus.
