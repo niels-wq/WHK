@@ -102,6 +102,10 @@ var server = app.listen(0, '127.0.0.1', function () {
     assert.ok(llms.body.indexOf(APEX + '/tools/wia-calculator') !== -1, 'llms missing calculator');
     assert.ok(llms.body.indexOf(APEX + '/beschikking-uitleg') !== -1, 'llms missing beschikking');
     assert.ok(llms.body.indexOf('WIA-uitkering berekenen') !== -1, 'llms calculator label');
+    assert.ok(
+      llms.body.indexOf('- [WIA-uitkering berekenen 2026](' + APEX + '/tools/wia-calculator): indicatie van een WGA- of IVA-uitkering op dagloon en percentage, met maximumdagloon € 309,91 (UWV, per 1 juli 2026) en de WHK-impact voor werkgevers.') !== -1,
+      'llms calculator line'
+    );
 
     var posts = JSON.parse(postsRes.body);
     assert.ok(Array.isArray(posts) && posts.length > 0, 'posts data');

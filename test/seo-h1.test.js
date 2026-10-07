@@ -233,7 +233,18 @@ var server = app.listen(0, '127.0.0.1', function () {
     ['/beschikking-uitleg', '/diensten/arbeidsdeskundig-onderzoek', '/faq', '/blog/whk-premies-2027-wga-en-zw'].forEach(function (href) {
       assert.ok(wiaFaq.indexOf('href="' + href + '"') !== -1, 'wia faq missing ' + href);
     });
-    assert.ok(wiaFaq.indexOf('€282,15') !== -1, 'wia faq maximumdagloon');
+    assert.ok(wiaFaq.indexOf('€309,91') !== -1, 'wia faq maximumdagloon');
+    assert.ok(wiaFaq.indexOf('€304,25') !== -1, 'wia faq january maximumdagloon');
+    assert.ok(wiaBody.indexOf('282' + ',15') === -1 && wiaBody.indexOf('282' + '.15') === -1, 'stale maximumdagloon');
+    assert.ok(wiaBody.indexOf('id="wia-direct-answer"') !== -1, 'direct answer');
+    assert.ok(wiaBody.indexOf('gedeeld door 261') !== -1, 'sv-loon divisor');
+    assert.ok(wiaBody.indexOf('21,75') !== -1, 'monthly factor');
+    assert.ok(wiaBody.indexOf('https://www.uwv.nl/nl/premies-bedragen/maximum-dagloon') !== -1, 'uwv maximumdagloon link');
+    assert.ok(wiaBody.indexOf('https://www.uwv.nl/nl/wia/hoogte-wia') !== -1, 'uwv hoogte link');
+    assert.ok(wiaBody.indexOf('https://www.rijksoverheid.nl/vraag-en-antwoord/wia/wia-hoogte-uitkering') !== -1, 'rijksoverheid link');
+    assert.ok(wiaBody.indexOf('Laatst bijgewerkt:') !== -1, 'visible updated label');
+    assert.ok(wiaBody.indexOf('datetime="2026-10-07"') !== -1, 'visible updated date');
+    assert.ok(wiaBody.indexOf('"dateModified": "2026-10-07"') !== -1, 'schema dateModified');
     var visible = visibleWiaPairs(wiaBody);
     assert.ok(visible.length >= 5 && visible.length <= 6, 'wia faq question count ' + visible.length);
     var wiaSchema = faqPages(wiaBody);
