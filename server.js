@@ -110,6 +110,8 @@ async function sendLeadEmail(lead) {
     'lead-magnet-checklist': 'Gratis WHK-checklist download',
     'quiz':                  'WHK-risicoscan quiz',
     'terugbel-checklist':    'Terugbelverzoek via checklist',
+    'chat':                  'Chatwidget',
+    'chat-bericht':          'Contactgegevens in de chat',
   };
   const bron = bronLabels[lead.source] || lead.source || 'Onbekend';
   const tijdstip = new Date(lead.createdAt).toLocaleString('nl-NL', { timeZone: 'Europe/Amsterdam' });
@@ -282,51 +284,55 @@ function findSeedPostMeta(html, slug) {
 // ================================================================
 // LEAD NOTIFICATIE — naam + (telefoon of e-mail); test/spam niet naar info@
 // ================================================================
+async function persistLead(body) {
+  const classified = leadGuard.classify(body || {});
+  if (!classified.ok) {
+    return { http: 400, body: { error: classified.error, reason: classified.reason } };
+  }
+  const n = classified.lead;
+  const lead = {
+    id: 'lead_' + Date.now(),
+    name:    n.name,
+    phone:   n.phone,
+    email:   n.email,
+    source:  n.source || 'onbekend',
+    message: n.message,
+    page:    n.page,
+    createdAt: new Date().toISOString(),
+    status: classified.status,
+    flagReason: classified.reason === 'ok' ? undefined : classified.reason
+  };
+
+  if (pool) {
+    const existing = await kvGet('leads');
+    const leads = existing ? JSON.parse(existing) : [];
+    leads.unshift(lead);
+    await kvSet('leads', JSON.stringify(leads));
+  }
+
+  if (classified.notify) {
+    await sendLeadEmail(lead);
+    const webhookRaw = await kvGet('settings_webhook_url');
+    if (webhookRaw) {
+      const webhookUrl = typeof webhookRaw === 'string' ? webhookRaw.replace(/^"|"$/g,'') : '';
+      if (webhookUrl && webhookUrl.startsWith('http')) {
+        fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'new_lead', lead })
+        }).catch(() => {});
+      }
+    }
+  } else {
+    console.log(`Lead ${lead.id} opgeslagen als ${lead.status} (${classified.reason}) — geen e-mail naar ${NOTIFICATION_EMAIL}`);
+  }
+
+  return { http: 200, body: { ok: true, id: lead.id, status: lead.status, notified: !!classified.notify } };
+}
 async function handleLeadPost(req, res) {
   try {
-    const classified = leadGuard.classify(req.body || {});
-    if (!classified.ok) {
-      return res.status(400).json({ error: classified.error, reason: classified.reason });
-    }
-    const n = classified.lead;
-    const lead = {
-      id: 'lead_' + Date.now(),
-      name:    n.name,
-      phone:   n.phone,
-      email:   n.email,
-      source:  n.source || 'onbekend',
-      message: n.message,
-      page:    n.page,
-      createdAt: new Date().toISOString(),
-      status: classified.status,
-      flagReason: classified.reason === 'ok' ? undefined : classified.reason
-    };
-
-    if (pool) {
-      const existing = await kvGet('leads');
-      const leads = existing ? JSON.parse(existing) : [];
-      leads.unshift(lead);
-      await kvSet('leads', JSON.stringify(leads));
-    }
-
-    if (classified.notify) {
-      await sendLeadEmail(lead);
-      const webhookRaw = await kvGet('settings_webhook_url');
-      if (webhookRaw) {
-        const webhookUrl = typeof webhookRaw === 'string' ? webhookRaw.replace(/^"|"$/g,'') : '';
-        if (webhookUrl && webhookUrl.startsWith('http')) {
-          fetch(webhookUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ type: 'new_lead', lead })
-          }).catch(() => {});
-        }
-      }
-    } else {
-      console.log(`Lead ${lead.id} opgeslagen als ${lead.status} (${classified.reason}) — geen e-mail naar ${NOTIFICATION_EMAIL}`);
-    }
-
-    res.json({ ok: true, id: lead.id, status: lead.status, notified: !!classified.notify });
+    const out = await persistLead(req.body || {});
+    res.status(out.http).json(out.body);
   } catch (e) {
     console.error('Lead notify fout:', e.message);
     res.status(500).json({ error: e.message });
@@ -334,6 +340,9 @@ async function handleLeadPost(req, res) {
 }
 app.post('/api/lead/notify', handleLeadPost);
 app.post('/api/leads', handleLeadPost);
+
+const chatApi = require('./lib/chat-api');
+chatApi.mount(app, { persistLead: persistLead });
 
 app.get('/lib/lead-guard.js', (req, res) => {
   res.type('application/javascript');
@@ -484,7 +493,7 @@ function innerLocalBusinessLd() {
 </script>`;
 }
 
-function serveWithMeta(res, meta, canonPath, statusCode, page) {
+function serveWithMeta(res, meta, canonPath, statusCode, page, req) {
   const html = getHtml();
   if (!html) return res.status(404).send('<h2>Site niet gevonden</h2><p>Upload whk_verzuim.html naar GitHub.</p>');
   const t = esc(meta.title), d = esc(meta.desc), c = SITE_URL + canonPath;
@@ -508,9 +517,12 @@ function serveWithMeta(res, meta, canonPath, statusCode, page) {
     );
   }
   modified = routeHtml.renderRoute(modified, canonPath, page || {});
+  const chatOn = req && canonPath !== '/admin' && chatApi.shouldInject(req);
+  if (chatOn) modified = chatApi.inject(modified, req);
   res.status(statusCode || 200);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.setHeader('Cache-Control', canonPath === '/admin' ? 'no-store' : 'public, max-age=300');
+  const previewOnly = chatOn && !chatApi.isFlagOn();
+  res.setHeader('Cache-Control', (canonPath === '/admin' || previewOnly) ? 'no-store' : 'public, max-age=300');
   res.send(modified);
 }
 
@@ -589,7 +601,7 @@ app.get('/blog/:slug', async (req, res) => {
   }
   const page = blogPageForSlug(slug, dbPosts);
   if (!page) return serveNotFound(res);
-  serveWithMeta(res, page.meta, '/blog/' + slug, 200, { post: page.post });
+  serveWithMeta(res, page.meta, '/blog/' + slug, 200, { post: page.post }, req);
 });
 
 // ================================================================
@@ -598,14 +610,14 @@ app.get('/blog/:slug', async (req, res) => {
 app.get('/sectoren/:sector', (req, res) => {
   const meta = SECTOR_META[req.params.sector];
   if (!meta) return serveNotFound(res);
-  serveWithMeta(res, meta, '/sectoren/' + req.params.sector, 200, { sectorKey: req.params.sector });
+  serveWithMeta(res, meta, '/sectoren/' + req.params.sector, 200, { sectorKey: req.params.sector }, req);
 });
 
 // ================================================================
 // STATISCHE ROUTES
 // ================================================================
 Object.keys(URL_META).forEach(p => {
-  app.get(p, (req, res) => serveWithMeta(res, URL_META[p], p));
+  app.get(p, (req, res) => serveWithMeta(res, URL_META[p], p, 200, null, req));
 });
 
 // ================================================================
@@ -771,7 +783,7 @@ app.get('/premiehistorie', (req, res) => {
 });
 
 app.get('/admin', (req, res) => {
-  serveWithMeta(res, { title: 'Beheer | Werkhervattingskas.nl', desc: 'Beheerderslogin.' }, '/admin');
+  serveWithMeta(res, { title: 'Beheer | Werkhervattingskas.nl', desc: 'Beheerderslogin.' }, '/admin', 200, null, req);
 });
 
 
@@ -801,14 +813,23 @@ app.get('/whk_checklist.html', (req, res) => {
   const p = path.join(__dirname, 'whk_checklist.html');
   if (!fs.existsSync(p)) return res.status(404).send('Checklist niet gevonden');
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.setHeader('Cache-Control', 'public, max-age=86400');
   res.setHeader('Link', `<${SITE_URL}/whk_checklist.html>; rel="canonical"`);
+  if (chatApi.shouldInject(req)) {
+    res.setHeader('Cache-Control', chatApi.isFlagOn() ? 'public, max-age=300' : 'no-store');
+    res.send(chatApi.inject(fs.readFileSync(p, 'utf8'), req));
+    return;
+  }
+  res.setHeader('Cache-Control', 'public, max-age=86400');
   res.sendFile(p);
 });
 
 // Public files such as /assets/niels-foto.png. Registered before the HTML catch-all.
 app.use('/assets', express.static(path.join(__dirname, 'assets'), {
   maxAge: '1d',
+  fallthrough: false
+}));
+app.use('/chat', express.static(path.join(__dirname, 'public', 'chat'), {
+  maxAge: '1h',
   fallthrough: false
 }));
 
