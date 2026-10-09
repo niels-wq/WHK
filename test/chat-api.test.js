@@ -220,6 +220,8 @@ var server = app.listen(0, '127.0.0.1', function () {
     })
     .then(function (res) {
       assert.ok(res.body.indexOf('/chat/whk-chat.js') !== -1, 'preview injecteert de widget niet');
+      assert.ok(res.body.indexOf('</footer></body></html>') !== -1, 'checklist-string is aangetast');
+      assert.ok(res.body.lastIndexOf('/chat/whk-chat.js') > res.body.lastIndexOf('</footer></body></html>'), 'widget zit in de JS-string');
       assert.ok(res.body.indexOf('XAI_API_KEY') === -1);
       assert.strictEqual(res.headers['cache-control'], 'no-store');
       return get(server, '/chat/whk-chat.js');
