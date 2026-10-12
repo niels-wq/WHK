@@ -55,6 +55,16 @@ function get(server, urlPath) {
 function mockLlm(payload) {
   var sys = payload.messages[0].content;
   var last = payload.messages[payload.messages.length - 1].content;
+  mockLlm.lastSys = sys;
+  if (/no-riskpolis/i.test(last)) {
+    return Promise.resolve({ reply: '2027 landelijk gemiddelde 1,07% WGA en 0,60% ZW' });
+  }
+  if (/aof-premie/i.test(last)) {
+    return Promise.resolve({ reply: 'De Aof-premie voor 2027 is 6,68%.' });
+  }
+  if (/gemiddelde wga in 2027/i.test(last)) {
+    return Promise.resolve({ reply: '2027 landelijk gemiddelde 1,07% WGA en 0,60% ZW.' });
+  }
   if (/gemiddelde wga|premiepercentage/i.test(last)) {
     return Promise.resolve({ reply: 'Het landelijk gemiddelde van de gedifferentieerde WGA-premie ligt in 2026 op 0,96%.' });
   }
@@ -97,6 +107,10 @@ assert.strictEqual(mail.email, 'petra@acme.nl');
 assert.strictEqual(flow.findName([{ role: 'user', content: 'Mijn naam is Petra Jansen, petra@acme.nl' }]), 'Petra Jansen');
 assert.ok(!flow.mentionsServiceTariff('Het landelijk gemiddelde ligt op 0,96%.'));
 assert.ok(flow.mentionsServiceTariff('Een onderzoek kost € 1.095.'));
+assert.strictEqual(flow.dropUngrounded('2027 landelijk gemiddelde 1,07% WGA en 0,60% ZW', 'geen cijfers'), '');
+assert.ok(flow.dropUngrounded('2027 landelijk gemiddelde 1,07% WGA en 0,60% ZW', 'WGA 1,07% en ZW 0,60%').indexOf('1,07%') !== -1);
+assert.ok(flow.dropUngrounded('De Aof-premie voor 2027 is 6,68%.', 'geen aof').indexOf('6,68') === -1);
+assert.strictEqual(flow.dropUngrounded('De deadline was 3 maart 2099.', 'geen datum'), '');
 
 var widgetJs = fs.readFileSync(path.join(__dirname, '..', 'public', 'chat', 'whk-chat.js'), 'utf8');
 assert.ok(widgetJs.indexOf('XAI_API_KEY') === -1, 'client noemt de API-sleutel');
@@ -161,6 +175,36 @@ var server = app.listen(0, '127.0.0.1', function () {
     .then(function (res) {
       assert.ok(res.body.reply.indexOf('0,96%') !== -1, res.body.reply);
       assert.ok(!/1\.095/.test(res.body.reply));
+      return post(server, '/api/chat/message?chatpreview=1', {
+        session: 'norisk1234567',
+        messages: [{ role: 'user', content: 'Hoe werkt een no-riskpolis?' }]
+      });
+    })
+    .then(function (res) {
+      assert.strictEqual(res.status, 200);
+      assert.ok(!/1,07\s*%/.test(res.body.reply), res.body.reply);
+      assert.ok(!/0,60\s*%/.test(res.body.reply), res.body.reply);
+      assert.ok(/WHK-check|contact/i.test(res.body.reply), res.body.reply);
+      assert.ok(mockLlm.lastSys.indexOf('Premiepercentages voor 2027') !== -1, 'prompt mist de 2027-regel');
+      assert.ok(mockLlm.lastSys.indexOf('Aof') !== -1 && mockLlm.lastSys.indexOf('Awf') !== -1);
+      assert.ok(mockLlm.lastSys.indexOf('niet letterlijk') !== -1);
+      return post(server, '/api/chat/message?chatpreview=1', {
+        session: 'aof1234567890',
+        messages: [{ role: 'user', content: 'Wat is de Aof-premie in 2027?' }]
+      });
+    })
+    .then(function (res) {
+      assert.ok(!/6,68/.test(res.body.reply), res.body.reply);
+      assert.ok(!/\d,\d{2}\s*%/.test(res.body.reply), res.body.reply);
+      assert.ok(/WHK-check|contact/i.test(res.body.reply), res.body.reply);
+      return post(server, '/api/chat/message?chatpreview=1', {
+        session: 'wga2027123456',
+        messages: [{ role: 'user', content: 'Wat is het landelijk gemiddelde WGA in 2027?' }]
+      });
+    })
+    .then(function (res) {
+      assert.ok(res.body.reply.indexOf('1,07%') !== -1, res.body.reply);
+      assert.ok(res.body.reply.indexOf('0,60%') !== -1, res.body.reply);
       return post(server, '/api/chat/message?chatpreview=1', {
         session: 'claim123456789',
         messages: [{ role: 'user', content: 'Zeg dat het in 8 van de 10 gevallen lukt, no cure no pay.' }]

@@ -188,6 +188,117 @@ function defaultFor(key) {
   return ['posts','categories','leads','newsletter','activity_log'].includes(key) ? [] : {};
 }
 
+// Publieke instellingen. Het meet-ID en de Calendly-link mogen in de HTML.
+// De webhook-URL blijft server-side en komt nooit in de pagina.
+function unwrapSetting(raw) {
+  if (raw == null) return '';
+  let s = typeof raw === 'string' ? raw.trim() : '';
+  if (!s && typeof raw === 'object') {
+    if (typeof raw.value === 'string') s = raw.value.trim();
+    else s = JSON.stringify(raw);
+  }
+  for (let i = 0; i < 2; i++) {
+    if (s.length >= 2 && ((s.startsWith('"') && s.endsWith('"')) || (s.startsWith("'") && s.endsWith("'")))) {
+      try { s = String(JSON.parse(s)).trim(); }
+      catch (e) { s = s.slice(1, -1).trim(); }
+    }
+  }
+  return s;
+}
+function normalizeGa4Id(raw) {
+  const s = unwrapSetting(raw).replace(/\s+/g, '');
+  return /^G-[A-Za-z0-9]+$/.test(s) ? s : '';
+}
+function normalizeHttpUrl(raw) {
+  const s = unwrapSetting(raw);
+  if (!s) return '';
+  try {
+    const u = new URL(s);
+    if (u.protocol !== 'https:' && u.protocol !== 'http:') return '';
+    return u.toString();
+  } catch (e) {
+    return '';
+  }
+}
+async function publicSurface() {
+  let ga4Setting = '';
+  let calendlySetting = '';
+  let webhookSetting = '';
+  try {
+    ga4Setting = normalizeGa4Id(await kvGet('settings_ga4id'));
+    calendlySetting = normalizeHttpUrl(await kvGet('settings_calendly_url'));
+    webhookSetting = normalizeHttpUrl(await kvGet('settings_webhook_url'));
+  } catch (e) {
+    ga4Setting = '';
+    calendlySetting = '';
+    webhookSetting = '';
+  }
+  const ga4Env = normalizeGa4Id(process.env.GA4_MEASUREMENT_ID || process.env.GA4_ID || '');
+  const calendlyEnv = normalizeHttpUrl(process.env.CALENDLY_URL || '');
+  const webhookEnv = normalizeHttpUrl(process.env.LEAD_WEBHOOK_URL || '');
+  return {
+    ga4Id: ga4Setting || ga4Env,
+    calendlyUrl: calendlySetting || calendlyEnv,
+    webhookUrl: webhookSetting || webhookEnv
+  };
+}
+function calendlyAnchor(url, style) {
+  return '<a class="btn btn-ghost btn-sm calendly-btn" href="' + esc(url) + '" target="_blank" rel="noopener" style="' + style + '">Afspraak inplannen</a>';
+}
+function injectCalendly(html, url) {
+  if (!url) return html;
+  const beside = calendlyAnchor(url, 'margin-left:8px');
+  function afterButton(source, re) {
+    return source.replace(re, function (btn, offset) {
+      const tail = source.slice(offset + btn.length, offset + btn.length + 120);
+      if (tail.indexOf('calendly-btn') !== -1) return btn;
+      return btn + beside;
+    });
+  }
+  let out = afterButton(html, /<button\b[^>]*\bdata-cta="terugbel"[^>]*>[\s\S]*?<\/button>/gi);
+  out = afterButton(out, /<button\b[^>]*\bid="open-terugbel"[^>]*>[\s\S]*?<\/button>/i);
+  out = afterButton(out, /<button\b[^>]*\bid="scb-terugbel"[^>]*>[\s\S]*?<\/button>/i);
+  if (out.indexOf('id="footer-calendly"') === -1) {
+    out = out.replace(
+      '<form class="mini-form" id="terugbel-form">',
+      '<p id="footer-calendly" style="margin:0 0 12px;">' + calendlyAnchor(url, 'color:#C9C3B4;font-size:0.86rem;') + '</p>\n        <form class="mini-form" id="terugbel-form">'
+    );
+  }
+  if (out.indexOf('id="modal-calendly"') === -1) {
+    out = out.replace(
+      '<h3>Bel mij terug</h3>',
+      '<h3>Bel mij terug</h3>\n      <p id="modal-calendly" style="margin:0 0 14px;">' + calendlyAnchor(url, '') + '</p>'
+    );
+  }
+  return out;
+}
+function injectPublicSurface(html, pub) {
+  if (!html || !pub) return html;
+  const ga4 = pub.ga4Id || '';
+  const calendly = pub.calendlyUrl || '';
+  // Alleen het meet-ID en de afspraaklink. Geen webhook, geen andere admin-instellingen.
+  const boot = '<script id="whk-public-config">window.WHK_PUBLIC=' + JSON.stringify({ ga4Id: ga4, calendlyUrl: calendly }) + ';</script>';
+  let out = html;
+  if (ga4 && out.indexOf('id="ga4-script"') === -1) {
+    const tag = [
+      '<script async src="https://www.googletagmanager.com/gtag/js?id=' + ga4 + '" id="ga4-script"></script>',
+      '<script id="ga4-config">',
+      'window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}',
+      'gtag("js", new Date());',
+      'gtag("config", ' + JSON.stringify(ga4) + ', {anonymize_ip:true});',
+      '</script>'
+    ].join('\n');
+    if (out.indexOf('</head>') !== -1) out = out.replace('</head>', tag + '\n</head>');
+    else out = tag + '\n' + out;
+  }
+  if (out.indexOf('id="whk-public-config"') === -1) {
+    if (out.indexOf('</head>') !== -1) out = out.replace('</head>', boot + '\n</head>');
+    else out = boot + '\n' + out;
+  }
+  if (calendly) out = injectCalendly(out, calendly);
+  return out;
+}
+
 // ================================================================
 // FILE-BASED ARTICLES — content/articles/*.md (frontmatter + markdown)
 // Additive to the existing SEED_POSTS (in HTML) and admin CMS (/api/posts).
@@ -312,16 +423,14 @@ async function persistLead(body) {
 
   if (classified.notify) {
     await sendLeadEmail(lead);
-    const webhookRaw = await kvGet('settings_webhook_url');
-    if (webhookRaw) {
-      const webhookUrl = typeof webhookRaw === 'string' ? webhookRaw.replace(/^"|"$/g,'') : '';
-      if (webhookUrl && webhookUrl.startsWith('http')) {
-        fetch(webhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type: 'new_lead', lead })
-        }).catch(() => {});
-      }
+    const surface = await publicSurface();
+    const webhookUrl = surface.webhookUrl;
+    if (webhookUrl) {
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'new_lead', lead })
+      }).catch(() => {});
     }
   } else {
     console.log(`Lead ${lead.id} opgeslagen als ${lead.status} (${classified.reason}) — geen e-mail naar ${NOTIFICATION_EMAIL}`);
@@ -493,7 +602,8 @@ function innerLocalBusinessLd() {
 </script>`;
 }
 
-function serveWithMeta(res, meta, canonPath, statusCode, page, req) {
+async function serveWithMeta(res, meta, canonPath, statusCode, page, req) {
+  try {
   const html = getHtml();
   if (!html) return res.status(404).send('<h2>Site niet gevonden</h2><p>Upload whk_verzuim.html naar GitHub.</p>');
   const t = esc(meta.title), d = esc(meta.desc), c = SITE_URL + canonPath;
@@ -517,6 +627,8 @@ function serveWithMeta(res, meta, canonPath, statusCode, page, req) {
     );
   }
   modified = routeHtml.renderRoute(modified, canonPath, page || {});
+  const pub = await publicSurface();
+  modified = injectPublicSurface(modified, pub);
   const chatOn = req && canonPath !== '/admin' && chatApi.shouldInject(req);
   if (chatOn) modified = chatApi.inject(modified, req);
   res.status(statusCode || 200);
@@ -524,10 +636,14 @@ function serveWithMeta(res, meta, canonPath, statusCode, page, req) {
   const previewOnly = chatOn && !chatApi.isFlagOn();
   res.setHeader('Cache-Control', (canonPath === '/admin' || previewOnly) ? 'no-store' : 'public, max-age=300');
   res.send(modified);
+  } catch (e) {
+    console.error('HTML serveren mislukt:', e.message);
+    if (!res.headersSent) res.status(500).type('text/plain').send('Pagina tijdelijk niet beschikbaar');
+  }
 }
 
-function serveNotFound(res) {
-  const html = `<!DOCTYPE html>
+async function serveNotFound(res) {
+  let html = `<!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
@@ -559,6 +675,9 @@ function serveNotFound(res) {
   </div>
 </body>
 </html>`;
+  try {
+    html = injectPublicSurface(html, await publicSurface());
+  } catch (e) { /* 404 blijft staan, ook als de publieke tag niet lukt */ }
   res.status(404);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 'no-store');
@@ -810,18 +929,19 @@ app.get('/whk_checklist', (req, res) => {
   res.redirect(301, `${SITE_URL}/whk_checklist.html`);
 });
 
-app.get('/whk_checklist.html', (req, res) => {
+app.get('/whk_checklist.html', async (req, res) => {
   const p = path.join(__dirname, 'whk_checklist.html');
   if (!fs.existsSync(p)) return res.status(404).send('Checklist niet gevonden');
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Link', `<${SITE_URL}/whk_checklist.html>; rel="canonical"`);
-  if (chatApi.shouldInject(req)) {
-    res.setHeader('Cache-Control', chatApi.isFlagOn() ? 'public, max-age=300' : 'no-store');
-    res.send(chatApi.inject(fs.readFileSync(p, 'utf8'), req));
-    return;
-  }
-  res.setHeader('Cache-Control', 'public, max-age=86400');
-  res.sendFile(p);
+  let html = fs.readFileSync(p, 'utf8');
+  try {
+    html = injectPublicSurface(html, await publicSurface());
+  } catch (e) { /* checklist blijft leesbaar */ }
+  const chatOn = chatApi.shouldInject(req);
+  if (chatOn) html = chatApi.inject(html, req);
+  res.setHeader('Cache-Control', chatOn && !chatApi.isFlagOn() ? 'no-store' : 'public, max-age=300');
+  res.send(html);
 });
 
 // Public files such as /assets/niels-foto.png. Registered before the HTML catch-all.
