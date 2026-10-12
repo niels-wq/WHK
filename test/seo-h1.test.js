@@ -170,7 +170,7 @@ var app = require(path.join(__dirname, '..', 'server'));
 
 var server = app.listen(0, '127.0.0.1', function () {
   var port = server.address().port;
-  var paths = routes.map(function (r) { return r.path; }).concat(['/diensten/arbeidsdeskundig-onderzoek']);
+  var paths = routes.map(function (r) { return r.path; }).concat(['/diensten/arbeidsdeskundig-onderzoek', '/admin']);
   Promise.all(paths.map(function (p) { return request(port, p); })).then(function (results) {
     routes.forEach(function (route, i) {
       var res = results[i];
@@ -203,6 +203,9 @@ var server = app.listen(0, '127.0.0.1', function () {
       if (route.path === '/') {
         assert.strictEqual(desc, HOME_DESC, 'home description');
         assert.ok(desc.length <= 155, 'home description length ' + desc.length);
+        assert.ok(res.body.indexOf('https://github.com/new') === -1, 'home hides github setup link');
+        assert.ok(res.body.indexOf('https://railway.app/new') === -1, 'home hides railway setup link');
+        assert.ok(res.body.indexOf('https://search.google.com/search-console') === -1, 'home hides search console setup link');
       }
       if (route.path === '/tools/wia-calculator') {
         assert.strictEqual(desc, WIA_DESC, 'wia description');
@@ -263,7 +266,12 @@ var server = app.listen(0, '127.0.0.1', function () {
       assert.ok(!faqNames[pair.question], 'question overlaps /faq: ' + pair.question);
     });
 
-    var ado = results[results.length - 1];
+    var ado = results[results.length - 2];
+    var admin = results[results.length - 1];
+    assert.strictEqual(admin.status, 200, 'admin status');
+    assert.ok(admin.body.indexOf('https://github.com/new') !== -1, 'admin keeps github setup link');
+    assert.ok(admin.body.indexOf('https://railway.app/new') !== -1, 'admin keeps railway setup link');
+    assert.ok(admin.body.indexOf('id="admin-view"') !== -1, 'admin panel present');
     assert.strictEqual(ado.status, 200, 'arbeidsdeskundig onderzoek exists');
     assert.strictEqual(countH1(ado.body), 1, 'ado h1');
     assert.ok(

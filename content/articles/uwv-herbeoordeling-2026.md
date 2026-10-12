@@ -3,7 +3,7 @@ title: UWV herbeoordeling 2026: alleen schrijnende situaties
 slug: uwv-herbeoordeling-2026
 description: UWV herbeoordeling 2026: alleen schrijnende situaties. Werkgeversformulier vanaf 1 april; UWV belt binnen 5 werkdagen. Dossiercheck schrijnendheid.
 publishedAt: 2026-09-17
-updatedAt: 2026-10-05
+updatedAt: 2026-10-12
 tags: Wetgeving & UWV, Bezwaar & procedure, WGA
 ---
 
@@ -60,6 +60,8 @@ Het formulier is de ingang, geen inhoudelijke toets of de situatie schrijnend is
 Welke van de twee past, hangt af van de datum van het besluit, de medische ontwikkeling en wat je wilt bereiken. Dat is een gesprek over stukken, geen checklist.
 
 De WIA-herstelactie (te laag vastgesteld dagloon, eenmalige vergoeding) is een andere route dan een herbeoordeling. Wat die actie en de tijdelijke 60-plusmaatregel doen met de WGA-premie, staat in [WIA-herstelactie en de 60-plusmaatregel](/blog/wia-herstelactie-en-60-plusmaatregel-werkgevers).
+
+Diezelfde achterstanden zijn de reden dat het kabinet scenario's voor een kortere loondoorbetaling bij ziekte op korte termijn niet uitvoerbaar noemt. De wet is niet gewijzigd. Wat de brief van 8 september 2026 wel en niet doet: [Loondoorbetaling bij ziekte: scenario's voor het mkb](/blog/loondoorbetaling-bij-ziekte-scenarios-mkb).
 
 Voor de orde van grootte van een WGA- of IVA-uitkering: de [WIA-calculator](/tools/wia-calculator). Staat de uitkering op de Whk-beschikking: [beschikking lezen](/beschikking-uitleg).
 

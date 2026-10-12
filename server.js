@@ -658,6 +658,7 @@ app.get('/llms.txt', (req, res) => {
 - [ERD per 1 januari 2027](${u}/blog/erd-2027-aanvragen-voor-2-oktober): de aanvraagdeadline is verstreken. Check de beschikking en plan 1 oktober 2027.
 - [Kleine, middelgrote of grote werkgever](${u}/blog/kleine-middelgrote-grote-werkgever-whk-2027): loonsomgrenzen 2027 en sectorpremie, mix of individueel tarief.
 - [WIA-herstelactie en 60-plusmaatregel](${u}/blog/wia-herstelactie-en-60-plusmaatregel-werkgevers): eenmalige vergoeding en 60-plus, en wat dat doet met de WGA-premie.
+- [Loondoorbetaling bij ziekte](${u}/blog/loondoorbetaling-bij-ziekte-scenarios-mkb): de Kamerbrief van 8 september 2026 schetst scenario's. De plicht blijft 104 weken en minimaal 70%.
 - [Ziektewet-flexpremie 2027](${u}/blog/ziektewet-flexpremie-2027-negatief-vermogen): waarom 0,60% hoger ligt dan de lopende uitgaven.
 - [Correctiebericht of beschikking](${u}/blog/uwv-correctiebericht-vs-whk-beschikking-voorrang): welke brief waarover gaat en wat je daarna doet.
 - [Whk-premies 2027](${u}/blog/whk-premies-2027-wga-en-zw): gemiddelde WGA 1,07% en ZW 0,60%, met minimum, maximum en loonsomgrenzen.
