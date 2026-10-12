@@ -14,12 +14,16 @@ var NEW_SLUGS = [
   'zw-eigenrisicodrager-checklist',
   'kleine-middelgrote-grote-werkgever-whk-2027',
   'wia-herstelactie-en-60-plusmaatregel-werkgevers',
-  'ziektewet-flexpremie-2027-negatief-vermogen'
+  'ziektewet-flexpremie-2027-negatief-vermogen',
+  'loondoorbetaling-bij-ziekte-scenarios-mkb'
 ];
 var ROUND_SLUGS = [
   'kleine-middelgrote-grote-werkgever-whk-2027',
   'wia-herstelactie-en-60-plusmaatregel-werkgevers',
   'ziektewet-flexpremie-2027-negatief-vermogen'
+];
+var OCT12_SLUGS = [
+  'loondoorbetaling-bij-ziekte-scenarios-mkb'
 ];
 var BACKLINKS = {
   'kleine-middelgrote-grote-werkgever-whk-2027': [
@@ -33,6 +37,9 @@ var BACKLINKS = {
   'ziektewet-flexpremie-2027-negatief-vermogen': [
     'whk-premies-2027-wga-en-zw.md',
     'zw-eigenrisicodrager-checklist.md'
+  ],
+  'loondoorbetaling-bij-ziekte-scenarios-mkb': [
+    'uwv-herbeoordeling-2026.md'
   ]
 };
 var REQUIRED_LINKS = [
@@ -80,6 +87,16 @@ files.forEach(function (file) {
     assert.ok(parsed.body.indexOf('47.000') === -1, file + ' must not claim €47.000');
     assert.ok(parsed.body.indexOf('Gratis WHK-beschikking check') !== -1, file + ' missing soft CTA');
     allNewBodies += parsed.body;
+  }
+  if (OCT12_SLUGS.indexOf(slug) !== -1) {
+    assert.ok(parsed.meta.title.length >= 50 && parsed.meta.title.length <= 60, file + ' title length ' + parsed.meta.title.length);
+    assert.ok(parsed.meta.description.length >= 140 && parsed.meta.description.length <= 155, file + ' description length ' + parsed.meta.description.length);
+    assert.ok(parsed.meta.publishedAt === '2026-10-12', file + ' publishedAt');
+    assert.ok(parsed.meta.updatedAt === '2026-10-12', file + ' updatedAt');
+    assert.ok(parsed.body.indexOf('## Veelgestelde vragen') !== -1, file + ' missing FAQ heading');
+    assert.ok((parsed.body.match(/^\*\*.+\?\*\*/gm) || []).length >= 3, file + ' FAQ questions');
+    assert.ok(parsed.body.indexOf('https://www.eerstekamer.nl/behandeling/20260908/brief_regering_inventarisatie/info') !== -1, file + ' missing kamerbrief');
+    assert.ok(parsed.body.indexOf('104 weken') !== -1, file + ' missing 104 weken');
   }
   if (ROUND_SLUGS.indexOf(slug) !== -1) {
     assert.ok(parsed.meta.title.length >= 50 && parsed.meta.title.length <= 60, file + ' title length ' + parsed.meta.title.length);
