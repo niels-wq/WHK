@@ -144,7 +144,8 @@
   .hero-erd-link{display:inline-block;margin:8px 0 0;font-size:0.88rem;font-weight:700;color:var(--risk);text-decoration:underline;text-underline-offset:2px;}
   .header-cta-group{display:flex;align-items:center;gap:8px;flex-shrink:0;}
   @media (max-width:780px){
-    .header-cta-group #open-terugbel{display:none;}
+    .header-cta-group #open-terugbel,
+    .header-cta-group #header-call{display:none;}
     .header-cta-group .btn{padding:7px 12px;font-size:0.78rem;}
   }
 
@@ -522,6 +523,7 @@
   .sticky-contact-bar.show{display:flex;}
   .sticky-contact-bar button, .sticky-contact-bar a{flex:1;text-align:center;padding:11px 10px;border-radius:var(--radius-s);font-size:0.86rem;font-weight:600;font-family:inherit;border:none;cursor:pointer;text-decoration:none;}
   .sticky-contact-bar .scb-back{background:var(--gold);color:var(--ink);}
+  .sticky-contact-bar a.scb-call{background:transparent;color:var(--paper);border:1px solid rgba(247,243,234,0.45);}
   .sticky-contact-bar .scb-whatsapp{background:#25D366;color:#fff;}
   @media (min-width:880px){.sticky-contact-bar{display:none !important;}}
   @media (max-width:879px){.whatsapp-float{display:none;}}
@@ -1754,7 +1756,7 @@
   "name": "werkhervattingskas.nl – Matchvermogen",
   "description": "Onafhankelijke controle van WHK-beschikkingen, arbeidsdeskundig onderzoek, tweede spoor re-integratie en verzuimoptimalisatie.",
   "url": "https://werkhervattingskas.nl/",
-  "telephone": "+31650213593",
+  "telephone": "+31850870307",
   "email": "info@werkhervattingskas.nl",
   "address": {
     "@type": "PostalAddress",
@@ -1849,6 +1851,7 @@
         <a href="/tarieven" data-view="pricing-view">Tarieven</a>
       </nav>
       <div class="header-cta-group">
+        <a class="btn btn-ghost" id="header-call" href="tel:+31850870307" data-st-tel>085-0870307</a>
         <button class="btn btn-risk" type="button" data-cta="calculator" id="open-whk-check">Gratis WHK-check</button>
         <button class="btn btn-ghost" id="open-terugbel">Bel mij terug</button>
       </div>
@@ -1887,6 +1890,8 @@
         <a href="/vergelijking" class="mobile-nav-link" data-view="vergelijking-view">Vergelijking</a>
         <div style="padding:20px 0 0;display:flex;flex-direction:column;gap:10px;">
           <button class="btn btn-risk" style="width:100%;justify-content:center;" type="button" data-cta="calculator">Gratis WHK-beschikking check</button>
+          <a class="btn btn-ghost" href="tel:+31850870307" data-st-tel style="width:100%;justify-content:center;color:var(--paper);border-color:rgba(247,243,234,0.45);">Bel 085-0870307</a>
+          <a class="btn btn-ghost" href="https://wa.me/31650213593" target="_blank" rel="noopener" style="width:100%;justify-content:center;color:var(--paper);border-color:rgba(247,243,234,0.45);">App via WhatsApp</a>
           <button class="btn btn-ghost" style="width:100%;justify-content:center;color:var(--paper);border-color:rgba(247,243,234,0.45);" type="button" data-cta="terugbel">Bel mij terug</button>
         </div>
       </nav>
@@ -2638,7 +2643,7 @@
         <div style="background:var(--paper-deep);border:1px solid var(--line);border-radius:var(--radius-s);padding:18px 22px;margin-top:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
           <div style="flex:1;min-width:200px;">
             <strong style="display:block;font-size:0.9rem;margin-bottom:4px;">Herkent u zich hier in?</strong>
-            <span style="font-size:0.84rem;color:var(--ink-soft);">Doe de gratis WHK-check of bel ons voor een vrijblijvend gesprek van 15 minuten.</span>
+            <span style="font-size:0.84rem;color:var(--ink-soft);">Doe de gratis WHK-check, bel <a href="tel:+31850870307">085-0870307</a> of <a href="https://wa.me/31650213593" target="_blank" rel="noopener">app via WhatsApp</a>.</span>
           </div>
           <div style="display:flex;gap:10px;flex-shrink:0;">
             <button class="btn btn-risk btn-sm" data-view="home-view">Start de check</button>
@@ -5207,7 +5212,7 @@
 
       <div style="text-align:center;">
         <h3 style="font-size:1.1rem;margin-bottom:10px;">Benieuwd wat het voor uw situatie betekent?</h3>
-        <p style="color:var(--ink-soft);margin-bottom:22px;">Start met de gratis WHK-check of bel ons voor een vrijblijvend gesprek over de juiste dienst en het bijbehorende tarief.</p>
+        <p style="color:var(--ink-soft);margin-bottom:22px;">Start met de gratis WHK-check, bel <a href="tel:+31850870307">085-0870307</a> of <a href="https://wa.me/31650213593" target="_blank" rel="noopener">app via WhatsApp</a> voor een vrijblijvend gesprek over de juiste dienst en het bijbehorende tarief.</p>
         <button class="btn btn-risk" data-view="home-view" style="margin-right:10px;">Start de gratis check</button>
         <button class="btn btn-ghost" type="button" data-cta="terugbel">Bel mij terug</button>
       </div>
@@ -6275,7 +6280,7 @@
       <p>Wij behouden het recht deze privacyverklaring aan te passen. De meest recente versie is altijd beschikbaar op deze pagina. Bij wezenlijke wijzigingen informeren wij u via de nieuwsbrief of via een melding op de site.</p>
 
       <div style="margin-top:36px;padding:16px 20px;background:var(--paper-deep);border:1px solid var(--line);border-radius:var(--radius-s);font-size:0.86rem;color:var(--ink-soft);">
-        Vragen over privacy? Mail naar <strong>info@werkhervattingskas.nl</strong> of bel <strong>06-50213593</strong>.
+        Vragen over privacy? Mail naar <strong>info@werkhervattingskas.nl</strong>, bel <a href="tel:+31850870307"><strong>085-0870307</strong></a> of <a href="https://wa.me/31650213593" target="_blank" rel="noopener">app via WhatsApp</a>.
       </div>
     </div>
   </section>
@@ -6803,7 +6808,7 @@
             <div class="field"><label for="st-proof-3">✅ Social proof balk — punt 3</label><input type="text" id="st-proof-3"></div>
             <div class="field"><label for="st-testimonial-tekst">💬 Testimonial-tekst</label><textarea id="st-testimonial-tekst" rows="3"></textarea></div>
             <div class="field"><label for="st-testimonial-naam">💬 Testimonial — naam en functie</label><input type="text" id="st-testimonial-naam"></div>
-            <div class="field"><label for="st-telefoon">📞 Telefoonnummer (footer + WhatsApp)</label><input type="text" id="st-telefoon" placeholder="06-50213593"></div>
+            <div class="field"><label for="st-telefoon">📞 Belnummer (footer)</label><input type="text" id="st-telefoon" placeholder="085-0870307"></div>
             <div class="field"><label for="st-email">📧 E-mailadres (footer)</label><input type="email" id="st-email" placeholder="info@werkhervattingskas.nl"></div>
             <div class="field"><label for="st-avg-besparing">💶 Gemiddelde besparing (voor in teksten)</label><input type="text" id="st-avg-besparing" placeholder="€25.000–€100.000"></div>
             <div class="field"><label for="st-slagingskans">📊 Slagingskans grote werkgevers</label><input type="text" id="st-slagingskans" placeholder="8 van de 10"></div>
@@ -7141,6 +7146,7 @@
         <h3 style="font-family:'Fraunces',serif;font-size:1.1rem;margin-bottom:12px;">werkhervattingskas.nl</h3>
         <p style="color:#C9C3B4;font-size:0.86rem;margin-bottom:16px;">Een dienst van Matchvermogen &mdash; arbeidsdeskundigen gespecialiseerd in WHK-optimalisatie, no-riskpolissen en re-integratiediensten.</p>
         <p style="color:#C9C3B4;font-size:0.86rem;"><a href="mailto:info@werkhervattingskas.nl" style="color:#C9C3B4;">info@werkhervattingskas.nl</a></p>
+        <p style="color:#C9C3B4;font-size:0.86rem;"><a href="tel:+31850870307" class="footer-tel" data-st-tel style="color:#C9C3B4;">085-0870307</a></p>
         <p style="color:#C9C3B4;font-size:0.86rem;"><a href="https://wa.me/31650213593" target="_blank" rel="noopener" style="color:#C9C3B4;">WhatsApp: 06-50213593</a></p>
         <div style="background:rgba(255,255,255,0.06);border-radius:var(--radius-s);padding:14px 16px;margin-top:16px;">
           <p style="font-style:italic;color:#D4CEC4;font-size:0.83rem;margin-bottom:6px;">"Wij kregen &euro;28.700 terug over drie jaar. Aanrader voor elke werkgever met meer dan 50 medewerkers."</p>
@@ -7199,7 +7205,7 @@
       <!-- Kolom 5: Terugbelformulier -->
       <div>
         <h3 style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9B9588;margin-bottom:14px;">Direct contact</h3>
-        <p style="color:#C9C3B4;font-size:0.84rem;margin-bottom:12px;">Laat uw nummer achter — wij bellen u binnen 1 werkdag terug.</p>
+        <p style="color:#C9C3B4;font-size:0.84rem;margin-bottom:12px;">Laat uw nummer achter — wij bellen u binnen 1 werkdag terug. Of bel zelf <a href="tel:+31850870307" style="color:#C9C3B4;">085-0870307</a>.</p>
         <form class="mini-form" id="terugbel-form">
           <div class="hp-field" aria-hidden="true"><label for="fb-honeypot">Website</label><input type="text" name="website" id="fb-honeypot" tabindex="-1" autocomplete="off"></div>
           <input type="text" placeholder="Naam" id="fb-naam">
@@ -7237,7 +7243,7 @@
     <div class="modal">
       <button class="modal-close" data-close="terugbel-modal">&times;</button>
       <h3>Bel mij terug</h3>
-      <p style="margin-bottom:16px;">Laat uw gegevens achter. Wij bellen u op een moment dat u uitkomt.</p>
+      <p style="margin-bottom:16px;">Laat uw gegevens achter. Wij bellen u op een moment dat u uitkomt. Liever zelf bellen? Bel <a href="tel:+31850870307">085-0870307</a> of <a href="https://wa.me/31650213593" target="_blank" rel="noopener">app via WhatsApp</a>.</p>
 
       <!-- Stap 1 -->
       <div id="modal-tb-step1">
@@ -7316,6 +7322,7 @@
 
   <div class="sticky-contact-bar" id="sticky-contact-bar">
     <button type="button" id="scb-terugbel" class="scb-back">Terugbelverzoek</button>
+    <a href="tel:+31850870307" class="scb-call" data-st-tel>085-0870307</a>
     <a href="https://wa.me/31650213593?text=Hallo%2C%20ik%20heb%20een%20vraag%20over%20mijn%20WHK-premie" target="_blank" rel="noopener" class="scb-whatsapp">WhatsApp</a>
   </div>
 
@@ -14586,7 +14593,7 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
     proof3:         'Besparing: \u20ac25.000\u2013\u20ac100.000 / jaar',
     testimonialTekst: 'Wij verwachtten weinig maar kregen \u20ac28.700 terug over drie jaar. Aanrader voor elke werkgever met meer dan 50 medewerkers.',
     testimonialNaam:  'Sander Kuipers \u2014 HR-directeur, productiebedrijf',
-    telefoon:       '06-50213593',
+    telefoon:       '085-0870307',
     email:          'info@werkhervattingskas.nl',
     avgBesparing:   '\u20ac25.000\u2013\u20ac100.000',
     slagingskans:   '8 van de 10'
@@ -14619,14 +14626,27 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
       }
     });
 
-    // Update telefoon-links
-    if(SITETEKSTEN.telefoon){
-      var tel = SITETEKSTEN.telefoon.replace(/[^0-9+]/g, '');
-      document.querySelectorAll('[data-st-tel], .footer-tel, a[href^="tel:"]').forEach(function(el){
-        if(el.tagName === 'A') el.href = 'tel:' + tel;
-        else el.textContent = SITETEKSTEN.telefoon;
-      });
+    // Belnummer. 06-50213593 blijft WhatsApp-only en wordt nooit een tel:-link.
+    var callLabel = SITETEKSTEN.telefoon || '085-0870307';
+    var callDigits = String(callLabel).replace(/\D/g, '');
+    if(callDigits === '0650213593' || callDigits === '31650213593' || callDigits === '0031650213593'){
+      callLabel = '085-0870307';
+      callDigits = '0850870307';
     }
+    var callHref = 'tel:+31850870307';
+    if(callDigits.indexOf('0031') === 0) callDigits = callDigits.slice(2);
+    if(callDigits.indexOf('31') === 0 && callDigits.length >= 11) callHref = 'tel:+' + callDigits;
+    else if(callDigits.charAt(0) === '0' && callDigits.length === 10) callHref = 'tel:+31' + callDigits.slice(1);
+    document.querySelectorAll('[data-st-tel], .footer-tel, a[href^="tel:"]').forEach(function(el){
+      if(el.tagName === 'A'){
+        el.href = callHref;
+        if(el.hasAttribute('data-st-tel') || el.classList.contains('footer-tel')){
+          if(el.id === 'header-call' || el.classList.contains('scb-call') || el.classList.contains('footer-tel')) el.textContent = callLabel;
+        }
+      } else {
+        el.textContent = callLabel;
+      }
+    });
 
     // Update email-links
     if(SITETEKSTEN.email){
@@ -15091,7 +15111,7 @@ SELECT 'Schema aangemaakt op ' || NOW() AS status;
       desc: 'Als terugkeer naar eigen of aangepast werk niet mogelijk is, móet tweede spoor zijn gestart. Het UWV verwacht dit bij de poortwachtertoets. Te laat starten is de meest voorkomende reden voor een loonsanctie.',
       tags: ['Verplicht als spoor 1 faalt', 'Tweede spoor'],
       cta: { label: 'Noodstart tweede spoor — direct inplannen', action: 'modal',
-             note: 'Loonsanctierisico? Wij starten op korte termijn. Bel ons vandaag nog.' } },
+             note: 'Loonsanctierisico? Wij starten op korte termijn. Bel 085-0870307.' } },
 
     { days: 390, type: 'aanbevolen',  icon: '🟡', label: 'Week 56 — Loonsanctie-risicoscan',
       desc: 'Sterk aanbevolen: controleer of uw re-integratiedossier aantoonbaar correct is. Het UWV toetst bij de poortwachtercheck of u "voldoende re-integratie-inspanningen" heeft geleverd. Een lacune in het dossier kan leiden tot een loonsanctie van maximaal 52 weken.',
