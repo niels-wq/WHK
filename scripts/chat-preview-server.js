@@ -15,7 +15,7 @@ chat.setComplete(function (payload) {
   const last = payload.messages[payload.messages.length - 1].content;
   if (/CONTACT_GEGEVEN: ja/.test(sys)) {
     return Promise.resolve({
-      reply: 'Dank u. Op de tarievenpagina staat een arbeidsdeskundig onderzoek voor € 1.095 (standaard) of € 1.295 (geregistreerde arbeidsdeskundige). De controle van de WHK-beschikking is gratis. Bel 06-50213593 of laat uw gegevens achter.'
+      reply: 'Dank u. Op de tarievenpagina staat een arbeidsdeskundig onderzoek voor € 1.095 (standaard) of € 1.295 (geregistreerde arbeidsdeskundige). De controle van de WHK-beschikking is gratis. Bel 085-0870307 of app via WhatsApp, of laat uw gegevens achter.'
     });
   }
   if (/teruggebeld|offerte|kennismaking/i.test(last) && !/kost|prijs|tarief/i.test(last)) {

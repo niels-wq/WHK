@@ -91,7 +91,9 @@ assert.ok(index.some(function (c) { return c.path.indexOf('/blog/') === 0; }), '
 assert.ok(!/no[\s-]*cure[\s,]*no[\s-]*pay/i.test(blob), 'no cure no pay lekt de kennis in');
 assert.ok(!/8\s+van\s+de\s+10/i.test(blob), '8 van de 10 lekt de kennis in');
 assert.ok(!/47\.000/.test(blob), '47.000 lekt de kennis in');
-assert.ok(blob.indexOf('06-50213593') !== -1, 'telefoon ontbreekt');
+assert.ok(blob.indexOf('085-0870307') !== -1, 'telefoon ontbreekt');
+assert.ok(blob.indexOf('https://wa.me/31650213593') !== -1, 'whatsapp ontbreekt');
+assert.ok(blob.indexOf('telefoon 06') === -1, '06 staat nog als belnummer in de kennis');
 assert.ok(blob.indexOf('1.095') !== -1 || blob.indexOf('1095') !== -1, 'richtbedrag uit de tarievenpagina ontbreekt');
 
 var q1 = flow.reply([{ role: 'user', content: 'Wat kost een arbeidsdeskundig onderzoek?' }]);
@@ -102,6 +104,8 @@ var phone = flow.findContact('Bel me op 06-51239876');
 assert.strictEqual(phone.phone, '0651239876');
 var own = flow.findContact('het nummer is 06-50213593');
 assert.strictEqual(own.phone, '');
+var ownLand = flow.findContact('bel 085-0870307');
+assert.strictEqual(ownLand.phone, '');
 var mail = flow.findContact('Mijn naam is Petra Jansen, petra@acme.nl');
 assert.strictEqual(mail.email, 'petra@acme.nl');
 assert.strictEqual(flow.findName([{ role: 'user', content: 'Mijn naam is Petra Jansen, petra@acme.nl' }]), 'Petra Jansen');
@@ -239,7 +243,8 @@ var server = app.listen(0, '127.0.0.1', function () {
     .then(function (res) {
       assert.strictEqual(res.status, 200);
       assert.strictEqual(res.body.fallback, true);
-      assert.ok(res.body.reply.indexOf('06-50213593') !== -1, res.body.reply);
+      assert.ok(res.body.reply.indexOf('085-0870307') !== -1, res.body.reply);
+      assert.ok(res.body.reply.indexOf('wa.me/31650213593') !== -1, res.body.reply);
       assert.ok(res.body.reply.indexOf('info@werkhervattingskas.nl') !== -1);
       assert.ok(!/€\s*1/.test(res.body.reply), res.body.reply);
       assert.strictEqual(res.body.action, 'lead_offer');

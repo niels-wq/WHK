@@ -133,7 +133,8 @@ async function sendLeadEmail(lead) {
           <tr><td style="padding:8px 0;color:#666;"><strong>Tijdstip</strong></td><td style="padding:8px 0;">${tijdstip}</td></tr>
         </table>
         <div style="margin-top:16px;padding:12px 16px;background:white;border-radius:6px;border-left:4px solid #A23E2C;">
-          <p style="margin:0;font-size:0.86rem;color:#666;">📌 Ga naar <a href="${SITE_URL}" style="color:#A23E2C;">werkhervattingskas.nl</a> → admin → Leads om de status bij te werken.</p>
+          <p style="margin:0 0 8px;font-size:0.86rem;color:#666;">📌 Ga naar <a href="${SITE_URL}" style="color:#A23E2C;">werkhervattingskas.nl</a> → admin → Leads om de status bij te werken.</p>
+          <p style="margin:0;font-size:0.86rem;color:#666;">Bellen: <a href="tel:+31850870307" style="color:#A23E2C;">085-0870307</a>. WhatsApp alleen via <a href="https://wa.me/31650213593" style="color:#A23E2C;">https://wa.me/31650213593</a>.</p>
         </div>
       </div>
     </div>`;
@@ -585,7 +586,7 @@ function innerLocalBusinessLd() {
   "name": "werkhervattingskas.nl – Matchvermogen",
   "description": "Onafhankelijke controle van WHK-beschikkingen, arbeidsdeskundig onderzoek, tweede spoor re-integratie en verzuimoptimalisatie.",
   "url": "${SITE_URL}/",
-  "telephone": "+31650213593",
+  "telephone": "+31850870307",
   "email": "info@werkhervattingskas.nl",
   "address": {
     "@type": "PostalAddress",
@@ -822,6 +823,7 @@ app.get('/llms.txt', (req, res) => {
 - [Voor directeuren](${u}/voor/directeur): wat de WHK-premie voor de onderneming betekent.
 - [Sectoren](${u}/sectoren): premieverschillen per branche.
 - [Sitemap](${u}/sitemap.xml): alle publieke URL's van deze site.
+- [Contact](${u}/over-ons): bellen op 085-0870307 (tel:+31850870307). WhatsApp alleen via https://wa.me/31650213593.
 `);
 });
 

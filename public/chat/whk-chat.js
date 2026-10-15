@@ -88,7 +88,7 @@
     menu.appendChild(a);
   }
   addLink('WhatsApp', C.whatsapp || 'https://wa.me/31650213593', 'whatsapp');
-  addLink('Bellen ' + (C.phoneDisplay || '06-50213593'), 'tel:' + (C.phoneTel || '+31650213593'), 'phone');
+  addLink('Bellen ' + (C.phoneDisplay || '085-0870307'), 'tel:' + (C.phoneTel || '+31850870307'), 'phone');
   var callback = el('button', '', 'Terugbelverzoek');
   callback.type = 'button';
   callback.setAttribute('data-channel', 'callback');
@@ -225,7 +225,11 @@
     if (/^https?:\/\/(www\.)?werkhervattingskas\.nl(\/|$)/i.test(u)) return u;
     if (/^https:\/\/wa\.me\/31650213593(\?|$)/i.test(u)) return u;
     if (/^mailto:[^\s]+$/i.test(u)) return u;
-    if (/^tel:\+?[0-9]+$/i.test(u)) return u;
+    if (/^tel:\+?[0-9]+$/i.test(u)) {
+      var digits = u.replace(/\D/g, '');
+      if (digits === '31650213593' || digits === '0650213593' || digits === '0031650213593') return '';
+      return u;
+    }
     return '';
   }
   function addLinkified(parent, text) {
@@ -347,7 +351,7 @@
       }).then(function (r) { return r.json().then(function (data) { return { ok: r.ok, data: data }; }); }).then(function (res) {
         if (!res.ok || !res.data || !res.data.ok) {
           err.hidden = false;
-          err.textContent = (res.data && res.data.error) || 'Versturen lukte niet. Bel ' + (C.phoneDisplay || '06-50213593') + '.';
+          err.textContent = (res.data && res.data.error) || 'Versturen lukte niet. Bel ' + (C.phoneDisplay || '085-0870307') + ' of app via WhatsApp.';
           submit.disabled = false;
           return;
         }
@@ -356,7 +360,7 @@
         if (res.data.status !== 'spam') track('generate_lead', { method: 'chat', lead_source: 'chat_form' });
       }).catch(function () {
         err.hidden = false;
-        err.textContent = 'Versturen lukte niet. Bel ' + (C.phoneDisplay || '06-50213593') + ' of mail ' + (C.email || 'info@werkhervattingskas.nl') + '.';
+        err.textContent = 'Versturen lukte niet. Bel ' + (C.phoneDisplay || '085-0870307') + ', mail ' + (C.email || 'info@werkhervattingskas.nl') + ', of app via WhatsApp.';
         submit.disabled = false;
       });
     });
@@ -449,7 +453,7 @@
     }).then(function (r) { return r.json().then(function (data) { return { status: r.status, data: data }; }); }).then(function (res) {
       typing.remove();
       var data = res.data || {};
-      var reply = data.reply || data.error || 'Even geen antwoord. Bel ' + (C.phoneDisplay || '06-50213593') + ' of mail ' + (C.email || 'info@werkhervattingskas.nl') + '.';
+      var reply = data.reply || data.error || 'Even geen antwoord. Bel ' + (C.phoneDisplay || '085-0870307') + ', mail ' + (C.email || 'info@werkhervattingskas.nl') + ', of app via WhatsApp.';
       state.msgs.push({ role: 'assistant', content: reply });
       save();
       bubble(reply, 'bot');
@@ -463,7 +467,7 @@
       else if (data.action === 'lead_offer' || data.fallback) showOffer();
     }).catch(function () {
       typing.remove();
-      bubble('Even geen antwoord. Bel ' + (C.phoneDisplay || '06-50213593') + ' of mail ' + (C.email || 'info@werkhervattingskas.nl') + '.', 'bot');
+      bubble('Even geen antwoord. Bel ' + (C.phoneDisplay || '085-0870307') + ', mail ' + (C.email || 'info@werkhervattingskas.nl') + ', of app via WhatsApp.', 'bot');
       showOffer();
     }).then(function () {
       busy = false;
