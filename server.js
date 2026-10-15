@@ -27,6 +27,7 @@ const FROM_EMAIL        = process.env.FROM_EMAIL        || 'noreply@werkhervatti
 const ARTICLES_DIR      = path.join(__dirname, 'content', 'articles');
 const leadGuard         = require('./lib/lead-guard');
 const routeHtml         = require('./lib/route-html');
+const blogImages        = require('./lib/blog-images');
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
@@ -347,7 +348,7 @@ function loadMarkdownArticles() {
     const parsed = parseFrontmatter(fs.readFileSync(path.join(ARTICLES_DIR, file), 'utf8'));
     if (!parsed || !parsed.meta.title) return;
     const slug = parsed.meta.slug || file.replace(/\.md$/, '');
-    posts.push({
+    posts.push(blogImages.decoratePost({
       slug: slug,
       title: parsed.meta.title,
       metaDescription: parsed.meta.description || parsed.meta.title,
@@ -356,8 +357,10 @@ function loadMarkdownArticles() {
       updatedAt: parsed.meta.updatedAt || undefined,
       archived: parsed.meta.archived === 'true',
       source: 'markdown',
+      image: parsed.meta.image || '',
+      imageAlt: parsed.meta.imageAlt || '',
       bodyHtml: mdToHtml(parsed.body)
-    });
+    }));
   });
   return posts;
 }
@@ -627,6 +630,7 @@ async function serveWithMeta(res, meta, canonPath, statusCode, page, req) {
     );
   }
   modified = routeHtml.renderRoute(modified, canonPath, page || {});
+  if (page && page.post && page.post.image) modified = applyBlogSocialImage(modified, page.post);
   const pub = await publicSurface();
   modified = injectPublicSurface(modified, pub);
   const chatOn = req && canonPath !== '/admin' && chatApi.shouldInject(req);
@@ -687,23 +691,34 @@ async function serveNotFound(res) {
 // ================================================================
 // BLOG ARTIKEL — eigen meta per artikel
 // ================================================================
+function applyBlogSocialImage(html, post) {
+  const abs = esc(post.imageAbs || blogImages.absoluteImageUrl(post.image, SITE_URL));
+  const alt = esc(post.imageAlt || post.title || '');
+  return html
+    .replace(/<meta property="og:image" content="[^"]*"/, '<meta property="og:image" content="' + abs + '"')
+    .replace(/<meta property="og:image:alt" content="[^"]*"/, '<meta property="og:image:alt" content="' + alt + '"')
+    .replace(/<meta name="twitter:image" content="[^"]*"/, '<meta name="twitter:image" content="' + abs + '"')
+    .replace(/<meta name="twitter:card" content="[^"]*"/, '<meta name="twitter:card" content="summary_large_image"');
+}
 function blogPageForSlug(slug, dbPosts) {
   const posts = mergePostSources(Array.isArray(dbPosts) ? dbPosts : []);
-  const post = posts.find(p => p && p.slug === slug && !p.archived);
-  if (post) {
-    return {
-      meta: { title: post.title + ' | Werkhervattingskas.nl', desc: post.metaDescription || post.title },
-      post: post
+  let post = posts.find(p => p && p.slug === slug && !p.archived);
+  if (!post) post = blogImages.lookupPost(slug, getHtml() || '');
+  if (!post || post.archived) {
+    const seed = findSeedPostMeta(getHtml() || '', slug);
+    if (!seed) return null;
+    post = {
+      slug: slug,
+      title: String(seed.title || '').replace(/ \| Werkhervattingskas\.nl$/, ''),
+      metaDescription: seed.desc,
+      bodyHtml: ''
     };
   }
-  const seed = findSeedPostMeta(getHtml() || '', slug);
-  if (!seed) return null;
+  post = blogImages.decoratePost(post);
+  post.imageAbs = blogImages.absoluteImageUrl(post.image, SITE_URL);
   return {
-    meta: seed,
-    post: {
-      title: String(seed.title || '').replace(/ \| Werkhervattingskas\.nl$/, ''),
-      bodyHtml: ''
-    }
+    meta: { title: post.title + ' | Werkhervattingskas.nl', desc: post.metaDescription || post.title },
+    post: post
   };
 }
 app.get('/blog/:slug', async (req, res) => {

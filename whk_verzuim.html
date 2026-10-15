@@ -458,7 +458,7 @@
   @media (max-width:920px){.blog-grid{grid-template-columns:1fr 1fr;}}
   @media (max-width:640px){.blog-grid{grid-template-columns:1fr;}}
   .blog-card-skel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-s);overflow:hidden;min-height:200px;pointer-events:none;}
-  .blog-card-skel .skel-thumb{height:72px;background:linear-gradient(90deg,var(--paper-deep) 0%,var(--paper) 50%,var(--paper-deep) 100%);background-size:200% 100%;}
+  .blog-card-skel .skel-thumb{height:auto;aspect-ratio:1200/630;background:linear-gradient(90deg,var(--paper-deep) 0%,var(--paper) 50%,var(--paper-deep) 100%);background-size:200% 100%;}
   .blog-card-skel .skel-line{height:10px;margin:14px 20px 0;border-radius:4px;background:var(--paper-deep);}
   .blog-card-skel .skel-line.short{width:42%;}
   .blog-cat-chip{padding:5px 13px;border:1px solid var(--line);border-radius:20px;font-size:0.8rem;cursor:pointer;background:var(--paper);transition:background .15s,border-color .15s,color .15s;}
@@ -467,9 +467,11 @@
   .related-card{border:1px solid var(--line);border-radius:var(--radius-s);padding:14px 16px;cursor:pointer;font-size:0.86rem;font-weight:600;color:var(--ink);transition:border-color .15s,background .15s;line-height:1.4;}
   .related-card:hover{border-color:var(--savings);background:var(--savings-soft);}
   .blog-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-s);overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:border-color .15s, transform .15s;}
-  .blog-card-thumb{width:100%;aspect-ratio:280/88;background:var(--paper-deep);}
+  .blog-card-thumb{width:100%;aspect-ratio:1200/630;background:var(--paper-deep);overflow:hidden;}
+  .blog-card-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
   .blog-card-body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1;}
-  .blogpost-header-img{width:100%;aspect-ratio:760/200;border-radius:var(--radius-s);overflow:hidden;border:1px solid var(--line);margin:18px 0 28px;}
+  .blogpost-header-img{width:100%;aspect-ratio:1200/630;border-radius:var(--radius-s);overflow:hidden;border:1px solid var(--line);margin:4px 0 22px;background:var(--paper-deep);}
+  .blogpost-header-img img{width:100%;height:100%;object-fit:cover;display:block;}
   .blog-card:hover{border-color:var(--risk);transform:translateY(-2px);}
   .blog-card .tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
   .blog-tag{font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.04em;text-transform:uppercase;background:var(--paper-deep);color:var(--ink-soft);padding:3px 8px;border-radius:3px;}
@@ -480,7 +482,7 @@
   .blogpost-wrap{max-width:720px;padding-bottom:70px;}
   .blogpost-wrap .tags{margin-bottom:14px;display:flex;gap:6px;flex-wrap:wrap;}
   .blogpost-wrap h1{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:10px;}
-  .blogpost-wrap .meta{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--ink-soft);margin-bottom:30px;}
+  .blogpost-wrap .meta{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--ink-soft);margin-bottom:16px;}
   .blogpost-body h2{font-size:1.25rem;margin:30px 0 12px;font-family:'Fraunces',serif;font-weight:600;}
   .blogpost-body p{color:var(--ink-soft);margin:0 0 14px;}
   .blogpost-body ul{color:var(--ink-soft);padding-left:20px;margin:0 0 14px;}
@@ -924,6 +926,7 @@
           "datePublished": "2026-08-05T09:00:00.000Z",
           "keywords": "IVA of WGA 80-100%",
           "url": "https://werkhervattingskas.nl/blog/iva-of-wga-verschil-impact-whk-premie",
+          "image": "https://werkhervattingskas.nl/assets/blog/iva-of-wga-verschil-impact-whk-premie.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -938,6 +941,7 @@
           "datePublished": "2026-08-27T09:00:00.000Z",
           "keywords": "WGA-schadelast herbeoordeling",
           "url": "https://werkhervattingskas.nl/blog/wga-schadelast-herbeoordeling-besparing",
+          "image": "https://werkhervattingskas.nl/assets/blog/wga-schadelast-herbeoordeling-besparing.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -952,6 +956,7 @@
           "datePublished": "2026-09-16T09:00:00.000Z",
           "keywords": "WGA-premie sectorgemiddelde",
           "url": "https://werkhervattingskas.nl/blog/wga-premie-vergelijken-sectorgemiddelde",
+          "image": "https://werkhervattingskas.nl/assets/blog/wga-premie-vergelijken-sectorgemiddelde.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -966,6 +971,7 @@
           "datePublished": "2026-10-07T09:00:00.000Z",
           "keywords": "bezwaartermijn WHK gemist",
           "url": "https://werkhervattingskas.nl/blog/bezwaartermijn-whk-gemist-wat-nu",
+          "image": "https://werkhervattingskas.nl/assets/blog/bezwaartermijn-whk-gemist-wat-nu.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -980,6 +986,7 @@
           "datePublished": "2026-10-28T09:00:00.000Z",
           "keywords": "aansprakelijke derde regres",
           "url": "https://werkhervattingskas.nl/blog/aansprakelijke-derde-regres-herkennen",
+          "image": "https://werkhervattingskas.nl/assets/blog/aansprakelijke-derde-regres-herkennen.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -994,6 +1001,7 @@
           "datePublished": "2026-11-18T09:00:00.000Z",
           "keywords": "loonsom WHK-premie",
           "url": "https://werkhervattingskas.nl/blog/loonsom-whk-premie-wat-telt-mee",
+          "image": "https://werkhervattingskas.nl/assets/blog/loonsom-whk-premie-wat-telt-mee.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1008,6 +1016,7 @@
           "datePublished": "2026-12-09T09:00:00.000Z",
           "keywords": "WHK fusie overname",
           "url": "https://werkhervattingskas.nl/blog/fusie-overname-whk-gevolgen",
+          "image": "https://werkhervattingskas.nl/assets/blog/fusie-overname-whk-gevolgen.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1022,6 +1031,7 @@
           "datePublished": "2026-12-22T09:00:00.000Z",
           "keywords": "dossiervorming verzuim",
           "url": "https://werkhervattingskas.nl/blog/dossiervorming-verzuim-bezwaarkansen-poortwachter",
+          "image": "https://werkhervattingskas.nl/assets/blog/dossiervorming-verzuim-bezwaarkansen-poortwachter.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1036,6 +1046,7 @@
           "datePublished": "2026-06-10T09:00:00.000Z",
           "keywords": "WHK-beschikking controleren",
           "url": "https://werkhervattingskas.nl/blog/whk-beschikking-controleren-fouten-loonsom",
+          "image": "https://werkhervattingskas.nl/assets/blog/whk-beschikking-controleren-fouten-loonsom.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1050,6 +1061,7 @@
           "datePublished": "2026-06-03T09:00:00.000Z",
           "keywords": "no-riskpolis aanvragen",
           "url": "https://werkhervattingskas.nl/blog/no-riskpolis-recht-op-compensatie-bij-ziekte",
+          "image": "https://werkhervattingskas.nl/assets/blog/no-riskpolis-recht-op-compensatie-bij-ziekte.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1064,6 +1076,7 @@
           "datePublished": "2026-05-27T09:00:00.000Z",
           "keywords": "eigenrisicodragerschap WGA",
           "url": "https://werkhervattingskas.nl/blog/eigenrisicodragerschap-wga-voor-en-nadelen",
+          "image": "https://werkhervattingskas.nl/assets/blog/eigenrisicodragerschap-wga-voor-en-nadelen.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1078,6 +1091,7 @@
           "datePublished": "2026-05-20T09:00:00.000Z",
           "keywords": "loonkostenvoordeel aanvragen",
           "url": "https://werkhervattingskas.nl/blog/loonkostenvoordeel-lkv-aanvragen-stappenplan",
+          "image": "https://werkhervattingskas.nl/assets/blog/loonkostenvoordeel-lkv-aanvragen-stappenplan.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1092,6 +1106,7 @@
           "datePublished": "2026-05-13T09:00:00.000Z",
           "keywords": "verzuimbeleid optimaliseren",
           "url": "https://werkhervattingskas.nl/blog/verzuimbeleid-optimaliseren-besparen",
+          "image": "https://werkhervattingskas.nl/assets/blog/verzuimbeleid-optimaliseren-besparen.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1106,6 +1121,7 @@
           "datePublished": "2026-05-06T09:00:00.000Z",
           "keywords": "tweede spoor re-integratie",
           "url": "https://werkhervattingskas.nl/blog/tweede-spoor-reintegratie-werkgever",
+          "image": "https://werkhervattingskas.nl/assets/blog/tweede-spoor-reintegratie-werkgever.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1120,6 +1136,7 @@
           "datePublished": "2026-06-15T09:00:00.000Z",
           "keywords": "WHK-check kosten",
           "url": "https://werkhervattingskas.nl/blog/whk-check-waarom-werkgevers-te-veel-betalen",
+          "image": "https://werkhervattingskas.nl/assets/blog/whk-check-waarom-werkgevers-te-veel-betalen.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1134,6 +1151,7 @@
           "datePublished": "2026-06-14T09:00:00.000Z",
           "keywords": "WHK-premie te hoog",
           "url": "https://werkhervattingskas.nl/blog/5-signalen-whk-premie-te-hoog",
+          "image": "https://werkhervattingskas.nl/assets/blog/5-signalen-whk-premie-te-hoog.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1148,6 +1166,7 @@
           "datePublished": "2026-06-13T09:00:00.000Z",
           "keywords": "WHK-controle laten uitvoeren",
           "url": "https://werkhervattingskas.nl/blog/kosten-van-niets-doen-whk-controle",
+          "image": "https://werkhervattingskas.nl/assets/blog/kosten-van-niets-doen-whk-controle.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1162,6 +1181,7 @@
           "datePublished": "2026-06-12T09:00:00.000Z",
           "keywords": "WHK-beschikking fouten voorkomen",
           "url": "https://werkhervattingskas.nl/blog/kostbare-misser-whk-beschikking-voorkomen",
+          "image": "https://werkhervattingskas.nl/assets/blog/kostbare-misser-whk-beschikking-voorkomen.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1176,6 +1196,7 @@
           "datePublished": "2026-06-11T09:00:00.000Z",
           "keywords": "WHK-premie en verzuimkosten",
           "url": "https://werkhervattingskas.nl/blog/whk-premie-en-verzuimkosten-verband",
+          "image": "https://werkhervattingskas.nl/assets/blog/whk-premie-en-verzuimkosten-verband.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1190,6 +1211,7 @@
           "datePublished": "2026-06-09T09:00:00.000Z",
           "keywords": "WHK-controle opnieuw laten doen",
           "url": "https://werkhervattingskas.nl/blog/tweede-whk-controle-ook-na-eerste-check",
+          "image": "https://werkhervattingskas.nl/assets/blog/tweede-whk-controle-ook-na-eerste-check.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1204,6 +1226,7 @@
           "datePublished": "2026-06-08T09:00:00.000Z",
           "keywords": "gratis WHK-scan",
           "url": "https://werkhervattingskas.nl/blog/verborgen-kosten-gratis-whk-scan",
+          "image": "https://werkhervattingskas.nl/assets/blog/verborgen-kosten-gratis-whk-scan.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1218,6 +1241,7 @@
           "datePublished": "2026-06-07T09:00:00.000Z",
           "keywords": "AI arbeidsdeskundig onderzoek",
           "url": "https://werkhervattingskas.nl/blog/ai-arbeidsdeskundig-onderzoek-sneller-resultaat",
+          "image": "https://werkhervattingskas.nl/assets/blog/ai-arbeidsdeskundig-onderzoek-sneller-resultaat.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1232,6 +1256,7 @@
           "datePublished": "2026-06-05T09:00:00.000Z",
           "keywords": "WIA-beoordeling voorbereiden",
           "url": "https://werkhervattingskas.nl/blog/wia-beoordeling-aanstaande-werkgever-voorbereiden",
+          "image": "https://werkhervattingskas.nl/assets/blog/wia-beoordeling-aanstaande-werkgever-voorbereiden.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1246,6 +1271,7 @@
           "datePublished": "2026-06-04T09:00:00.000Z",
           "keywords": "WHK-audit checklist",
           "url": "https://werkhervattingskas.nl/blog/checklist-organisatie-klaar-voor-whk-audit",
+          "image": "https://werkhervattingskas.nl/assets/blog/checklist-organisatie-klaar-voor-whk-audit.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1260,6 +1286,7 @@
           "datePublished": "2026-06-02T09:00:00.000Z",
           "keywords": "medische machtiging arbeidsdeskundige",
           "url": "https://werkhervattingskas.nl/blog/medische-machtiging-arbeidsdeskundige-extra-waarde",
+          "image": "https://werkhervattingskas.nl/assets/blog/medische-machtiging-arbeidsdeskundige-extra-waarde.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1274,6 +1301,7 @@
           "datePublished": "2026-06-19T09:00:00.000Z",
           "keywords": "kosten zieke werknemer",
           "url": "https://werkhervattingskas.nl/blog/kosten-zieke-werknemer-whk-impact",
+          "image": "https://werkhervattingskas.nl/assets/blog/kosten-zieke-werknemer-whk-impact.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1288,6 +1316,7 @@
           "datePublished": "2026-06-19T10:00:00.000Z",
           "keywords": "bezwaar maken WHK-beschikking",
           "url": "https://werkhervattingskas.nl/blog/bezwaar-whk-beschikking-stappenplan",
+          "image": "https://werkhervattingskas.nl/assets/blog/bezwaar-whk-beschikking-stappenplan.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1302,6 +1331,7 @@
           "datePublished": "2026-06-19T11:00:00.000Z",
           "keywords": "eigenrisicodrager worden",
           "url": "https://werkhervattingskas.nl/blog/wga-eigenrisicodrager-wel-of-niet-doen",
+          "image": "https://werkhervattingskas.nl/assets/blog/wga-eigenrisicodrager-wel-of-niet-doen.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1316,6 +1346,7 @@
           "datePublished": "2026-06-19T12:00:00.000Z",
           "keywords": "loonsanctie voorkomen",
           "url": "https://werkhervattingskas.nl/blog/loonsanctie-voorkomen-poortwachter",
+          "image": "https://werkhervattingskas.nl/assets/blog/loonsanctie-voorkomen-poortwachter.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1330,6 +1361,7 @@
           "datePublished": "2026-06-19T13:00:00.000Z",
           "keywords": "sectorindeling WHK",
           "url": "https://werkhervattingskas.nl/blog/sectorindeling-werkhervattingskas-juiste-box",
+          "image": "https://werkhervattingskas.nl/assets/blog/sectorindeling-werkhervattingskas-juiste-box.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1344,6 +1376,7 @@
           "datePublished": "2026-06-19T14:00:00.000Z",
           "keywords": "arbeidsdeskundig onderzoek ROI",
           "url": "https://werkhervattingskas.nl/blog/arbeidsdeskundig-onderzoek-roi-whk-instroom",
+          "image": "https://werkhervattingskas.nl/assets/blog/arbeidsdeskundig-onderzoek-roi-whk-instroom.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1358,6 +1391,7 @@
           "datePublished": "2026-06-19T15:00:00.000Z",
           "keywords": "grote werkgever WHK",
           "url": "https://werkhervattingskas.nl/blog/grote-werkgever-grens-whk-impact",
+          "image": "https://werkhervattingskas.nl/assets/blog/grote-werkgever-grens-whk-impact.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1372,6 +1406,7 @@
           "datePublished": "2026-06-19T16:00:00.000Z",
           "keywords": "WGA-uitkering na 2 jaar ziekte",
           "url": "https://werkhervattingskas.nl/blog/wga-uitkering-na-2-jaar-whk-premie",
+          "image": "https://werkhervattingskas.nl/assets/blog/wga-uitkering-na-2-jaar-whk-premie.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1386,6 +1421,7 @@
           "datePublished": "2026-06-19T17:00:00.000Z",
           "keywords": "Ziektewet-flexpremie verlagen",
           "url": "https://werkhervattingskas.nl/blog/ziektewet-flexpremie-verlagen-tijdelijke-contracten",
+          "image": "https://werkhervattingskas.nl/assets/blog/ziektewet-flexpremie-verlagen-tijdelijke-contracten.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1400,6 +1436,7 @@
           "datePublished": "2026-06-19T18:00:00.000Z",
           "keywords": "ROI vroege interventie",
           "url": "https://werkhervattingskas.nl/blog/roi-vroege-interventie-verzuimbegeleiding",
+          "image": "https://werkhervattingskas.nl/assets/blog/roi-vroege-interventie-verzuimbegeleiding.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1414,6 +1451,7 @@
           "datePublished": "2026-06-20T09:00:00.000Z",
           "keywords": "regres letselschade werkgever",
           "url": "https://werkhervattingskas.nl/blog/regres-letselschade-werkgever-whk",
+          "image": "https://werkhervattingskas.nl/assets/blog/regres-letselschade-werkgever-whk.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -1428,6 +1466,7 @@
           "datePublished": "2026-06-20T10:00:00.000Z",
           "keywords": "besparen op interventies tijdens ziekte",
           "url": "https://werkhervattingskas.nl/blog/besparen-op-interventies-tijdens-ziekte-bulkinkoop",
+          "image": "https://werkhervattingskas.nl/assets/blog/besparen-op-interventies-tijdens-ziekte-bulkinkoop.webp",
           "author": {
             "@type": "Person",
             "@id": "https://werkhervattingskas.nl/#niels-alderding",
@@ -3376,6 +3415,7 @@
         <div class="tags" id="blogpost-tags"></div>
         <h1 id="blogpost-title"></h1>
         <div class="meta" id="blogpost-meta"></div>
+        <div class="blogpost-header-img" id="blogpost-header-img"></div>
         <div id="blogpost-author"></div>
         <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px;" id="blogpost-actions">
           <span id="blogpost-share-wa" class="share-btn" style="cursor:pointer;">📱 WhatsApp</span>
@@ -3383,7 +3423,6 @@
           <span id="blogpost-share-mail" class="share-btn" style="cursor:pointer;">✉️ E-mail</span>
           <span id="blogpost-share-copy" class="share-btn" style="cursor:pointer;">🔗 Kopieer link</span>
         </div>
-        <div class="blogpost-header-img" id="blogpost-header-img"></div>
         <div id="blogpost-toc"></div>
         <div class="blogpost-body" id="blogpost-body"></div>
         <aside class="conv-cta" id="blogpost-end-cta">
@@ -10723,7 +10762,7 @@
       var card = document.createElement('div');
       card.className = 'blog-card';
       card.innerHTML = '<div class="blog-card-thumb"></div><div class="blog-card-body"><div class="tags"></div><h3></h3><p></p><div class="date"></div></div>';
-      card.querySelector('.blog-card-thumb').innerHTML = buildBlogHeaderSvg(p, false);
+      card.querySelector('.blog-card-thumb').innerHTML = blogFeaturedMarkup(p, false);
       var tagsWrap = card.querySelector('.tags');
       (p.tags || []).forEach(function(t){
         var s = document.createElement('span'); s.className = 'blog-tag'; s.textContent = t; tagsWrap.appendChild(s);
@@ -10793,7 +10832,7 @@
       metaText = 'Door Niels Alderding \u00b7 Gepubliceerd op ' + publishedLabel + ' \u00b7 Bijgewerkt op ' + updatedLabel + ' \u00b7 ' + blogReadingTime(p) + ' min leestijd';
     }
     document.getElementById('blogpost-meta').textContent = metaText;
-    document.getElementById('blogpost-header-img').innerHTML = buildBlogHeaderSvg(p, true);
+    document.getElementById('blogpost-header-img').innerHTML = blogFeaturedMarkup(p, true);
 
     // Auteursbalk
     var authorContainer = document.getElementById('blogpost-author');
@@ -10824,6 +10863,7 @@
       'description': p.metaDescription || '',
       'datePublished': p.publishedAt,
       'dateModified': p.updatedAt || p.publishedAt,
+      'image': { '@type': 'ImageObject', 'url': blogImageAbs(p), 'width': 1200, 'height': 630 },
       'author': { '@type': 'Person', 'name': 'Niels Alderding', 'jobTitle': 'Directeur & arbeidsdeskundige', 'url': 'https://www.linkedin.com/in/niels-alderding/', 'image': 'https://werkhervattingskas.nl/assets/niels-foto.png' },
       'publisher': { '@type': 'Organization', 'name': 'Matchvermogen / Werkhervattingskas.nl', 'url': 'https://werkhervattingskas.nl' },
       'mainEntityOfPage': { '@type': 'WebPage', '@id': 'https://werkhervattingskas.nl/blog/' + p.slug },
@@ -10896,7 +10936,7 @@
       relatedWrap.appendChild(list);
     }
     updateMeta(p.title + ' | Werkhervattingskas.nl', p.metaDescription);
-    updateOgTags(p.title + ' | Werkhervattingskas.nl', p.metaDescription || '');
+    updateOgTags(p.title + ' | Werkhervattingskas.nl', p.metaDescription || '', blogImageAbs(p), blogImageAlt(p));
   }
 
   (document.getElementById('blogpost-back')||{addEventListener:function(){}}).addEventListener('click', function(){ showView('blog-view'); });
@@ -13261,12 +13301,45 @@
   }
 
   // ---- OG TAGS PER BLOGPOST ----
-  function updateOgTags(title, desc){
+  function blogImageSrc(p){
+    var img = p && p.image ? String(p.image) : '';
+    if(img.indexOf('/assets/blog/') !== -1 && img.indexOf('og-image.png') === -1){
+      if(img.indexOf('http') === 0){
+        try { return new URL(img).pathname; } catch(e) { return '/assets/blog/' + p.slug + '.webp'; }
+      }
+      return img.split('?')[0];
+    }
+    return '/assets/blog/' + ((p && p.slug) || '') + '.webp';
+  }
+  function blogImageAbs(p){
+    var src = blogImageSrc(p);
+    if(src.indexOf('http') === 0) return src;
+    return 'https://werkhervattingskas.nl' + src;
+  }
+  function blogImageAlt(p){
+    if(p && p.imageAlt) return String(p.imageAlt);
+    return 'Uitgelichte afbeelding bij het artikel: ' + ((p && p.title) || 'WHK-artikel');
+  }
+  function blogFeaturedMarkup(p, eager){
+    var alt = blogImageAlt(p).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    var src = blogImageSrc(p).replace(/"/g, '');
+    return '<img src="' + src + '" alt="' + alt + '" width="1200" height="630" decoding="async"' + (eager ? '' : ' loading="lazy"') + '>';
+  }
+  function updateOgTags(title, desc, image, imageAlt){
     var og = {'og:title': title, 'og:description': desc, 'twitter:title': title, 'twitter:description': desc};
+    if(image){
+      og['og:image'] = image;
+      og['twitter:image'] = image;
+      og['og:image:alt'] = imageAlt || title;
+    }
     Object.keys(og).forEach(function(prop){
       var el = document.querySelector('meta[property="' + prop + '"],meta[name="' + prop + '"]');
       if(el) el.setAttribute('content', og[prop]);
     });
+    if(image){
+      var card = document.querySelector('meta[name="twitter:card"]');
+      if(card) card.setAttribute('content', 'summary_large_image');
+    }
   }
 
   // ---- LEAD PIPELINE (uitgebreid) ----

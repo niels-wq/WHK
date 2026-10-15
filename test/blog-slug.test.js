@@ -151,7 +151,10 @@ function assertArticle(post, res) {
     assert.ok(res.body.indexOf('"datePublished": "2026-10-12"') !== -1, url + ' datePublished');
     assert.ok(res.body.indexOf('"dateModified": "2026-10-12"') !== -1, url + ' dateModified');
     assert.ok(res.body.indexOf('"@type": "FAQPage"') !== -1, url + ' FAQPage');
-    assert.ok(res.body.indexOf('aria-label="' + post.title + '"') !== -1, url + ' featured image alt');
+    assert.ok(
+      res.body.indexOf('alt="Uitgelichte afbeelding bij het artikel: ' + post.title + '"') !== -1,
+      url + ' featured image alt'
+    );
     assert.ok(res.body.indexOf('Bijgewerkt op 12 oktober 2026') !== -1, url + ' updated date');
     assert.ok(res.body.indexOf('alt="Niels Alderding"') !== -1, url + ' author photo');
     assert.strictEqual((res.body.match(/<h1\b/gi) || []).length, 1, url + ' one h1');
