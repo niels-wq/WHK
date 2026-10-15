@@ -28,4 +28,23 @@ Verdere tekst. Links: [WHK-check](https://werkhervattingskas.nl/diensten/whk-con
 
 Na deploy verschijnt het op `/blog/mijn-slug`. `README.md` wordt genegeerd. Bij dezelfde slug wint de CMS/database-versie.
 
+Optioneel, als de afbeelding niet het standaardpad moet volgen:
+
+```yaml
+image: /assets/blog/mijn-slug.webp
+imageAlt: Uitgelichte afbeelding bij het artikel: Titel van het artikel
+```
+
+## Uitgelichte afbeelding
+
+Elk artikel in de sitemap heeft een eigen bestand `assets/blog/<slug>.webp` van 1200×630. Dat pad is de uitgelichte afbeelding bovenaan het artikel, de thumbnail op de blogkaarten, `og:image`, `twitter:image` en `BlogPosting.image`. Zonder frontmatter-veld `image` geldt dit pad automatisch.
+
+Na een nieuw artikel:
+
+```bash
+node scripts/generate-blog-images.js
+```
+
+De generator tekent een titelkaart in de huisstijl, met de artikeltitel en een eenvoudig icoon. Geen stockfoto's. `npm test` faalt als een blog-URL in de sitemap geen eigen afbeelding heeft.
+
 Voeg hier geen grote nieuwe content toe tenzij het een echt artikel is; dit is het onderhoudspatroon.
