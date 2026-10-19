@@ -189,6 +189,15 @@
     if (banner && banner.classList.contains('show')) raise(banner);
     var sticky = document.getElementById('sticky-contact-bar');
     if (sticky && sticky.classList.contains('show')) raise(sticky);
+    if (isNarrowPhone()) {
+      var tall = null;
+      [banner, sticky].forEach(function (node) {
+        if (!node || !node.classList.contains('show')) return;
+        var r = node.getBoundingClientRect();
+        if (r.height > 110 && (!tall || r.height > tall.height)) tall = r;
+      });
+      if (tall) lift = Math.max(16, Math.round(tall.height - 54));
+    }
     root.style.setProperty('--whkchat-lift', lift + 'px');
     var exit = document.getElementById('exit-intent-bg');
     var exitOn = !!(exit && exit.classList.contains('show'));
