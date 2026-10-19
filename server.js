@@ -810,6 +810,7 @@ app.get('/llms.txt', (req, res) => {
 - [Correctiebericht of beschikking](${u}/blog/uwv-correctiebericht-vs-whk-beschikking-voorrang): welke brief waarover gaat en wat je daarna doet.
 - [Whk-premies 2027](${u}/blog/whk-premies-2027-wga-en-zw): gemiddelde WGA 1,07% en ZW 0,60%, met minimum, maximum en loonsomgrenzen.
 - [Correctiefactor Whk bij onvolledige periode](${u}/blog/correctiefactor-whk-onvolledige-periode): factoren voor 2027 als niet elk jaar 2021 tot en met 2025 is verloond, apart van de correctiefactor werkgeversrisico.
+- [Jaareinde-checklist WHK](${u}/blog/jaareinde-checklist-whk-voor-31-december): vijf punten vóór 31 december, van loonsom 2025 en no-risk tot LKV, correcties op de loonaangifte en de brief voor 2027.
 - [LKV-deadlines](${u}/blog/lkv-deadlines-kalender-werkgever): kalender voor de voorlopige berekening, correcties en de definitieve beschikking.
 - [ZW-eigenrisicodrager checklist](${u}/blog/zw-eigenrisicodrager-checklist): voorwaarden, aanvraag en wat je checkt vóór je overstapt.
 - [Compensatie transitievergoeding na 2 jaar ziekte](${u}/blog/compensatie-transitievergoeding-na-2-jaar-ziekte): aanvraag bij het UWV binnen 6 maanden na betaling, met stukken en veelgemaakte fouten.

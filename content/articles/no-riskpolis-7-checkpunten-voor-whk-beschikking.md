@@ -45,7 +45,7 @@ Een UWV-correctie of een erkende no-riskstatus is **geen** creditnota voor de lo
 
 ## Wanneer deze check loont (en wanneer niet)
 
-De check is vooral zinvol als je **middelgroot of groot** bent (deels of volledig individueel tarief), als de bijlage namen bevat die ooit doelgroep waren, of als de premie harder stijgt dan het landelijk gemiddelde zonder nieuwe, verklaarde instroom. Landelijke reeks: [WHK-premiehistorie](https://werkhervattingskas.nl/tools/premiehistorie).
+De check is vooral zinvol als je **middelgroot of groot** bent (deels of volledig individueel tarief), als de bijlage namen bevat die ooit doelgroep waren, of als de premie harder stijgt dan het landelijk gemiddelde zonder nieuwe, verklaarde instroom. Landelijke reeks: [WHK-premiehistorie](https://werkhervattingskas.nl/tools/premiehistorie). Wat je vóór 31 december in de administratie klaarzet, staat in de [jaareinde-checklist WHK](/blog/jaareinde-checklist-whk-voor-31-december).
 
 Minder zinvol als je klein bent met alleen een sectortarief en een rustig verzuimbeeld: archiveer beschikking en bijlage, en doe volgend jaar dezelfde zeven punten. Een hoge premie alleen is geen bezwaargrond. Een naam op de bijlage waarvan je de no-riskstatus niet kunt uitsluiten, wél een reden om te kijken.
 

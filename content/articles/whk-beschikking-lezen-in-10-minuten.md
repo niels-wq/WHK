@@ -61,7 +61,7 @@ Dit is de lijst die in de praktijk blijft liggen als finance het percentage inbo
 - **WGA terwijl het dossier naar IVA ruikt.** Dat is geen herlabeling vanuit finance. In 2026 is herbeoordeling extra smal: [UWV herbeoordeling 2026](/blog/uwv-herbeoordeling-2026). Bezwaar tegen de WIA-beslissing zelf: [bezwaar maken bij het UWV](/blog/bezwaar-maken-bij-het-uwv).
 - **Loonsom die niet aansluit op de aangifte van T-2.** Een afwijking is geen afronding. Zij kan je zelfs in de verkeerde grootteklasse zetten.
 
-Als je na tien minuten één van deze vlaggen hebt, is de beschikking een kijk waard. Als alles past bij bekende, terecht toegerekende instroom, archiveer voorblad én bijlage bij elkaar. Volgend jaar dezelfde tien minuten.
+Als je na tien minuten één van deze vlaggen hebt, is de beschikking een kijk waard. Als alles past bij bekende, terecht toegerekende instroom, archiveer voorblad én bijlage bij elkaar. Volgend jaar dezelfde tien minuten. Wat je vóór 31 december klaarzet, voordat deze tien minuten beginnen, staat in de [jaareinde-checklist WHK](/blog/jaareinde-checklist-whk-voor-31-december).
 
 ## Wat je daarna wel en niet doet
 

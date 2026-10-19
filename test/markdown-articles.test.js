@@ -16,7 +16,8 @@ var NEW_SLUGS = [
   'wia-herstelactie-en-60-plusmaatregel-werkgevers',
   'ziektewet-flexpremie-2027-negatief-vermogen',
   'loondoorbetaling-bij-ziekte-scenarios-mkb',
-  'correctiefactor-whk-onvolledige-periode'
+  'correctiefactor-whk-onvolledige-periode',
+  'jaareinde-checklist-whk-voor-31-december'
 ];
 var ROUND_SLUGS = [
   'kleine-middelgrote-grote-werkgever-whk-2027',
@@ -28,6 +29,9 @@ var OCT12_SLUGS = [
 ];
 var OCT19_SLUGS = [
   'correctiefactor-whk-onvolledige-periode'
+];
+var JAAR_SLUGS = [
+  'jaareinde-checklist-whk-voor-31-december'
 ];
 var BACKLINKS = {
   'kleine-middelgrote-grote-werkgever-whk-2027': [
@@ -48,6 +52,11 @@ var BACKLINKS = {
   'correctiefactor-whk-onvolledige-periode': [
     'whk-premies-2027-wga-en-zw.md',
     'whk-premieverhoging-na-een-wga-instroom-rekenvoorbeeld-mkb.md'
+  ],
+  'jaareinde-checklist-whk-voor-31-december': [
+    'lkv-deadlines-kalender-werkgever.md',
+    'no-riskpolis-7-checkpunten-voor-whk-beschikking.md',
+    'whk-beschikking-lezen-in-10-minuten.md'
   ]
 };
 var REQUIRED_LINKS = [
@@ -95,6 +104,38 @@ files.forEach(function (file) {
     assert.ok(parsed.body.indexOf('47.000') === -1, file + ' must not claim €47.000');
     assert.ok(parsed.body.indexOf('Gratis WHK-beschikking check') !== -1, file + ' missing soft CTA');
     allNewBodies += parsed.body;
+  }
+  if (JAAR_SLUGS.indexOf(slug) !== -1) {
+    assert.ok(parsed.meta.description.length >= 140 && parsed.meta.description.length <= 155, file + ' description length ' + parsed.meta.description.length);
+    assert.ok(parsed.meta.publishedAt === '2026-10-19', file + ' publishedAt');
+    assert.ok(parsed.meta.updatedAt === '2026-10-19', file + ' updatedAt');
+    assert.ok(parsed.body.indexOf('## Veelgestelde vragen') !== -1, file + ' missing FAQ heading');
+    assert.ok((parsed.body.match(/^\*\*.+\?\*\*/gm) || []).length >= 3, file + ' FAQ questions');
+    assert.ok(parsed.body.indexOf('https://download.belastingdienst.nl/belastingdienst/docs/handboek-loonheffingen-lh0221t61fd.pdf') !== -1, file + ' missing handboek');
+    assert.ok(parsed.body.indexOf('https://zoek.officielebekendmakingen.nl/stcrt-2026-24832.html') !== -1, file + ' missing staatscourant');
+    assert.ok(parsed.body.indexOf('https://www.uwv.nl/nl/no-riskpolis') !== -1, file + ' missing no-risk source');
+    assert.ok(parsed.body.indexOf('https://www.uwv.nl/nl/loonkostenvoordeel/doelgroepverklaring-lkv-aanvragen') !== -1, file + ' missing LKV source');
+    assert.ok(parsed.body.indexOf('6 weken') !== -1, file + ' missing bezwaartermijn');
+    assert.ok(parsed.body.indexOf('3 maanden') !== -1, file + ' missing LKV-termijn');
+    assert.ok(parsed.body.indexOf('31 januari 2027') !== -1, file + ' missing aangiftedatum');
+    assert.ok(parsed.body.indexOf('erd-partneradvies') === -1, file + ' must not link ERD advice');
+    assert.ok(parsed.body.indexOf('8 van de 10') === -1, file + ' must not claim 8 van de 10');
+    [
+      'https://werkhervattingskas.nl/tools/jaarkalender',
+      'https://werkhervattingskas.nl/beschikking-uitleg',
+      'https://werkhervattingskas.nl/diensten/whk-controle',
+      'https://werkhervattingskas.nl/faq',
+      '/blog/lkv-deadlines-kalender-werkgever',
+      '/blog/whk-beschikking-controleren-fouten-loonsom',
+      '/blog/no-risk-polis-check-stappenplan-2026',
+      '/blog/whk-premie-verwachtingen-2027',
+      '/blog/correctiefactor-whk-onvolledige-periode',
+      '/blog/whk-premies-2027-wga-en-zw',
+      '/blog/kleine-middelgrote-grote-werkgever-whk-2027',
+      '/blog/bezwaar-maken-bij-het-uwv'
+    ].forEach(function (href) {
+      assert.ok(parsed.body.indexOf(href) !== -1, file + ' missing link ' + href);
+    });
   }
   if (OCT19_SLUGS.indexOf(slug) !== -1) {
     assert.ok(parsed.meta.title.length >= 50 && parsed.meta.title.length <= 60, file + ' title length ' + parsed.meta.title.length);
