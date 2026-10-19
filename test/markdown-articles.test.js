@@ -15,7 +15,8 @@ var NEW_SLUGS = [
   'kleine-middelgrote-grote-werkgever-whk-2027',
   'wia-herstelactie-en-60-plusmaatregel-werkgevers',
   'ziektewet-flexpremie-2027-negatief-vermogen',
-  'loondoorbetaling-bij-ziekte-scenarios-mkb'
+  'loondoorbetaling-bij-ziekte-scenarios-mkb',
+  'correctiefactor-whk-onvolledige-periode'
 ];
 var ROUND_SLUGS = [
   'kleine-middelgrote-grote-werkgever-whk-2027',
@@ -24,6 +25,9 @@ var ROUND_SLUGS = [
 ];
 var OCT12_SLUGS = [
   'loondoorbetaling-bij-ziekte-scenarios-mkb'
+];
+var OCT19_SLUGS = [
+  'correctiefactor-whk-onvolledige-periode'
 ];
 var BACKLINKS = {
   'kleine-middelgrote-grote-werkgever-whk-2027': [
@@ -40,6 +44,10 @@ var BACKLINKS = {
   ],
   'loondoorbetaling-bij-ziekte-scenarios-mkb': [
     'uwv-herbeoordeling-2026.md'
+  ],
+  'correctiefactor-whk-onvolledige-periode': [
+    'whk-premies-2027-wga-en-zw.md',
+    'whk-premieverhoging-na-een-wga-instroom-rekenvoorbeeld-mkb.md'
   ]
 };
 var REQUIRED_LINKS = [
@@ -87,6 +95,25 @@ files.forEach(function (file) {
     assert.ok(parsed.body.indexOf('47.000') === -1, file + ' must not claim €47.000');
     assert.ok(parsed.body.indexOf('Gratis WHK-beschikking check') !== -1, file + ' missing soft CTA');
     allNewBodies += parsed.body;
+  }
+  if (OCT19_SLUGS.indexOf(slug) !== -1) {
+    assert.ok(parsed.meta.title.length >= 50 && parsed.meta.title.length <= 60, file + ' title length ' + parsed.meta.title.length);
+    assert.ok(parsed.meta.description.length >= 140 && parsed.meta.description.length <= 155, file + ' description length ' + parsed.meta.description.length);
+    assert.ok(parsed.meta.publishedAt === '2026-10-19', file + ' publishedAt');
+    assert.ok(parsed.meta.updatedAt === '2026-10-19', file + ' updatedAt');
+    assert.ok(parsed.body.indexOf('## Veelgestelde vragen') !== -1, file + ' missing FAQ heading');
+    assert.ok((parsed.body.match(/^\*\*.+\?\*\*/gm) || []).length >= 3, file + ' FAQ questions');
+    assert.ok(parsed.body.indexOf('https://zoek.officielebekendmakingen.nl/stcrt-2026-24832.html') !== -1, file + ' missing staatscourant');
+    assert.ok(parsed.body.indexOf('5,00') !== -1 && parsed.body.indexOf('2,00') !== -1, file + ' missing factors');
+    var internal = [
+      'https://werkhervattingskas.nl/tools/wia-calculator',
+      'https://werkhervattingskas.nl/tools/premiehistorie',
+      'https://werkhervattingskas.nl/beschikking-uitleg',
+      'https://werkhervattingskas.nl/diensten/whk-controle',
+      'https://werkhervattingskas.nl/faq',
+      '/blog/'
+    ].filter(function (href) { return parsed.body.indexOf(href) !== -1; });
+    assert.ok(internal.length >= 3, file + ' needs at least 3 internal links, got ' + internal.length);
   }
   if (OCT12_SLUGS.indexOf(slug) !== -1) {
     assert.ok(parsed.meta.title.length >= 50 && parsed.meta.title.length <= 60, file + ' title length ' + parsed.meta.title.length);

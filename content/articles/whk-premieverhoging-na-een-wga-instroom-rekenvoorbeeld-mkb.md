@@ -32,7 +32,7 @@ Stel: een groothandel, 38 medewerkers, premieplichtige loonsom 2024 **€ 2.400.
 - individueel gewicht = (€ 2.400.000 − € 1.082.500) / (€ 4.330.000 − € 1.082.500) ≈ **40,6%**
 - sectoraal gewicht ≈ **59,4%**
 
-**Individuele WGA-premie** (formule UWV, parameters 2026): gemiddelde 0,96% plus een opslag of korting. De opslag is de correctiefactor **1,09** keer het verschil tussen jóuw werkgeversrisico en het landelijk gemiddelde risico **0,66%**. Het risico is: toegerekende WGA-last in het refertejaar (hier 2024) gedeeld door de gemiddelde loonsom 2020–2024. Bij een stabiele loonsom van € 2,4 mln:
+**Individuele WGA-premie** (formule UWV, parameters 2026): gemiddelde 0,96% plus een opslag of korting. De opslag is de correctiefactor **1,09** keer het verschil tussen jóuw werkgeversrisico en het landelijk gemiddelde risico **0,66%**. Die 1,09 hoort bij 2026 en bij een volledige loonhistorie. De factoren voor 2027, ook bij een onvolledige periode, staan in [correctiefactor Whk bij een onvolledige periode](/blog/correctiefactor-whk-onvolledige-periode). Het risico is: toegerekende WGA-last in het refertejaar (hier 2024) gedeeld door de gemiddelde loonsom 2020–2024. Bij een stabiele loonsom van € 2,4 mln:
 
 - **zonder WGA-last:** risico 0% → individuele premie zakt naar het **minimum 0,24%**
 - **met € 32.000 last:** risico 32.000 / 2.400.000 = **1,33%** → individuele premie ≈ **1,69%**
