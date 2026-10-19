@@ -64,7 +64,8 @@ var server = app.listen(0, '127.0.0.1', function () {
     request(port, '/aanpak/'),
     request(port, '/sitemap.xml'),
     request(port, '/diensten', { host: 'www.werkhervattingskas.nl' }),
-    request(port, '/niet-bestaand')
+    request(port, '/niet-bestaand'),
+    request(port, '/contact')
   ]).then(function (results) {
     var index = results[0];
     var slashed = results[1];
@@ -72,6 +73,7 @@ var server = app.listen(0, '127.0.0.1', function () {
     var sitemap = results[3];
     var www = results[4];
     var missing = results[5];
+    var contact = results[6];
 
     assert.strictEqual(index.status, 200, '/diensten should be 200');
     assert.ok(index.body.indexOf('id="diensten-view"') !== -1, 'index HTML missing diensten view');
@@ -92,6 +94,10 @@ var server = app.listen(0, '127.0.0.1', function () {
     assert.strictEqual(www.headers.location, 'https://werkhervattingskas.nl/diensten');
 
     assert.strictEqual(missing.status, 404);
+
+    assert.strictEqual(contact.status, 301, '/contact should redirect');
+    assert.strictEqual(contact.headers.location, '/over-ons');
+    assert.ok(sitemap.body.indexOf('/contact') === -1, 'sitemap must not list the contact redirect');
 
     console.log('diensten index tests ok');
     server.close();

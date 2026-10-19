@@ -809,6 +809,7 @@ app.get('/llms.txt', (req, res) => {
 - [Ziektewet-flexpremie 2027](${u}/blog/ziektewet-flexpremie-2027-negatief-vermogen): waarom 0,60% hoger ligt dan de lopende uitgaven.
 - [Correctiebericht of beschikking](${u}/blog/uwv-correctiebericht-vs-whk-beschikking-voorrang): welke brief waarover gaat en wat je daarna doet.
 - [Whk-premies 2027](${u}/blog/whk-premies-2027-wga-en-zw): gemiddelde WGA 1,07% en ZW 0,60%, met minimum, maximum en loonsomgrenzen.
+- [Correctiefactor Whk bij onvolledige periode](${u}/blog/correctiefactor-whk-onvolledige-periode): factoren voor 2027 als niet elk jaar 2021 tot en met 2025 is verloond, apart van de correctiefactor werkgeversrisico.
 - [LKV-deadlines](${u}/blog/lkv-deadlines-kalender-werkgever): kalender voor de voorlopige berekening, correcties en de definitieve beschikking.
 - [ZW-eigenrisicodrager checklist](${u}/blog/zw-eigenrisicodrager-checklist): voorwaarden, aanvraag en wat je checkt vóór je overstapt.
 - [Compensatie transitievergoeding na 2 jaar ziekte](${u}/blog/compensatie-transitievergoeding-na-2-jaar-ziekte): aanvraag bij het UWV binnen 6 maanden na betaling, met stukken en veelgemaakte fouten.
@@ -917,6 +918,11 @@ app.get('/kennisbank', (req, res) => {
 
 app.get('/premiehistorie', (req, res) => {
   res.redirect(301, '/tools/premiehistorie');
+});
+
+// Oude of geraden contact-URL. De contactgegevens staan op Over ons.
+app.get('/contact', (req, res) => {
+  res.redirect(301, '/over-ons');
 });
 
 app.get('/admin', (req, res) => {

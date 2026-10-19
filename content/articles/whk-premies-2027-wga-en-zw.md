@@ -29,7 +29,7 @@ Naast het gemiddelde gelden voor 2027 deze grenzen (UWV, grote werkgever):
 
 De loonsom bepaalt de grootteklasse. Het UWV rekent voor 2027 met een gemiddelde loonsom van **€45.400**. De grens klein/middelgroot is **€1.135.000** (25 keer die loonsom). De grens middelgroot/groot is **€4.540.000** (100 keer). Onder de lage grens betaalt een kleine werkgever een sectorale premie. Daarboven weegt het eigen werkgeversrisico mee, tot een individueel tarief bij een grote werkgever. Sectoren kunnen afwijken van het algemene maximum. Die tabel staat bij het UWV, niet in dit artikel. Hoe de drie klassen de premie bepalen, staat in [kleine, middelgrote of grote werkgever](/blog/kleine-middelgrote-grote-werkgever-whk-2027). Waarom het ZW-gemiddelde hoger ligt dan de lopende uitgaven: [Ziektewet-flexpremie 2027](/blog/ziektewet-flexpremie-2027-negatief-vermogen).
 
-De reeks van eerdere jaren (tot en met 2026) staat op de [WHK-premiehistorie](https://werkhervattingskas.nl/tools/premiehistorie). Jouw percentage lees je op de beschikking, niet in het gemiddelde: [WHK-beschikking lezen](https://werkhervattingskas.nl/beschikking-uitleg).
+De reeks van eerdere jaren (tot en met 2026) staat op de [WHK-premiehistorie](https://werkhervattingskas.nl/tools/premiehistorie). Jouw percentage lees je op de beschikking, niet in het gemiddelde: [WHK-beschikking lezen](https://werkhervattingskas.nl/beschikking-uitleg). Wie in 2021 tot en met 2025 niet elk jaar heeft verloond, krijgt op het individuele risico een aparte factor. Die staat niet in de gemiddelden hierboven: [correctiefactor bij een onvolledige periode](/blog/correctiefactor-whk-onvolledige-periode).
 
 ## Wat je daarna checkt
 
