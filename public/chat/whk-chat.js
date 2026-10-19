@@ -194,11 +194,80 @@
     var exitOn = !!(exit && exit.classList.contains('show'));
     document.documentElement.classList.toggle('whkchat-exit', exitOn && !isOpen());
     if (exitOn && isOpen() && exit) exit.classList.remove('show');
+    tryShowTeaser();
   }
 
+  function isNarrowPhone() {
+    return window.matchMedia('(max-width: 767px)').matches;
+  }
+  function teaserDismissed() {
+    if (state.teaser === 2) return true;
+    try { return localStorage.getItem('whk_chat_teaser_dismissed') === '1'; } catch (e) { return false; }
+  }
   function hideTeaser(dismiss) {
     teaser.hidden = true;
-    if (dismiss) { state.teaser = 2; save(); }
+    if (dismiss) {
+      state.teaser = 2;
+      save();
+      try { localStorage.setItem('whk_chat_teaser_dismissed', '1'); } catch (e) {}
+    }
+  }
+  function contentUnder(node) {
+    var el = node;
+    while (el && el !== document.body && el !== document.documentElement) {
+      if (root.contains(el)) return false;
+      if (el.id === 'cookie-banner' || el.id === 'sticky-contact-bar' || el.id === 'exit-intent-bg') return false;
+      var tag = el.tagName;
+      if (/^(BUTTON|A|INPUT|TEXTAREA|SELECT|LABEL|P|H1|H2|H3|H4|LI|IMG|FIGCAPTION|SPAN|STRONG|EM)$/.test(tag)) return true;
+      var text = '';
+      for (var i = 0; i < el.childNodes.length; i++) {
+        if (el.childNodes[i].nodeType === 3) text += el.childNodes[i].textContent;
+      }
+      if (text.trim()) {
+        var box = el.getBoundingClientRect();
+        if (box.width < window.innerWidth * 0.92 && box.height < 280) return true;
+      }
+      el = el.parentElement;
+    }
+    return false;
+  }
+  function teaserCoversContent() {
+    var rect = teaser.getBoundingClientRect();
+    if (rect.width < 8 || rect.height < 8) return false;
+    var prev = teaser.style.visibility;
+    teaser.style.visibility = 'hidden';
+    var xs = [rect.left + 8, rect.left + rect.width / 2, Math.max(rect.left + 8, rect.right - 8)];
+    var ys = [rect.top + 6, rect.top + rect.height / 2, Math.max(rect.top + 6, rect.bottom - 6)];
+    var covers = false;
+    for (var i = 0; i < xs.length && !covers; i++) {
+      for (var j = 0; j < ys.length && !covers; j++) {
+        if (xs[i] < 0 || ys[j] < 0 || xs[i] > window.innerWidth || ys[j] > window.innerHeight) continue;
+        var hit = document.elementFromPoint(xs[i], ys[j]);
+        if (hit && contentUnder(hit)) covers = true;
+      }
+    }
+    teaser.style.visibility = prev;
+    return covers;
+  }
+  var teaserReady = false;
+  function tryShowTeaser() {
+    if (!teaserReady || teaserDismissed() || isOpen() || root.classList.contains('is-contact-open') || document.documentElement.classList.contains('whkchat-exit') || isNarrowPhone()) {
+      if (teaserDismissed() || isNarrowPhone()) teaser.hidden = true;
+      return;
+    }
+    teaser.style.visibility = 'hidden';
+    teaser.hidden = false;
+    var covers = teaserCoversContent();
+    if (covers) {
+      teaser.hidden = true;
+      teaser.style.visibility = '';
+      return;
+    }
+    teaser.style.visibility = '';
+    if (state.teaser !== 1) {
+      state.teaser = 1;
+      save();
+    }
   }
   function closeContact() {
     menu.hidden = true;
@@ -516,13 +585,11 @@
     });
   }
   place();
-  if (state.teaser !== 2) {
+  if (!teaserDismissed()) {
     window.setTimeout(function () {
-      if (state.teaser === 2 || isOpen() || root.classList.contains('is-contact-open') || document.documentElement.classList.contains('whkchat-exit')) return;
-      teaser.hidden = false;
-      state.teaser = 1;
-      save();
-    }, 1200);
+      teaserReady = true;
+      place();
+    }, 4000);
   }
   if (/[?&]chatpreview=1(?:&|$)/.test(location.search) && /[?&]chatopen=1(?:&|$)/.test(location.search)) {
     openChat();
