@@ -19,7 +19,7 @@ Het UWV beschrijft de volgorde zo. Bron: [Loonkostenvoordeel aanvragen en ontvan
 - **Definitief.** De Belastingdienst stuurt uiterlijk **31 juli** N+1 de definitieve berekening en betaalt de tegemoetkoming **binnen 6 weken** na de datum van die berekening. Een openstaande belastingschuld kan worden verrekend.
 - **Bezwaar.** Vragen over de definitieve berekening of bezwaar lopen via de Belastingdienst, niet via het loket van de voorlopige brief.
 
-Zet deze data naast de [WHK-jaarkalender](https://werkhervattingskas.nl/tools/jaarkalender). Of een medewerker in een doelgroep valt, kun je naast de [subsidie-scan](https://werkhervattingskas.nl/tools/subsidie-scan) leggen. De scan vervangt de loonaangifte niet.
+Zet deze data naast de [WHK-jaarkalender](https://werkhervattingskas.nl/tools/jaarkalender). Of een medewerker in een doelgroep valt, kun je naast de [subsidie-scan](https://werkhervattingskas.nl/tools/subsidie-scan) leggen. De scan vervangt de loonaangifte niet. Wat je vóór 31 december alvast afvinkt, los van deze kalender, staat in de [jaareinde-checklist WHK](/blog/jaareinde-checklist-whk-voor-31-december).
 
 ## Banenafspraak vanaf 1 januari 2026
 
