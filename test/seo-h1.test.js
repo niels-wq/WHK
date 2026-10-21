@@ -39,6 +39,20 @@ var routes = [
     drop: ['home-view', 'faq-view']
   },
   {
+    path: '/diensten/whk-controle',
+    title: 'WHK-beschikking controleren: gratis check [2026]',
+    h1: 'WHK-beschikking controleren: zo werkt het, stap voor stap.',
+    keep: ['dienst-whkreductie-view', 'id="whk-direct-answer"', 'Hoe controleer je een WHK-beschikking?'],
+    drop: ['home-view', 'faq-view'],
+    links: [
+      '/blog/whk-beschikking-lezen-in-10-minuten',
+      '/blog/bezwaar-whk-beschikking-stappenplan',
+      '/blog/correctiefactor-whk-onvolledige-periode',
+      '/whk_checklist.html',
+      '/beschikking-uitleg'
+    ]
+  },
+  {
     path: '/beschikking-uitleg',
     title: 'WHK-beschikking lezen (2026): loonsom, premie en toerekening',
     h1: 'WHK-beschikking lezen: dagtekening, loonsom, premie en toerekening',
@@ -117,7 +131,7 @@ function headOf(html) {
   return html.slice(start, end);
 }
 
-var FAQ_ROUTES = { '/faq': true, '/tools/wia-calculator': true };
+var FAQ_ROUTES = { '/faq': true, '/tools/wia-calculator': true, '/diensten/whk-controle': true };
 
 function faqLdBlocks(html) {
   return (html.match(/<script type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/g) || [])
@@ -149,6 +163,21 @@ function stripInline(s) {
     .replace(/&#(\d+);/g, function (_, n) { return String.fromCharCode(parseInt(n, 10)); })
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+function visibleWhkPairs(html) {
+  var start = html.indexOf('id="whkr-faq"');
+  var end = html.indexOf('id="whkr-blog-hub"');
+  assert.ok(start !== -1 && end > start, 'whk faq block');
+  var block = html.slice(start, end);
+  var pairs = [];
+  var re = /<button class="faq-q">([\s\S]*?)<\/button>\s*<div class="faq-a">([\s\S]*?)<\/div>/gi;
+  var m;
+  while ((m = re.exec(block))) {
+    var qHtml = m[1].replace(/<span class="faq-chevron">[\s\S]*?<\/span>/gi, '');
+    pairs.push({ question: stripInline(qHtml), answer: stripInline(m[2]) });
+  }
+  return pairs;
 }
 
 function visibleWiaPairs(html) {
@@ -264,6 +293,58 @@ var server = app.listen(0, '127.0.0.1', function () {
     });
     visible.forEach(function (pair) {
       assert.ok(!faqNames[pair.question], 'question overlaps /faq: ' + pair.question);
+    });
+
+    var whkBody = results[routes.findIndex(function (r) { return r.path === '/diensten/whk-controle'; })].body;
+    var whkStart = whkBody.indexOf('id="dienst-whkreductie-view"');
+    var whkEnd = whkBody.indexOf('</section>', whkStart);
+    var whkPage = whkBody.slice(whkStart, whkEnd);
+    assert.ok(whkBody.indexOf('id="whk-direct-answer"') !== -1, 'whk direct answer');
+    assert.ok(whkPage.indexOf('Bijgewerkt:') !== -1, 'whk visible updated label');
+    assert.ok(whkPage.indexOf('datetime="2026-10-21"') !== -1, 'whk visible updated date');
+    assert.ok(whkPage.indexOf('21 oktober 2026') !== -1, 'whk visible date text');
+    assert.ok(whkBody.indexOf('"dateModified": "2026-10-21"') !== -1, 'whk schema dateModified');
+    assert.ok(whkPage.indexOf('Start de gratis WHK-check') !== -1, 'whk free check cta');
+    [
+      'https://download.belastingdienst.nl/belastingdienst/docs/handboek-loonheffingen-lh0221t61fd.pdf',
+      'https://www.belastingdienst.nl/wps/wcm/connect/nl/bezwaar-en-beroep/content/eisen-bezwaar',
+      'https://www.belastingdienst.nl/wps/wcm/connect/nl/bezwaar-en-beroep/content/wanneer-bericht-over-bezwaar',
+      'https://www.uwv.nl/nl/premies-bedragen/whk-premie',
+      'https://www.uwv.nl/assets-kai/files/e465c57e-dd6a-447a-8feb-bee3c9a41575/gedifferentieerde-premies-wga-en-ziektewet-2027.pdf',
+      'https://zoek.officielebekendmakingen.nl/stcrt-2026-24832.html'
+    ].forEach(function (href) {
+      assert.ok(whkPage.indexOf('href="' + href + '"') !== -1, 'whk source missing ' + href);
+    });
+    assert.ok(!/no[\s-]*cure/i.test(whkPage), 'whk page no cure');
+    assert.ok(whkPage.indexOf('8 van de 10') === -1, 'whk page 8 van de 10');
+    assert.ok(whkPage.indexOf('8/10') === -1, 'whk page 8/10');
+    assert.ok(whkPage.indexOf('47.000') === -1 && whkPage.indexOf('47000') === -1, 'whk page 47000');
+    assert.ok(!/\bERD\b/.test(whkPage) && whkPage.indexOf('eigenrisicodrager') === -1, 'whk page must not sell ERD');
+    assert.ok(whkPage.indexOf('Hoe lang duurt een bezwaarprocedure bij de Belastingdienst?') === -1, 'duplicate duration question');
+    assert.strictEqual((whkPage.match(/Hoe lang duurt een WHK-bezwaarprocedure\?/g) || []).length, 1, 'one duration question');
+    assert.strictEqual((whkPage.match(/id="whkr-faq"/g) || []).length, 1, 'one faq block');
+    var whkVisible = visibleWhkPairs(whkBody);
+    assert.ok(whkVisible.length >= 8, 'whk faq question count ' + whkVisible.length);
+    assert.strictEqual(whkVisible[0].question, 'Hoe controleer je een WHK-beschikking?', 'how-to question first');
+    assert.ok(whkVisible[0].answer.indexOf('Stap 1.') !== -1, 'how-to steps');
+    assert.ok(whkVisible[0].answer.indexOf('Stap 5.') !== -1, 'how-to last step');
+    var seenQ = {};
+    whkVisible.forEach(function (pair) {
+      assert.ok(!seenQ[pair.question], 'duplicate visible question ' + pair.question);
+      seenQ[pair.question] = true;
+    });
+    var whkSchema = faqPages(whkBody);
+    assert.strictEqual(whkSchema.length, 1, 'one FAQPage schema on whk-controle');
+    assert.strictEqual(whkSchema[0].mainEntity.length, whkVisible.length, 'whk schema questions match visible');
+    assert.strictEqual(whkSchema[0].dateModified, '2026-10-21', 'whk FAQPage dateModified');
+    whkVisible.forEach(function (pair, i) {
+      var entity = whkSchema[0].mainEntity[i];
+      assert.strictEqual(entity['@type'], 'Question', 'whk schema type ' + i);
+      assert.strictEqual(entity.name, pair.question, 'whk schema question ' + i);
+      assert.strictEqual(entity.acceptedAnswer.text, pair.answer, 'whk schema answer ' + i);
+    });
+    whkVisible.forEach(function (pair) {
+      assert.ok(!faqNames[pair.question], 'whk question overlaps /faq: ' + pair.question);
     });
 
     var ado = results[results.length - 2];
