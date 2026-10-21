@@ -28,7 +28,10 @@ const ARTICLES_DIR      = path.join(__dirname, 'content', 'articles');
 const leadGuard         = require('./lib/lead-guard');
 const routeHtml         = require('./lib/route-html');
 const blogImages        = require('./lib/blog-images');
+const securityHeaders   = require('./lib/security-headers');
 
+app.disable('x-powered-by');
+app.use(securityHeaders.securityHeaders);
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 // Railway / GSC send Host or X-Forwarded-Host; needed to see www behind the proxy.
