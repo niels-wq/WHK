@@ -609,7 +609,7 @@
       </label>
       <div id="callback-phone-wrap" style="display:none;margin-top:4px;">
         <div class="hp-field" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;">
-          <label for="callback-honeypot">Website</label>
+          <label for="callback-honeypot" aria-hidden="true">Website</label>
           <input type="text" id="callback-honeypot" name="website" tabindex="-1" autocomplete="off">
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
@@ -809,7 +809,8 @@ function submitCallback(){
       email: email,
       message: 'Terugbelverzoek via WHK-checklist',
       source: 'terugbel-checklist',
-      website: hp
+      website: hp,
+      whk_ts: (window.WHK_FORM_GUARD && window.WHK_FORM_GUARD.token) || ((document.querySelector('input[name="whk_ts"]') || {}).value || '')
     })
   }).catch(function(){});
 

@@ -26,9 +26,12 @@ const RESEND_API_KEY    = process.env.RESEND_API_KEY    || '';
 const FROM_EMAIL        = process.env.FROM_EMAIL        || 'noreply@werkhervattingskas.nl';
 const ARTICLES_DIR      = path.join(__dirname, 'content', 'articles');
 const leadGuard         = require('./lib/lead-guard');
+const spamGuard         = require('./lib/spam-guard');
 const routeHtml         = require('./lib/route-html');
 const blogImages        = require('./lib/blog-images');
 const securityHeaders   = require('./lib/security-headers');
+const capturedLeads     = [];
+const capturedNewsletter = [];
 
 app.disable('x-powered-by');
 app.use(securityHeaders.securityHeaders);
@@ -303,6 +306,12 @@ function injectPublicSurface(html, pub) {
   if (calendly) out = injectCalendly(out, calendly);
   return out;
 }
+function injectFormGuard(html) {
+  return spamGuard.stampHtml(html, spamGuard.issue());
+}
+function silentLeadOk() {
+  return { ok: true, id: 'lead_' + Date.now(), status: 'new', notified: true };
+}
 
 // ================================================================
 // FILE-BASED ARTICLES — content/articles/*.md (frontmatter + markdown)
@@ -421,6 +430,7 @@ async function persistLead(body) {
     flagReason: classified.reason === 'ok' ? undefined : classified.reason
   };
 
+  if (process.env.WHK_CAPTURE_LEADS === '1') capturedLeads.push(lead);
   if (pool) {
     const existing = await kvGet('leads');
     const leads = existing ? JSON.parse(existing) : [];
@@ -447,6 +457,8 @@ async function persistLead(body) {
 }
 async function handleLeadPost(req, res) {
   try {
+    const verdict = spamGuard.evaluate({ body: req.body || {}, ip: spamGuard.clientIp(req) });
+    if (verdict.spam) return res.status(200).json(silentLeadOk());
     const out = await persistLead(req.body || {});
     res.status(out.http).json(out.body);
   } catch (e) {
@@ -454,8 +466,34 @@ async function handleLeadPost(req, res) {
     res.status(500).json({ error: e.message });
   }
 }
+async function handleNewsletterPost(req, res) {
+  try {
+    const body = req.body || {};
+    const verdict = spamGuard.evaluate({ body: body, ip: spamGuard.clientIp(req) });
+    if (verdict.spam) return res.status(200).json({ ok: true });
+    const email = String(body.email || '').trim();
+    if (!email) return res.status(400).json({ error: 'E-mailadres is verplicht.' });
+    const row = { email: email, subscribedAt: new Date().toISOString() };
+    if (process.env.WHK_CAPTURE_LEADS === '1') capturedNewsletter.push(row);
+    if (pool) {
+      const existing = await kvGet('newsletter');
+      let list = [];
+      if (existing) {
+        try { list = JSON.parse(existing); } catch (e) { list = []; }
+      }
+      if (!Array.isArray(list)) list = [];
+      list.unshift(row);
+      await kvSet('newsletter', JSON.stringify(list));
+    }
+    res.status(200).json({ ok: true });
+  } catch (e) {
+    console.error('Nieuwsbrief fout:', e.message);
+    res.status(500).json({ error: e.message });
+  }
+}
 app.post('/api/lead/notify', handleLeadPost);
 app.post('/api/leads', handleLeadPost);
+app.post('/api/newsletter', handleNewsletterPost);
 
 const chatApi = require('./lib/chat-api');
 chatApi.mount(app, { persistLead: persistLead });
@@ -637,6 +675,7 @@ async function serveWithMeta(res, meta, canonPath, statusCode, page, req) {
   if (page && page.post && page.post.image) modified = applyBlogSocialImage(modified, page.post);
   const pub = await publicSurface();
   modified = injectPublicSurface(modified, pub);
+  modified = injectFormGuard(modified);
   const chatOn = req && canonPath !== '/admin' && chatApi.shouldInject(req);
   if (chatOn) modified = chatApi.inject(modified, req);
   res.status(statusCode || 200);
@@ -965,6 +1004,7 @@ app.get('/whk_checklist.html', async (req, res) => {
   try {
     html = injectPublicSurface(html, await publicSurface());
   } catch (e) { /* checklist blijft leesbaar */ }
+  html = injectFormGuard(html);
   const chatOn = chatApi.shouldInject(req);
   if (chatOn) html = chatApi.inject(html, req);
   res.setHeader('Cache-Control', chatOn && !chatApi.isFlagOn() ? 'no-store' : 'public, max-age=300');
@@ -991,4 +1031,6 @@ if (require.main === module) {
   });
 }
 
+app.capturedLeads = capturedLeads;
+app.capturedNewsletter = capturedNewsletter;
 module.exports = app;
