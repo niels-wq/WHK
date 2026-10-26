@@ -27,6 +27,9 @@ var OCT19_BLOGS = [
 var JAAR_BLOGS = [
   'jaareinde-checklist-whk-voor-31-december'
 ];
+var PILLAR_BLOGS = [
+  'compensatie-transitievergoeding-na-2-jaar-ziekte'
+];
 var ROUND_BLOGS = [
   'kleine-middelgrote-grote-werkgever-whk-2027',
   'wia-herstelactie-en-60-plusmaatregel-werkgevers',
@@ -206,6 +209,46 @@ function assertArticle(post, res) {
     assert.ok(res.body.indexOf('alt="Niels Alderding"') !== -1, url + ' author photo');
     assert.strictEqual((res.body.match(/<h1\b/gi) || []).length, 1, url + ' one h1');
   }
+  if (PILLAR_BLOGS.indexOf(post.slug) !== -1) {
+    assert.ok(res.body.indexOf('id="route-article-schema"') !== -1, url + ' BlogPosting schema');
+    assert.ok(res.body.indexOf('"@type": "BlogPosting"') !== -1, url + ' BlogPosting type');
+    assert.ok(res.body.indexOf('"@type": "BreadcrumbList"') !== -1, url + ' BreadcrumbList');
+    assert.ok(res.body.indexOf('"name": "Niels Alderding"') !== -1, url + ' author');
+    assert.ok(res.body.indexOf('"datePublished": "2026-10-05"') !== -1, url + ' datePublished');
+    assert.ok(res.body.indexOf('"dateModified": "2026-10-26"') !== -1, url + ' dateModified');
+    assert.ok(res.body.indexOf('"@type": "FAQPage"') !== -1, url + ' FAQPage');
+    assert.ok(
+      res.body.indexOf('alt="Uitgelichte afbeelding bij het artikel: ' + post.title + '"') !== -1,
+      url + ' featured image alt'
+    );
+    assert.ok(res.body.indexOf('<meta property="og:image" content="https://werkhervattingskas.nl/assets/blog/' + post.slug + '.webp"') !== -1, url + ' og:image');
+    assert.ok(res.body.indexOf('Bijgewerkt op 26 oktober 2026') !== -1, url + ' updated date');
+    assert.ok(res.body.indexOf('Gepubliceerd op 5 oktober 2026') !== -1, url + ' published date');
+    assert.ok(res.body.indexOf('alt="Niels Alderding"') !== -1, url + ' author photo');
+    assert.strictEqual((res.body.match(/<h1\b/gi) || []).length, 1, url + ' one h1');
+    assert.ok(res.body.indexOf('https://www.werkhervattingskas.nl') === -1, url + ' www canonical');
+    assert.ok(res.body.indexOf('tel:' + '+316') === -1 && res.body.indexOf('tel:' + '06') === -1, url + ' mobile tel');
+    var bodyAt = res.body.indexOf('id="blogpost-body"');
+    var article = res.body.slice(bodyAt, res.body.indexOf('</div>', bodyAt));
+    assert.ok(article.indexOf('<ol>') !== -1, url + ' numbered steps');
+    assert.ok((article.match(/<table>/g) || []).length >= 2, url + ' tables');
+    assert.ok(article.indexOf('8 van de 10') === -1, url + ' 8 van de 10');
+    assert.ok(article.indexOf('erd-partneradvies') === -1, url + ' ERD advice link');
+    assert.ok(article.indexOf('Gratis WHK-beschikking check') !== -1, url + ' WHK check CTA');
+    assert.ok(article.indexOf('/over-ons') !== -1, url + ' contact CTA');
+    var faqStart = res.body.indexOf('id="route-faq-schema"');
+    assert.ok(faqStart !== -1, url + ' faq schema id');
+    var faqJson = res.body.slice(res.body.indexOf('{', faqStart), res.body.indexOf('</script>', faqStart));
+    var faq = JSON.parse(faqJson);
+    assert.strictEqual(faq['@type'], 'FAQPage', url + ' FAQ type');
+    assert.ok(faq.mainEntity.length >= 4 && faq.mainEntity.length <= 6, url + ' FAQ count');
+    faq.mainEntity.forEach(function (item) {
+      assert.ok(article.indexOf(item.name) !== -1, url + ' visible question ' + item.name);
+      assert.ok(item.acceptedAnswer && item.acceptedAnswer.text, url + ' answer text');
+      var visible = article.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+      assert.ok(visible.indexOf(item.acceptedAnswer.text) !== -1, url + ' visible answer ' + item.name);
+    });
+  }
   if (post.slug === 'zw-eigenrisicodrager-checklist') {
     var bodyAt = res.body.indexOf('id="blogpost-body"');
     var article = res.body.slice(bodyAt, res.body.indexOf('</div>', bodyAt));
@@ -257,8 +300,19 @@ var server = app.listen(0, '127.0.0.1', function () {
     });
   });
   var missing = request(port, '/blog/bestaat-niet-xyz').then(assertNotFound);
+  var sitemap = request(port, '/sitemap.xml').then(function (res) {
+    assert.strictEqual(res.status, 200, 'sitemap');
+    assert.ok(
+      res.body.indexOf('<loc>' + APEX + '/blog/compensatie-transitievergoeding-na-2-jaar-ziekte</loc><lastmod>2026-10-26</lastmod>') !== -1,
+      'pillar lastmod'
+    );
+    assert.ok(
+      res.body.indexOf('<loc>' + APEX + '/blog/tweede-spoor-reintegratie-werkgever</loc><lastmod>2026-10-13</lastmod>') !== -1,
+      'seed lastmod uses updatedAt'
+    );
+  });
 
-  Promise.all([articleReqs, seedReqs, missing]).then(function () {
+  Promise.all([articleReqs, seedReqs, missing, sitemap]).then(function () {
     console.log('blog slug tests ok (' + articles.length + ' articles, ' + seeds.length + ' seed posts, unknown 404)');
     server.close();
   }).catch(function (err) {
