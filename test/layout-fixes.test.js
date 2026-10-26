@@ -17,6 +17,18 @@ assert.ok(html.indexOf('aria-label="Bel 085-0870307"') !== -1, 'belknop mist ari
 assert.ok(html.indexOf('id="header-call" href="tel:+31850870307"') !== -1, 'belknop moet tel:+31850870307 houden');
 assert.ok(html.indexOf('.wvz-logo span{display:none;}') !== -1, 'tagline wordt onder 1440px niet verborgen');
 
+var phoneHeaderAt = html.indexOf('@media (max-width:480px){\n    .wvz-logo span{display:none;}');
+assert.ok(phoneHeaderAt !== -1, 'tagline wordt onder 480px niet verborgen');
+var phoneHeader = html.slice(phoneHeaderAt, html.indexOf('\n  }', phoneHeaderAt) + 4);
+assert.ok(phoneHeader.indexOf('.wvz-header .wvz-header-row{gap:8px;}') !== -1, 'headergap blijft onder 480px te groot');
+assert.ok(/\.header-cta-group \.btn\{padding:6px 10px;font-size:0\.75rem;\}/.test(phoneHeader), 'CTA-padding is onder 480px niet kleiner');
+assert.ok(phoneHeader.indexOf('.header-cta-full{display:none;}') !== -1, 'volle CTA-tekst blijft onder 480px staan');
+assert.ok(phoneHeader.indexOf('.header-cta-short{display:inline;}') !== -1, 'korte CTA ontbreekt onder 480px');
+assert.ok(html.indexOf('.header-cta-short{display:none;}') !== -1, 'korte CTA is ook boven 480px zichtbaar');
+assert.ok(html.indexOf('<span class="header-cta-full">Gratis WHK-check</span>') !== -1, 'desktop-CTA mist Gratis WHK-check');
+assert.ok(html.indexOf('<span class="header-cta-short">Gratis check</span>') !== -1, 'smalle CTA mist Gratis check');
+assert.ok(html.indexOf('@media (min-width:781px)') !== -1 && html.indexOf('.wvz-logo span{white-space:nowrap;}') !== -1, 'desktop-tagline mag niet wrappen');
+
 var mobileCss = css.slice(css.indexOf('@media (max-width:767px)'));
 assert.ok(mobileCss.indexOf('@media (max-width:767px)') === 0, 'mobiele chat-breakpoint ontbreekt');
 assert.ok(/\.whkchat__teaser\{[^}]*display:\s*none/.test(mobileCss), 'ballon opent nog automatisch op mobiel');
