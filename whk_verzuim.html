@@ -167,6 +167,14 @@
     .header-cta-group #header-call{display:none;}
     .header-cta-group .btn{padding:7px 12px;font-size:0.78rem;}
   }
+  .header-cta-short{display:none;}
+  @media (max-width:480px){
+    .wvz-logo span{display:none;}
+    .wvz-header .wvz-header-row{gap:8px;}
+    .header-cta-group .btn{padding:6px 10px;font-size:0.75rem;}
+    .header-cta-full{display:none;}
+    .header-cta-short{display:inline;}
+  }
 
   .fout-row{display:flex;gap:6px;margin-bottom:10px;}
   .fout-chip{width:18px;height:24px;border-radius:2px;border:1.5px solid var(--ink);position:relative;}
@@ -1871,7 +1879,7 @@
       </nav>
       <div class="header-cta-group">
         <a class="btn btn-ghost" id="header-call" href="tel:+31850870307" data-st-tel aria-label="Bel 085-0870307"><svg class="header-call-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 7a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1L6.6 10.8z"/></svg><span class="header-call-label">085-0870307</span></a>
-        <button class="btn btn-risk" type="button" data-cta="calculator" id="open-whk-check">Gratis WHK-check</button>
+        <button class="btn btn-risk" type="button" data-cta="calculator" id="open-whk-check"><span class="header-cta-full">Gratis WHK-check</span><span class="header-cta-short">Gratis check</span></button>
         <button class="btn btn-ghost" id="open-terugbel">Bel mij terug</button>
       </div>
     </div>
