@@ -33,6 +33,9 @@ var OCT19_SLUGS = [
 var JAAR_SLUGS = [
   'jaareinde-checklist-whk-voor-31-december'
 ];
+var PILLAR_SLUGS = [
+  'compensatie-transitievergoeding-na-2-jaar-ziekte'
+];
 var BACKLINKS = {
   'kleine-middelgrote-grote-werkgever-whk-2027': [
     'whk-premies-2027-wga-en-zw.md',
@@ -182,6 +185,49 @@ files.forEach(function (file) {
       '/blog/'
     ].filter(function (href) { return parsed.body.indexOf(href) !== -1; });
     assert.ok(internal.length >= 3, file + ' needs at least 3 internal links, got ' + internal.length);
+  }
+  if (PILLAR_SLUGS.indexOf(slug) !== -1) {
+    assert.ok(parsed.meta.title.length >= 50 && parsed.meta.title.length <= 60, file + ' title length ' + parsed.meta.title.length);
+    assert.ok(parsed.meta.title.indexOf('Compensatie transitievergoeding aanvragen') === 0, file + ' keyword near start');
+    assert.ok(parsed.meta.description.length >= 140 && parsed.meta.description.length <= 155, file + ' description length ' + parsed.meta.description.length);
+    assert.ok(parsed.meta.publishedAt === '2026-10-05', file + ' publishedAt stays the original date');
+    assert.ok(parsed.meta.updatedAt === '2026-10-26', file + ' updatedAt');
+    assert.ok(parsed.body.indexOf('\u2014') === -1 && parsed.body.indexOf('\u2013') === -1, file + ' dashes');
+    assert.ok(!/no cure no pay/i.test(parsed.body), file + ' no cure no pay');
+    assert.ok(parsed.body.indexOf('47.000') === -1, file + ' 47.000');
+    assert.ok(parsed.body.indexOf('8 van de 10') === -1, file + ' 8 van de 10');
+    assert.ok(parsed.body.indexOf('erd-partneradvies') === -1, file + ' ERD sales link');
+    assert.ok(parsed.body.indexOf('tel:') === -1, file + ' tel link');
+    assert.ok(parsed.body.indexOf('## Veelgestelde vragen') !== -1, file + ' FAQ heading');
+    var faqQs = parsed.body.match(/^\*\*.+\?\*\*/gm) || [];
+    assert.ok(faqQs.length >= 4 && faqQs.length <= 6, file + ' FAQ count ' + faqQs.length);
+    assert.ok((parsed.body.match(/^\d+\. /gm) || []).length >= 6, file + ' numbered steps');
+    assert.ok(parsed.body.indexOf('| Stuk |') !== -1 && parsed.body.indexOf('| Situatie |') !== -1, file + ' tables');
+    assert.ok(parsed.body.indexOf('€ 102.000') !== -1, file + ' 2026 maximum');
+    assert.ok(parsed.body.indexOf('6 maanden') !== -1, file + ' deadline');
+    assert.ok(parsed.body.indexOf('8 weken') !== -1, file + ' decision term');
+    assert.ok(parsed.body.indexOf('5 werkdagen') !== -1, file + ' payment term');
+    assert.ok(parsed.body.indexOf('6 weken') !== -1, file + ' bezwaar term');
+    assert.ok(parsed.body.indexOf('13 weken') !== -1, file + ' bezwaar decision');
+    assert.ok(parsed.body.indexOf('20%') !== -1, file + ' partial dismissal');
+    [
+      'https://www.uwv.nl/nl/ontslag/compensatie-transitievergoeding-langdurige-arbeidsongeschiktheid',
+      'https://www.uwv.nl/en/employers/forms/applying-for-dismissal-pay-compensation-in-the-event-of-occupational-disability',
+      'https://www.rijksoverheid.nl/themas/werk/ontslag/compensatie-transitievergoeding',
+      'https://wetten.overheid.nl/BWBR0041942/2022-04-01',
+      'https://wetten.overheid.nl/BWBR0005290/2026-07-01/0/Boek7/Titeldeel10/Afdeling9/Artikel673e/afdrukken',
+      'https://zoek.officielebekendmakingen.nl/stcrt-2025-43567.html',
+      'https://werkhervattingskas.nl/over-ons',
+      'https://werkhervattingskas.nl/diensten/whk-controle',
+      'https://werkhervattingskas.nl/tools/wia-calculator',
+      'https://werkhervattingskas.nl/beschikking-uitleg',
+      'https://werkhervattingskas.nl/faq',
+      '/blog/bezwaar-maken-bij-het-uwv'
+    ].forEach(function (href) {
+      assert.ok(parsed.body.indexOf(href) !== -1, file + ' missing link ' + href);
+    });
+    var bezwaar = fs.readFileSync(path.join(dir, 'bezwaar-maken-bij-het-uwv.md'), 'utf8');
+    assert.ok(bezwaar.indexOf('/blog/' + slug) !== -1, 'bezwaar article should link the pillar');
   }
   if (slug === 'erd-2027-aanvragen-voor-2-oktober') {
     assert.ok(/verstreken|voorbij/i.test(parsed.body), file + ' should say the January 2027 deadline has passed');
