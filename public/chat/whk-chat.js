@@ -381,11 +381,25 @@
     var emailEl = field('email', 'E-mail', 'email', false);
     var phoneEl = field('phone', 'Telefoon', 'tel', false);
     var msgEl = field('message', 'Uw vraag (optioneel)', 'textarea', true);
-    var hp = el('input', 'whkchat__hp');
+    var hpWrap = el('div', 'whkchat__hp');
+    hpWrap.setAttribute('aria-hidden', 'true');
+    var hpLabel = el('label');
+    hpLabel.setAttribute('aria-hidden', 'true');
+    hpLabel.setAttribute('for', 'whkchat-website');
+    hpLabel.textContent = 'Website';
+    var hp = el('input');
+    hp.id = 'whkchat-website';
     hp.type = 'text';
     hp.name = 'website';
     hp.tabIndex = -1;
     hp.autocomplete = 'off';
+    hpWrap.appendChild(hpLabel);
+    hpWrap.appendChild(hp);
+    var ts = el('input');
+    ts.type = 'hidden';
+    ts.name = 'whk_ts';
+    ts.autocomplete = 'off';
+    ts.value = (window.WHK_FORM_GUARD && window.WHK_FORM_GUARD.token) || '';
     var err = el('p', 'whkchat__err');
     err.hidden = true;
     var submit = el('button', 'whkchat__submit', 'Verstuur');
@@ -393,7 +407,8 @@
     box.appendChild(h);
     box.appendChild(intro);
     box.appendChild(grid);
-    box.appendChild(hp);
+    box.appendChild(hpWrap);
+    box.appendChild(ts);
     box.appendChild(err);
     box.appendChild(submit);
     box.addEventListener('submit', function (ev) {
@@ -424,7 +439,8 @@
           source: 'chat',
           page: page,
           message: message,
-          website: hp.value
+          website: hp.value,
+          whk_ts: ts.value
         })
       }).then(function (r) { return r.json().then(function (data) { return { ok: r.ok, data: data }; }); }).then(function (res) {
         if (!res.ok || !res.data || !res.data.ok) {
@@ -526,7 +542,8 @@
       body: JSON.stringify({
         session: state.session,
         page: location.pathname || '/',
-        messages: state.msgs
+        messages: state.msgs,
+        whk_ts: (window.WHK_FORM_GUARD && window.WHK_FORM_GUARD.token) || ''
       })
     }).then(function (r) { return r.json().then(function (data) { return { status: r.status, data: data }; }); }).then(function (res) {
       typing.remove();

@@ -11,6 +11,7 @@ delete process.env.CHAT_WIDGET_ENABLED;
 var flow = require('../lib/chat-flow');
 var knowledge = require('../lib/chat-knowledge');
 var chat = require('../lib/chat-api');
+var spamGuard = require('../lib/spam-guard');
 var app = require('../server');
 
 function post(server, urlPath, body) {
@@ -151,6 +152,7 @@ var server = app.listen(0, '127.0.0.1', function () {
       assert.strictEqual(res.body.gated, true);
       return post(server, '/api/chat/message?chatpreview=1', {
         session: 'abc123def456',
+        whk_ts: spamGuard.issue(Date.now() - 5000),
         messages: [
           { role: 'user', content: 'Wat kost een arbeidsdeskundig onderzoek?' },
           { role: 'assistant', content: 'Eerst een vraag.' },
