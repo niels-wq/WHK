@@ -17,7 +17,8 @@ var NEW_SLUGS = [
   'ziektewet-flexpremie-2027-negatief-vermogen',
   'loondoorbetaling-bij-ziekte-scenarios-mkb',
   'correctiefactor-whk-onvolledige-periode',
-  'jaareinde-checklist-whk-voor-31-december'
+  'jaareinde-checklist-whk-voor-31-december',
+  'sectorale-whk-premie-2027'
 ];
 var ROUND_SLUGS = [
   'kleine-middelgrote-grote-werkgever-whk-2027',
@@ -57,6 +58,10 @@ var BACKLINKS = {
     'lkv-deadlines-kalender-werkgever.md',
     'no-riskpolis-7-checkpunten-voor-whk-beschikking.md',
     'whk-beschikking-lezen-in-10-minuten.md'
+  ],
+  'sectorale-whk-premie-2027': [
+    'kleine-middelgrote-grote-werkgever-whk-2027.md',
+    'whk-premies-2027-wga-en-zw.md'
   ]
 };
 var REQUIRED_LINKS = [

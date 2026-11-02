@@ -16,7 +16,8 @@ var NEW_BLOGS = [
   'ziektewet-flexpremie-2027-negatief-vermogen',
   'loondoorbetaling-bij-ziekte-scenarios-mkb',
   'correctiefactor-whk-onvolledige-periode',
-  'jaareinde-checklist-whk-voor-31-december'
+  'jaareinde-checklist-whk-voor-31-december',
+  'sectorale-whk-premie-2027'
 ];
 var OCT12_BLOGS = [
   'loondoorbetaling-bij-ziekte-scenarios-mkb'
