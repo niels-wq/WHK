@@ -36,13 +36,16 @@ var ROUND_BLOGS = [
   'ziektewet-flexpremie-2027-negatief-vermogen'
 ];
 
+var agent = new http.Agent({ keepAlive: false });
+
 function request(port, urlPath) {
   return new Promise(function (resolve, reject) {
     var req = http.request({
       hostname: '127.0.0.1',
       port: port,
       path: urlPath,
-      method: 'GET'
+      method: 'GET',
+      agent: agent
     }, function (res) {
       var body = '';
       res.on('data', function (chunk) { body += chunk; });
@@ -215,14 +218,14 @@ function assertArticle(post, res) {
     assert.ok(res.body.indexOf('"@type": "BreadcrumbList"') !== -1, url + ' BreadcrumbList');
     assert.ok(res.body.indexOf('"name": "Niels Alderding"') !== -1, url + ' author');
     assert.ok(res.body.indexOf('"datePublished": "2026-10-05"') !== -1, url + ' datePublished');
-    assert.ok(res.body.indexOf('"dateModified": "2026-10-26"') !== -1, url + ' dateModified');
+    assert.ok(res.body.indexOf('"dateModified": "2026-11-02"') !== -1, url + ' dateModified');
     assert.ok(res.body.indexOf('"@type": "FAQPage"') !== -1, url + ' FAQPage');
     assert.ok(
       res.body.indexOf('alt="Uitgelichte afbeelding bij het artikel: ' + post.title + '"') !== -1,
       url + ' featured image alt'
     );
     assert.ok(res.body.indexOf('<meta property="og:image" content="https://werkhervattingskas.nl/assets/blog/' + post.slug + '.webp"') !== -1, url + ' og:image');
-    assert.ok(res.body.indexOf('Bijgewerkt op 26 oktober 2026') !== -1, url + ' updated date');
+    assert.ok(res.body.indexOf('Bijgewerkt op 2 november 2026') !== -1, url + ' updated date');
     assert.ok(res.body.indexOf('Gepubliceerd op 5 oktober 2026') !== -1, url + ' published date');
     assert.ok(res.body.indexOf('alt="Niels Alderding"') !== -1, url + ' author photo');
     assert.strictEqual((res.body.match(/<h1\b/gi) || []).length, 1, url + ' one h1');
@@ -303,7 +306,7 @@ var server = app.listen(0, '127.0.0.1', function () {
   var sitemap = request(port, '/sitemap.xml').then(function (res) {
     assert.strictEqual(res.status, 200, 'sitemap');
     assert.ok(
-      res.body.indexOf('<loc>' + APEX + '/blog/compensatie-transitievergoeding-na-2-jaar-ziekte</loc><lastmod>2026-10-26</lastmod>') !== -1,
+      res.body.indexOf('<loc>' + APEX + '/blog/compensatie-transitievergoeding-na-2-jaar-ziekte</loc><lastmod>2026-11-02</lastmod>') !== -1,
       'pillar lastmod'
     );
     assert.ok(

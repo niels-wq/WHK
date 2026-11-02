@@ -191,7 +191,9 @@ files.forEach(function (file) {
     assert.ok(parsed.meta.title.indexOf('Compensatie transitievergoeding aanvragen') === 0, file + ' keyword near start');
     assert.ok(parsed.meta.description.length >= 140 && parsed.meta.description.length <= 155, file + ' description length ' + parsed.meta.description.length);
     assert.ok(parsed.meta.publishedAt === '2026-10-05', file + ' publishedAt stays the original date');
-    assert.ok(parsed.meta.updatedAt === '2026-10-26', file + ' updatedAt');
+    assert.ok(parsed.meta.updatedAt === '2026-11-02', file + ' updatedAt');
+    assert.ok(parsed.body.indexOf('1 januari 2028') !== -1, file + ' postponement date');
+    assert.ok(parsed.body.indexOf('€ 98.000') !== -1, file + ' previous maximum');
     assert.ok(parsed.body.indexOf('\u2014') === -1 && parsed.body.indexOf('\u2013') === -1, file + ' dashes');
     assert.ok(!/no cure no pay/i.test(parsed.body), file + ' no cure no pay');
     assert.ok(parsed.body.indexOf('47.000') === -1, file + ' 47.000');
@@ -215,7 +217,9 @@ files.forEach(function (file) {
       'https://www.uwv.nl/en/employers/forms/applying-for-dismissal-pay-compensation-in-the-event-of-occupational-disability',
       'https://www.rijksoverheid.nl/themas/werk/ontslag/compensatie-transitievergoeding',
       'https://wetten.overheid.nl/BWBR0041942/2022-04-01',
-      'https://wetten.overheid.nl/BWBR0005290/2026-07-01/0/Boek7/Titeldeel10/Afdeling9/Artikel673e/afdrukken',
+      'https://wetten.overheid.nl/BWBR0005290/2026-10-08/0/Boek7/Titeldeel10/Afdeling9/Artikel673e/afdrukken',
+      'https://www.rijksoverheid.nl/actueel/nieuws/2026/09/15/prinsjesdag-2026-maatregelen-op-het-gebied-van-szw',
+      'https://www.rijksoverheid.nl/site/binaries/site-content/collections/documents/2026/09/15/miljoenennota-2027/00-miljoenennota-pdf.pdf',
       'https://zoek.officielebekendmakingen.nl/stcrt-2025-43567.html',
       'https://werkhervattingskas.nl/over-ons',
       'https://werkhervattingskas.nl/diensten/whk-controle',

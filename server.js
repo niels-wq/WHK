@@ -910,7 +910,7 @@ app.get('/llms.txt', (req, res) => {
 - [Jaareinde-checklist WHK](${u}/blog/jaareinde-checklist-whk-voor-31-december): vijf punten vóór 31 december, van loonsom 2025 en no-risk tot LKV, correcties op de loonaangifte en de brief voor 2027.
 - [LKV-deadlines](${u}/blog/lkv-deadlines-kalender-werkgever): kalender voor de voorlopige berekening, correcties en de definitieve beschikking.
 - [ZW-eigenrisicodrager checklist](${u}/blog/zw-eigenrisicodrager-checklist): voorwaarden, aanvraag en wat je checkt vóór je overstapt.
-- [Compensatie transitievergoeding aanvragen](${u}/blog/compensatie-transitievergoeding-na-2-jaar-ziekte): aanvraag bij het UWV binnen 6 maanden na volledige betaling, met stukken, plafond en bezwaar.
+- [Compensatie transitievergoeding aanvragen](${u}/blog/compensatie-transitievergoeding-na-2-jaar-ziekte): aanvraag bij het UWV binnen 6 maanden na volledige betaling, met stukken, plafond en bezwaar. Het maximum is in 2026 € 102.000 bruto bij een einde op of na 1 januari 2026. Afschaffing is een kabinetsvoornemen per 1 januari 2028 en nog geen wet.
 
 ## Optional
 
