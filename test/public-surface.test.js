@@ -2,6 +2,7 @@
 
 var assert = require('assert');
 var http = require('http');
+var spamGuard = require('../lib/spam-guard');
 
 process.env.GA4_MEASUREMENT_ID = 'G-PUBLIC123';
 process.env.CALENDLY_URL = 'https://calendly.com/whk-test/intake';
@@ -93,7 +94,8 @@ var server = app.listen(0, '127.0.0.1', function () {
         email: 'petra.jansen@acme.nl',
         source: 'footer-form',
         message: 'Graag een terugbelverzoek',
-        page: '/'
+        page: '/',
+        whk_ts: spamGuard.issue(Date.now() - 5000)
       });
     })
     .then(function (res) {
