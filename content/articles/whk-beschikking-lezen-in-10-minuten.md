@@ -4,6 +4,7 @@ slug: whk-beschikking-lezen-in-10-minuten
 description: Zo lees je de WHK-beschikking in 10 minuten: bijlage, toerekening en wat het voorblad niet zegt. Voor controllers en HR die de premie willen plaatsen.
 publishedAt: 2026-09-21
 updatedAt: 2026-10-05
+archived: true
 tags: WHK-basics, Premie, Bezwaar & procedure
 ---
 

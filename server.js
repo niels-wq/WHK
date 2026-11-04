@@ -743,6 +743,13 @@ function applyBlogSocialImage(html, post) {
     .replace(/<meta name="twitter:image" content="[^"]*"/, '<meta name="twitter:image" content="' + abs + '"')
     .replace(/<meta name="twitter:card" content="[^"]*"/, '<meta name="twitter:card" content="summary_large_image"');
 }
+// Samengevoegde blogs. Blijven 301, ook als een oude CMS-kopie nog in de database staat.
+const RETIRED_BLOG_SLUGS = {
+  'whk-beschikking-controleren-checklist-controller': '/diensten/whk-controle',
+  'whk-beschikking-controleren-fouten-loonsom': '/diensten/whk-controle',
+  'whk-beschikking-lezen-in-10-minuten': '/beschikking-uitleg'
+};
+
 function blogPageForSlug(slug, dbPosts) {
   const posts = mergePostSources(Array.isArray(dbPosts) ? dbPosts : []);
   let post = posts.find(p => p && p.slug === slug && !p.archived);
@@ -766,6 +773,7 @@ function blogPageForSlug(slug, dbPosts) {
 }
 app.get('/blog/:slug', async (req, res) => {
   const slug = req.params.slug;
+  if (RETIRED_BLOG_SLUGS[slug]) return res.redirect(301, RETIRED_BLOG_SLUGS[slug]);
   let dbPosts = [];
   try {
     const raw = await kvGet('posts');
@@ -838,7 +846,6 @@ app.get('/llms.txt', (req, res) => {
 ## Blog
 
 - [Wat is de Werkhervattingskas](${u}/blog/wat-is-de-werkhervattingskas-en-waarom-stijgt-jouw-premie): WGA, ZW en waarom de premie voor een werkgever stijgt.
-- [WHK-beschikking lezen in 10 minuten](${u}/blog/whk-beschikking-lezen-in-10-minuten): bijlage, toerekening en wat het voorblad niet toont.
 - [Premieverhoging na een WGA-instroom](${u}/blog/whk-premieverhoging-na-een-wga-instroom-rekenvoorbeeld-mkb): rekenvoorbeeld voor een middelgroot mkb.
 - [Bezwaar maken bij het UWV](${u}/blog/bezwaar-maken-bij-het-uwv): termijn, stappen en wanneer een bezwaarschrift loont.
 - [UWV herbeoordeling 2026](${u}/blog/uwv-herbeoordeling-2026): wanneer een herbeoordeling nog aan de orde is.
@@ -898,7 +905,7 @@ app.get('/sitemap.xml', async (req, res) => {
       addUrl(SITE_URL + '/sectoren/' + s, 'monthly', '0.7');
     });
     const now = new Date();
-    posts.filter(p => p && p.slug && !p.archived && (!p.publishedAt || new Date(p.publishedAt) <= now)).forEach(p => {
+    posts.filter(p => p && p.slug && !p.archived && !RETIRED_BLOG_SLUGS[p.slug] && (!p.publishedAt || new Date(p.publishedAt) <= now)).forEach(p => {
       const stamp = p.updatedAt || p.publishedAt;
       const lastmod = stamp ? String(stamp).slice(0, 10) : undefined;
       addUrl(SITE_URL + '/blog/' + p.slug, 'yearly', '0.6', lastmod);
@@ -906,6 +913,7 @@ app.get('/sitemap.xml', async (req, res) => {
     const html = getHtml();
     if (html) {
       extractSeedBlogSlugs(html).forEach(slug => {
+        if (RETIRED_BLOG_SLUGS[slug]) return;
         addUrl(SITE_URL + '/blog/' + slug, 'yearly', '0.6');
       });
     }
