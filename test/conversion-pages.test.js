@@ -18,12 +18,19 @@ function count(str, needle) {
 }
 
 // Primary conversion action is the home WHK-check, not a second competing modal CTA
-['wia-calc-view', 'premiehistorie-view', 'faq-view', 'beschikking-uitleg-view'].forEach(function (id) {
+['wia-calc-view', 'premiehistorie-view', 'faq-view'].forEach(function (id) {
   var s = section(id);
   assert.ok(s.indexOf('Gratis WHK-beschikking check') !== -1, id + ' missing primary CTA label');
   assert.ok(s.indexOf('data-cta="calculator"') !== -1, id + ' missing calculator CTA');
   assert.ok(s.indexOf('No cure, no pay') !== -1 || s.indexOf('no cure, no pay') !== -1, id + ' missing trust line');
 });
+var uitlegCta = section('beschikking-uitleg-view');
+assert.ok(uitlegCta.indexOf('Gratis WHK-beschikking check') !== -1, 'beschikking-uitleg missing primary CTA label');
+assert.ok(uitlegCta.indexOf('data-cta="calculator"') !== -1, 'beschikking-uitleg missing calculator CTA');
+assert.ok(uitlegCta.indexOf('Laat je beschikking gratis controleren') !== -1, 'beschikking-uitleg missing controle CTA');
+assert.ok(uitlegCta.indexOf('href="/diensten/whk-controle"') !== -1, 'beschikking-uitleg CTA should link the controle page');
+assert.ok(!/no[\s-]*cure/i.test(uitlegCta), 'beschikking-uitleg must not claim no cure');
+assert.ok(uitlegCta.indexOf('8 van de 10') === -1, 'beschikking-uitleg must not claim 8 van de 10');
 
 var wia = section('wia-calc-view');
 assert.ok(wia.indexOf('id="wia-result-cta"') !== -1, 'WIA result CTA missing');

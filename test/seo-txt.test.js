@@ -145,6 +145,17 @@ var server = app.listen(0, '127.0.0.1', function () {
       );
     });
     assert.ok(sitemap.body.indexOf('https://www.') === -1, 'sitemap stays on the apex');
+    [
+      'whk-beschikking-controleren-checklist-controller',
+      'whk-beschikking-controleren-fouten-loonsom',
+      'whk-beschikking-lezen-in-10-minuten'
+    ].forEach(function (slug) {
+      assert.ok(llms.body.indexOf('/blog/' + slug) === -1, 'llms still lists retired ' + slug);
+      assert.ok(
+        sitemap.body.indexOf('<loc>' + APEX + '/blog/' + slug + '</loc>') === -1,
+        'sitemap still lists retired ' + slug
+      );
+    });
     assert.ok(llms.body.indexOf('/blog/dit-artikel-bestaat-niet') === -1, 'unknown slug must not be linked');
 
     console.log('seo txt tests ok (' + BOTS.length + ' robots groups, ' + blogSlugs.length + ' blog links)');

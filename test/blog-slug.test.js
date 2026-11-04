@@ -43,7 +43,7 @@ function request(port, urlPath) {
     }, function (res) {
       var body = '';
       res.on('data', function (chunk) { body += chunk; });
-      res.on('end', function () { resolve({ status: res.statusCode, body: body }); });
+      res.on('end', function () { resolve({ status: res.statusCode, headers: res.headers, body: body }); });
     });
     req.on('error', reject);
     req.end();
@@ -79,10 +79,11 @@ function articlePosts() {
     return file.endsWith('.md') && file.toLowerCase() !== 'readme.md';
   }).map(function (file) {
     var fm = parseFrontmatter(fs.readFileSync(path.join(dir, file), 'utf8'));
-    return {
+      return {
       slug: fm.slug || file.replace(/\.md$/, ''),
       title: fm.title,
-      description: fm.description
+      description: fm.description,
+      archived: fm.archived === 'true'
     };
   });
 }
@@ -215,6 +216,18 @@ function assertArticle(post, res) {
   }
 }
 
+var RETIRED = {
+  'whk-beschikking-lezen-in-10-minuten': '/beschikking-uitleg',
+  'whk-beschikking-controleren-checklist-controller': '/diensten/whk-controle',
+  'whk-beschikking-controleren-fouten-loonsom': '/diensten/whk-controle'
+};
+
+function assertRedirect(slug, res) {
+  assert.strictEqual(res.status, 301, '/blog/' + slug + ' should redirect, got ' + res.status);
+  var loc = String(res.headers.location || '');
+  assert.ok(loc.indexOf(RETIRED[slug]) !== -1, '/blog/' + slug + ' location ' + loc);
+}
+
 function assertNotFound(res) {
   assert.strictEqual(res.status, 404, 'unknown slug status ' + res.status);
   assert.ok(meta(res.body, 'robots').indexOf('noindex') !== -1, 'unknown slug noindex');
@@ -239,6 +252,10 @@ var server = app.listen(0, '127.0.0.1', function () {
   var port = server.address().port;
   var articleReqs = mapPool(articles, 6, function (post) {
     return request(port, '/blog/' + post.slug).then(function (res) {
+      if (post.archived) {
+        assertRedirect(post.slug, res);
+        return res;
+      }
       assertArticle(post, res);
       return res;
     });
@@ -258,7 +275,14 @@ var server = app.listen(0, '127.0.0.1', function () {
   });
   var missing = request(port, '/blog/bestaat-niet-xyz').then(assertNotFound);
 
-  Promise.all([articleReqs, seedReqs, missing]).then(function () {
+  var retired = Promise.all(Object.keys(RETIRED).map(function (slug) {
+    return request(port, '/blog/' + slug).then(function (res) {
+      assertRedirect(slug, res);
+      return res;
+    });
+  }));
+
+  Promise.all([articleReqs, seedReqs, missing, retired]).then(function () {
     console.log('blog slug tests ok (' + articles.length + ' articles, ' + seeds.length + ' seed posts, unknown 404)');
     server.close();
   }).catch(function (err) {

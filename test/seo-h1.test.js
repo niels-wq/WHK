@@ -45,7 +45,6 @@ var routes = [
     keep: ['dienst-whkreductie-view', 'id="whk-direct-answer"', 'Hoe controleer je een WHK-beschikking?'],
     drop: ['home-view', 'faq-view'],
     links: [
-      '/blog/whk-beschikking-lezen-in-10-minuten',
       '/blog/bezwaar-whk-beschikking-stappenplan',
       '/blog/correctiefactor-whk-onvolledige-periode',
       '/whk_checklist.html',
@@ -131,7 +130,7 @@ function headOf(html) {
   return html.slice(start, end);
 }
 
-var FAQ_ROUTES = { '/faq': true, '/tools/wia-calculator': true, '/diensten/whk-controle': true };
+var FAQ_ROUTES = { '/faq': true, '/tools/wia-calculator': true, '/diensten/whk-controle': true, '/beschikking-uitleg': true };
 
 function faqLdBlocks(html) {
   return (html.match(/<script type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/g) || [])
@@ -301,9 +300,9 @@ var server = app.listen(0, '127.0.0.1', function () {
     var whkPage = whkBody.slice(whkStart, whkEnd);
     assert.ok(whkBody.indexOf('id="whk-direct-answer"') !== -1, 'whk direct answer');
     assert.ok(whkPage.indexOf('Bijgewerkt:') !== -1, 'whk visible updated label');
-    assert.ok(whkPage.indexOf('datetime="2026-10-21"') !== -1, 'whk visible updated date');
-    assert.ok(whkPage.indexOf('21 oktober 2026') !== -1, 'whk visible date text');
-    assert.ok(whkBody.indexOf('"dateModified": "2026-10-21"') !== -1, 'whk schema dateModified');
+    assert.ok(whkPage.indexOf('datetime="2026-11-04"') !== -1, 'whk visible updated date');
+    assert.ok(whkPage.indexOf('4 november 2026') !== -1, 'whk visible date text');
+    assert.ok(whkBody.indexOf('"dateModified": "2026-11-04"') !== -1, 'whk schema dateModified');
     assert.ok(whkPage.indexOf('Start de gratis WHK-check') !== -1, 'whk free check cta');
     [
       'https://download.belastingdienst.nl/belastingdienst/docs/handboek-loonheffingen-lh0221t61fd.pdf',
@@ -336,7 +335,7 @@ var server = app.listen(0, '127.0.0.1', function () {
     var whkSchema = faqPages(whkBody);
     assert.strictEqual(whkSchema.length, 1, 'one FAQPage schema on whk-controle');
     assert.strictEqual(whkSchema[0].mainEntity.length, whkVisible.length, 'whk schema questions match visible');
-    assert.strictEqual(whkSchema[0].dateModified, '2026-10-21', 'whk FAQPage dateModified');
+    assert.strictEqual(whkSchema[0].dateModified, '2026-11-04', 'whk FAQPage dateModified');
     whkVisible.forEach(function (pair, i) {
       var entity = whkSchema[0].mainEntity[i];
       assert.strictEqual(entity['@type'], 'Question', 'whk schema type ' + i);
@@ -346,6 +345,47 @@ var server = app.listen(0, '127.0.0.1', function () {
     whkVisible.forEach(function (pair) {
       assert.ok(!faqNames[pair.question], 'whk question overlaps /faq: ' + pair.question);
     });
+
+    var uitlegBody = results[routes.findIndex(function (r) { return r.path === '/beschikking-uitleg'; })].body;
+    var uitlegStart = uitlegBody.indexOf('id="beschikking-uitleg-view"');
+    var uitlegEnd = uitlegBody.indexOf('</section>', uitlegStart);
+    var uitlegPage = uitlegBody.slice(uitlegStart, uitlegEnd);
+    assert.ok(uitlegPage.indexOf('id="uitleg-direct-answer"') !== -1, 'uitleg direct answer');
+    assert.ok(uitlegPage.indexOf('november of december') !== -1, 'uitleg timing');
+    assert.ok(uitlegPage.indexOf('binnen 6 weken na de dagtekening') !== -1, 'uitleg bezwaartermijn');
+    assert.ok(uitlegPage.indexOf('https://wetten.overheid.nl/BWBR0005537/2026-01-01/0/Hoofdstuk6/Afdeling6.2/Artikel6.7') !== -1, 'uitleg awb');
+    assert.ok(uitlegPage.indexOf('https://www.belastingdienst.nl/wps/wcm/connect/nl/bezwaar-en-beroep/content/eisen-bezwaar') !== -1, 'uitleg belastingdienst bezwaar');
+    assert.ok(uitlegPage.indexOf('https://www.belastingdienst.nl/wps/wcm/connect/nl/personeel-en-loon/content/aanmelden-als-werkgever') !== -1, 'uitleg belastingdienst brief');
+    assert.ok(uitlegPage.indexOf('>Laat je beschikking gratis controleren<') !== -1, 'uitleg cta label');
+    assert.ok(uitlegPage.indexOf('href="/diensten/whk-controle"') !== -1, 'uitleg cta link');
+    assert.ok(uitlegPage.indexOf('8 van de 10') === -1, 'uitleg 8 van de 10');
+    assert.ok(!/no[\s-]*cure/i.test(uitlegPage), 'uitleg no cure');
+    assert.ok(uitlegPage.indexOf('47.000') === -1, 'uitleg 47000');
+    assert.ok(uitlegPage.indexOf('—') === -1 && uitlegPage.indexOf('–') === -1, 'uitleg dash');
+    var uStart = uitlegBody.indexOf('id="uitleg-faq"');
+    var uEnd = uitlegBody.indexOf('id="uitleg-na-faq"');
+    var uBlock = uitlegBody.slice(uStart, uEnd);
+    var uPairs = [];
+    var uRe = /<button class="faq-q">([\s\S]*?)<\/button>\s*<div class="faq-a">([\s\S]*?)<\/div>/gi;
+    var um;
+    while ((um = uRe.exec(uBlock))) {
+      var uq = um[1].replace(/<span class="faq-chevron">[\s\S]*?<\/span>/gi, '');
+      uPairs.push({ question: stripInline(uq), answer: stripInline(um[2]) });
+    }
+    assert.ok(uPairs.length >= 3 && uPairs.length <= 5, 'uitleg faq count ' + uPairs.length);
+    var uitlegSchema = faqPages(uitlegBody);
+    assert.strictEqual(uitlegSchema.length, 1, 'one FAQPage on beschikking-uitleg');
+    assert.strictEqual(uitlegSchema[0].mainEntity.length, uPairs.length, 'uitleg schema count');
+    assert.strictEqual(uitlegSchema[0].dateModified, '2026-11-04', 'uitleg FAQPage dateModified');
+    uPairs.forEach(function (pair, i) {
+      var entity = uitlegSchema[0].mainEntity[i];
+      assert.strictEqual(entity.name, pair.question, 'uitleg schema question ' + i);
+      assert.strictEqual(entity.acceptedAnswer.text, pair.answer, 'uitleg schema answer ' + i);
+      assert.ok(!faqNames[pair.question], 'uitleg question overlaps /faq: ' + pair.question);
+    });
+    var faqSection = faqBody.slice(faqBody.indexOf('id="faq-view"'), faqBody.indexOf('</section>', faqBody.indexOf('id="faq-view"')));
+    assert.ok(faqSection.indexOf('<h2') === -1 || faqSection.toLowerCase().indexOf('beschikking controleren') === -1 || !/<h2[^>]*>[^<]*beschikking controleren/i.test(faqSection), 'faq h2 must not target beschikking controleren');
+    assert.ok(!/<h2[^>]*>[\s\S]*?beschikking controleren/i.test(faqSection), 'faq h2 targets beschikking controleren');
 
     var ado = results[results.length - 2];
     var admin = results[results.length - 1];

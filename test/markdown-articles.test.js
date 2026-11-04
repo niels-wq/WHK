@@ -126,7 +126,6 @@ files.forEach(function (file) {
       'https://werkhervattingskas.nl/diensten/whk-controle',
       'https://werkhervattingskas.nl/faq',
       '/blog/lkv-deadlines-kalender-werkgever',
-      '/blog/whk-beschikking-controleren-fouten-loonsom',
       '/blog/no-risk-polis-check-stappenplan-2026',
       '/blog/whk-premie-verwachtingen-2027',
       '/blog/correctiefactor-whk-onvolledige-periode',

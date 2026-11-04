@@ -48,7 +48,7 @@ Hoe één WGA-dossier in de mix doorwerkt, met de grenzen van 2026, staat in het
 Drie dingen, in deze volgorde.
 
 - **Loonsom en klasse.** Staat de loonsom van 2025 goed, en klopt klein, middelgroot of groot bij de grenzen hierboven? Een klassewisseling verandert de systematiek, los van een nieuw dossier.
-- **WGA-deel en ZW-deel apart.** Vergelijk ze met het landelijk gemiddelde en, bij klein, met je sector. Boven het gemiddelde is een signaal om de bijlage te openen, geen bewijs van een fout. Uitleg per veld: [WHK-beschikking lezen](/blog/whk-beschikking-lezen-in-10-minuten) en [beschikking uitleg](https://werkhervattingskas.nl/beschikking-uitleg).
+- **WGA-deel en ZW-deel apart.** Vergelijk ze met het landelijk gemiddelde en, bij klein, met je sector. Boven het gemiddelde is een signaal om de bijlage te openen, geen bewijs van een fout. Uitleg per veld: [beschikking uitleg](https://werkhervattingskas.nl/beschikking-uitleg).
 - **Toerekening.** Bij middelgroot en groot telt de bijlage. Bij klein niet voor jouw eigen percentage. Algemene vragen: [FAQ](https://werkhervattingskas.nl/faq).
 
 ## Veelgestelde vragen
