@@ -16,7 +16,8 @@ var NEW_BLOGS = [
   'ziektewet-flexpremie-2027-negatief-vermogen',
   'loondoorbetaling-bij-ziekte-scenarios-mkb',
   'correctiefactor-whk-onvolledige-periode',
-  'jaareinde-checklist-whk-voor-31-december'
+  'jaareinde-checklist-whk-voor-31-december',
+  'sectorale-whk-premie-2027'
 ];
 var OCT12_BLOGS = [
   'loondoorbetaling-bij-ziekte-scenarios-mkb'
@@ -29,6 +30,9 @@ var JAAR_BLOGS = [
 ];
 var PILLAR_BLOGS = [
   'compensatie-transitievergoeding-na-2-jaar-ziekte'
+];
+var SECTOR_BLOGS = [
+  'sectorale-whk-premie-2027'
 ];
 var ROUND_BLOGS = [
   'kleine-middelgrote-grote-werkgever-whk-2027',
@@ -249,6 +253,38 @@ function assertArticle(post, res) {
       assert.ok(article.indexOf(item.name) !== -1, url + ' visible question ' + item.name);
       assert.ok(item.acceptedAnswer && item.acceptedAnswer.text, url + ' answer text');
       var visible = article.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+      assert.ok(visible.indexOf(item.acceptedAnswer.text) !== -1, url + ' visible answer ' + item.name);
+    });
+  }
+  if (SECTOR_BLOGS.indexOf(post.slug) !== -1) {
+    assert.ok(res.body.indexOf('id="route-article-schema"') !== -1, url + ' BlogPosting schema');
+    assert.ok(res.body.indexOf('"@type": "BlogPosting"') !== -1, url + ' BlogPosting type');
+    assert.ok(res.body.indexOf('"datePublished": "2026-11-09"') !== -1, url + ' datePublished');
+    assert.ok(res.body.indexOf('"dateModified": "2026-11-09"') !== -1, url + ' dateModified');
+    assert.ok(res.body.indexOf('"@type": "FAQPage"') !== -1, url + ' FAQPage');
+    assert.ok(res.body.indexOf('Gepubliceerd op 9 november 2026') !== -1, url + ' published date');
+    assert.ok(res.body.indexOf('Bijgewerkt op 9 november 2026') !== -1, url + ' updated date');
+    assert.strictEqual((res.body.match(/<h1\b/gi) || []).length, 1, url + ' one h1');
+    assert.ok(res.body.indexOf('https://www.werkhervattingskas.nl') === -1, url + ' www canonical');
+    var bodyAt = res.body.indexOf('id="blogpost-body"');
+    var related = res.body.indexOf('id="blogpost-related"', bodyAt);
+    var article = res.body.slice(bodyAt, related);
+    assert.ok(article.indexOf('8 van de 10') === -1, url + ' 8 van de 10');
+    assert.ok(article.indexOf('47.000') === -1, url + ' 47.000');
+    assert.ok(!/no[\s-]*cure[\s-]*no[\s-]*pay/i.test(article), url + ' no cure no pay');
+    assert.ok(article.indexOf('erd-partneradvies') === -1, url + ' ERD advice link');
+    assert.ok(article.indexOf('class="sector-premie"') !== -1, url + ' sector table');
+    assert.ok(article.indexOf('Gratis WHK-beschikking check') !== -1, url + ' WHK check CTA');
+    var faqStart = res.body.indexOf('id="route-faq-schema"');
+    assert.ok(faqStart !== -1, url + ' faq schema id');
+    var faqJson = res.body.slice(res.body.indexOf('{', faqStart), res.body.indexOf('</script>', faqStart));
+    var faq = JSON.parse(faqJson);
+    assert.strictEqual(faq['@type'], 'FAQPage', url + ' FAQ type');
+    assert.strictEqual(faq.mainEntity.length, 6, url + ' FAQ count');
+    var visible = article.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+    faq.mainEntity.forEach(function (item) {
+      assert.ok(visible.indexOf(item.name) !== -1, url + ' visible question ' + item.name);
+      assert.ok(item.acceptedAnswer && item.acceptedAnswer.text, url + ' answer text');
       assert.ok(visible.indexOf(item.acceptedAnswer.text) !== -1, url + ' visible answer ' + item.name);
     });
   }

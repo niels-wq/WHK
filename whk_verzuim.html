@@ -515,9 +515,12 @@
   .blogpost-body p{color:var(--ink-soft);margin:0 0 14px;}
   .blogpost-body ul,.blogpost-body ol{color:var(--ink-soft);padding-left:22px;margin:0 0 14px;}
   .blogpost-body li{margin-bottom:6px;}
+  .blogpost-body .blog-table-wrap{overflow-x:auto;margin:0 0 16px;-webkit-overflow-scrolling:touch;}
   .blogpost-body table{width:100%;border-collapse:collapse;margin:0 0 16px;font-size:0.92rem;}
   .blogpost-body th,.blogpost-body td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;}
   .blogpost-body th{background:var(--paper);font-weight:600;}
+  .blogpost-body table.sector-premie th,.blogpost-body table.sector-premie td{border-left:none;border-right:none;border-bottom:1px solid var(--line);padding:6px 8px;}
+  .blogpost-body table.sector-premie td:nth-child(3),.blogpost-body table.sector-premie td:nth-child(4),.blogpost-body table.sector-premie th:nth-child(3),.blogpost-body table.sector-premie th:nth-child(4){text-align:right;white-space:nowrap;}
   @media (max-width:640px){.blogpost-body table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}}
   .blogpost-body a{color:var(--risk);text-decoration:underline;cursor:pointer;}
 

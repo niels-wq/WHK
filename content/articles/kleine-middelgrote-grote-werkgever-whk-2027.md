@@ -31,7 +31,7 @@ De gedifferentieerde Whk-premie heeft twee delen: WGA en Ziektewet-flex. De klas
 
 De Belastingdienst stuurt die stukken vóór het premiejaar. Eind 2026 gaat het om de percentages voor 2027. Bron: de [premienota van het UWV](https://www.uwv.nl/nl/publicaties/premienota/2026/wga-premie-en-ziektewet-premie-stijgen-in-2027).
 
-Het UWV beschrijft de weging zo: wegingsfactor = (loonsom van de werkgever min de grens klein/middelgroot) gedeeld door (de grens middelgroot/groot min de grens klein/middelgroot). De premie is die factor maal de individuele premie, plus het restant maal de sectorale premie. Er zijn 67 sectorpremies. Die tabel staat in het UWV-overzicht, niet in dit artikel.
+Het UWV beschrijft de weging zo: wegingsfactor = (loonsom van de werkgever min de grens klein/middelgroot) gedeeld door (de grens middelgroot/groot min de grens klein/middelgroot). De premie is die factor maal de individuele premie, plus het restant maal de sectorale premie. Er zijn 67 sectorpremies. De percentages en de check naast de mededeling staan in [sectorale Whk-premie 2027](/blog/sectorale-whk-premie-2027).
 
 Ben je eigenrisicodrager voor de WGA of de Ziektewet, dan geldt het bijbehorende publieke percentage niet. De klasse blijft wel relevant voor het deel dat je publiek verzekerd laat. De termijn voor een start per 1 januari 2027 is verstreken: [ERD per 1 januari 2027](/blog/erd-2027-aanvragen-voor-2-oktober).
 

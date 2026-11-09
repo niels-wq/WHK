@@ -17,7 +17,8 @@ var NEW_SLUGS = [
   'ziektewet-flexpremie-2027-negatief-vermogen',
   'loondoorbetaling-bij-ziekte-scenarios-mkb',
   'correctiefactor-whk-onvolledige-periode',
-  'jaareinde-checklist-whk-voor-31-december'
+  'jaareinde-checklist-whk-voor-31-december',
+  'sectorale-whk-premie-2027'
 ];
 var ROUND_SLUGS = [
   'kleine-middelgrote-grote-werkgever-whk-2027',
@@ -60,6 +61,10 @@ var BACKLINKS = {
     'lkv-deadlines-kalender-werkgever.md',
     'no-riskpolis-7-checkpunten-voor-whk-beschikking.md',
     'whk-beschikking-lezen-in-10-minuten.md'
+  ],
+  'sectorale-whk-premie-2027': [
+    'kleine-middelgrote-grote-werkgever-whk-2027.md',
+    'whk-premies-2027-wga-en-zw.md'
   ]
 };
 var REQUIRED_LINKS = [
@@ -232,6 +237,44 @@ files.forEach(function (file) {
     });
     var bezwaar = fs.readFileSync(path.join(dir, 'bezwaar-maken-bij-het-uwv.md'), 'utf8');
     assert.ok(bezwaar.indexOf('/blog/' + slug) !== -1, 'bezwaar article should link the pillar');
+  }
+  if (slug === 'sectorale-whk-premie-2027') {
+    assert.ok(parsed.meta.description.length >= 140 && parsed.meta.description.length <= 155, file + ' description length ' + parsed.meta.description.length);
+    assert.ok(parsed.meta.publishedAt === '2026-11-09', file + ' publishedAt');
+    assert.ok(parsed.meta.updatedAt === '2026-11-09', file + ' updatedAt');
+    assert.ok(parsed.body.indexOf('## Veelgestelde vragen') !== -1, file + ' FAQ heading');
+    assert.strictEqual((parsed.body.match(/^\*\*.+\?\*\*/gm) || []).length, 6, file + ' FAQ count');
+    assert.ok(parsed.body.indexOf('\u2014') === -1 && parsed.body.indexOf('\u2013') === -1, file + ' dashes');
+    assert.ok(!/no[\s-]*cure/i.test(parsed.body), file + ' no cure');
+    assert.ok(parsed.body.indexOf('47.000') === -1, file + ' 47.000');
+    assert.ok(parsed.body.indexOf('8 van de 10') === -1 && parsed.body.indexOf('8/10') === -1, file + ' 8 van de 10');
+    assert.ok(parsed.body.indexOf('erd-partneradvies') === -1, file + ' ERD sales link');
+    assert.ok(parsed.body.indexOf('gedifferentieerde-wga-premie-vs-sectorale-premie') === -1, file + ' dead link');
+    assert.ok(parsed.body.indexOf('sectorindeling-werkhervattingskas-juiste-box') === -1, file + ' dead link');
+    assert.ok(parsed.body.indexOf('whk-beschikking-ontvangen-eerste-stappen') === -1, file + ' dead link');
+    [
+      '1,09%', '0,97%', '0,12 procentpunt', '0,06 procentpunt', '0,17 procentpunt', '0,01 procentpunt',
+      '0,55%', '3,73%', '0,10%', '3,41%', '5,96%',
+      '€1.135.000', '€4.540.000', '€45.400',
+      '23 juni 2026', '15 juli 2026', '1 januari 2027', '9 november 2026',
+      '67 sector',
+      'https://www.uwv.nl/assets-kai/files/e465c57e-dd6a-447a-8feb-bee3c9a41575/gedifferentieerde-premies-wga-en-ziektewet-2027.pdf',
+      'https://zoek.officielebekendmakingen.nl/stcrt-2026-24832.html',
+      'https://wetten.overheid.nl/BWBR0052949/2027-01-01',
+      'https://www.uwv.nl/nl/publicaties/premienota/2026/wga-premie-en-ziektewet-premie-stijgen-in-2027',
+      'https://www.belastingdienst.nl/wps/wcm/connect/nl/personeel-en-loon/content/aanmelden-als-werkgever',
+      'https://werkhervattingskas.nl/diensten/whk-controle',
+      'https://werkhervattingskas.nl/beschikking-uitleg',
+      'https://werkhervattingskas.nl/faq',
+      '/blog/bezwaar-maken-bij-het-uwv',
+      '/blog/whk-premies-2027-wga-en-zw',
+      '/blog/kleine-middelgrote-grote-werkgever-whk-2027',
+      '/blog/correctiefactor-whk-onvolledige-periode'
+    ].forEach(function (needle) {
+      assert.ok(parsed.body.indexOf(needle) !== -1, file + ' missing ' + needle);
+    });
+    assert.ok(parsed.body.indexOf('<tr><td>36</td>') === -1 && parsed.body.indexOf('<tr><td>37</td>') === -1, file + ' sectors 36 and 37 do not exist');
+    assert.strictEqual((parsed.body.match(/<tr><td>\d+<\/td>/g) || []).length, 67, file + ' sector rows');
   }
   if (slug === 'erd-2027-aanvragen-voor-2-oktober') {
     assert.ok(/verstreken|voorbij/i.test(parsed.body), file + ' should say the January 2027 deadline has passed');
