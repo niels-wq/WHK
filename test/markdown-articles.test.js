@@ -34,6 +34,9 @@ var OCT19_SLUGS = [
 var JAAR_SLUGS = [
   'jaareinde-checklist-whk-voor-31-december'
 ];
+var PILLAR_SLUGS = [
+  'compensatie-transitievergoeding-na-2-jaar-ziekte'
+];
 var BACKLINKS = {
   'kleine-middelgrote-grote-werkgever-whk-2027': [
     'whk-premies-2027-wga-en-zw.md',
@@ -187,6 +190,91 @@ files.forEach(function (file) {
       '/blog/'
     ].filter(function (href) { return parsed.body.indexOf(href) !== -1; });
     assert.ok(internal.length >= 3, file + ' needs at least 3 internal links, got ' + internal.length);
+  }
+  if (PILLAR_SLUGS.indexOf(slug) !== -1) {
+    assert.ok(parsed.meta.title.length >= 50 && parsed.meta.title.length <= 60, file + ' title length ' + parsed.meta.title.length);
+    assert.ok(parsed.meta.title.indexOf('Compensatie transitievergoeding aanvragen') === 0, file + ' keyword near start');
+    assert.ok(parsed.meta.description.length >= 140 && parsed.meta.description.length <= 155, file + ' description length ' + parsed.meta.description.length);
+    assert.ok(parsed.meta.publishedAt === '2026-10-05', file + ' publishedAt stays the original date');
+    assert.ok(parsed.meta.updatedAt === '2026-11-02', file + ' updatedAt');
+    assert.ok(parsed.body.indexOf('1 januari 2028') !== -1, file + ' postponement date');
+    assert.ok(parsed.body.indexOf('€ 98.000') !== -1, file + ' previous maximum');
+    assert.ok(parsed.body.indexOf('\u2014') === -1 && parsed.body.indexOf('\u2013') === -1, file + ' dashes');
+    assert.ok(!/no cure no pay/i.test(parsed.body), file + ' no cure no pay');
+    assert.ok(parsed.body.indexOf('47.000') === -1, file + ' 47.000');
+    assert.ok(parsed.body.indexOf('8 van de 10') === -1, file + ' 8 van de 10');
+    assert.ok(parsed.body.indexOf('erd-partneradvies') === -1, file + ' ERD sales link');
+    assert.ok(parsed.body.indexOf('tel:') === -1, file + ' tel link');
+    assert.ok(parsed.body.indexOf('## Veelgestelde vragen') !== -1, file + ' FAQ heading');
+    var faqQs = parsed.body.match(/^\*\*.+\?\*\*/gm) || [];
+    assert.ok(faqQs.length >= 4 && faqQs.length <= 6, file + ' FAQ count ' + faqQs.length);
+    assert.ok((parsed.body.match(/^\d+\. /gm) || []).length >= 6, file + ' numbered steps');
+    assert.ok(parsed.body.indexOf('| Stuk |') !== -1 && parsed.body.indexOf('| Situatie |') !== -1, file + ' tables');
+    assert.ok(parsed.body.indexOf('€ 102.000') !== -1, file + ' 2026 maximum');
+    assert.ok(parsed.body.indexOf('6 maanden') !== -1, file + ' deadline');
+    assert.ok(parsed.body.indexOf('8 weken') !== -1, file + ' decision term');
+    assert.ok(parsed.body.indexOf('5 werkdagen') !== -1, file + ' payment term');
+    assert.ok(parsed.body.indexOf('6 weken') !== -1, file + ' bezwaar term');
+    assert.ok(parsed.body.indexOf('13 weken') !== -1, file + ' bezwaar decision');
+    assert.ok(parsed.body.indexOf('20%') !== -1, file + ' partial dismissal');
+    [
+      'https://www.uwv.nl/nl/ontslag/compensatie-transitievergoeding-langdurige-arbeidsongeschiktheid',
+      'https://www.uwv.nl/en/employers/forms/applying-for-dismissal-pay-compensation-in-the-event-of-occupational-disability',
+      'https://www.rijksoverheid.nl/themas/werk/ontslag/compensatie-transitievergoeding',
+      'https://wetten.overheid.nl/BWBR0041942/2022-04-01',
+      'https://wetten.overheid.nl/BWBR0005290/2026-10-08/0/Boek7/Titeldeel10/Afdeling9/Artikel673e/afdrukken',
+      'https://www.rijksoverheid.nl/actueel/nieuws/2026/09/15/prinsjesdag-2026-maatregelen-op-het-gebied-van-szw',
+      'https://www.rijksoverheid.nl/site/binaries/site-content/collections/documents/2026/09/15/miljoenennota-2027/00-miljoenennota-pdf.pdf',
+      'https://zoek.officielebekendmakingen.nl/stcrt-2025-43567.html',
+      'https://werkhervattingskas.nl/over-ons',
+      'https://werkhervattingskas.nl/diensten/whk-controle',
+      'https://werkhervattingskas.nl/tools/wia-calculator',
+      'https://werkhervattingskas.nl/beschikking-uitleg',
+      'https://werkhervattingskas.nl/faq',
+      '/blog/bezwaar-maken-bij-het-uwv'
+    ].forEach(function (href) {
+      assert.ok(parsed.body.indexOf(href) !== -1, file + ' missing link ' + href);
+    });
+    var bezwaar = fs.readFileSync(path.join(dir, 'bezwaar-maken-bij-het-uwv.md'), 'utf8');
+    assert.ok(bezwaar.indexOf('/blog/' + slug) !== -1, 'bezwaar article should link the pillar');
+  }
+  if (slug === 'sectorale-whk-premie-2027') {
+    assert.ok(parsed.meta.description.length >= 140 && parsed.meta.description.length <= 155, file + ' description length ' + parsed.meta.description.length);
+    assert.ok(parsed.meta.publishedAt === '2026-11-09', file + ' publishedAt');
+    assert.ok(parsed.meta.updatedAt === '2026-11-09', file + ' updatedAt');
+    assert.ok(parsed.body.indexOf('## Veelgestelde vragen') !== -1, file + ' FAQ heading');
+    assert.strictEqual((parsed.body.match(/^\*\*.+\?\*\*/gm) || []).length, 6, file + ' FAQ count');
+    assert.ok(parsed.body.indexOf('\u2014') === -1 && parsed.body.indexOf('\u2013') === -1, file + ' dashes');
+    assert.ok(!/no[\s-]*cure/i.test(parsed.body), file + ' no cure');
+    assert.ok(parsed.body.indexOf('47.000') === -1, file + ' 47.000');
+    assert.ok(parsed.body.indexOf('8 van de 10') === -1 && parsed.body.indexOf('8/10') === -1, file + ' 8 van de 10');
+    assert.ok(parsed.body.indexOf('erd-partneradvies') === -1, file + ' ERD sales link');
+    assert.ok(parsed.body.indexOf('gedifferentieerde-wga-premie-vs-sectorale-premie') === -1, file + ' dead link');
+    assert.ok(parsed.body.indexOf('sectorindeling-werkhervattingskas-juiste-box') === -1, file + ' dead link');
+    assert.ok(parsed.body.indexOf('whk-beschikking-ontvangen-eerste-stappen') === -1, file + ' dead link');
+    [
+      '1,09%', '0,97%', '0,12 procentpunt', '0,06 procentpunt', '0,17 procentpunt', '0,01 procentpunt',
+      '0,55%', '3,73%', '0,10%', '3,41%', '5,96%',
+      '€1.135.000', '€4.540.000', '€45.400',
+      '23 juni 2026', '15 juli 2026', '1 januari 2027', '9 november 2026',
+      '67 sector',
+      'https://www.uwv.nl/assets-kai/files/e465c57e-dd6a-447a-8feb-bee3c9a41575/gedifferentieerde-premies-wga-en-ziektewet-2027.pdf',
+      'https://zoek.officielebekendmakingen.nl/stcrt-2026-24832.html',
+      'https://wetten.overheid.nl/BWBR0052949/2027-01-01',
+      'https://www.uwv.nl/nl/publicaties/premienota/2026/wga-premie-en-ziektewet-premie-stijgen-in-2027',
+      'https://www.belastingdienst.nl/wps/wcm/connect/nl/personeel-en-loon/content/aanmelden-als-werkgever',
+      'https://werkhervattingskas.nl/diensten/whk-controle',
+      'https://werkhervattingskas.nl/beschikking-uitleg',
+      'https://werkhervattingskas.nl/faq',
+      '/blog/bezwaar-maken-bij-het-uwv',
+      '/blog/whk-premies-2027-wga-en-zw',
+      '/blog/kleine-middelgrote-grote-werkgever-whk-2027',
+      '/blog/correctiefactor-whk-onvolledige-periode'
+    ].forEach(function (needle) {
+      assert.ok(parsed.body.indexOf(needle) !== -1, file + ' missing ' + needle);
+    });
+    assert.ok(parsed.body.indexOf('<tr><td>36</td>') === -1 && parsed.body.indexOf('<tr><td>37</td>') === -1, file + ' sectors 36 and 37 do not exist');
+    assert.strictEqual((parsed.body.match(/<tr><td>\d+<\/td>/g) || []).length, 67, file + ' sector rows');
   }
   if (slug === 'erd-2027-aanvragen-voor-2-oktober') {
     assert.ok(/verstreken|voorbij/i.test(parsed.body), file + ' should say the January 2027 deadline has passed');

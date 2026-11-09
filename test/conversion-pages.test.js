@@ -22,7 +22,8 @@ function count(str, needle) {
   var s = section(id);
   assert.ok(s.indexOf('Gratis WHK-beschikking check') !== -1, id + ' missing primary CTA label');
   assert.ok(s.indexOf('data-cta="calculator"') !== -1, id + ' missing calculator CTA');
-  assert.ok(s.indexOf('No cure, no pay') !== -1 || s.indexOf('no cure, no pay') !== -1, id + ' missing trust line');
+  assert.ok(!/no[\s-]*cure[\s,]*no[\s-]*pay/i.test(s), id + ' still claims no cure no pay');
+  assert.ok(s.indexOf('De eerste check van de WHK-beschikking is kosteloos') !== -1, id + ' missing factual trust line');
 });
 
 var wia = section('wia-calc-view');
@@ -140,5 +141,14 @@ assert.ok(section('beschikking-uitleg-view').indexOf('WHK-beschikking lezen: dag
 assert.ok(section('faq-view').indexOf('Wat is de gemiddelde WGA-premie in 2026?') !== -1, 'visible FAQ missing WGA premie question');
 assert.ok(section('blog-view').indexOf('href="/beschikking-uitleg"') !== -1, 'blog list missing beschikking link');
 assert.ok(section('blog-view').indexOf('href="/tools/wia-calculator"') !== -1, 'blog list missing calculator link');
+
+assert.ok(!/no[\s-]*cure/i.test(html), 'whk_verzuim.html still contains no cure');
+assert.ok(html.indexOf('8 van de 10') === -1, 'whk_verzuim.html still contains 8 van de 10');
+assert.ok(html.indexOf('8/10') === -1, 'whk_verzuim.html still contains 8/10');
+assert.ok(html.indexOf('47.000') === -1, 'whk_verzuim.html still contains 47.000');
+var checklist = fs.readFileSync(path.join(__dirname, '..', 'whk_checklist.html'), 'utf8');
+assert.ok(!/no[\s-]*cure/i.test(checklist), 'checklist still contains no cure');
+assert.ok(checklist.indexOf('8 van de 10') === -1, 'checklist still contains 8 van de 10');
+assert.ok(checklist.indexOf('47.000') === -1, 'checklist still contains 47.000');
 
 console.log('seo ctr copy tests ok');
