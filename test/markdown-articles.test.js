@@ -240,8 +240,8 @@ files.forEach(function (file) {
   }
   if (slug === 'sectorale-whk-premie-2027') {
     assert.ok(parsed.meta.description.length >= 140 && parsed.meta.description.length <= 155, file + ' description length ' + parsed.meta.description.length);
-    assert.ok(parsed.meta.publishedAt === '2026-11-09', file + ' publishedAt');
-    assert.ok(parsed.meta.updatedAt === '2026-11-09', file + ' updatedAt');
+    assert.ok(parsed.meta.publishedAt === '2026-11-16', file + ' publishedAt');
+    assert.ok(parsed.meta.updatedAt === '2026-11-16', file + ' updatedAt');
     assert.ok(parsed.body.indexOf('## Veelgestelde vragen') !== -1, file + ' FAQ heading');
     assert.strictEqual((parsed.body.match(/^\*\*.+\?\*\*/gm) || []).length, 6, file + ' FAQ count');
     assert.ok(parsed.body.indexOf('\u2014') === -1 && parsed.body.indexOf('\u2013') === -1, file + ' dashes');

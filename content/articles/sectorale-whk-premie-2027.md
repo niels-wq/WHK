@@ -2,8 +2,8 @@
 title: Sectorale Whk-premie 2027: zo controleer je de brief
 slug: sectorale-whk-premie-2027
 description: Eind 2026 komt de mededeling met de sectorale Whk-premie voor 2027. Kleine werkgevers leggen WGA en ZW naast de 67 percentages uit het besluit.
-publishedAt: 2026-11-09
-updatedAt: 2026-11-09
+publishedAt: 2026-11-16
+updatedAt: 2026-11-16
 tags: Premie, WHK-basics, Sector & organisatie
 ---
 

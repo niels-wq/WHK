@@ -259,11 +259,11 @@ function assertArticle(post, res) {
   if (SECTOR_BLOGS.indexOf(post.slug) !== -1) {
     assert.ok(res.body.indexOf('id="route-article-schema"') !== -1, url + ' BlogPosting schema');
     assert.ok(res.body.indexOf('"@type": "BlogPosting"') !== -1, url + ' BlogPosting type');
-    assert.ok(res.body.indexOf('"datePublished": "2026-11-09"') !== -1, url + ' datePublished');
-    assert.ok(res.body.indexOf('"dateModified": "2026-11-09"') !== -1, url + ' dateModified');
+    assert.ok(res.body.indexOf('"datePublished": "2026-11-16"') !== -1, url + ' datePublished');
+    assert.ok(res.body.indexOf('"dateModified": "2026-11-16"') !== -1, url + ' dateModified');
     assert.ok(res.body.indexOf('"@type": "FAQPage"') !== -1, url + ' FAQPage');
-    assert.ok(res.body.indexOf('Gepubliceerd op 9 november 2026') !== -1, url + ' published date');
-    assert.ok(res.body.indexOf('Bijgewerkt op 9 november 2026') !== -1, url + ' updated date');
+    assert.ok(res.body.indexOf('Gepubliceerd op 16 november 2026') !== -1, url + ' published date');
+    assert.ok(res.body.indexOf('Bijgewerkt op 16 november 2026') !== -1, url + ' updated date');
     assert.strictEqual((res.body.match(/<h1\b/gi) || []).length, 1, url + ' one h1');
     assert.ok(res.body.indexOf('https://www.werkhervattingskas.nl') === -1, url + ' www canonical');
     var bodyAt = res.body.indexOf('id="blogpost-body"');
