@@ -162,6 +162,12 @@ function auth(req, res, next) {
   try { jwt.verify(token, JWT_SECRET); next(); }
   catch (e) { res.status(401).json({ error: 'Token verlopen' }); }
 }
+function requesterIsAdmin(req) {
+  const token = ((req && req.headers && req.headers.authorization) || '').replace(/^Bearer\s+/i, '');
+  if (!token) return false;
+  try { jwt.verify(token, JWT_SECRET); return true; }
+  catch (e) { return false; }
+}
 app.post('/api/auth/login', (req, res) => {
   if ((req.body || {}).password !== ADMIN_PASSWORD) return res.status(401).json({ error: 'Onjuist wachtwoord' });
   res.json({ token: jwt.sign({ admin: true }, JWT_SECRET, { expiresIn: '8h' }), ok: true });
@@ -427,28 +433,75 @@ function mergePostSources(dbPosts) {
   (Array.isArray(dbPosts) ? dbPosts : []).forEach(function(p) { if (p && p.slug) bySlug.set(p.slug, p); });
   return Array.from(bySlug.values());
 }
+function seedChunk(html) {
+  if (!html) return '';
+  const start = html.indexOf('var SEED_POSTS = [');
+  if (start === -1) return '';
+  const end = html.indexOf('var posts =', start);
+  return html.slice(start, end === -1 ? start + 800000 : end);
+}
+function seedHead(html, slug) {
+  const chunk = seedChunk(html);
+  if (!chunk || !slug) return '';
+  const start = chunk.indexOf("slug: '" + slug + "'");
+  if (start === -1) return '';
+  const slice = chunk.slice(start, start + 1800);
+  const cut = slice.indexOf('bodyHtml:');
+  return cut === -1 ? slice : slice.slice(0, cut);
+}
+function seedDateField(head, field) {
+  if (!head) return '';
+  const m = head.match(new RegExp(field + ":\\s*'([^']*)'"));
+  return m ? m[1] : '';
+}
+// Zelfde regel als de markdown-artikelen in de sitemap: lege datum telt als live,
+// een datum na nu niet.
+function isPublicPostDate(publishedAt, now) {
+  if (!publishedAt) return true;
+  const t = new Date(publishedAt);
+  if (Number.isNaN(t.getTime())) return false;
+  return t <= now;
+}
 function seedBlogLastmod(html, slug) {
-  if (!html || !slug) return undefined;
-  const start = html.indexOf("slug: '" + slug + "'");
-  if (start === -1) return undefined;
-  const chunk = html.slice(start, start + 1800);
-  const cut = chunk.indexOf('bodyHtml:');
-  const head = cut === -1 ? chunk : chunk.slice(0, cut);
-  const updated = head.match(/updatedAt:\s*'(\d{4}-\d{2}-\d{2})/);
-  if (updated) return updated[1];
-  const published = head.match(/publishedAt:\s*'(\d{4}-\d{2}-\d{2})/);
-  return published ? published[1] : undefined;
+  const head = seedHead(html, slug);
+  if (!head) return undefined;
+  const now = new Date();
+  const published = seedDateField(head, 'publishedAt');
+  if (!isPublicPostDate(published, now)) return undefined;
+  const stamp = seedDateField(head, 'updatedAt') || published;
+  const m = String(stamp).match(/^(\d{4}-\d{2}-\d{2})/);
+  return m ? m[1] : undefined;
 }
 function extractSeedBlogSlugs(html) {
   const slugs = [];
-  const start = html.indexOf('var SEED_POSTS = [');
-  if (start === -1) return slugs;
-  const end = html.indexOf('var posts =', start);
-  const chunk = html.slice(start, end === -1 ? start + 800000 : end);
+  const chunk = seedChunk(html);
+  if (!chunk) return slugs;
+  const now = new Date();
   const re = /^\s+slug:\s*'([a-z0-9-]+)'/gm;
   let m;
-  while ((m = re.exec(chunk))) slugs.push(m[1]);
+  while ((m = re.exec(chunk))) {
+    const slug = m[1];
+    const head = seedHead(html, slug);
+    if (!isPublicPostDate(seedDateField(head, 'publishedAt'), now)) continue;
+    slugs.push(slug);
+  }
   return slugs;
+}
+function stripUnpublishedBlogLinks(text) {
+  const html = getHtml() || '';
+  const now = new Date();
+  const markdownBySlug = new Map();
+  loadMarkdownArticles().forEach(function (p) { if (p && p.slug) markdownBySlug.set(p.slug, p); });
+  return String(text || '').split('\n').filter(function (line) {
+    const m = line.match(/\/blog\/([a-z0-9-]+)/);
+    if (!m) return true;
+    const slug = m[1];
+    const md = markdownBySlug.get(slug);
+    if (md) return !md.archived && isPublicPostDate(md.publishedAt, now);
+    const head = seedHead(html, slug);
+    if (!head) return true;
+    return isPublicPostDate(seedDateField(head, 'publishedAt'), now);
+  }).join('\n');
 }
 function findSeedPostMeta(html, slug) {
   if (!html || !slug) return null;
@@ -588,7 +641,13 @@ ENDPOINTS.forEach(([p, key, open]) => {
       let data;
       if (v === null) data = defaultFor(key);
       else { try { data = JSON.parse(v); } catch (e) { return res.send(v); } }
-      if (key === 'posts') data = mergePostSources(data);
+      if (key === 'posts') {
+        data = mergePostSources(data);
+        if (!requesterIsAdmin(req)) {
+          const now = new Date();
+          data = data.filter(function (p) { return p && isPublicPostDate(p.publishedAt, now); });
+        }
+      }
       res.json(data);
     } catch (e) { res.status(500).json({ error: e.message }); }
   });
@@ -660,9 +719,16 @@ const SECTOR_META = {
 // HTML CACHE & META-INJECTIE
 // ================================================================
 let cachedHtml = null;
+function htmlPath() {
+  // Alleen de datumtest zet dit. Productie leest altijd whk_verzuim.html.
+  if (process.env.WHK_FUTURE_SEED === '1' && process.env.WHK_HTML_PATH) {
+    return process.env.WHK_HTML_PATH;
+  }
+  return path.join(__dirname, 'whk_verzuim.html');
+}
 function getHtml() {
   if (!cachedHtml) {
-    const p = path.join(__dirname, 'whk_verzuim.html');
+    const p = htmlPath();
     if (!fs.existsSync(p)) return null;
     cachedHtml = fs.readFileSync(p, 'utf8');
   }
@@ -800,16 +866,23 @@ function applyBlogSocialImage(html, post) {
     .replace(/<meta name="twitter:card" content="[^"]*"/, '<meta name="twitter:card" content="summary_large_image"');
 }
 function blogPageForSlug(slug, dbPosts) {
+  const now = new Date();
+  const html = getHtml() || '';
   const posts = mergePostSources(Array.isArray(dbPosts) ? dbPosts : []);
   let post = posts.find(p => p && p.slug === slug && !p.archived);
-  if (!post) post = blogImages.lookupPost(slug, getHtml() || '');
+  if (!post) post = blogImages.lookupPost(slug, html);
+  if (post && !isPublicPostDate(post.publishedAt, now)) return null;
   if (!post || post.archived) {
-    const seed = findSeedPostMeta(getHtml() || '', slug);
+    const head = seedHead(html, slug);
+    if (head && !isPublicPostDate(seedDateField(head, 'publishedAt'), now)) return null;
+    const seed = findSeedPostMeta(html, slug);
     if (!seed) return null;
     post = {
       slug: slug,
       title: String(seed.title || '').replace(/ \| Werkhervattingskas\.nl$/, ''),
       metaDescription: seed.desc,
+      publishedAt: seedDateField(head, 'publishedAt'),
+      updatedAt: seedDateField(head, 'updatedAt') || undefined,
       bodyHtml: ''
     };
   }
@@ -859,7 +932,7 @@ Object.keys(URL_META).forEach(p => {
 app.get('/llms.txt', (req, res) => {
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
   const u = SITE_URL;
-  res.send(`# Werkhervattingskas.nl
+  const body = `# Werkhervattingskas.nl
 > Informatie en tools over de Werkhervattingskas (WHK-premie), WIA/WGA/ZW, eigenrisicodragerschap, beschikking-uitleg en besparingsonderzoek.
 
 ## Start
@@ -925,7 +998,8 @@ app.get('/llms.txt', (req, res) => {
 - [Sectoren](${u}/sectoren): premieverschillen per branche.
 - [Sitemap](${u}/sitemap.xml): alle publieke URL's van deze site.
 - [Contact](${u}/over-ons): bellen op 085-0870307 (tel:+31850870307). WhatsApp alleen via https://wa.me/31650213593.
-`);
+`;
+  res.send(stripUnpublishedBlogLinks(body));
 });
 
 // ================================================================
