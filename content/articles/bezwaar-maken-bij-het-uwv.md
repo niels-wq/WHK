@@ -17,6 +17,7 @@ Voor werkgevers gaat het in de praktijk vaak om:
 - **bezwaar WIA**: de indeling WGA of IVA, de klasse (onder meer 35–80% of 80–100%), en of sprake is van duurzaamheid
 - **bezwaar WGA**: een latere WGA-beslissing (vervolgfase, percentage, of het resultaat van een herbeoordeling)
 - een Ziektewet-beslissing die aan jullie loonheffingennummer kan worden toegerekend
+- een beslissing op de aanvraag compensatie transitievergoeding na 2 jaar ziekte. De aanvraag zelf staat in [compensatie transitievergoeding aanvragen](/blog/compensatie-transitievergoeding-na-2-jaar-ziekte)
 
 Zinvol is het vooral als er een **inhoudelijke grond** is: de feiten in het dossier (contract, re-integratie, medisch-arbeidskundig beeld) passen niet bij wat het UWV heeft vastgesteld. “De premie is hoog” is op zichzelf geen bezwaargrond tegen een UWV-besluit. Een hoge premie kan wél een signaal zijn om de onderliggende beslissingen na te lopen.
 

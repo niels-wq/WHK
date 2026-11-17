@@ -323,6 +323,42 @@ function inlineMd(s) {
     .replace(/\[([^\]]+)\]\((https?:[^)]+|\/[^)\s]*)\)/g, '<a href="$2">$1</a>')
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 }
+function tableCells(line) {
+  return String(line || '').trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(function(cell) {
+    return cell.trim();
+  });
+}
+function isTableBlock(b) {
+  const lines = b.split('\n').filter(function(line) { return line.trim(); });
+  if (lines.length < 2) return false;
+  return lines.every(function(line) { return /^\|.*\|$/.test(line.trim()); });
+}
+function isOlBlock(b) {
+  const lines = b.split('\n').filter(function(line) { return line.trim(); });
+  if (!lines.length) return false;
+  return lines.every(function(line) { return /^\d+\.\s+/.test(line.trim()); });
+}
+function tableToHtml(b) {
+  const rows = b.split('\n').filter(function(line) { return line.trim(); }).map(tableCells);
+  let body = rows;
+  let header = null;
+  if (rows.length >= 2 && rows[1].every(function(cell) { return /^:?-+:?$/.test(cell); })) {
+    header = rows[0];
+    body = rows.slice(2);
+  }
+  let html = '<table>';
+  if (header) {
+    html += '<thead><tr>' + header.map(function(cell) {
+      return '<th>' + inlineMd(cell) + '</th>';
+    }).join('') + '</tr></thead>';
+  }
+  html += '<tbody>' + body.map(function(row) {
+    return '<tr>' + row.map(function(cell) {
+      return '<td>' + inlineMd(cell) + '</td>';
+    }).join('') + '</tr>';
+  }).join('') + '</tbody></table>';
+  return html;
+}
 function mdToHtml(md) {
   return String(md || '').split(/\n{2,}/).map(function(block) {
     const b = block.trim();
@@ -330,6 +366,14 @@ function mdToHtml(md) {
     if (b.startsWith('### ')) return '<h3>' + inlineMd(b.slice(4)) + '</h3>';
     if (b.startsWith('## ')) return '<h2>' + inlineMd(b.slice(3)) + '</h2>';
     if (b.startsWith('# ')) return '<h2>' + inlineMd(b.slice(2)) + '</h2>';
+    if (b.startsWith('<table') || b.startsWith('<div class="blog-table-wrap">')) return b;
+    if (isTableBlock(b)) return tableToHtml(b);
+    if (isOlBlock(b)) {
+      const items = b.split('\n').filter(function(line) { return line.trim(); }).map(function(line) {
+        return '<li>' + inlineMd(line.trim().replace(/^\d+\.\s+/, '')) + '</li>';
+      }).join('');
+      return '<ol>' + items + '</ol>';
+    }
     if (/^[-*] /.test(b)) {
       const items = b.split('\n').map(function(line) {
         return '<li>' + inlineMd(line.replace(/^[-*] /, '')) + '</li>';
@@ -382,6 +426,18 @@ function mergePostSources(dbPosts) {
   loadMarkdownArticles().forEach(function(p) { if (p.slug) bySlug.set(p.slug, p); });
   (Array.isArray(dbPosts) ? dbPosts : []).forEach(function(p) { if (p && p.slug) bySlug.set(p.slug, p); });
   return Array.from(bySlug.values());
+}
+function seedBlogLastmod(html, slug) {
+  if (!html || !slug) return undefined;
+  const start = html.indexOf("slug: '" + slug + "'");
+  if (start === -1) return undefined;
+  const chunk = html.slice(start, start + 1800);
+  const cut = chunk.indexOf('bodyHtml:');
+  const head = cut === -1 ? chunk : chunk.slice(0, cut);
+  const updated = head.match(/updatedAt:\s*'(\d{4}-\d{2}-\d{2})/);
+  if (updated) return updated[1];
+  const published = head.match(/publishedAt:\s*'(\d{4}-\d{2}-\d{2})/);
+  return published ? published[1] : undefined;
 }
 function extractSeedBlogSlugs(html) {
   const slugs = [];
@@ -858,11 +914,12 @@ app.get('/llms.txt', (req, res) => {
 - [Ziektewet-flexpremie 2027](${u}/blog/ziektewet-flexpremie-2027-negatief-vermogen): waarom 0,60% hoger ligt dan de lopende uitgaven.
 - [Correctiebericht of beschikking](${u}/blog/uwv-correctiebericht-vs-whk-beschikking-voorrang): welke brief waarover gaat en wat je daarna doet.
 - [Whk-premies 2027](${u}/blog/whk-premies-2027-wga-en-zw): gemiddelde WGA 1,07% en ZW 0,60%, met minimum, maximum en loonsomgrenzen.
+- [Sectorale Whk-premie 2027](${u}/blog/sectorale-whk-premie-2027): de 67 sectorpercentages voor kleine werkgevers, en hoe je de mededeling van eind 2026 daarnaast legt.
 - [Correctiefactor Whk bij onvolledige periode](${u}/blog/correctiefactor-whk-onvolledige-periode): factoren voor 2027 als niet elk jaar 2021 tot en met 2025 is verloond, apart van de correctiefactor werkgeversrisico.
 - [Jaareinde-checklist WHK](${u}/blog/jaareinde-checklist-whk-voor-31-december): vijf punten vóór 31 december, van loonsom 2025 en no-risk tot LKV, correcties op de loonaangifte en de brief voor 2027.
 - [LKV-deadlines](${u}/blog/lkv-deadlines-kalender-werkgever): kalender voor de voorlopige berekening, correcties en de definitieve beschikking.
 - [ZW-eigenrisicodrager checklist](${u}/blog/zw-eigenrisicodrager-checklist): voorwaarden, aanvraag en wat je checkt vóór je overstapt.
-- [Compensatie transitievergoeding na 2 jaar ziekte](${u}/blog/compensatie-transitievergoeding-na-2-jaar-ziekte): aanvraag bij het UWV binnen 6 maanden na betaling, met stukken en veelgemaakte fouten.
+- [Compensatie transitievergoeding aanvragen](${u}/blog/compensatie-transitievergoeding-na-2-jaar-ziekte): aanvraag bij het UWV binnen 6 maanden na volledige betaling, met stukken, plafond en bezwaar. Het maximum is in 2026 € 102.000 bruto bij een einde op of na 1 januari 2026. Afschaffing is een kabinetsvoornemen per 1 januari 2028 en nog geen wet.
 
 ## Optional
 
@@ -914,7 +971,7 @@ app.get('/sitemap.xml', async (req, res) => {
     if (html) {
       extractSeedBlogSlugs(html).forEach(slug => {
         if (RETIRED_BLOG_SLUGS[slug]) return;
-        addUrl(SITE_URL + '/blog/' + slug, 'yearly', '0.6');
+        addUrl(SITE_URL + '/blog/' + slug, 'yearly', '0.6', seedBlogLastmod(html, slug));
       });
     }
     xml += '</urlset>';
