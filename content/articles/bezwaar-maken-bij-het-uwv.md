@@ -53,6 +53,8 @@ Een **bezwaarschrift UWV** is geen standaardbrief van internet. Het UWV beoordee
 
 In 2026 is die tweede route extra smal: het UWV doet herbeoordelingen vooral bij een **schrijnende situatie**. Zie [UWV herbeoordeling 2026: alleen schrijnende situaties](/blog/uwv-herbeoordeling-2026).
 
+Waarom spoor 2 aan de voorkant en bezwaar na het WIA-besluit daardoor zwaarder wegen: [Spoor 2 en bezwaar: waarom dat in 2026 zwaarder weegt](/blog/spoor-2-en-bezwaar-werkgever).
+
 Welke van de twee past, hangt af van de datum van het besluit, de medische ontwikkeling en wat je wilt bereiken. Dat is een gesprek over stukken, geen checklist.
 
 ## Bezwaar UWV WIA 2026: mag het nog, hoe maak je kans?
