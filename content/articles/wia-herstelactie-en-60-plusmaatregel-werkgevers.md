@@ -35,6 +35,8 @@ Van 1 oktober 2022 tot en met 31 december 2024 gold een vereenvoudigde WIA-claim
 
 Kort gezegd: wie op of na 1 september 2025 twee jaar (104 weken) ziek is en op dat moment 60 of ouder is, kan meestal zonder sociaal-medische beoordeling een WIA-uitkering krijgen als hij of zij 65% of minder van het oude loon verdient. Dat is dan de maximale WGA-uitkering: 70% van het WIA-maandloon. De maatregel geldt niet bij een herbeoordeling. De arbeidsdeskundige vraagt aanvrager en (ex-)werkgever of zij deze beoordeling willen. Bron: [vereenvoudigde 60-plusregeling (UWV)](https://www.uwv.nl/nl/wia/vereenvoudigde-60-plus-regeling).
 
+Een loonsanctie schuift dat einde van de wachttijd niet op. De Centrale Raad volgde het betoog niet dat de wachttijd daardoor met 52 weken opschuift: [ECLI:NL:CRVB:2026:294](https://uitspraken.rechtspraak.nl/details?id=ECLI:NL:CRVB:2026:294) (11 maart 2026). Wat de rechter bij spoor 2 verder toetst: [Loonsanctie door spoor 2: wat de rechter echt toetst](/blog/loonsanctie-spoor-2-rechtspraak).
+
 Voor de premie geldt het volgende, aldus het UWV.
 
 - De WGA-lasten van 60-plussers die instroomden terwijl de maatregel gold, komen niet ten laste van de Werkhervattingskas. Ze worden uit het **Aof** betaald.
