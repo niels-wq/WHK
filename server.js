@@ -897,6 +897,7 @@ app.get('/llms.txt', (req, res) => {
 - [WHK-beschikking lezen in 10 minuten](${u}/blog/whk-beschikking-lezen-in-10-minuten): bijlage, toerekening en wat het voorblad niet toont.
 - [Premieverhoging na een WGA-instroom](${u}/blog/whk-premieverhoging-na-een-wga-instroom-rekenvoorbeeld-mkb): rekenvoorbeeld voor een middelgroot mkb.
 - [Bezwaar maken bij het UWV](${u}/blog/bezwaar-maken-bij-het-uwv): termijn, stappen en wanneer een bezwaarschrift loont.
+- [Bezwaar WIA-besluit als werkgever](${u}/blog/bezwaar-wia-besluit-werkgever): wanneer bezwaar de mate verlaagt, en waar het procesbelang ophoudt.
 - [UWV herbeoordeling 2026](${u}/blog/uwv-herbeoordeling-2026): wanneer een herbeoordeling nog aan de orde is.
 - [No-riskpolis: 7 checkpunten](${u}/blog/no-riskpolis-7-checkpunten-voor-whk-beschikking): no-riskstatus controleren voordat de beschikking vaststaat.
 - [ERD terug naar de publieke premie](${u}/blog/erd-terug-naar-publiek-beslisboom-2026): beslisboom voor blijven of terug in 2026.
