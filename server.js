@@ -898,6 +898,7 @@ app.get('/llms.txt', (req, res) => {
 - [Premieverhoging na een WGA-instroom](${u}/blog/whk-premieverhoging-na-een-wga-instroom-rekenvoorbeeld-mkb): rekenvoorbeeld voor een middelgroot mkb.
 - [Bezwaar maken bij het UWV](${u}/blog/bezwaar-maken-bij-het-uwv): termijn, stappen en wanneer een bezwaarschrift loont.
 - [UWV herbeoordeling 2026](${u}/blog/uwv-herbeoordeling-2026): wanneer een herbeoordeling nog aan de orde is.
+- [Herbeoordeling WIA: wachttijd en dwangsom](${u}/blog/herbeoordeling-wia-wachttijd-dwangsom): geen officieel cijfer boven twee jaar, en wat de rechter in 2026 doet als UWV niet beslist.
 - [No-riskpolis: 7 checkpunten](${u}/blog/no-riskpolis-7-checkpunten-voor-whk-beschikking): no-riskstatus controleren voordat de beschikking vaststaat.
 - [ERD terug naar de publieke premie](${u}/blog/erd-terug-naar-publiek-beslisboom-2026): beslisboom voor blijven of terug in 2026.
 - [ERD per 1 januari 2027](${u}/blog/erd-2027-aanvragen-voor-2-oktober): de aanvraagdeadline is verstreken. Check de beschikking en plan 1 oktober 2027.

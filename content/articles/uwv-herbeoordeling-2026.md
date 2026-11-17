@@ -3,7 +3,7 @@ title: UWV herbeoordeling 2026: alleen schrijnende situaties
 slug: uwv-herbeoordeling-2026
 description: UWV herbeoordeling 2026: alleen schrijnende situaties. Werkgeversformulier vanaf 1 april; UWV belt binnen 5 werkdagen. Dossiercheck schrijnendheid.
 publishedAt: 2026-09-17
-updatedAt: 2026-10-12
+updatedAt: 2026-11-17
 tags: Wetgeving & UWV, Bezwaar & procedure, WGA
 ---
 
@@ -21,6 +21,8 @@ Voor herbeoordelingen blijft er daardoor **minder capaciteit** over. Het UWV sch
 Bron: [UWV concentreert zich de komende tijd op WIA- en Wajong-beoordelingen](https://www.uwv.nl/nl/nieuws/uwv-concentreert-zich-de-komende-tijd-op-wia-en-wajong-beoordelingen). De minister van SZW informeerde de Tweede Kamer hierover in december 2025, zie de [voortgangsbrief mismatch sociaal-medisch beoordelen](https://www.rijksoverheid.nl/documenten/2025/12/19/voortgangsbrief-mismatch-sociaal-medisch-beoordelen-hersteloperatie-en-kwaliteitsverbeteringen-uwv).
 
 Dit is beleid van het UWV, geen belofte dat *jouw* dossier wordt opgepakt. “De Whk-premie is hoog” is op zichzelf geen schrijnende situatie.
+
+Blijft een aanvraag liggen, dan is de vervolgvraag de wachttijd, de dwangsom en het beroep wegens niet tijdig beslissen. Wat de rechter daar in 2026 over zegt, en waarom er geen officieel UWV-cijfer is voor een wachttijd boven twee jaar: [Herbeoordeling WIA 2026: wachttijd, dwangsom en beroep](/blog/herbeoordeling-wia-wachttijd-dwangsom).
 
 ## Herbeoordeling WIA schrijnende situatie: wat telt
 
