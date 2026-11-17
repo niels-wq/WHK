@@ -136,6 +136,7 @@ function slugsInHtml(html) {
   fs.readdirSync(dir).forEach(function (name) {
     if (!name.endsWith('.md') || name.toLowerCase() === 'readme.md') return;
     var raw = fs.readFileSync(path.join(dir, name), 'utf8');
+    if (/^archived:\s*true\s*$/m.test(raw)) return;
     var fm = raw.match(/^slug:\s*(\S+)/m);
     found[(fm ? fm[1] : name.replace(/\.md$/, '')).replace(/['"]/g, '')] = true;
   });

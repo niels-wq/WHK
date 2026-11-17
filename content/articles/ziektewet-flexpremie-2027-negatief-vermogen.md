@@ -36,7 +36,7 @@ Welke klasse jouw loonsom in 2027 is, staat in [kleine, middelgrote of grote wer
 Het gemiddelde van 0,60% is het percentage waar de individuele premie omheen wordt gezet, inclusief de vermogensopbouw. Jouw ZW-deel kan lager of hoger zijn.
 
 - **Klasse.** Klein: sectorpremie, via een mededeling. Middelgroot: mix. Groot: individueel. De loonsom op het stuk hoort bij 2025.
-- **ZW-deel apart van WGA.** Een sprong in flex is een ander gesprek dan een WGA-dossier. Velden en bijlage: [beschikking uitleg](https://werkhervattingskas.nl/beschikking-uitleg) en [WHK-beschikking lezen](/blog/whk-beschikking-lezen-in-10-minuten).
+- **ZW-deel apart van WGA.** Een sprong in flex is een ander gesprek dan een WGA-dossier. Velden en bijlage: [beschikking uitleg](https://werkhervattingskas.nl/beschikking-uitleg).
 - **Eigenrisico.** Wie ZW-eigenrisicodrager is, betaalt dit premiedeel niet en draagt de uitkering zelf. De voorwaarden staan in de [checklist ZW-eigenrisicodrager](/blog/zw-eigenrisicodrager-checklist). De aanvraag voor een start per 1 januari 2027 is gesloten: [ERD per 1 januari 2027](/blog/erd-2027-aanvragen-voor-2-oktober). Een hogere publieke premie is geen reden om die keuze te overhaasten.
 
 Een latere WGA-uitkering is een andere regeling. De orde van grootte daarvan: [WIA-calculator](https://werkhervattingskas.nl/tools/wia-calculator). Algemene vragen: [FAQ](https://werkhervattingskas.nl/faq).

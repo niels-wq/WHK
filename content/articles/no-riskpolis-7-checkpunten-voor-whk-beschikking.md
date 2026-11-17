@@ -29,7 +29,7 @@ Een notitie bij werving is niet genoeg. Payroll moet de status kunnen zien bij e
 Zonder melding blijft de compensatie uit, ook als het recht bestond. Check de ziekmeldingen in het refertejaar van de beschikking (voor premiejaar 2026 is dat in de regel 2024). Geen melding is geen bewijs dat er geen status was. Het is wél een signaal dat zowel loon als latere toerekening verkeerd kunnen zijn gelopen.
 
 **3. Staat dezelfde persoon op de Whk-bijlage?**
-Open de bijlage of de specificatie instroomgegevens. Hoe je dat stuk vindt, staat in [WHK-beschikking lezen in 10 minuten](/blog/whk-beschikking-lezen-in-10-minuten) en op [beschikking uitleg](https://werkhervattingskas.nl/beschikking-uitleg). Staat een no-riskkandidaat bij WGA of ZW, dan is dat geen afronding. Zet naam, periode en bedrag naast het verzuimdossier.
+Open de bijlage of de specificatie instroomgegevens. Hoe je dat stuk leest, staat op [beschikking uitleg](https://werkhervattingskas.nl/beschikking-uitleg). De controle op no-risk en toerekening staat bij [WHK-beschikking controleren](https://werkhervattingskas.nl/diensten/whk-controle). Staat een no-riskkandidaat bij WGA of ZW, dan is dat geen afronding. Zet naam, periode en bedrag naast het verzuimdossier.
 
 **4. Klopt het refertejaar met de geldigheid van de status?**
 De beschikking kijkt twee jaar terug. Een status die in 2022 gold en in 2024 was verlopen, is een ander gesprek dan een status die in het schadelastjaar nog liep. Vraag de duur niet “op gevoel” na. Die verschilt per doelgroep. Een aanname op basis van LKV of een andere medewerker is de snelste manier om het verkeerde jaar te vinken.
