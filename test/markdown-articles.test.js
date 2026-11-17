@@ -18,7 +18,8 @@ var NEW_SLUGS = [
   'loondoorbetaling-bij-ziekte-scenarios-mkb',
   'correctiefactor-whk-onvolledige-periode',
   'jaareinde-checklist-whk-voor-31-december',
-  'sectorale-whk-premie-2027'
+  'sectorale-whk-premie-2027',
+  'kabinetsplannen-re-integratiemarkt'
 ];
 var ROUND_SLUGS = [
   'kleine-middelgrote-grote-werkgever-whk-2027',
@@ -65,6 +66,9 @@ var BACKLINKS = {
   'sectorale-whk-premie-2027': [
     'kleine-middelgrote-grote-werkgever-whk-2027.md',
     'whk-premies-2027-wga-en-zw.md'
+  ],
+  'kabinetsplannen-re-integratiemarkt': [
+    'loondoorbetaling-bij-ziekte-scenarios-mkb.md'
   ]
 };
 var REQUIRED_LINKS = [

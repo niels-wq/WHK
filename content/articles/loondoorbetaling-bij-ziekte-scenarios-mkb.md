@@ -15,6 +15,8 @@ Loondoorbetaling bij ziekte is de wettelijke plicht van de werkgever om het loon
 
 Dat is de wet van nu. De brief van 8 september 2026 vervangt die norm niet.
 
+De wetsvoorstellen 36926 en 37002, het voornemen over de IVA en wat dat kan betekenen voor de re-integratiemarkt: [Kabinetsplannen 2026-2030 en de re-integratiemarkt](/blog/kabinetsplannen-re-integratiemarkt).
+
 Bron: [Kamerbrief scenario's loondoorbetaling bij ziekte, 8 september 2026](https://www.eerstekamer.nl/behandeling/20260908/brief_regering_inventarisatie/document3/f=/vn15jyx8opyq.pdf) (Kamerstuk 32 716, nr. 70). Publicatiegegevens: [Eerste Kamer](https://www.eerstekamer.nl/behandeling/20260908/brief_regering_inventarisatie/info) en [open.overheid.nl](https://open.overheid.nl/details/c598d311-7a65-4e17-a5f3-4da373aa26df).
 
 ## Wat staat er in de Kamerbrief van 8 september 2026?
