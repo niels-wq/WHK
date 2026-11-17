@@ -65,6 +65,8 @@ Bron op hoofdlijn: de [voortgangsbrief van SZW (december 2025)](https://www.rijk
 
 Kans maken in 2026 betekent dus: **op tijd indienen** (6 weken, desnoods pro-forma), een **inhoudelijke grond** (feiten in het dossier passen niet bij de beslissing), en realistisch zijn over doorlooptijd. Alleen “de premie is hoog” is geen bezwaargrond. Past de zaak eerder bij herbeoordeling dan bij bezwaar, lees [UWV herbeoordeling 2026](/blog/uwv-herbeoordeling-2026).
 
+Wat een bezwaar van de werkgever bij de rechter opleverde, en waar het procesbelang ophoudt: [Bezwaar WIA-besluit als werkgever: wanneer het kan](/blog/bezwaar-wia-besluit-werkgever).
+
 ## Wanneer hulp inschakelen
 
 Hulp inschakelen is zinvol als de termijn loopt, de grond inhoudelijk is (belastbaarheid, WGA versus IVA, percentage) en de stukken er liggen. Niet als je alleen “de premie te hoog” vindt, of als het eigenlijk om de Whk-beschikking van de Belastingdienst gaat.
