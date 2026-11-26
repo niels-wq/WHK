@@ -23,7 +23,7 @@ Zinvol is het vooral als er een **inhoudelijke grond** is: de feiten in het doss
 
 Bezwaar UWV is meestal **niet** de eerste route als het om de jaarlijkse **Whk-beschikking** van de Belastingdienst gaat. Dat is een ander besluit, bij een andere instantie. Zie [hoe je de beschikking leest](/beschikking-uitleg).
 
-Of bezwaar in *jouw* dossier loont, hangt af van de stukken. Voor de orde van grootte van een WGA- of IVA-uitkering: de [WIA-calculator](/tools/wia-calculator).
+Of bezwaar in *jouw* dossier loont, hangt af van de stukken. Voor de orde van grootte van een WGA- of IVA-uitkering: de [WIA-calculator](/tools/wia-calculator). Wat een WGA of een IVA doet met de Whk-premie of met de eigen rekening van een eigenrisicodrager, staat in [WGA of IVA voor de werkgever](/blog/wga-of-iva-whk-premie-of-eigen-rekening).
 
 ## Termijn bezwaar UWV: 6 weken
 

@@ -896,6 +896,7 @@ app.get('/llms.txt', (req, res) => {
 - [Wat is de Werkhervattingskas](${u}/blog/wat-is-de-werkhervattingskas-en-waarom-stijgt-jouw-premie): WGA, ZW en waarom de premie voor een werkgever stijgt.
 - [WHK-beschikking lezen in 10 minuten](${u}/blog/whk-beschikking-lezen-in-10-minuten): bijlage, toerekening en wat het voorblad niet toont.
 - [Premieverhoging na een WGA-instroom](${u}/blog/whk-premieverhoging-na-een-wga-instroom-rekenvoorbeeld-mkb): rekenvoorbeeld voor een middelgroot mkb.
+- [WGA of IVA voor de werkgever](${u}/blog/wga-of-iva-whk-premie-of-eigen-rekening): publiek verzekerd via de Whk-premie, eigenrisicodrager via de factuur van UWV. Een IVA komt uit het Aof.
 - [Bezwaar maken bij het UWV](${u}/blog/bezwaar-maken-bij-het-uwv): termijn, stappen en wanneer een bezwaarschrift loont.
 - [UWV herbeoordeling 2026](${u}/blog/uwv-herbeoordeling-2026): wanneer een herbeoordeling nog aan de orde is.
 - [No-riskpolis: 7 checkpunten](${u}/blog/no-riskpolis-7-checkpunten-voor-whk-beschikking): no-riskstatus controleren voordat de beschikking vaststaat.

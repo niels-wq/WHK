@@ -65,6 +65,10 @@ var BACKLINKS = {
   'sectorale-whk-premie-2027': [
     'kleine-middelgrote-grote-werkgever-whk-2027.md',
     'whk-premies-2027-wga-en-zw.md'
+  ],
+  'wga-of-iva-whk-premie-of-eigen-rekening': [
+    'whk-premieverhoging-na-een-wga-instroom-rekenvoorbeeld-mkb.md',
+    'bezwaar-maken-bij-het-uwv.md'
   ]
 };
 var REQUIRED_LINKS = [
@@ -275,6 +279,42 @@ files.forEach(function (file) {
     });
     assert.ok(parsed.body.indexOf('<tr><td>36</td>') === -1 && parsed.body.indexOf('<tr><td>37</td>') === -1, file + ' sectors 36 and 37 do not exist');
     assert.strictEqual((parsed.body.match(/<tr><td>\d+<\/td>/g) || []).length, 67, file + ' sector rows');
+  }
+  if (slug === 'wga-of-iva-whk-premie-of-eigen-rekening') {
+    assert.strictEqual(parsed.meta.title, 'WGA of IVA: dit verschil merkt de werkgever, met of zonder eigen risico', file + ' title');
+    assert.ok(parsed.meta.description.length >= 140 && parsed.meta.description.length <= 155, file + ' description length ' + parsed.meta.description.length);
+    assert.strictEqual(parsed.meta.publishedAt, '2026-11-26', file + ' publishedAt');
+    assert.strictEqual(parsed.meta.updatedAt, '2026-11-26', file + ' updatedAt');
+    assert.ok(parsed.body.indexOf('## Veelgestelde vragen') !== -1, file + ' FAQ heading');
+    var faqQs = parsed.body.match(/^\*\*.+\?\*\*/gm) || [];
+    assert.ok(faqQs.length >= 3 && faqQs.length <= 5, file + ' FAQ count ' + faqQs.length);
+    assert.ok(parsed.body.indexOf('\u2014') === -1 && parsed.body.indexOf('\u2013') === -1, file + ' dashes');
+    assert.ok(parsed.meta.title.indexOf('\u2014') === -1 && parsed.meta.description.indexOf('\u2014') === -1, file + ' frontmatter dash');
+    assert.ok(!/no[\s-]*cure/i.test(parsed.body), file + ' no cure');
+    assert.ok(parsed.body.indexOf('47.000') === -1, file + ' 47.000');
+    assert.ok(parsed.body.indexOf('8 van de 10') === -1 && parsed.body.indexOf('8/10') === -1, file + ' 8 van de 10');
+    assert.ok(parsed.body.indexOf('erd-partneradvies') === -1, file + ' ERD sales link');
+    assert.ok(parsed.body.indexOf('pensioenleeftijd') === -1, file + ' pension age');
+    assert.ok(parsed.body.indexOf('gunstigste') === -1, file + ' recognizable sentence');
+    assert.ok(parsed.body.indexOf('voor eigen rekening of via een verzekeraar') !== -1, file + ' insurance open point');
+    assert.ok(parsed.body.indexOf('Een gedifferentieerde Whk-premie speelde in dit dossier niet.') !== -1, file + ' case is not a Whk saving');
+    assert.ok(parsed.body.indexOf('120') !== -1, file + ' 120 invoices');
+    assert.ok(parsed.body.indexOf('Aof') !== -1, file + ' Aof');
+    assert.ok(parsed.body.indexOf('Gratis WHK-beschikking check') !== -1, file + ' CTA');
+    [
+      'https://werkhervattingskas.nl/beschikking-uitleg',
+      'https://werkhervattingskas.nl/tools/wia-calculator',
+      'https://werkhervattingskas.nl/diensten/whk-controle',
+      'https://werkhervattingskas.nl/faq',
+      'https://www.uwv.nl/nl/eigenrisicodrager/eigenrisicodrager-wga',
+      'https://www.uwv.nl/nl/premies-bedragen/premie-wia-wao-wga',
+      'https://www.uwv.nl/nl/wia/iva',
+      '/blog/whk-premieverhoging-na-een-wga-instroom-rekenvoorbeeld-mkb',
+      '/blog/bezwaar-maken-bij-het-uwv',
+      '/blog/erd-terug-naar-publiek-beslisboom-2026'
+    ].forEach(function (href) {
+      assert.ok(parsed.body.indexOf(href) !== -1, file + ' missing link ' + href);
+    });
   }
   if (slug === 'erd-2027-aanvragen-voor-2-oktober') {
     assert.ok(/verstreken|voorbij/i.test(parsed.body), file + ' should say the January 2027 deadline has passed');
