@@ -202,7 +202,10 @@
     var exit = document.getElementById('exit-intent-bg');
     var exitOn = !!(exit && exit.classList.contains('show'));
     document.documentElement.classList.toggle('whkchat-exit', exitOn && !isOpen());
-    if (exitOn && isOpen() && exit) exit.classList.remove('show');
+    if (exitOn && isOpen() && exit) {
+      exit.classList.remove('show');
+      exit.setAttribute('aria-hidden', 'true');
+    }
     tryShowTeaser();
   }
 

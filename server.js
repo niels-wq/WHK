@@ -913,6 +913,7 @@ app.get('/llms.txt', (req, res) => {
 - [LKV-deadlines](${u}/blog/lkv-deadlines-kalender-werkgever): kalender voor de voorlopige berekening, correcties en de definitieve beschikking.
 - [ZW-eigenrisicodrager checklist](${u}/blog/zw-eigenrisicodrager-checklist): voorwaarden, aanvraag en wat je checkt vóór je overstapt.
 - [Compensatie transitievergoeding aanvragen](${u}/blog/compensatie-transitievergoeding-na-2-jaar-ziekte): aanvraag bij het UWV binnen 6 maanden na volledige betaling, met stukken, plafond en bezwaar. Het maximum is in 2026 € 102.000 bruto bij een einde op of na 1 januari 2026. Afschaffing is een kabinetsvoornemen per 1 januari 2028 en nog geen wet.
+- [Stukken vóór de deadline inleveren](${u}/blog/stukken-voor-de-deadline-inleveren): bezwaartermijn van 6 weken, het re-integratieverslag in week 93 en het risico van een loonsanctie.
 
 ## Optional
 

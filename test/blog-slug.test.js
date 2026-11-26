@@ -17,7 +17,8 @@ var NEW_BLOGS = [
   'loondoorbetaling-bij-ziekte-scenarios-mkb',
   'correctiefactor-whk-onvolledige-periode',
   'jaareinde-checklist-whk-voor-31-december',
-  'sectorale-whk-premie-2027'
+  'sectorale-whk-premie-2027',
+  'stukken-voor-de-deadline-inleveren'
 ];
 var OCT12_BLOGS = [
   'loondoorbetaling-bij-ziekte-scenarios-mkb'
@@ -350,8 +351,47 @@ var server = app.listen(0, '127.0.0.1', function () {
       'seed lastmod uses updatedAt'
     );
   });
+  var deadlineSlug = 'stukken-voor-de-deadline-inleveren';
+  var deadline = Promise.all([
+    request(port, '/sitemap.xml'),
+    request(port, '/api/posts'),
+    request(port, '/blog/' + deadlineSlug),
+    request(port, '/')
+  ]).then(function (results) {
+    var site = results[0];
+    var postsRes = results[1];
+    var page = results[2];
+    var home = results[3];
+    assert.strictEqual(site.status, 200, 'sitemap status');
+    assert.ok(
+      site.body.indexOf('<loc>' + APEX + '/blog/' + deadlineSlug + '</loc>') !== -1,
+      'sitemap mist ' + deadlineSlug
+    );
+    assert.ok(site.body.indexOf('<lastmod>2026-11-26</lastmod>') !== -1, 'sitemap lastmod');
+    assert.strictEqual(postsRes.status, 200, '/api/posts status');
+    var posts = JSON.parse(postsRes.body);
+    assert.ok(posts.some(function (p) {
+      return p && p.slug === deadlineSlug && !p.archived;
+    }), '/api/posts mist ' + deadlineSlug);
+    assert.strictEqual(page.status, 200, '/blog/' + deadlineSlug + ' status');
+    assert.strictEqual(home.status, 200, 'home status');
+    assert.ok(home.body.indexOf('id="exit-intent-bg"') !== -1, 'exit-intent ontbreekt');
+    assert.ok(home.body.indexOf('id="exit-intent-dialog"') !== -1, 'exit-intent dialog ontbreekt');
+    assert.ok(home.body.indexOf('role="dialog"') !== -1, 'exit-intent role');
+    assert.ok(home.body.indexOf('aria-modal="true"') !== -1, 'exit-intent aria-modal');
+    assert.ok(home.body.indexOf('id="exit-intent-close"') !== -1, 'exit-intent sluitknop');
+    assert.ok(home.body.indexOf('Gratis en vrijblijvend: laat je WHK-beschikking checken') !== -1, 'exit-intent kop');
+    assert.ok(home.body.indexOf('id="exit-intent-cta" href="/diensten/whk-controle"') !== -1, 'exit-intent knop');
+    assert.ok(home.body.indexOf('whk_exit_intent_shown') !== -1, 'exit-intent sessionStorage');
+    assert.ok(home.body.indexOf("openModal('terugbel-modal')") !== -1, 'exit-intent opent het bestaande formulier');
+    assert.ok(home.body.indexOf('dataLayer.push({ event: name })') !== -1, 'exit-intent dataLayer');
+    assert.ok(home.body.indexOf("e.key === 'Escape'") !== -1, 'exit-intent Escape');
+    assert.ok(home.body.indexOf("e.key !== 'Tab'") !== -1, 'exit-intent focus trap');
+    assert.ok(home.body.indexOf('.exit-intent-bg{position:fixed') !== -1, 'exit-intent fixed');
+    assert.ok(home.body.indexOf('display:none') !== -1, 'exit-intent verborgen tot show');
+  });
 
-  Promise.all([articleReqs, seedReqs, missing, sitemap]).then(function () {
+  Promise.all([articleReqs, seedReqs, missing, sitemap, deadline]).then(function () {
     console.log('blog slug tests ok (' + articles.length + ' articles, ' + seeds.length + ' seed posts, unknown 404)');
     server.close();
   }).catch(function (err) {

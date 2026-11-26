@@ -851,12 +851,17 @@
   .score-warm{background:#fef9c3;color:#b45309;}
   .score-cold{background:#dbeafe;color:#1d4ed8;}
   /* ---- EXIT INTENT ---- */
-  .exit-intent-bg{position:fixed;inset:0;background:rgba(17,25,43,.55);z-index:900;display:none;align-items:center;justify-content:center;}
+  .exit-intent-bg{position:fixed;inset:0;background:rgba(17,25,43,.55);z-index:900;display:none;align-items:center;justify-content:center;padding:16px;}
   .exit-intent-bg.show{display:flex;}
-  .exit-intent-box{background:var(--paper);border-radius:var(--radius-m);padding:36px 40px;max-width:480px;width:90%;position:relative;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.18);}
-  .exit-intent-box h3{font-family:'Fraunces',serif;font-size:1.45rem;margin-bottom:10px;}
-  .exit-intent-box p{color:var(--ink-soft);margin-bottom:22px;}
-  .exit-intent-close{position:absolute;top:12px;right:16px;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--ink-soft);}
+  .exit-intent-box{background:var(--paper);border-radius:var(--radius-m);padding:36px 40px;max-width:480px;width:100%;max-height:calc(100vh - 32px);overflow:auto;position:relative;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.18);}
+  .exit-intent-box h3{font-family:'Fraunces',serif;font-size:1.35rem;margin:0 0 10px;line-height:1.25;}
+  .exit-intent-box p{color:var(--ink-soft);margin:0 0 22px;}
+  .exit-intent-box .btn{width:100%;justify-content:center;}
+  .exit-intent-close{position:absolute;top:12px;right:16px;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--ink-soft);line-height:1;}
+  .exit-intent-close:focus-visible,.exit-intent-box a:focus-visible{outline:2px solid var(--risk);outline-offset:3px;}
+  @media (max-width:480px){
+    .exit-intent-box{padding:28px 18px 24px;}
+  }
   /* ---- DARK MODE ---- */
   .admin-dark-toggle{background:none;border:1px solid var(--line);border-radius:var(--radius-s);padding:5px 10px;font-size:0.78rem;cursor:pointer;color:var(--ink-soft);}
   body.admin-dark #admin-view,body.admin-dark #login-view{background:#1a1f2e;color:#e2e8f0;}
@@ -7378,13 +7383,12 @@
   <div class="reading-progress" id="reading-progress"><div class="reading-progress-fill" id="reading-progress-fill"></div></div>
 
   <!-- EXIT INTENT MODAL -->
-  <div class="exit-intent-bg" id="exit-intent-bg">
-    <div class="exit-intent-box">
-      <button class="exit-intent-close" id="exit-intent-close" type="button" aria-label="Sluiten">✕</button>
-      <h3>Wacht &mdash; doe eerst de gratis check.</h3>
-      <p>De eerste check van de WHK-beschikking is kosteloos en duurt ongeveer 15 minuten. Zij is vrijblijvend.</p>
-      <button class="btn btn-risk" id="exit-intent-cta" type="button" style="width:100%;justify-content:center;">Start de gratis WHK-check</button>
-      <p style="font-size:0.78rem;color:var(--ink-soft);margin-top:12px;">De eerste check van de WHK-beschikking is kosteloos. Geen verplichting.</p>
+  <div class="exit-intent-bg" id="exit-intent-bg" aria-hidden="true">
+    <div class="exit-intent-box" id="exit-intent-dialog" role="dialog" aria-modal="true" aria-labelledby="exit-intent-title" aria-describedby="exit-intent-desc" tabindex="-1">
+      <button class="exit-intent-close" id="exit-intent-close" type="button" aria-label="Sluiten">&times;</button>
+      <h3 id="exit-intent-title">Gratis en vrijblijvend: laat je WHK-beschikking checken</h3>
+      <p id="exit-intent-desc">We leggen je beschikking naast loonsom, premie en toerekening. De checkup is kosteloos en je zit nergens aan vast.</p>
+      <a class="btn btn-risk" id="exit-intent-cta" href="/diensten/whk-controle">Laat je WHK-beschikking checken</a>
     </div>
   </div>
 
@@ -13514,26 +13518,130 @@
   }
 
   // ---- EXIT INTENT ----
+  // Desktop: pointer leaves through the top. Touch: only after a scroll back up.
+  // Once per session. Hidden with display:none, so the dialog does not shift layout.
+  var EXIT_STORAGE_KEY = 'whk_exit_intent_shown';
   var exitShown = false;
-  document.addEventListener('mouseleave', function(e){
-    if(e.clientY > 0 || exitShown || isAdmin) return;
-    var bg = document.getElementById('exit-intent-bg');
-    if(!bg) return;
+  var exitLastFocus = null;
+  try { exitShown = sessionStorage.getItem(EXIT_STORAGE_KEY) === '1'; } catch (err) {}
+
+  function isCoarseExit() {
+    return window.matchMedia('(max-width: 767px), (hover: none) and (pointer: coarse)').matches;
+  }
+  function markExitShown() {
     exitShown = true;
+    try { sessionStorage.setItem(EXIT_STORAGE_KEY, '1'); } catch (err) {}
+  }
+  function exitDialog() {
+    return document.getElementById('exit-intent-dialog');
+  }
+  function exitFocusables() {
+    var box = exitDialog();
+    if (!box) return [];
+    return Array.prototype.filter.call(box.querySelectorAll('button, a[href], input, select, textarea'), function (el) {
+      return !el.disabled;
+    });
+  }
+  function pushExitDataLayer(name) {
+    trackEvent(name);
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: name });
+      if (typeof window.gtag === 'function') window.gtag('event', name);
+    } catch (err) {}
+  }
+  function hideExitIntent() {
+    var bg = document.getElementById('exit-intent-bg');
+    if (bg) {
+      bg.classList.remove('show');
+      bg.setAttribute('aria-hidden', 'true');
+    }
+    var back = exitLastFocus;
+    exitLastFocus = null;
+    if (back && typeof back.focus === 'function') {
+      try { back.focus(); } catch (err) {}
+    }
+  }
+  function showExitIntent() {
+    if (exitShown || isAdmin) return;
+    var active = document.activeElement;
+    if (active && /^(INPUT|TEXTAREA|SELECT)$/.test(active.tagName)) return;
+    var terugbel = document.getElementById('terugbel-modal');
+    if (terugbel && terugbel.classList.contains('show')) return;
+    var bg = document.getElementById('exit-intent-bg');
+    var box = exitDialog();
+    if (!bg || !box) return;
+    markExitShown();
+    exitLastFocus = active;
     bg.classList.add('show');
-    trackEvent('exit_intent_shown');
+    bg.setAttribute('aria-hidden', 'false');
+    box.focus();
+    pushExitDataLayer('exit_intent_shown');
+  }
+
+  document.addEventListener('mouseleave', function (e) {
+    if (isCoarseExit() || e.clientY > 0) return;
+    showExitIntent();
   });
+
+  var exitScrollPeak = 0;
+  window.addEventListener('scroll', function () {
+    if (!isCoarseExit()) return;
+    var y = window.pageYOffset || 0;
+    if (y > exitScrollPeak) exitScrollPeak = y;
+    if (exitScrollPeak >= 600 && y <= exitScrollPeak - 120) showExitIntent();
+  }, { passive: true });
+
   var exitClose = document.getElementById('exit-intent-close');
-  var exitBg    = document.getElementById('exit-intent-bg');
-  var exitCta   = document.getElementById('exit-intent-cta');
-  if(exitClose) exitClose.addEventListener('click', function(){ exitBg && exitBg.classList.remove('show'); });
-  if(exitBg)    exitBg.addEventListener('click', function(e){ if(e.target === exitBg) exitBg.classList.remove('show'); });
-  if(exitCta)   exitCta.addEventListener('click', function(){
-    exitBg && exitBg.classList.remove('show');
-    showView('home-view');
-    var calc = document.querySelector('#home-view .calculator-wrap, #home-view [id*="calc"]');
-    if(calc) calc.scrollIntoView({behavior:'smooth', block:'start'});
-    trackEvent('exit_intent_cta_click');
+  var exitBg = document.getElementById('exit-intent-bg');
+  var exitCta = document.getElementById('exit-intent-cta');
+  if (exitClose) exitClose.addEventListener('click', hideExitIntent);
+  if (exitBg) exitBg.addEventListener('click', function (e) {
+    if (e.target === exitBg) hideExitIntent();
+  });
+  if (exitCta) exitCta.addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    exitLastFocus = null;
+    hideExitIntent();
+    var subject = document.getElementById('m-onderwerp');
+    if (subject) subject.value = 'WHK-beschikking';
+    showView('dienst-whkreductie-view');
+    openModal('terugbel-modal');
+    var nameField = document.getElementById('m-naam');
+    if (nameField) nameField.focus();
+    pushExitDataLayer('exit_intent_cta_click');
+  });
+
+  document.addEventListener('keydown', function (e) {
+    var bg = document.getElementById('exit-intent-bg');
+    if (!bg || !bg.classList.contains('show')) return;
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      hideExitIntent();
+      return;
+    }
+    if (e.key !== 'Tab') return;
+    var items = exitFocusables();
+    if (!items.length) {
+      e.preventDefault();
+      return;
+    }
+    var first = items[0];
+    var last = items[items.length - 1];
+    var current = document.activeElement;
+    if (items.indexOf(current) === -1) {
+      e.preventDefault();
+      (e.shiftKey ? last : first).focus();
+      return;
+    }
+    if (e.shiftKey && current === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && current === last) {
+      e.preventDefault();
+      first.focus();
+    }
   });
 
   // ---- DARK MODE ----
