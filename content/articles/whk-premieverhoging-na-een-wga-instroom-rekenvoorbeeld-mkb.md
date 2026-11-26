@@ -21,7 +21,7 @@ Voor **premiejaar 2026** (loonsom 2024) geldt:
 
 Landelijk gemiddelde WGA-premie 2026: **0,96%** (2025: 0,83%; 2027: **1,07%**). Bron: UWV / Besluit gedifferentieerde premie Whk. De historische reeks staat op de [WHK-premiehistorie](https://werkhervattingskas.nl/tools/premiehistorie). De grenzen voor premiejaar 2027 (loonsom 2025) zijn €1.135.000 en €4.540.000. Die klassen staan in [kleine, middelgrote of grote werkgever](/blog/kleine-middelgrote-grote-werkgever-whk-2027).
 
-IVA telt niet mee in de Whk. Of een dossier WGA of IVA is, bepaalt het UWV — niet de controller. Voor de orde van grootte van de uitkering zelf: de [WIA-calculator](https://werkhervattingskas.nl/tools/wia-calculator).
+IVA telt niet mee in de Whk. Of een dossier WGA of IVA is, bepaalt het UWV — niet de controller. Hoe dat uitpakt voor een publiek verzekerde werkgever en voor een eigenrisicodrager, staat in [WGA of IVA voor de werkgever](/blog/wga-of-iva-whk-premie-of-eigen-rekening). Voor de orde van grootte van de uitkering zelf: de [WIA-calculator](https://werkhervattingskas.nl/tools/wia-calculator).
 
 ## Rekenvoorbeeld: middelgroot mkb, één WGA-dossier
 
