@@ -18,7 +18,8 @@ var NEW_SLUGS = [
   'loondoorbetaling-bij-ziekte-scenarios-mkb',
   'correctiefactor-whk-onvolledige-periode',
   'jaareinde-checklist-whk-voor-31-december',
-  'sectorale-whk-premie-2027'
+  'sectorale-whk-premie-2027',
+  'stukken-voor-de-deadline-inleveren'
 ];
 var ROUND_SLUGS = [
   'kleine-middelgrote-grote-werkgever-whk-2027',
@@ -65,6 +66,9 @@ var BACKLINKS = {
   'sectorale-whk-premie-2027': [
     'kleine-middelgrote-grote-werkgever-whk-2027.md',
     'whk-premies-2027-wga-en-zw.md'
+  ],
+  'stukken-voor-de-deadline-inleveren': [
+    'bezwaar-maken-bij-het-uwv.md'
   ]
 };
 var REQUIRED_LINKS = [
@@ -285,6 +289,53 @@ files.forEach(function (file) {
     assert.ok(parsed.body.indexOf('partneradvies') === -1, file + ' must not CTA to partneradvies');
     assert.ok(parsed.body.indexOf('erd-partneradvies') === -1, file + ' must not link ERD advice');
     assert.ok(parsed.body.indexOf('Gratis WHK-beschikking check') !== -1, file + ' must keep the WHK check CTA');
+  }
+  if (slug === 'stukken-voor-de-deadline-inleveren') {
+    assert.ok(parsed.meta.title.length >= 50 && parsed.meta.title.length <= 60, file + ' title length ' + parsed.meta.title.length);
+    assert.ok(parsed.meta.description.length >= 140 && parsed.meta.description.length <= 155, file + ' description length ' + parsed.meta.description.length);
+    assert.strictEqual(parsed.meta.publishedAt, '2026-11-26', file + ' publishedAt');
+    assert.strictEqual(parsed.meta.updatedAt, '2026-11-26', file + ' updatedAt');
+    assert.ok(parsed.meta.publishedAt <= '2026-11-26', file + ' publishedAt is in the future');
+    assert.ok(parsed.body.indexOf('## Veelgestelde vragen') !== -1, file + ' missing FAQ heading');
+    assert.strictEqual((parsed.body.match(/^\*\*.+\?\*\*/gm) || []).length, 5, file + ' FAQ count');
+    assert.ok(parsed.body.indexOf('\u2014') === -1 && parsed.body.indexOf('\u2013') === -1, file + ' dashes');
+    assert.ok(!/no[\s-]*cure/i.test(parsed.body), file + ' no cure');
+    assert.ok(parsed.body.indexOf('47.000') === -1, file + ' 47.000');
+    assert.ok(parsed.body.indexOf('8 van de 10') === -1, file + ' 8 van de 10');
+    assert.ok(parsed.body.indexOf('erd-partneradvies') === -1, file + ' ERD sales link');
+    assert.ok(parsed.body.indexOf('Gratis WHK-beschikking check') !== -1, file + ' missing CTA');
+    var plain = parsed.body
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/[#|*_`>|]+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    var words = plain.split(' ').filter(Boolean).length;
+    assert.ok(words >= 1200 && words <= 1600, file + ' word count ' + words);
+    [
+      '6:7 Awb',
+      '6:11 Awb',
+      '5 werkdagen',
+      '93e verzuimweek',
+      '52 weken',
+      'tien jaar',
+      'https://wetten.overheid.nl/BWBR0005537',
+      'https://wetten.overheid.nl/BWBR0019057',
+      'https://wetten.overheid.nl/BWBR0020188/2017-01-01/0',
+      'https://www.uwv.nl/nl/klacht-melding-bezwaar/bezwaar/bezwaartermijn',
+      'https://www.uwv.nl/nl/wia/wia-aanvragen/documenten-wia',
+      'https://www.uwv.nl/assets-kai/files/70c51464-322e-45e7-8ec2-e6b073cd784d/werkwijzer-poortwachter.pdf',
+      'https://uitspraken.rechtspraak.nl/details?id=ECLI:NL:CBB:2026:406',
+      'https://uitspraken.rechtspraak.nl/details?id=ECLI:NL:RBGEL:2020:4397',
+      'https://werkhervattingskas.nl/beschikking-uitleg',
+      'https://werkhervattingskas.nl/tools/wia-calculator',
+      'https://werkhervattingskas.nl/tools/poortwachter',
+      'https://werkhervattingskas.nl/diensten/whk-controle',
+      'https://werkhervattingskas.nl/faq',
+      '/blog/bezwaar-maken-bij-het-uwv',
+      '/blog/uwv-herbeoordeling-2026'
+    ].forEach(function (needle) {
+      assert.ok(parsed.body.indexOf(needle) !== -1, file + ' missing ' + needle);
+    });
   }
 });
 

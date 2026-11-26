@@ -33,7 +33,7 @@ Volgens het UWV moet een bezwaar **meestal binnen 6 weken** na de datum van de b
 
 Heb je meer tijd nodig voor de inhoudelijke gronden, dan kun je volgens het UWV binnen die termijn een **voorlopig (pro-forma) bezwaar** indienen en de motivering later aanvullen. De brief die je daarna krijgt, noemt hoeveel tijd je daarvoor hebt.
 
-Na het verstrijken van de termijn is een gewoon bezwaar in de regel niet meer mogelijk. Dat is een termijn, geen advies om altijd bezwaar te maken.
+Na het verstrijken van de termijn is een gewoon bezwaar in de regel niet meer mogelijk. Dat is een termijn, geen advies om altijd bezwaar te maken. Andere harde termijnen, van een verzoek om stukken tot het re-integratieverslag in week 93, staan in [stukken vóór de deadline inleveren](/blog/stukken-voor-de-deadline-inleveren).
 
 ## Wat je indient: het bezwaarschrift UWV
 
