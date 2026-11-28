@@ -119,6 +119,7 @@ async function sendLeadEmail(lead) {
     'terugbel-checklist':    'Terugbelverzoek via checklist',
     'chat':                  'Chatwidget',
     'chat-bericht':          'Contactgegevens in de chat',
+    'whk-advies-generator':  'WHK-adviesgenerator',
   };
   const bron = bronLabels[lead.source] || lead.source || 'Onbekend';
   const tijdstip = new Date(lead.createdAt).toLocaleString('nl-NL', { timeZone: 'Europe/Amsterdam' });
@@ -552,6 +553,7 @@ app.post('/api/leads', handleLeadPost);
 app.post('/api/newsletter', handleNewsletterPost);
 
 const chatApi = require('./lib/chat-api');
+const whkAdvies = require('./lib/whk-advies');
 chatApi.mount(app, { persistLead: persistLead });
 
 app.get('/lib/lead-guard.js', (req, res) => {
@@ -639,6 +641,7 @@ const URL_META = {
   '/diensten/tweede-spoor':        { title: 'Tweede spoor re-integratie: voorkom loonsanctie en WGA-instroom', desc: 'Tweede spoor op tijd starten voorkomt een loonsanctie van maximaal 52 weken en verlaagt de kans op WGA-instroom in uw volgende WHK-beschikking.' },
   '/diensten/consultancy':         { title: 'Verzuimconsultancy | Werkhervattingskas.nl', desc: 'Structurele verbetering van uw verzuimbeleid en re-integratiemanagement.' },
   '/diensten/erd-partneradvies':   { title: 'Eigenrisicodragerschap & partneradvies | Werkhervattingskas.nl', desc: 'Is eigenrisicodragerschap voordeliger? Wij vergelijken en begeleiden de overgang.' },
+  '/whk-advies-generator':         { title: 'Gratis WHK-adviesgenerator | Werkhervattingskas.nl', desc: 'Genereer vrijblijvend een indicatief WHK-advies over premie, WGA-risico, Ziektewet en uw beschikking. Geen medisch advies. Daarna een gratis check.' },
 };
 
 const SECTOR_META = {
@@ -879,6 +882,7 @@ app.get('/llms.txt', (req, res) => {
 - [WHK-jaarkalender 2026](${u}/tools/jaarkalender): termijnen voor beschikking, LKV en WIA.
 - [Interventietarief checker](${u}/tools/interventie-check): tarieven voor onderzoek, tweede spoor en coaching naast de marktnorm.
 - [Preventiecalculator](${u}/tools/preventie-calculator): indicatie van het effect van eerder ingrijpen bij lang verzuim.
+- [WHK-adviesgenerator](${u}/whk-advies-generator): gratis indicatief advies over premie, WGA-risico, Ziektewet na einde dienstverband en de WHK-beschikking, zonder medische gegevens.
 
 ## Diensten
 
@@ -947,7 +951,7 @@ app.get('/sitemap.xml', async (req, res) => {
       xml += `<changefreq>${changefreq}</changefreq><priority>${priority}</priority></url>\n`;
     }
     Object.keys(URL_META).forEach(p => {
-      const prio = p === '/' ? '1.0' : p.startsWith('/diensten') ? '0.9' : '0.7';
+      const prio = p === '/' ? '1.0' : p.startsWith('/diensten') ? '0.9' : (p === '/whk-advies-generator' ? '0.8' : '0.7');
       addUrl(SITE_URL + p, 'monthly', prio);
     });
     addUrl(SITE_URL + '/whk_checklist.html', 'monthly', '0.8');
@@ -1077,6 +1081,8 @@ app.use('/chat', express.static(path.join(__dirname, 'public', 'chat'), {
   maxAge: '1h',
   fallthrough: false
 }));
+
+whkAdvies.register(app, { persistLead: persistLead, spamGuard: spamGuard });
 
 // Catch-all
 app.get('*', (req, res) => serveNotFound(res));

@@ -189,9 +189,11 @@
     if (banner && banner.classList.contains('show')) raise(banner);
     var sticky = document.getElementById('sticky-contact-bar');
     if (sticky && sticky.classList.contains('show')) raise(sticky);
+    var adviesBar = document.getElementById('whk-advies-sticky');
+    if (adviesBar) raise(adviesBar);
     if (isNarrowPhone()) {
       var tall = null;
-      [banner, sticky].forEach(function (node) {
+      [banner, sticky, adviesBar].forEach(function (node) {
         if (!node || !node.classList.contains('show')) return;
         var r = node.getBoundingClientRect();
         if (r.height > 110 && (!tall || r.height > tall.height)) tall = r;
@@ -225,7 +227,7 @@
     var el = node;
     while (el && el !== document.body && el !== document.documentElement) {
       if (root.contains(el)) return false;
-      if (el.id === 'cookie-banner' || el.id === 'sticky-contact-bar' || el.id === 'exit-intent-bg') return false;
+      if (el.id === 'cookie-banner' || el.id === 'sticky-contact-bar' || el.id === 'whk-advies-sticky' || el.id === 'exit-intent-bg') return false;
       var tag = el.tagName;
       if (/^(BUTTON|A|INPUT|TEXTAREA|SELECT|LABEL|P|H1|H2|H3|H4|LI|IMG|FIGCAPTION|SPAN|STRONG|EM)$/.test(tag)) return true;
       var text = '';
@@ -605,7 +607,7 @@
   window.addEventListener('scroll', place, { passive: true });
   if (window.MutationObserver) {
     var obs = new MutationObserver(place);
-    ['cookie-banner', 'sticky-contact-bar', 'exit-intent-bg'].forEach(function (id) {
+    ['cookie-banner', 'sticky-contact-bar', 'whk-advies-sticky', 'exit-intent-bg'].forEach(function (id) {
       var n = document.getElementById(id);
       if (n) obs.observe(n, { attributes: true, attributeFilter: ['class'] });
     });
