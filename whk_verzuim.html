@@ -1866,6 +1866,7 @@
               <a href="/tools/wia-calculator" data-view="wia-calc-view">💶 WIA-uitkeringscalculator</a>
               <a href="/tools/subsidie-scan" data-view="subsidie-scan-view">🎁 Subsidie-scan LKV/LIV/WKB</a>
               <a href="/tools/interventie-check" data-view="interventie-check-view">📊 Interventietarief checker</a>
+              <a href="/tools/vergelijken-interventies" data-view="vergelijk-interventies-view">⚖️ Interventies vergelijken</a>
               <a href="/quiz" data-view="quiz-view">🎯 Besparingsonderzoek</a>
               <a href="#" id="nav-tools-wegwijzer-link">🧭 Welke dienst past bij u?</a>
             </div>
@@ -1913,6 +1914,7 @@
         <a href="/tools/premiehistorie" class="mobile-nav-link" data-view="premiehistorie-view">WGA-premie 2022-2026</a>
         <a href="/tools/subsidie-scan" class="mobile-nav-link" data-view="subsidie-scan-view">Subsidie-scan LKV/LIV</a>
         <a href="/tools/jaarkalender" class="mobile-nav-link" data-view="kalender-view">WHK Jaarkalender</a>
+        <a href="/tools/vergelijken-interventies" class="mobile-nav-link" data-view="vergelijk-interventies-view">Interventies vergelijken</a>
         <a href="/beschikking-uitleg" class="mobile-nav-link" data-view="beschikking-uitleg-view">Hoe lees ik mijn beschikking?</a>
         <a href="/sectoren" class="mobile-nav-link" data-view="sectors-view">Besparing per sector</a>
         <div class="mobile-nav-section-title">Over ons</div>
@@ -4616,7 +4618,8 @@
     <div class="wrap" style="padding-top:44px;">
       <div class="eyebrow">Vrijblijvende check</div>
       <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;max-width:680px;">Betaalt u nu te veel voor een interventie?</h1>
-      <p class="lede" style="max-width:600px;margin-bottom:32px;">Vul een paar gegevens in over uw lopende of geplande traject, en zie binnen een minuut hoe uw tarief zich verhoudt tot het richttarief.</p>
+      <p class="lede" style="max-width:600px;margin-bottom:18px;">Vul een paar gegevens in over uw lopende of geplande traject, en zie binnen een minuut hoe uw tarief zich verhoudt tot het richttarief.</p>
+      <p style="max-width:680px;margin:0 0 32px;font-size:0.95rem;">Wilt u openbare tarieven van aanbieders naast elkaar zetten? Gebruik <a href="/tools/vergelijken-interventies" data-view="vergelijk-interventies-view">interventies vergelijken</a>.</p>
 
       <div class="incentive-box" style="background:var(--gold-soft);border-color:var(--gold);max-width:680px;margin-bottom:36px;">
         <h3 style="color:var(--gold);">Meer dan een automatische vergelijking</h3>
@@ -4933,6 +4936,96 @@
     </div>
   </section>
 
+  <!-- VERGELIJKINGSTOOL INTERVENTIES -->
+  <section class="page-section" id="vergelijk-interventies-view">
+    <style>
+      .vgl-wrap{max-width:1080px;}
+      .vgl-fin{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:18px 0 28px;}
+      .vgl-fin-card{border:1px solid var(--line);border-radius:var(--radius-s);padding:16px 18px;background:var(--white);}
+      .vgl-fin-card.is-on{border-color:var(--risk);box-shadow:inset 3px 0 0 var(--risk);}
+      .vgl-fin-card h3{font-size:1rem;margin:0 0 8px;}
+      .vgl-fin-card p{margin:0;color:var(--ink-soft);font-size:0.92rem;}
+      .vgl-choice{display:flex;flex-wrap:wrap;gap:14px;margin:8px 0 0;}
+      .vgl-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 16px;}
+      .vgl-tab{border:1px solid var(--line);background:var(--white);border-radius:999px;padding:8px 12px;font:inherit;font-size:0.86rem;cursor:pointer;color:var(--ink);}
+      .vgl-tab.is-on{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+      .vgl-filters,.vgl-params{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:flex-end;margin-bottom:14px;}
+      .vgl-field{display:flex;flex-direction:column;gap:4px;font-size:0.84rem;min-width:0;}
+      .vgl-field input,.vgl-field select{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:var(--radius-s);background:var(--white);max-width:100%;}
+      .vgl-check{display:flex;align-items:center;gap:8px;font-size:0.9rem;font-weight:400;}
+      .vgl-list,.vgl-compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:16px;}
+      .vgl-card{border:1px solid var(--line);border-radius:var(--radius-s);padding:16px;background:var(--white);min-width:0;}
+      .vgl-card h3{font-size:1.02rem;margin:0 0 8px;}
+      .vgl-bedrag{font-family:'IBM Plex Mono',monospace;font-size:1.25rem;font-weight:600;margin:4px 0;}
+      .vgl-meta,.vgl-bron,.vgl-jaar,.vgl-note,.vgl-review,.vgl-prijs-label{color:var(--ink-soft);font-size:0.84rem;margin:4px 0;}
+      .vgl-gesloten{font-weight:700;margin:8px 0;}
+      .vgl-bar-row{display:grid;grid-template-columns:4.2rem minmax(0,1fr) auto;gap:8px;align-items:center;font-size:0.82rem;margin:4px 0;}
+      .vgl-bar-track{display:block;background:var(--paper-deep);border-radius:999px;height:10px;overflow:hidden;}
+      .vgl-bar{display:block;height:10px;background:var(--risk);border-radius:999px;}
+      .vgl-band{margin:0 0 16px;}
+      .vgl-band.is-focus{outline:2px solid var(--gold);border-radius:8px;padding:8px;}
+      .vgl-feiten{margin:8px 0 0;padding-left:18px;color:var(--ink-soft);font-size:0.86rem;}
+      .vgl-cta-row{margin:16px 0;}
+      .vgl-offerte{margin-top:28px;padding:22px;border:1px solid var(--line);border-radius:var(--radius-m);background:var(--paper-deep);max-width:640px;}
+      .vgl-offerte .vgl-field{margin-bottom:10px;max-width:420px;}
+      .vgl-melding{color:var(--risk);font-weight:600;}
+      .vgl-disclaimer{font-size:0.84rem;color:var(--ink-soft);margin-top:22px;}
+      @media (max-width:640px){
+        .vgl-bar-row{grid-template-columns:3.4rem minmax(0,1fr);}
+        .vgl-bar-row span:last-child{grid-column:2;}
+        .vgl-wrap{padding-bottom:24px;}
+      }
+    </style>
+    <div class="wrap vgl-wrap" style="padding-top:44px;">
+      <div class="eyebrow">Vergelijking</div>
+      <h1 style="font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:16px;max-width:760px;">Interventies vergelijken: kosten, kwaliteit en de Whk-premie</h1>
+      <p class="lede" style="max-width:720px;margin-bottom:16px;">Zet openbare tarieven en objectieve kenmerken van interventies bij verzuim naast elkaar. Elk bedrag heeft een bron en een peildatum. Ontbreekt een openbare prijs, dan staat er prijs niet openbaar. Er wordt niets geschat.</p>
+      <p style="max-width:720px;margin-bottom:8px;color:var(--ink-soft);">De bandbreedte is een steekproef van gepubliceerde prijzen van derden: laag, midden (mediaan) en hoog, alleen binnen dezelfde eenheid. Het eigen aanbod telt niet mee. Het is geen landelijk marktgemiddelde.</p>
+      <p style="max-width:720px;margin-bottom:22px;">Uw eigen tarief naast een richttarief leggen kan in de <a href="/tools/interventie-check" data-view="interventie-check-view">interventietarief checker</a>.</p>
+
+      <h2 style="font-size:1.25rem;margin-bottom:8px;">Wat de keuze doet met WGA-instroom en de Whk-premie</h2>
+      <p style="max-width:720px;color:var(--ink-soft);">Wat een interventie kost, is iets anders dan wat die keuze doet met instroom in de WGA. Dat verschilt per manier waarop u de WGA financiert. Hieronder staat dat verschil, zonder een berekend besparingsbedrag.</p>
+      <fieldset style="border:0;padding:0;margin:12px 0 0;">
+        <legend class="vgl-note">Toon de toelichting die bij uw situatie hoort</legend>
+        <div class="vgl-choice">
+          <label class="vgl-check"><input type="radio" name="vgl-financiering" value="publiek" checked> Publiek verzekerde werkgever</label>
+          <label class="vgl-check"><input type="radio" name="vgl-financiering" value="eigenrisicodrager"> Eigenrisicodrager</label>
+        </div>
+      </fieldset>
+      <div class="vgl-fin">
+        <article class="vgl-fin-card is-on" data-vgl-fin="publiek">
+          <h3>Publiek verzekerde werkgever</h3>
+          <p>U betaalt de Whk-premie via de loonaangifte. Voor een middelgrote of grote werkgever hangt het WGA-deel samen met de WGA-uitkeringen die aan u worden toegerekend. Een interventie die de terugkeer naar werk ondersteunt, kan de kans op die instroom verkleinen. Hoeveel de premie dan verandert, staat niet vast in deze tool: dat volgt uit de beschikking, de loonsom en de toerekening.</p>
+        </article>
+        <article class="vgl-fin-card" data-vgl-fin="eigenrisicodrager">
+          <h3>Eigenrisicodrager</h3>
+          <p>Draagt u het WGA-risico zelf, dan betaalt u de uitkering in plaats van het publieke WGA-premiepercentage. Dezelfde interventie raakt dan de uitkeringslast die u draagt, niet de publieke Whk-premie. Ook hier rekenen we geen bedrag. Of eigenrisicodragerschap bij u past, is een aparte afweging en geen uitkomst van deze vergelijking.</p>
+        </article>
+      </div>
+
+      <div id="vgl-app"></div>
+      <script type="application/json" id="vgl-model"></script>
+
+      <form id="vgl-offerte" class="vgl-offerte" data-lead-url="/api/leads">
+        <h2 style="font-size:1.15rem;margin-bottom:8px;">Vraag een vrijblijvende offerte aan</h2>
+        <p style="color:var(--ink-soft);margin-bottom:14px;">Prijs voor uw situatie? Laat uw gegevens achter. Wij bellen u binnen 1 werkdag terug.</p>
+        <div class="hp-field" aria-hidden="true"><label for="vgl-hp" aria-hidden="true">Website</label><input type="text" name="website" id="vgl-hp" tabindex="-1" autocomplete="off"></div>
+        <label class="vgl-field"><span>Naam</span><input id="vgl-naam" name="name" type="text" autocomplete="name"></label>
+        <label class="vgl-field"><span>Telefoonnummer</span><input id="vgl-tel" name="phone" type="tel" autocomplete="tel"></label>
+        <label class="vgl-field"><span>E-mailadres</span><input id="vgl-email" name="email" type="email" autocomplete="email"></label>
+        <p class="vgl-note">Verplicht: naam plus telefoonnummer of e-mail.</p>
+        <input type="hidden" name="source" value="vergelijkingstool">
+        <button class="btn btn-risk" id="vgl-cta-submit" type="submit">Vraag een vrijblijvende offerte aan</button>
+        <p id="vgl-offerte-ok" hidden style="color:var(--savings);font-weight:600;margin-top:10px;">Bedankt. We nemen binnen 1 werkdag contact op.</p>
+        <p id="vgl-offerte-err" hidden style="color:var(--risk);margin-top:10px;"></p>
+      </form>
+
+      <div id="vgl-faq"></div>
+      <div id="vgl-disclaimer"></div>
+    </div>
+    <script src="/lib/vergelijkingstool.js" defer></script>
+  </section>
+
   <!-- GRATIS TOOLS OVERZICHT -->
   <section class="page-section" id="tools-view">
     <div class="wrap" style="padding-top:44px;">
@@ -4996,6 +5089,13 @@
           <p style="font-size:0.87rem;color:var(--ink-soft);margin-bottom:16px;">Betaalt u een marktconform tarief voor arbeidsdeskundig onderzoek, coaching of tweede spoor? Vergelijk met de benchmarks.</p>
           <span class="btn btn-risk btn-sm" style="display:inline-flex;">Check mijn tarief</span>
         </div>
+
+        <a class="eco-card" href="/tools/vergelijken-interventies" data-view="vergelijk-interventies-view">
+          <div style="font-size:2rem;margin-bottom:10px;">⚖️</div>
+          <h3 style="font-size:1rem;">Interventies vergelijken</h3>
+          <p style="font-size:0.87rem;color:var(--ink-soft);margin-bottom:16px;">Openbare tarieven en kwaliteitskenmerken naast elkaar, en wat de keuze betekent voor WGA-instroom en de Whk-premie.</p>
+          <span class="btn btn-risk btn-sm" style="display:inline-flex;">Open de vergelijking</span>
+        </a>
 
         <div class="eco-card" style="cursor:pointer;" data-view="quiz-view">
           <div style="font-size:2rem;margin-bottom:10px;">🎯</div>
@@ -7219,6 +7319,7 @@
           <a href="/tools/subsidie-scan" data-view="subsidie-scan-view" style="color:#C9C3B4;font-size:0.86rem;text-decoration:none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#C9C3B4'">Subsidie-scan LKV/LIV</a>
           <a href="/tools/jaarkalender" data-view="kalender-view" style="color:#C9C3B4;font-size:0.86rem;text-decoration:none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#C9C3B4'">WHK Jaarkalender</a>
           <a href="/tools/premiehistorie" data-view="premiehistorie-view" style="color:#C9C3B4;font-size:0.86rem;text-decoration:none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#C9C3B4'">Premiehistorie 2022–2026</a>
+          <a href="/tools/vergelijken-interventies" data-view="vergelijk-interventies-view" style="color:#C9C3B4;font-size:0.86rem;text-decoration:none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#C9C3B4'">Interventies vergelijken</a>
           <a href="/beschikking-uitleg" data-view="beschikking-uitleg-view" style="color:#C9C3B4;font-size:0.86rem;text-decoration:none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#C9C3B4'">Hoe lees ik mijn beschikking?</a>
           <a href="/blog" data-view="blog-view" style="color:#C9C3B4;font-size:0.86rem;text-decoration:none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#C9C3B4'">WHK-kennisbank</a>
           <a href="/vergelijking" data-view="vergelijking-view" style="color:#C9C3B4;font-size:0.86rem;text-decoration:none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#C9C3B4'">Vergelijkingstabel</a>
@@ -8351,7 +8452,7 @@
   var isAdmin = false;
   var ADMIN_PASSWORD = 'werkhervatting2026'; // demo-only gate, not real server security
 
-  var VIEWS = ['home-view','results-view','overons-view','aanpak-view','diensten-view','faq-view','blog-view','blogpost-view','lexicon-view','quiz-view','besparingen-overzicht-view','preventie-calculator-view','dienst-whkreductie-view','dienst-besparingsonderzoek-view','dienst-letselschade-view','dienst-arbeidsdeskundig-view','dienst-tweedespoor-view','dienst-consultancy-view','dienst-partneradvies-view','interventie-check-view','tools-view','pricing-view','sectors-view','sector-view','casestudies-view','beschikking-uitleg-view','vergelijking-view','poortwachter-view','wia-calc-view','subsidie-scan-view','kalender-view','premiehistorie-view','controller-view','doelgroep-hr-view','doelgroep-casemanager-view','doelgroep-directeur-view','doelgroep-tussenpersoon-view','privacy-view','login-view','admin-view'];
+  var VIEWS = ['home-view','results-view','overons-view','aanpak-view','diensten-view','faq-view','blog-view','blogpost-view','lexicon-view','quiz-view','besparingen-overzicht-view','preventie-calculator-view','dienst-whkreductie-view','dienst-besparingsonderzoek-view','dienst-letselschade-view','dienst-arbeidsdeskundig-view','dienst-tweedespoor-view','dienst-consultancy-view','dienst-partneradvies-view','interventie-check-view','vergelijk-interventies-view','tools-view','pricing-view','sectors-view','sector-view','casestudies-view','beschikking-uitleg-view','vergelijking-view','poortwachter-view','wia-calc-view','subsidie-scan-view','kalender-view','premiehistorie-view','controller-view','doelgroep-hr-view','doelgroep-casemanager-view','doelgroep-directeur-view','doelgroep-tussenpersoon-view','privacy-view','login-view','admin-view'];
 
   var VIEW_META = {
     'home-view': {title: 'WHK-beschikking laten controleren (2026) | Werkhervattingskas.nl', desc: 'Klopt uw WHK-beschikking? Laat hem gratis controleren door een erkend arbeidsdeskundige en bekijk of bezwaar loont. Resultaat binnen 5 werkdagen.'},
@@ -8372,6 +8473,7 @@
     'dienst-consultancy-view': {title: 'Verzuimconsultancy | Werkhervattingskas.nl', desc: 'Verzuimconsultancy via Best Match: structureel advies over uw verzuimbeleid, gericht op het voorkomen van toekomstige WHK-instroom.'},
     'dienst-partneradvies-view': {title: 'Verzekerde regelingen & extra advies | Werkhervattingskas.nl', desc: 'Onafhankelijk advies over verzuimverzekeringen, WGA-gatverzekeringen en de keuze tussen de publieke WHK-route en eigenrisicodragerschap.'},
     'interventie-check-view': {title: 'Betaalt u te veel voor een interventie? | Werkhervattingskas.nl', desc: 'Vrijblijvende vergelijking van uw tarief voor arbeidsdeskundig onderzoek, tweede spoor of verzuimconsultancy met het marktgemiddelde.'},
+    'vergelijk-interventies-view': {title: 'Interventies vergelijken: kosten, kwaliteit en Whk | Werkhervattingskas.nl', desc: 'Vergelijk openbare tarieven van interventies bij verzuim, met bron en peildatum. Zie wat de keuze betekent voor WGA-instroom en de Whk-premie.'},
     'tools-view': {title: 'Gratis WHK-tools: WIA-calculator, premies en beschikking', desc: 'Bereken een WIA-uitkering, bekijk de WGA-premie 2022-2026 en lees uw WHK-beschikking. Gratis tools voor werkgevers, zonder account.'},
     'pricing-view': {title: 'Tarieven | Werkhervattingskas.nl', desc: 'Transparante tarieven voor WHK-controle en arbeidsdeskundig onderzoek. De eerste check is gratis.'},
     'sectors-view': {title: 'WHK-besparing per sector | Werkhervattingskas.nl', desc: 'Ontdek wat WHK-besparing voor uw sector specifiek betekent: zorg, onderwijs, bouw, overheid, retail, industrie, transport, horeca, ICT, financieel, uitzend en schoonmaak.'},
@@ -8447,6 +8549,7 @@
     'dienst-consultancy-view': 'Verzuimconsultancy',
     'dienst-partneradvies-view': 'Verzekerde regelingen',
     'interventie-check-view': 'Interventie-check',
+    'vergelijk-interventies-view': 'Interventies vergelijken',
     'preventie-calculator-view': 'Preventief besparen',
     'besparingen-overzicht-view': 'Alle besparingen',
     'lexicon-view': 'Lexicon',
@@ -8519,6 +8622,7 @@
     'kalender-view':                '/tools/jaarkalender',
     'premiehistorie-view':          '/tools/premiehistorie',
     'interventie-check-view':       '/tools/interventie-check',
+    'vergelijk-interventies-view':  '/tools/vergelijken-interventies',
     'preventie-calculator-view':    '/tools/preventie-calculator',
     'besparingen-overzicht-view':   '/besparingen',
     'lexicon-view':                 '/lexicon',

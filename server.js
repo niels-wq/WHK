@@ -119,6 +119,7 @@ async function sendLeadEmail(lead) {
     'terugbel-checklist':    'Terugbelverzoek via checklist',
     'chat':                  'Chatwidget',
     'chat-bericht':          'Contactgegevens in de chat',
+    'vergelijkingstool':     'Vergelijkingstool interventies',
   };
   const bron = bronLabels[lead.source] || lead.source || 'Onbekend';
   const tijdstip = new Date(lead.createdAt).toLocaleString('nl-NL', { timeZone: 'Europe/Amsterdam' });
@@ -559,6 +560,12 @@ app.get('/lib/lead-guard.js', (req, res) => {
   res.sendFile(path.join(__dirname, 'lib', 'lead-guard.js'));
 });
 
+app.get('/lib/vergelijkingstool.js', (req, res) => {
+  res.type('application/javascript');
+  res.setHeader('Cache-Control', 'public, max-age=300');
+  res.sendFile(path.join(__dirname, 'lib', 'vergelijkingstool.js'));
+});
+
 // ================================================================
 // GENERIEKE API ENDPOINTS
 // ================================================================
@@ -626,6 +633,7 @@ const URL_META = {
   '/sectoren/bouw':                { title: 'WHK-beschikking bouwsector: structureel te hoog door hoog verzuim | Werkhervattingskas.nl', desc: 'Bouwbedrijven betalen structureel te veel WHK-premie door hoog verzuim, gemist letselschaderegres en foutieve sectorindeling. Wij controleren gratis.' },
   '/sectoren/zorg':                { title: 'WHK-optimalisatie voor zorginstellingen | Werkhervattingskas.nl', desc: 'Zorginstellingen betalen vaak te veel WHK-premie door hoog verzuim en gemiste no-riskregistraties. Bezwaar- en herbeoordelingsprocedures zijn onze specialiteit.' },
   '/tools/interventie-check':      { title: 'Interventietarief checker: betaalt u te veel? | Werkhervattingskas.nl', desc: 'Vergelijk uw tarieven voor arbeidsdeskundig onderzoek, tweede spoor en coaching met de marktnorm. Direct resultaat. Fors boven de norm? Overweeg een besparingsonderzoek.' },
+  '/tools/vergelijken-interventies': { title: 'Interventies vergelijken: kosten, kwaliteit en Whk | Werkhervattingskas.nl', desc: 'Vergelijk openbare tarieven van interventies bij verzuim, met bron en peildatum. Zie wat de keuze betekent voor WGA-instroom en de Whk-premie.' },
   '/tools/preventie-calculator':   { title: 'Preventieve besparingscalculator WHK | Werkhervattingskas.nl', desc: 'Bereken indicatief hoeveel WGA-instroom en WHK-premie u bespaart door eerder in te grijpen bij langdurig verzuim. Gebaseerd op actuele uitkeringsduur en dagloongemiddelden.' },
   '/voor/hr-manager':              { title: 'WHK voor HR-managers & HR-adviseurs | Werkhervattingskas.nl', desc: 'U regelt het verzuim. Wij regelen de financiële kant: WHK-check en no-riskpolissen.' },
   '/voor/controller':              { title: 'WHK-optimalisatie voor controllers & Finance | Werkhervattingskas.nl', desc: 'Verlaag de WHK-loonkostenpost structureel. Gratis check van de beschikking.' },
@@ -849,7 +857,21 @@ app.get('/sectoren/:sector', (req, res) => {
 // ================================================================
 // STATISCHE ROUTES
 // ================================================================
+app.get('/tools/vergelijken-interventies', async (req, res) => {
+  const vergelijkingstool = require('./lib/vergelijkingstool');
+  let leukBereikbaar = false;
+  try {
+    const data = vergelijkingstool.loadData();
+    leukBereikbaar = await vergelijkingstool.bronBereikbaar(vergelijkingstool.leukUrl(data));
+  } catch (e) {
+    leukBereikbaar = false;
+  }
+  const p = '/tools/vergelijken-interventies';
+  serveWithMeta(res, URL_META[p], p, 200, { leukBereikbaar: leukBereikbaar }, req);
+});
+
 Object.keys(URL_META).forEach(p => {
+  if (p === '/tools/vergelijken-interventies') return;
   app.get(p, (req, res) => serveWithMeta(res, URL_META[p], p, 200, null, req));
 });
 
@@ -878,6 +900,7 @@ app.get('/llms.txt', (req, res) => {
 - [Subsidie-scan](${u}/tools/subsidie-scan): loonkostenvoordeel, lage-inkomensvoordeel en werkbonus.
 - [WHK-jaarkalender 2026](${u}/tools/jaarkalender): termijnen voor beschikking, LKV en WIA.
 - [Interventietarief checker](${u}/tools/interventie-check): tarieven voor onderzoek, tweede spoor en coaching naast de marktnorm.
+- [Interventies vergelijken](${u}/tools/vergelijken-interventies): openbare tarieven en kwaliteitskenmerken, en wat de keuze betekent voor WGA-instroom en de Whk-premie.
 - [Preventiecalculator](${u}/tools/preventie-calculator): indicatie van het effect van eerder ingrijpen bij lang verzuim.
 
 ## Diensten
